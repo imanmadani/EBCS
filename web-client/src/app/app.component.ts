@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {findIconDefinition, library} from '@fortawesome/fontawesome-svg-core'
+import {findIconDefinition, library} from '@fortawesome/fontawesome-svg-core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,5 +8,4 @@ import {findIconDefinition, library} from '@fortawesome/fontawesome-svg-core'
 export class AppComponent {
   title = 'web-client';
    // glasses = findIconDefinition({ prefix: 'fas', iconName: 'glasses' })
-
 }

@@ -10,11 +10,10 @@ export class LoginService {
 
   constructor(private http: HttpClient,
               @Inject('BASE_URL') baseUrl: string) {
-    this.baseUrl = 'http://localhost/php-mvc-api/api/' + 'User_api.php/';
+    this.baseUrl = 'http://localhost/api/' + 'Guest_api.php/';
   }
 
   login(formData): Observable<any> {
-    console.log(this.baseUrl);
-    return this.http.post<any>(this.baseUrl + '?api=Login&token=1234&t=44&Username=imnmadani&Password=Aa123456', formData);
+    return this.http.post<any>(this.baseUrl + '?api=Login', formData);
   }
 }

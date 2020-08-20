@@ -1,1 +1,27 @@
-<p>login works!</p>
+<div class="box">
+  <form [formGroup]="formGroup" (submit)="onSubmit()" class="login-form">
+    <div class="row">
+      <div class="col-lg-6 col-sm-12  align-self-center">
+        <div class="container w-100 h-100 " style="text-align: -webkit-center;">
+          <div class="brand-circle rounded-circle">
+            <img class="pt-2" [src]="logo" height="90%">
+          </div>
+          <div class="pt-2 text-center"><span>نمایشگاه بین المللی تهران</span>
+            {{ss}}
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-sm-12 p-4 border-left text-center">
+        <h3>ورود به پنل</h3>
+        <input  type="text" formControlName="Username" name="username" placeholder="Username" required>
+        <input type="password" formControlName="Password" name="password" placeholder="Password" required>
+        <input [disabled]="formGroup.invalid" type="submit" name="Login" value="ورود">
+        <div class="links">
+          <!--          <a href="#">Forgot Password</a>-->
+          <!--          <a href="#">Sign Up</a>-->
+
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
