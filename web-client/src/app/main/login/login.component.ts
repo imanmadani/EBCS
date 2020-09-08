@@ -49,6 +49,11 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('token', res.data.row.TokenCode);
       this.router.navigateByUrl('/Dashboard');
       this.tokenService.setToken('iman');
+      this.componentService.getUser().subscribe(res2 => {
+        debugger
+        let x = res2.data;
+        console.log(x);
+      });
       });
   }
 }

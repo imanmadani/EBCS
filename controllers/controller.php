@@ -26,9 +26,8 @@ class controller
         else "";
     }
 
-    public function checkToken($query)
+    public function checkToken($token)
     {
-        $token = $this->getVal('token', $query);
         $ip=$_SERVER['REMOTE_ADDR'];
         $row = $this->_model->getUserByToken($token,$ip);
         if ($row) return true;

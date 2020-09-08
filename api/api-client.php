@@ -3,6 +3,7 @@ class APIClient
 {
     public function request($class, $method, $params = [])
     {
+        $head=getallheaders();
         if (file_exists(HOME . DS . 'utilities' . DS . strtolower($class) . '.php')) {
             require_once HOME . DS . 'utilities' . DS . strtolower($class) . '.php';
         }
@@ -17,7 +18,7 @@ class APIClient
         $modelName = $class;
         $controller = $class . '_controller';
         $load = new $controller($modelName, $method);
-        $checkToken=$load->checkToken($params);
+        $checkToken=$load->checkToken($head['token']);
         if ($checkToken>0) {
             $load->setTokenHistory($checkToken,$controller,$method);
             if (method_exists($load, $method)) {

@@ -7,13 +7,18 @@ import {Observable} from "rxjs";
 })
 export class LoginService {
   baseUrl: any;
+  baseUrl2: any;
 
   constructor(private http: HttpClient,
               @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = 'http://localhost/api/' + 'Guest_api.php/';
+    this.baseUrl2 = 'http://localhost/api/' + 'User_api.php/';
   }
 
   login(formData): Observable<any> {
     return this.http.post<any>(this.baseUrl + '?api=Login', formData);
+  }
+  getUser(): Observable<any> {
+    return this.http.get<any>(this.baseUrl2 + '?api=Get');
   }
 }
