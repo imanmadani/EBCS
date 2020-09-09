@@ -19,8 +19,8 @@ class APIClient
         $controller = $class . '_controller';
         $load = new $controller($modelName, $method);
         $checkToken=$load->checkToken($head['token']);
-        if ($checkToken>0) {
-            $load->setTokenHistory($checkToken,$controller,$method);
+        if ($checkToken) {
+            $load->setTokenHistory($checkToken['Id'],$controller,$method);
             if (method_exists($load, $method)) {
                 $load->$method($params);
             } else {

@@ -35,7 +35,7 @@ class model
 
     public function getUserByToken($token,$ip)
     {
-        $row = $this->getRow("SELECT * FROM `token` WHERE TokenCode='$token' and Ip='$ip'");
+        $row = $this->getRow("SELECT * FROM `token` AS myToken INNER JOIN users As myUser ON myToken.UserId=myUser.Id WHERE TokenCode='$token' and Ip='$ip'");
         return ($row);
     }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {BaseClass} from '../../utilities/base';
 import {findIconDefinition, library} from '@fortawesome/fontawesome-svg-core';
+import {LoginService} from "../../main/login/login.service";
 
 @Component({
   selector: 'app-portal-main',
@@ -11,19 +12,17 @@ export class PortalMainComponent extends BaseClass implements OnInit  {
   menus;
   versionDetail;
   userMenu=false;
-  constructor() { super()}
+  constructor(private componentService: LoginService) { super()}
 
   ngOnInit(): void {
     localStorage.setItem('token', '8fea33b5e37f52b60559b73d96833888dbfd2f36');
-    this.menus=[
-      {Id:1,Title:'منو1',Link:'asd',Icon:'fa fa-home'},
-      {Id:1,Title:'منو2',Link:'asd',Icon:'fa fa-home'},
-      {Id:1,Title:'منو3',Link:'asd',Icon:'fa fa-home'},
-      {Id:1,Title:'منو4',Link:'asd',Icon:'fa fa-home'},
-      {Id:1,Title:'منو5',Link:'asd',Icon:'fa fa-home'},
-      {Id:1,Title:'منو6',Link:'asd',Icon:'fa fa-home'},
-      {Id:1,Title:'منو7',Link:'asd',Icon:'fa fa-home'},
-    ];
+    this.componentService.getUser().subscribe(res2 => {
+      this.componentService.getMenu().subscribe(res3=>{
+        this.menus=res3.data.row;
+      });
+      let x = res2.rows;
+      console.log(x)
+    });
     this.versionDetail='تغییرات : ایجاد منو داینامیک';
   }
 

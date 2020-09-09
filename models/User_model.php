@@ -19,12 +19,12 @@ class User_model extends model
         $userEntity = new User();
         $userEntity->Id = $row['Id'];
         $userEntity->UserName = $row['Username'];
-        $userEntity->Ip=$_SERVER['REMOTE_ADDR'];
-        $TokenCode=md5($row['Username']).bin2hex(openssl_random_pseudo_bytes(10));
+        $userEntity->Ip = $_SERVER['REMOTE_ADDR'];
+        $TokenCode = md5($row['Username']) . bin2hex(openssl_random_pseudo_bytes(10));
         $sqlToken = "INSERT INTO Token (UserId,Ip,TokenCode)
                                VALUES($userEntity->Id,'$userEntity->Ip','$TokenCode'); ";
         $res = $this->execQuery($sqlToken);
-        if($res){
+        if ($res) {
             $userEntity->TokenCode = $TokenCode;
         }
         return $userEntity;
@@ -35,6 +35,18 @@ class User_model extends model
     {
         $sql = "UPDATE users SET FlagValid='False',UpdateTime=Date('c') WHERE TokenCode=$token";
         $res = $this->execQuery($sql);
+        return $res;
+    }
+
+    public function GetMenuByUser()
+    {
+        $head = getallheaders();
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $user = $this->getUserByToken($head['token'], $ip);
+        $sql = "SELECT myMenu.Id,myMenu.Title,myMenu.Link,myMenu.Icon FROM groupaccess AS myGrpAccess
+INNER JOIN menus As myMenu ON myGrpAccess.MenuId=myMenu.Id
+WHERE GroupId=" . $user['GroupId'];
+        $res = $this->getAll($sql);
         return $res;
     }
 }

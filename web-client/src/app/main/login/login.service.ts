@@ -21,4 +21,7 @@ export class LoginService {
   getUser(): Observable<any> {
     return this.http.get<any>(this.baseUrl2 + '?api=Get');
   }
+  getMenu(): Observable<any> {
+    return this.http.get<any>(this.baseUrl2 + '?api=GetMenuByUser');
+  }
 }

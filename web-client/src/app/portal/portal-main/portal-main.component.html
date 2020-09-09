@@ -22,7 +22,7 @@
         <div class="col-lg-10 col-sm-1 m-auto" [ngClass]="mobile?'d-none':''">خانه</div>
       </div>
       <ng-template ngFor let-menu [ngForOf]="menus">
-        <div class="row ebcs-h-5  border-bottom ebcs-clickable">
+        <div class="row ebcs-h-5  border-bottom ebcs-clickable" [routerLink]="menu.Link">
           <div class="col-lg-2 col-sm-11 m-auto"><i [ngClass]="menu.Icon"></i></div>
           <div class="col-lg-10 col-sm-1 m-auto" [ngClass]="mobile?'d-none':''">{{menu.Title}}</div>
         </div>

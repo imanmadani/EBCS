@@ -30,7 +30,7 @@ class controller
     {
         $ip=$_SERVER['REMOTE_ADDR'];
         $row = $this->_model->getUserByToken($token,$ip);
-        if ($row) return true;
+        if ($row) return $row;
         return false;
     }
 

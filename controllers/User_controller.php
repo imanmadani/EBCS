@@ -7,6 +7,7 @@ class User_controller extends controller
         $rows = $this->_model->getRows();
         $this->_res->set("rows", $rows);
         $this->_res->output();
+
     }
 
     public function Login($query)
@@ -23,6 +24,13 @@ class User_controller extends controller
     {
         $token = $this->getVal('Token', $query);
         $row = $this->_model->Logout($token);
+        $this->_res->set("row", $row);
+        $this->_res->output();
+    }
+
+    public function GetMenuByUser()
+    {
+        $row = $this->_model->GetMenuByUser();
         $this->_res->set("row", $row);
         $this->_res->output();
     }
