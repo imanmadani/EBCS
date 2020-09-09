@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: 'Dashboard',
     component: PortalMainComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     // children: [
     //   {
     //     // path: '',

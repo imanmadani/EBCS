@@ -1,1 +1,40 @@
-<p>portal-main works!</p>
+<div class="container-fluid h-100 ebcs-dir-rtl">
+    <div class="row ebcs-h-95">
+        <div class="col-2 bg-white border-left">
+            <div class="row ebcs-h-5  border-bottom ebcs-clickable bg-warning" >
+                <div class="col-lg-2 col-sm-11 m-auto"><i  [ngClass]=""></i></div>
+                <div class="col-lg-10 col-sm-1 m-auto" [ngClass]="mobile?'d-none':''">خانه</div>
+            </div>
+            <ng-template ngFor let-menu [ngForOf]="menus">
+              <div class="row ebcs-h-5  border-bottom ebcs-clickable" >
+                  <div class="col-lg-2 col-sm-11 m-auto"><i  [ngClass]="menu.Icon"></i></div>
+                  <div class="col-lg-10 col-sm-1 m-auto" [ngClass]="mobile?'d-none':''">{{menu.Title}}</div>
+              </div>
+            </ng-template>
+        </div>
+        <div class="col-10 bg-white">
+            <div class="row ebcs-h-5">
+                <div class="col-12 border-bottom pr-0 pl-0 h-100 bg-warning">
+                    <div class="d-flex  h-100">
+                        <div class="m-auto flex-fill border-left text-center">زیر منو 1</div>
+                        <div class="m-auto flex-fill border-left text-center">زیر منو 2</div>
+                        <div class="m-auto flex-fill border-left text-center">زیر منو 3</div>
+                      </div>
+                </div>
+            </div>
+            <div class="row ebcs-h-95">
+                <div class="col-12 "></div>
+            </div>
+        </div>
+    </div>
+    <div class="row ebcs-h-5 border-top bg-white">
+
+        <div class="col-2  text-center border-left m-auto ebcs-clickable"  [ngbTooltip]="versionDetail">
+           <span [ngClass]="mobile?'d-none':''">ver </span>
+           <span> 0.0.1</span>
+        </div>
+        <div class="col-10  text-center m-auto">
+            شرکت نمایشگاه های بین المللی ایران
+        </div>
+    </div>
+</div>
