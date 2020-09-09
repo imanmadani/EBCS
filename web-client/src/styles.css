@@ -45,6 +45,12 @@ body{
   color:lightskyblue;
   cursor: pointer;
 }
+.ebcs-border-bold-right{
+  border-right: solid 5px;
+}
+.ebcs-border-color-red{
+  border-color: red;
+}
 @media only screen and (max-width: 600px) {
 h3{
   font-size: 12px !important;

@@ -22,7 +22,7 @@ export class PortalMainComponent extends BaseClass implements OnInit  {
       {Id:1,Title:'منو6',Link:'asd',Icon:'fa fa-home'},
       {Id:1,Title:'منو7',Link:'asd',Icon:'fa fa-home'},
     ];
-    this.versionDetail='افزوده شدن یسیبسیبسیب افزوده شدن سیبسیبسیبسیبسی \n افزوده شدن سیبسیبسیبسیب'
+    this.versionDetail='تغییرات : ایجاد منو داینامیک';
   }
 
 }
