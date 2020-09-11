@@ -12,12 +12,19 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AuthInterceptor} from './main/auth/auth.interceptor';
 import { PortalMainComponent } from './portal/portal-main/portal-main.component';
+import {GroupsListComponent} from "./portal/portal-main/groups/groups-list/groups-list.component";
+import {GroupsComponent} from "./portal/portal-main/groups/groups.component";
+import {Ng2SmartTableModule} from "ng2-smart-table";
+import { Ng2CompleterModule} from "ng2-completer";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    PortalMainComponent
+    PortalMainComponent,
+    PortalMainComponent,
+    GroupsListComponent,
+    GroupsComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +38,8 @@ import { PortalMainComponent } from './portal/portal-main/portal-main.component'
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    Ng2CompleterModule,
+    Ng2SmartTableModule
 
 
   ],

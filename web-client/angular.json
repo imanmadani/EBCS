@@ -25,6 +25,10 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/app/style-package/fontawesome-5.14.0/css/fontawesome.css",
+              "src/app/style-package/fontawesome-5.14.0/css/brands.css",
+              "src/app/style-package/fontawesome-5.14.0/css/solid.css",
+
               "src/styles.css"
             ],
             "scripts": []

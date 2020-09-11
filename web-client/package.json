@@ -12,6 +12,7 @@
   },
   "private": true,
   "dependencies": {
+    "@akveo/ng2-completer": "^9.0.1",
     "@angular/animations": "~10.0.0",
     "@angular/common": "~10.0.0",
     "@angular/compiler": "~10.0.0",
@@ -28,7 +29,13 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "bootstrap": "^4.5.0",
+    "lodash": "^4.17.20",
+    "mydaterangepicker": "^4.2.1",
+    "ng2-completer": "^9.0.1",
+    "ng2-smart-table": "^1.6.0",
+    "ngx-smart-table": "^2.0.3",
     "rxjs": "~6.5.5",
+    "rxjs-compat": "^6.6.3",
     "tslib": "^2.0.1",
     "zone.js": "~0.10.3"
   },
