@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {BaseClass} from '../../utilities/base';
-import {findIconDefinition, library} from '@fortawesome/fontawesome-svg-core';
 import {LoginService} from "../../main/login/login.service";
 
 @Component({
@@ -12,6 +11,7 @@ export class PortalMainComponent extends BaseClass implements OnInit  {
   menus;
   versionDetail;
   userMenu=false;
+
   constructor(private componentService: LoginService) { super()}
 
   ngOnInit(): void {
@@ -28,5 +28,9 @@ export class PortalMainComponent extends BaseClass implements OnInit  {
 
   changeUserMenu() {
     this.userMenu=!this.userMenu;
+  }
+
+  activeLinkHandler() {
+
   }
 }

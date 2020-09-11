@@ -29,18 +29,7 @@
       </ng-template>
     </div>
     <div class="col-10 bg-white">
-      <div class="row ebcs-h-5">
-        <div class="col-12 border-bottom pr-0 pl-0 h-100 bg-warning">
-          <div class="d-flex  h-100">
-            <div class="m-auto flex-fill border-left text-center">زیر منو 1</div>
-            <div class="m-auto flex-fill border-left text-center">زیر منو 2</div>
-            <div class="m-auto flex-fill border-left text-center">زیر منو 3</div>
-          </div>
-        </div>
-      </div>
-      <div class="row ebcs-h-95">
-        <div class="col-12 "></div>
-      </div>
+      <router-outlet (activate)="activeLinkHandler()"></router-outlet>
     </div>
   </div>
   <div class="row ebcs-h-5 border-top bg-white">

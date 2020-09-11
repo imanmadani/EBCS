@@ -1,0 +1,19 @@
+<div class="row ebcs-h-5">
+  <div class="col-12 border-bottom pr-0 pl-0 h-100 bg-warning">
+    <div class="d-flex  h-100 ">
+      <div class="m-auto flex-fill border-left text-center ebcs-clickable" routerLink="GroupsList">
+        <fa-icon [icon]="iList"></fa-icon>
+        <span class="pr-2" [class]="mobile?'d-none':''">لیست</span>
+      </div>
+      <div class="m-auto flex-fill border-left text-center ebcs-clickable">
+        <fa-icon [icon]="iAccess"></fa-icon>
+        <span class="pr-2" [class]="mobile?'d-none':''">دسترسی</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row ebcs-h-95">
+  <div class="col-12">
+    <router-outlet (activate)="activeLinkHandler()"></router-outlet>
+  </div>
+</div>
