@@ -5,6 +5,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {GroupListCreateComponent} from './group-list-create/group-list-create.component';
 import {GroupModel} from '../entity';
 import {GroupListEditComponent} from './group-list-edit/group-list-edit.component';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-groups-list',
@@ -43,9 +44,9 @@ export class GroupsListComponent extends BaseClass implements OnInit {
 
   constructor(
     private groupsService: GroupsService,
-    private modalService: NgbModal
-  ) {
-    super();
+    private modalService: NgbModal,
+    protected toastr: ToastrService) {
+    super(toastr);
   }
 
   ngOnInit(): void {
@@ -72,17 +73,23 @@ export class GroupsListComponent extends BaseClass implements OnInit {
   }
 
   deleteHandler(inputModel) {
-    let entity=new GroupModel();
-    entity.Id=inputModel.Id;
-    this.groupsService.delete(entity).subscribe(res=>{
-      if(res.data.result){
-        console.log('salam')
+    let entity = new GroupModel();
+    entity.Id = inputModel.Id;
+    this.groupsService.delete(entity).subscribe(res => {
+      if (res.data.result) {
+        this.success();
+        this.ngOnInit();
       }
     });
   }
 
   editHandler(inputModel) {
-    const modalRef =this.modalService.open(GroupListEditComponent, {centered: true});
+    const modalRef = this.modalService.open(GroupListEditComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
+    modalRef.result.then((data) => {}, (reason) => {
+      if (reason)
+        this.ngOnInit();
+    });
   }
+
 }

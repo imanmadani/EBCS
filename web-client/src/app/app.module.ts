@@ -20,9 +20,12 @@ import { ModalHeaderComponent } from './utilities/component/modal/modal-header/m
 import { ModalFooterComponent } from './utilities/component/modal/modal-footer/modal-footer.component';
 import { GroupListCreateComponent } from './portal/portal-main/groups/groups-list/group-list-create/group-list-create.component';
 import { GroupListEditComponent } from './portal/portal-main/groups/groups-list/group-list-edit/group-list-edit.component';
+import {ToastrModule} from "ngx-toastr";
+import {BaseClass} from "./utilities/base";
 
 @NgModule({
   declarations: [
+    BaseClass,
     AppComponent,
     LoginComponent,
     PortalMainComponent,
@@ -50,6 +53,17 @@ import { GroupListEditComponent } from './portal/portal-main/groups/groups-list/
     Ng2SmartTableModule,
     ReactiveFormsModule,
     FormsModule,
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+      iconClasses: {
+        error: 'toast-error',
+        info: 'toast-info',
+        success: 'toast-success',
+        warning: 'toast-warning',
+      },
+    }),
 
 
   ],

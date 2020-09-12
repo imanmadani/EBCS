@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {BaseClass} from '../../utilities/base';
 import {LoginService} from "../../main/login/login.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-portal-main',
@@ -12,7 +13,10 @@ export class PortalMainComponent extends BaseClass implements OnInit  {
   versionDetail;
   userMenu=false;
 
-  constructor(private componentService: LoginService) { super()}
+  constructor(private componentService: LoginService ,
+              protected toastr: ToastrService) {
+  super(toastr);
+}
 
   ngOnInit(): void {
     localStorage.setItem('token', '8fea33b5e37f52b60559b73d96833888dbfd2f36');

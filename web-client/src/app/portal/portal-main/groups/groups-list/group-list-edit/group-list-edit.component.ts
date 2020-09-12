@@ -1,17 +1,25 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {GroupsService} from '../../groups.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {BaseClass} from "../../../../../utilities/base";
+import {ToastrService} from "ngx-toastr";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-group-list-edit',
   templateUrl: './group-list-edit.component.html',
   styleUrls: ['./group-list-edit.component.css']
 })
-export class GroupListEditComponent implements OnInit {
+export class GroupListEditComponent extends BaseClass implements OnInit {
   title='ایجاد گروه';
   formGroup:any ;
   @Input() model;
-  constructor(private groupsService: GroupsService) { }
+  @Output() refresh:EventEmitter<boolean>;
+  constructor(private groupsService: GroupsService,
+              private modalService: NgbModal,
+              protected toastr: ToastrService) {
+  super(toastr);
+}
 
   ngOnInit(): void {
     debugger
@@ -29,24 +37,24 @@ export class GroupListEditComponent implements OnInit {
   save() {
     debugger
     if (this.formGroup.valid === true) {
-      this.groupsService.edit(this.formGroup.value).subscribe(data => {
+      this.groupsService.edit(this.formGroup.value).subscribe(res => {
 
-          if (data.Errors.length > 0) {
-            // this.errors(data.Errors);
+          if (res.data.result) {
+            this.success();
+            this.modalService.dismissAll(true);
+            this.refresh.emit(true);
           } else {
-            if (data.IsSuccessed === true) {
-              // this.close('success');
-            }
+            this.error();
           }
         },
         (err) => {
-          // this.errors(err.error);
+          this.error(err.error);
         });
     } else {
       // this.validateAllFormFields(this.formGroup);
     }
   }
   close(){
-
+    this.modalService.dismissAll(false);
   }
 }

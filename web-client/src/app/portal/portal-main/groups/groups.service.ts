@@ -7,11 +7,10 @@ import {GroupModel} from './entity';
 })
 export class GroupsService {
   baseUrl: any;
-  baseUrl2: any;
 
   constructor(private http: HttpClient,
               @Inject('BASE_URL') baseUrl: string) {
-    this.baseUrl = 'http://localhost:8383/api/' + 'Group_api.php/';
+    this.baseUrl = 'http://localhost/api/' + 'Group_api.php/';
   }
 
   get(): Observable<any> {
@@ -26,7 +25,7 @@ export class GroupsService {
   }
   edit(entity: GroupModel): Observable<any> {
     return this.http
-      .post<any>(this.baseUrl+'?api=Edit', entity);
+      .put<any>(this.baseUrl+'?api=Update', entity);
   }
   delete(entity: GroupModel): Observable<any> {
     return this.http

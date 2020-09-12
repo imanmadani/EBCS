@@ -2,7 +2,7 @@
 
 class Group_controller extends controller
 {
-    public function Get($query)
+    public function Get()
     {
         $rows = $this->_model->get();
         $this->_res->set("rows", $rows);

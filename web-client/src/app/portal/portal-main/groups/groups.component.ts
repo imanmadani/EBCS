@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {BaseClass} from "../../../utilities/base";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-groups',
@@ -10,8 +11,10 @@ import {Router} from "@angular/router";
 export class GroupsComponent extends BaseClass implements OnInit {
   activeMenu;
 
-  constructor(private router: Router) { super() }
-
+  constructor(private router: Router ,
+              protected toastr: ToastrService) {
+  super(toastr);
+}
   ngOnInit(): void {
   }
 

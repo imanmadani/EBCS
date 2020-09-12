@@ -23,8 +23,7 @@ class Group_model extends model
     }
     public function update($id,$name)
     {
-        $sql = "UPDATE `groups` SET `Name`=$name WHERE `Id`=$id";
-        echo $sql;
+        $sql = "UPDATE `groups` SET `Name`='$name' WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
     }

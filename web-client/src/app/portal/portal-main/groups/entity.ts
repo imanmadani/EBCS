@@ -1,6 +1,6 @@
 export class GroupModel {
-    Id: string;
-    Name: any;
+    Id: number;
+    Name: string;
     FlagBlock: any;
     FlagDelete: any;
   }

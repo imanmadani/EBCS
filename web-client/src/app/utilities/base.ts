@@ -1,11 +1,13 @@
-import { FormControl, FormGroup } from '@angular/forms';
 import {HostListener, Component} from '@angular/core';
 import {faPlus, faEdit, faTrash, faStop, faList, faKey} from "@fortawesome/free-solid-svg-icons";
+import {take} from "rxjs/operators";
+import {ToastrService} from "ngx-toastr";
 @Component({
     selector: 'base-component',
     template:''
 })
 export class BaseClass {
+
   iCreate=faPlus;
   iEdit=faEdit;
   iDelete=faTrash;
@@ -21,7 +23,26 @@ export class BaseClass {
       this.mobile = false;
     }
   }
-  constructor() {
+
+  constructor(protected toastr: ToastrService) {
     this.onResize();
+  }
+  success(){
+    this.toastr.success( 'انجام شد','با موفقیت',{
+      timeOut: 3000,progressBar:true,easeTime:700
+    }).onTap.pipe(take(1))
+      .subscribe(() => this.toasterClickedHandler(this.toastr));
+  }
+  error(msg='مجددا تلاش نمایید'){
+    this.toastr.error(msg,'خطا',{
+      timeOut: 3000,progressBar:true,easeTime:700
+    }).onTap.pipe(take(1))
+      .subscribe(() => this.toasterClickedHandler(this.toastr));
+  }
+
+  toasterClickedHandler(toaster) {
+
+    this.toastr.clear(toaster.index);
+
   }
 }
