@@ -4,6 +4,10 @@ body{
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  font-family: IRANSans;
+}
+*:focus{
+  outline: none !important;
 }
 .base-header{
   height: 10%;
@@ -76,4 +80,12 @@ h3{
 }
 table{
   text-align: center;
+}
+.ebcs-create-btn{
+  position: fixed;
+  bottom: 50px;
+  left: 10px;
+}
+.form-group{
+  direction: ltr !important;
 }

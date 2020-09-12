@@ -28,6 +28,7 @@
               "src/app/style-package/fontawesome-5.14.0/css/fontawesome.css",
               "src/app/style-package/fontawesome-5.14.0/css/brands.css",
               "src/app/style-package/fontawesome-5.14.0/css/solid.css",
+              "src/app/style-package/fonts/css/style.css",
 
               "src/styles.css"
             ],

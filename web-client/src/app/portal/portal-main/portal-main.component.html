@@ -2,7 +2,7 @@
   <div class="row ebcs-h-95">
     <div class="col-2 bg-white border-left">
       <div class="row ebcs-h-5  border-bottom e bg-warning ebcs-clickable text-center" (click)="changeUserMenu()">
-        <div class="col-lg-2 col-sm-6 m-auto">i</div>
+        <div class="col-lg-2 col-sm-6 m-auto"><i class="fa fa-id-card"></i></div>
         <div class="col-lg-10 col-sm-1 m-auto" [ngClass]="mobile?'d-none':''">
           <span class="m-auto">ایمان مدنی</span>
         </div>
@@ -18,13 +18,13 @@
         </div>
       </div>
       <div class="row ebcs-h-5  border-bottom ebcs-clickable ">
-        <div class="col-lg-2 col-sm-11 m-auto"><i [ngClass]=""></i></div>
-        <div class="col-lg-10 col-sm-1 m-auto" [ngClass]="mobile?'d-none':''">خانه</div>
+        <div class="col-lg-2 col-sm-11 m-auto"><i ngClass="fa fa-home"></i></div>
+        <div class="col-lg-10 col-sm-1 m-auto text-regular" [ngClass]="mobile?'d-none':''">خانه</div>
       </div>
       <ng-template ngFor let-menu [ngForOf]="menus">
         <div class="row ebcs-h-5  border-bottom ebcs-clickable" [routerLink]="menu.Link">
           <div class="col-lg-2 col-sm-11 m-auto"><i [ngClass]="menu.Icon"></i></div>
-          <div class="col-lg-10 col-sm-1 m-auto" [ngClass]="mobile?'d-none':''">{{menu.Title}}</div>
+          <div class="col-lg-10 col-sm-1 m-auto text-regular" [ngClass]="mobile?'d-none':''">{{menu.Title}}</div>
         </div>
       </ng-template>
     </div>

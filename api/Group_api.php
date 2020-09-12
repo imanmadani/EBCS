@@ -7,10 +7,10 @@ include("../utilities/response.php");
 if(count($_GET)>0){
     $params=$_GET;
 }
-if(count($_POST)>0){
-    $params=$_POST;
-}
-
+ $json = file_get_contents('php://input');
+ if($json){
+ $params = json_decode($json,true);
+ }
 $method = $_GET['api'];
 $api=new APIClient();
 $res=$api->request("Group",$method,$params);

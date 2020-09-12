@@ -16,6 +16,10 @@ import {GroupsListComponent} from "./portal/portal-main/groups/groups-list/group
 import {GroupsComponent} from "./portal/portal-main/groups/groups.component";
 import {Ng2SmartTableModule} from "ng2-smart-table";
 import { Ng2CompleterModule} from "ng2-completer";
+import { ModalHeaderComponent } from './utilities/component/modal/modal-header/modal-header.component';
+import { ModalFooterComponent } from './utilities/component/modal/modal-footer/modal-footer.component';
+import { GroupListCreateComponent } from './portal/portal-main/groups/groups-list/group-list-create/group-list-create.component';
+import { GroupListEditComponent } from './portal/portal-main/groups/groups-list/group-list-edit/group-list-edit.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +29,10 @@ import { Ng2CompleterModule} from "ng2-completer";
     PortalMainComponent,
     GroupsListComponent,
     GroupsComponent,
+    ModalHeaderComponent,
+    ModalFooterComponent,
+    GroupListCreateComponent,
+    GroupListEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +47,9 @@ import { Ng2CompleterModule} from "ng2-completer";
     ReactiveFormsModule,
     FormsModule,
     Ng2CompleterModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    ReactiveFormsModule,
+    FormsModule,
 
 
   ],
