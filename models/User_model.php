@@ -49,4 +49,6 @@ WHERE GroupId=" . $user['GroupId'];
         $res = $this->getAll($sql);
         return $res;
     }
+
+    
 }

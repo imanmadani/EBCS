@@ -10,7 +10,7 @@ export class GroupsService {
 
   constructor(private http: HttpClient,
               @Inject('BASE_URL') baseUrl: string) {
-    this.baseUrl = 'http://localhost/api/' + 'Group_api.php/';
+    this.baseUrl = 'http://localhost:8383/api/' + 'Group_api.php/';
   }
 
   get(): Observable<any> {
@@ -30,5 +30,14 @@ export class GroupsService {
   delete(entity: GroupModel): Observable<any> {
     return this.http
       .post<any>(this.baseUrl+'?api=Delete', entity);
+  }
+  getMenuWithAccess(model): Observable<any> {
+    return this.http.get<any>(this.baseUrl + '?api=GetMenuWithAccess&GroupId='+model.Id);
+  }
+  setMenuAccess(model): Observable<any> {
+    return this.http.get<any>(this.baseUrl + '?api=SetMenuAccess&MenuId='+model.MenuId+"&GroupId="+model.GroupId);
+  }
+  deleteMenuAccess(model): Observable<any> {
+    return this.http.get<any>(this.baseUrl + '?api=DeleteMenuAccess'+"&Id="+model.Id);
   }
 }

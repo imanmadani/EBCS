@@ -22,6 +22,7 @@ import { GroupListCreateComponent } from './portal/portal-main/groups/groups-lis
 import { GroupListEditComponent } from './portal/portal-main/groups/groups-list/group-list-edit/group-list-edit.component';
 import {ToastrModule} from "ngx-toastr";
 import {BaseClass} from "./utilities/base";
+import { GroupListAssignComponent } from './portal/portal-main/groups/groups-list/group-list-assign/group-list-assign.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {BaseClass} from "./utilities/base";
     ModalFooterComponent,
     GroupListCreateComponent,
     GroupListEditComponent,
+    GroupListAssignComponent,
   ],
   imports: [
     BrowserModule,

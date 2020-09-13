@@ -37,4 +37,26 @@ class Group_controller extends controller
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
+    public function GetMenuWithAccess($query)
+    {
+        $groupId = $this->getVal('GroupId', $query);
+        $row = $this->_model->getMenuWithAccess($groupId);
+        $this->_res->set("row", $row);
+        $this->_res->output();
+    }
+    public function SetMenuAccess($query)
+    {
+        $menuId = $this->getVal('MenuId', $query);
+        $groupId = $this->getVal('GroupId', $query);
+        $rows = $this->_model->setMenuAccess($menuId,$groupId);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
+    public function DeleteMenuAccess($query)
+    {
+        $groupAccessId = $this->getVal('Id', $query);
+        $rows = $this->_model->deleteMenuAccess($groupAccessId);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
 }

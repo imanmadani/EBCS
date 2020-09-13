@@ -5,7 +5,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {GroupListCreateComponent} from './group-list-create/group-list-create.component';
 import {GroupModel} from '../entity';
 import {GroupListEditComponent} from './group-list-edit/group-list-edit.component';
-import {ToastrService} from "ngx-toastr";
+import {ToastrService} from 'ngx-toastr';
+import {GroupListAssignComponent} from './group-list-assign/group-list-assign.component';
 
 @Component({
   selector: 'app-groups-list',
@@ -32,6 +33,10 @@ export class GroupsListComponent extends BaseClass implements OnInit {
         {
           name: 'deleteAction',
           title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="Edit"></i>'
+        },
+        {
+          name: 'assignAccess',
+          title: '<i class="fa fa-key pr-3 ebcs-font-normal text-success"  title="Access"></i>'
         },
       ],
       add: false,
@@ -65,6 +70,10 @@ export class GroupsListComponent extends BaseClass implements OnInit {
         this.deleteHandler(e.data);
         break;
       }
+      case 'assignAccess' : {
+        this.assignHandler(e.data);
+        break;
+      }
     }
   }
 
@@ -92,4 +101,12 @@ export class GroupsListComponent extends BaseClass implements OnInit {
     });
   }
 
+  assignHandler(inputModel) {
+    const modalRef = this.modalService.open(GroupListAssignComponent, {centered: true});
+    modalRef.componentInstance.model = inputModel;
+    modalRef.result.then((data) => {}, (reason) => {
+      if (reason)
+        this.ngOnInit();
+    });
+  }
 }

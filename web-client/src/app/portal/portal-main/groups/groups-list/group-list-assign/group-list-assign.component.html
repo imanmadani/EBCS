@@ -1,0 +1,16 @@
+<app-modal-header></app-modal-header>
+<div class="container p-2">
+  <div class="row">
+    <ng-template ngFor let-menu [ngForOf]="menus">
+    <div class="col-4 mt-2">
+      <div class="card ebcs-bg text-white" (click)="changeAccess(menu)" [ngClass]="menu.GroupAccessId?'ebcs-border-right-active':''">
+        <div class="card-body pr-2 pl-1 text-right">
+          <i [ngClass]="menu.MenuIcon"></i>
+          <span class="pr-2">{{menu.MenuTitle}}</span>
+        </div>
+      </div>
+    </div>
+    </ng-template>
+  </div>
+</div>
+

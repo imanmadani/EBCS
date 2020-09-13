@@ -1,7 +1,7 @@
 import {HostListener, Component} from '@angular/core';
 import {faPlus, faEdit, faTrash, faStop, faList, faKey} from "@fortawesome/free-solid-svg-icons";
 import {take} from "rxjs/operators";
-import {ToastrService} from "ngx-toastr";
+import {ToastrService} from 'ngx-toastr';
 @Component({
     selector: 'base-component',
     template:''
