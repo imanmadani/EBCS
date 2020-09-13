@@ -108,3 +108,10 @@ table{
 .ebcs-border-right-active{
   border-right: 5px solid #f5bf33;
 }
+.form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: none !important;
+}

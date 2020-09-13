@@ -40,11 +40,6 @@ class Group_model extends model
         myMenu.Title,
         myMenu.Icon FROM  menus As myMenu 
         WHERE FlagDelete=0";
-       // CASE 
-       // WHEN myGrpAccess.FlagDelete=0 and  myGrpAccess.GroupId=$groupId THEN myGrpAccess.Id  ELSE NULL END As AccessId 
-       //  
-       // left JOIN groupaccess AS myGrpAccess ON myGrpAccess.MenuId=myMenu.Id 
-       // WHERE myMenu.FlagDelete=0 and myGrpAccess.FlagDelete=0
         $res = $this->getAll($sql);
         $modelList=[];
         foreach($res AS $menu){

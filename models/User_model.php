@@ -44,8 +44,8 @@ class User_model extends model
         $ip = $_SERVER['REMOTE_ADDR'];
         $user = $this->getUserByToken($head['token'], $ip);
         $sql = "SELECT myMenu.Id,myMenu.Title,myMenu.Link,myMenu.Icon FROM groupaccess AS myGrpAccess
-INNER JOIN menus As myMenu ON myGrpAccess.MenuId=myMenu.Id
-WHERE GroupId=" . $user['GroupId'];
+                INNER JOIN menus As myMenu ON myGrpAccess.MenuId=myMenu.Id
+                WHERE  myGrpAccess.FlagDelete=0 AND myMenu.FlagDelete=0 AND  GroupId=" . $user['GroupId'];
         $res = $this->getAll($sql);
         return $res;
     }
