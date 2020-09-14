@@ -1,23 +1,32 @@
-import {Component, OnInit} from '@angular/core';
-import {GroupsService} from '../groups.service';
+import { Component, OnInit } from '@angular/core';
 import {BaseClass} from '../../../../utilities/base';
+import {GroupsService} from '../../groups/groups.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {GroupListCreateComponent} from './group-list-create/group-list-create.component';
-import {GroupModel} from '../entity';
-import {GroupListEditComponent} from './group-list-edit/group-list-edit.component';
 import {ToastrService} from 'ngx-toastr';
-import {GroupListAssignComponent} from './group-list-assign/group-list-assign.component';
+import {GroupListCreateComponent} from '../../groups/groups-list/group-list-create/group-list-create.component';
+import {GroupModel} from '../../groups/entity';
+import {GroupListEditComponent} from '../../groups/groups-list/group-list-edit/group-list-edit.component';
+import {GroupListAssignComponent} from '../../groups/groups-list/group-list-assign/group-list-assign.component';
+import {ExhibitionsService} from '../exhibitions.service';
+import {ExhibitionListCreateComponent} from './exhibition-list-create/exhibition-list-create.component';
+import {ExhibitionListEditComponent} from './exhibition-list-edit/exhibition-list-edit.component';
 
 @Component({
-  selector: 'app-groups-list',
-  templateUrl: './groups-list.component.html',
-  styleUrls: ['./groups-list.component.css']
+  selector: 'app-exhibition-list',
+  templateUrl: './exhibition-list.component.html',
+  styleUrls: ['./exhibition-list.component.css']
 })
-export class GroupsListComponent extends BaseClass implements OnInit {
+export class ExhibitionListComponent extends BaseClass implements OnInit {
   settings = {
     columns: {
-      Name: {
-        title: 'نام گروه'
+      Title: {
+        title: 'عنوان'
+      },
+      Year: {
+        title: 'سال'
+      },
+      GradeId: {
+        title: 'گرید'
       },
       FlagBlock: {
         title: 'وضعیت'
@@ -48,14 +57,14 @@ export class GroupsListComponent extends BaseClass implements OnInit {
   data;
 
   constructor(
-    private groupsService: GroupsService,
+    private exhibitionsService: ExhibitionsService,
     private modalService: NgbModal,
     protected toastr: ToastrService) {
     super(toastr);
   }
 
   ngOnInit(): void {
-    this.groupsService.get().subscribe(res => {
+    this.exhibitionsService.Exget().subscribe(res => {
       this.data = res.data.rows;
     });
   }
@@ -70,15 +79,11 @@ export class GroupsListComponent extends BaseClass implements OnInit {
         this.deleteHandler(e.data);
         break;
       }
-      case 'assignAccess' : {
-        this.assignHandler(e.data);
-        break;
-      }
     }
   }
 
   createHandler() {
-    let modalRef=this.modalService.open(GroupListCreateComponent, {centered: true});
+    let modalRef=this.modalService.open(ExhibitionListCreateComponent, {centered: true});
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)
         this.ngOnInit();
@@ -88,7 +93,7 @@ export class GroupsListComponent extends BaseClass implements OnInit {
   deleteHandler(inputModel) {
     let entity = new GroupModel();
     entity.Id = inputModel.Id;
-    this.groupsService.delete(entity).subscribe(res => {
+    this.exhibitionsService.Exdelete(entity).subscribe(res => {
       if (res.data.result) {
         this.success();
         this.ngOnInit();
@@ -97,7 +102,7 @@ export class GroupsListComponent extends BaseClass implements OnInit {
   }
 
   editHandler(inputModel) {
-    const modalRef = this.modalService.open(GroupListEditComponent, {centered: true});
+    const modalRef = this.modalService.open(ExhibitionListEditComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)
@@ -105,12 +110,4 @@ export class GroupsListComponent extends BaseClass implements OnInit {
     });
   }
 
-  assignHandler(inputModel) {
-    const modalRef = this.modalService.open(GroupListAssignComponent, {centered: true});
-    modalRef.componentInstance.model = inputModel;
-    modalRef.result.then((data) => {}, (reason) => {
-      if (reason)
-        this.ngOnInit();
-    });
-  }
 }

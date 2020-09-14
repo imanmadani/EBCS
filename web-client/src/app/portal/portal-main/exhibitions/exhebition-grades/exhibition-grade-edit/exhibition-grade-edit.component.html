@@ -1,0 +1,25 @@
+<app-modal-header [title]="title" (closed)='close()'></app-modal-header>
+<form [formGroup]="formGroup">
+  <div class="row p-3">
+    <div class="col-12">
+      <div class="form-group">
+        <div class="input-group mb-3">
+          <input type="text" formControlName="Title" class="form-control text-right" placeholder="مثال : A">
+          <div class="input-group-append">
+            <span class="input-group-text">عنوان گرید</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group mb-3">
+          <input type="number" formControlName="Year" MIN="1390" MAX="1450" class="form-control text-right" placeholder="مثال : 1399">
+          <div class="input-group-append">
+            <span class="input-group-text">سال</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
+<app-modal-footer (saved)="save()"></app-modal-footer>

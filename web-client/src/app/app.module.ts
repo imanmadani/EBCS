@@ -23,6 +23,13 @@ import { GroupListEditComponent } from './portal/portal-main/groups/groups-list/
 import {ToastrModule} from "ngx-toastr";
 import {BaseClass} from "./utilities/base";
 import { GroupListAssignComponent } from './portal/portal-main/groups/groups-list/group-list-assign/group-list-assign.component';
+import { ExhibitionsComponent } from './portal/portal-main/exhibitions/exhibitions.component';
+import { ExhebitionGradesComponent } from './portal/portal-main/exhibitions/exhebition-grades/exhebition-grades.component';
+import { ExhibitionGradeCreateComponent } from './portal/portal-main/exhibitions/exhebition-grades/exhibition-grade-create/exhibition-grade-create.component';
+import { ExhibitionGradeEditComponent } from './portal/portal-main/exhibitions/exhebition-grades/exhibition-grade-edit/exhibition-grade-edit.component';
+import { ExhibitionListComponent } from './portal/portal-main/exhibitions/exhibition-list/exhibition-list.component';
+import { ExhibitionListCreateComponent } from './portal/portal-main/exhibitions/exhibition-list/exhibition-list-create/exhibition-list-create.component';
+import { ExhibitionListEditComponent } from './portal/portal-main/exhibitions/exhibition-list/exhibition-list-edit/exhibition-list-edit.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +45,13 @@ import { GroupListAssignComponent } from './portal/portal-main/groups/groups-lis
     GroupListCreateComponent,
     GroupListEditComponent,
     GroupListAssignComponent,
+    ExhibitionsComponent,
+    ExhebitionGradesComponent,
+    ExhibitionGradeCreateComponent,
+    ExhibitionGradeEditComponent,
+    ExhibitionListComponent,
+    ExhibitionListCreateComponent,
+    ExhibitionListEditComponent,
   ],
   imports: [
     BrowserModule,

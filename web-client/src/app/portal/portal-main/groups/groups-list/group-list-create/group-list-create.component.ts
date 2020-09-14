@@ -34,8 +34,7 @@ export class GroupListCreateComponent extends BaseClass implements OnInit {
           debugger
             if (res.data.result) {
               this.success();
-              this.modalService.dismissAll();
-              this.refresh.emit(true);
+              this.modalService.dismissAll(true);
 
             } else {
               this.error();

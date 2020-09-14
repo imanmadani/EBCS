@@ -1,43 +1,45 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {GroupsService} from '../../groups.service';
+import {BaseClass} from '../../../../../utilities/base';
+import {GroupsService} from '../../../groups/groups.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ToastrService} from 'ngx-toastr';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {BaseClass} from "../../../../../utilities/base";
-import {ToastrService} from "ngx-toastr";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ExhibitionsService} from '../../exhibitions.service';
 
 @Component({
-  selector: 'app-group-list-edit',
-  templateUrl: './group-list-edit.component.html',
-  styleUrls: ['./group-list-edit.component.css']
+  selector: 'app-exhibition-grade-edit',
+  templateUrl: './exhibition-grade-edit.component.html',
+  styleUrls: ['./exhibition-grade-edit.component.css']
 })
-export class GroupListEditComponent extends BaseClass implements OnInit {
+export class ExhibitionGradeEditComponent extends BaseClass implements OnInit {
   title='ایجاد گروه';
   formGroup:any ;
   @Input() model;
   @Output() refresh:EventEmitter<boolean>;
-  constructor(private groupsService: GroupsService,
+  constructor(private exhibitionsService: ExhibitionsService,
               private modalService: NgbModal,
               protected toastr: ToastrService) {
-  super(toastr);
-}
+    super(toastr);
+  }
 
   ngOnInit(): void {
     debugger
     this.createForm();
-    this.groupsService.getById(this.model.Id).subscribe(res=>{
+    this.exhibitionsService.getById(this.model.Id).subscribe(res=>{
       this.formGroup.patchValue(res.data.row);
     })
   }
   createForm() {
     this.formGroup = new FormGroup({
-      Id: new FormControl(),
-      Name: new FormControl(null, Validators.required)
+      Id: new FormControl(this.model.Id),
+      Title: new FormControl(null, Validators.required),
+      Year: new FormControl(null, Validators.required)
     });
   }
   save() {
     debugger
     if (this.formGroup.valid === true) {
-      this.groupsService.edit(this.formGroup.value).subscribe(res => {
+      this.exhibitionsService.edit(this.formGroup.value).subscribe(res => {
 
           if (res.data.result) {
             this.success();
