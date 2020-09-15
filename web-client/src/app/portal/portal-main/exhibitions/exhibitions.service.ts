@@ -7,32 +7,35 @@ import {GroupModel} from '../groups/entity';
   providedIn: 'root'
 })
 export class ExhibitionsService {
-  baseUrl: any;
+  ExGradebaseUrl: any;
   ExbaseUrl: any;
-
+  HallGradebaseUrl:any;
+  HallbaseUrl:any;
   constructor(private http: HttpClient,
               @Inject('BASE_URL') baseUrl: string) {
-    this.baseUrl = 'http://localhost:8383/api/' + 'ExhibitionGrade_api.php/';
+    this.ExGradebaseUrl = 'http://localhost:8383/api/' + 'ExhibitionGrade_api.php/';
     this.ExbaseUrl = 'http://localhost:8383/api/' + 'Exhibition_api.php/';
+    this.HallGradebaseUrl = 'http://localhost:8383/api/' + 'HallGrade_api.php/';
+    this.HallbaseUrl = 'http://localhost:8383/api/' + 'Hall_api.php/';
   }
 
-  get(): Observable<any> {
-    return this.http.get<any>(this.baseUrl + '?api=Get');
+  ExGradeget(): Observable<any> {
+    return this.http.get<any>(this.ExGradebaseUrl + '?api=Get');
   }
-  getById(entity): Observable<any> {
-    return this.http.get<any>(this.baseUrl + '?api=GetById&Id='+entity);
+  ExGradegetById(entity): Observable<any> {
+    return this.http.get<any>(this.ExGradebaseUrl + '?api=GetById&Id='+entity);
   }
-  create(entity: GroupModel): Observable<any> {
+  ExGradecreate(entity): Observable<any> {
     return this.http
-      .post<any>(this.baseUrl+'?api=Create', entity);
+      .post<any>(this.ExGradebaseUrl+'?api=Create', entity);
   }
-  edit(entity: GroupModel): Observable<any> {
+  ExGradeedit(entity): Observable<any> {
     return this.http
-      .put<any>(this.baseUrl+'?api=Update', entity);
+      .put<any>(this.ExGradebaseUrl+'?api=Update', entity);
   }
-  delete(entity: GroupModel): Observable<any> {
+  ExGradedelete(entity): Observable<any> {
     return this.http
-      .post<any>(this.baseUrl+'?api=Delete', entity);
+      .post<any>(this.ExGradebaseUrl+'?api=Delete', entity);
   }
 
   Exget(): Observable<any> {
@@ -41,7 +44,7 @@ export class ExhibitionsService {
   ExgetById(entity): Observable<any> {
     return this.http.get<any>(this.ExbaseUrl + '?api=GetById&Id='+entity);
   }
-  Excreate(entity: GroupModel): Observable<any> {
+  Excreate(entity): Observable<any> {
     return this.http
       .post<any>(this.ExbaseUrl+'?api=Create', entity);
   }
@@ -49,11 +52,60 @@ export class ExhibitionsService {
     return this.http
       .put<any>(this.ExbaseUrl+'?api=Update', entity);
   }
-  Exdelete(entity: GroupModel): Observable<any> {
+  Exdelete(entity): Observable<any> {
     return this.http
       .post<any>(this.ExbaseUrl+'?api=Delete', entity);
   }
-  getGradeDropDown(){
+  ExgetGradeDropDown(){
     return this.http.get<any>(this.ExbaseUrl + '?api=GradeDropDown');
   }
+  ExAssignHall(entity,id): Observable<any> {
+    return this.http
+      .post<any>(this.ExbaseUrl+'?api=AssignHall', [entity,{'ExhibitionId':id}]);
+  }
+  getByExhibitionId(entity): Observable<any> {
+    return this.http.get<any>(this.ExbaseUrl + '?api=GetByExhibitionId&Id='+entity);
+  }
+
+  HallGradeget(): Observable<any> {
+    return this.http.get<any>(this.HallGradebaseUrl + '?api=Get');
+  }
+  HallGradegetById(entity): Observable<any> {
+    return this.http.get<any>(this.HallGradebaseUrl + '?api=GetById&Id='+entity);
+  }
+  HallGradecreate(entity): Observable<any> {
+    return this.http
+      .post<any>(this.HallGradebaseUrl+'?api=Create', entity);
+  }
+  HallGradeedit(entity): Observable<any> {
+    return this.http
+      .put<any>(this.HallGradebaseUrl+'?api=Update', entity);
+  }
+  HallGradedelete(entity): Observable<any> {
+    return this.http
+      .post<any>(this.HallGradebaseUrl+'?api=Delete', entity);
+  }
+
+  Hallget(): Observable<any> {
+    return this.http.get<any>(this.HallbaseUrl + '?api=Get');
+  }
+  HallgetById(entity): Observable<any> {
+    return this.http.get<any>(this.HallbaseUrl + '?api=GetById&Id='+entity);
+  }
+  Hallcreate(entity): Observable<any> {
+    return this.http
+      .post<any>(this.HallbaseUrl+'?api=Create', entity);
+  }
+  Halledit(entity): Observable<any> {
+    return this.http
+      .put<any>(this.HallbaseUrl+'?api=Update', entity);
+  }
+  Halldelete(entity): Observable<any> {
+    return this.http
+      .post<any>(this.HallbaseUrl+'?api=Delete', entity);
+  }
+  HallgetGradeDropDown(){
+    return this.http.get<any>(this.HallbaseUrl + '?api=GradeDropDown');
+  }
+
 }

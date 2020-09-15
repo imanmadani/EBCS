@@ -319,7 +319,7 @@ business:
     - copy
     - copyright
     - cut
-    - edit
+    - ExGradeedit
     - envelope
     - envelope-open
     - envelope-square
@@ -653,7 +653,7 @@ design:
     - cut
     - drafting-compass
     - draw-polygon
-    - edit
+    - ExGradeedit
     - eraser
     - eye
     - eye-dropper
@@ -704,7 +704,7 @@ editors:
     - columns
     - copy
     - cut
-    - edit
+    - ExGradeedit
     - eraser
     - file
     - file-alt
@@ -1231,7 +1231,7 @@ interfaces:
     - database
     - dot-circle
     - download
-    - edit
+    - ExGradeedit
     - ellipsis-h
     - ellipsis-v
     - envelope
@@ -2444,7 +2444,7 @@ users-people:
     - user-circle
     - user-clock
     - user-cog
-    - user-edit
+    - user-ExGradeedit
     - user-friends
     - user-graduate
     - user-injured
@@ -2544,7 +2544,7 @@ writing:
     - blog
     - book
     - bookmark
-    - edit
+    - ExGradeedit
     - envelope
     - envelope-open
     - eraser

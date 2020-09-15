@@ -10,6 +10,9 @@ import {GroupListAssignComponent} from '../../groups/groups-list/group-list-assi
 import {ExhibitionsService} from '../exhibitions.service';
 import {ExhibitionListCreateComponent} from './exhibition-list-create/exhibition-list-create.component';
 import {ExhibitionListEditComponent} from './exhibition-list-edit/exhibition-list-edit.component';
+import {ExhibitionHallCreateComponent} from '../exhibition-hall-list/exhibition-hall-create/exhibition-hall-create.component';
+import {ExhibitionHallEditComponent} from '../exhibition-hall-list/exhibition-hall-edit/exhibition-hall-edit.component';
+import {ExhibitionAssignSalonComponent} from './exhibition-assign-salon/exhibition-assign-salon.component';
 
 @Component({
   selector: 'app-exhibition-list',
@@ -44,8 +47,8 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
           title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="Edit"></i>'
         },
         {
-          name: 'assignAccess',
-          title: '<i class="fa fa-key pr-3 ebcs-font-normal text-success"  title="Access"></i>'
+          name: 'assignSalon',
+          title: '<i class="fa fa-sitemap pr-3 ebcs-font-normal text-success"  title="Assign"></i>'
         },
       ],
       add: false,
@@ -79,11 +82,15 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
         this.deleteHandler(e.data);
         break;
       }
+      case 'assignSalon' : {
+        this.assignSalonHandler(e.data);
+        break;
+      }
     }
   }
 
   createHandler() {
-    let modalRef=this.modalService.open(ExhibitionListCreateComponent, {centered: true});
+    let modalRef=this.modalService.open(ExhibitionHallCreateComponent, {centered: true});
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)
         this.ngOnInit();
@@ -102,7 +109,15 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
   }
 
   editHandler(inputModel) {
-    const modalRef = this.modalService.open(ExhibitionListEditComponent, {centered: true});
+    const modalRef = this.modalService.open(ExhibitionHallEditComponent, {centered: true});
+    modalRef.componentInstance.model = inputModel;
+    modalRef.result.then((data) => {}, (reason) => {
+      if (reason)
+        this.ngOnInit();
+    });
+  }
+  assignSalonHandler(inputModel) {
+    const modalRef = this.modalService.open(ExhibitionAssignSalonComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)

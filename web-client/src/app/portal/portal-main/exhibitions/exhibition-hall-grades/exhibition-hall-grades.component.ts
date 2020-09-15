@@ -1,22 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import {BaseClass} from '../../../../utilities/base';
-import {GroupsService} from '../../groups/groups.service';
+import {ExhibitionsService} from '../exhibitions.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastrService} from 'ngx-toastr';
-import {GroupListCreateComponent} from '../../groups/groups-list/group-list-create/group-list-create.component';
+import {ExhibitionGradeCreateComponent} from '../exhebition-grades/exhibition-grade-create/exhibition-grade-create.component';
 import {GroupModel} from '../../groups/entity';
-import {GroupListEditComponent} from '../../groups/groups-list/group-list-edit/group-list-edit.component';
-import {GroupListAssignComponent} from '../../groups/groups-list/group-list-assign/group-list-assign.component';
-import {ExhibitionsService} from '../exhibitions.service';
-import {ExhibitionGradeCreateComponent} from './exhibition-grade-create/exhibition-grade-create.component';
-import {ExhibitionGradeEditComponent} from './exhibition-grade-edit/exhibition-grade-edit.component';
+import {ExhibitionGradeEditComponent} from '../exhebition-grades/exhibition-grade-edit/exhibition-grade-edit.component';
+import {ExhibitionHallGradeCreateComponent} from './exhibition-hall-grade-create/exhibition-hall-grade-create.component';
+import {ExhibitionHallGradeEditComponent} from './exhibition-hall-grade-edit/exhibition-hall-grade-edit.component';
 
 @Component({
-  selector: 'app-exhebition-grades',
-  templateUrl: './exhebition-grades.component.html',
-  styleUrls: ['./exhebition-grades.component.css']
+  selector: 'app-exhibition-hall-grades',
+  templateUrl: './exhibition-hall-grades.component.html',
+  styleUrls: ['./exhibition-hall-grades.component.css']
 })
-export class ExhebitionGradesComponent extends BaseClass implements OnInit {
+export class ExhibitionHallGradesComponent extends BaseClass implements OnInit {
   settings = {
     columns: {
       Title: {
@@ -35,7 +33,7 @@ export class ExhebitionGradesComponent extends BaseClass implements OnInit {
         },
         {
           name: 'deleteAction',
-          title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="Delete"></i>'
+          title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="Edit"></i>'
         },
       ],
       add: false,
@@ -54,7 +52,7 @@ export class ExhebitionGradesComponent extends BaseClass implements OnInit {
   }
 
   ngOnInit(): void {
-    this.exhibitionsService.ExGradeget().subscribe(res => {
+    this.exhibitionsService.HallGradeget().subscribe(res => {
       this.data = res.data.rows;
     });
   }
@@ -73,7 +71,7 @@ export class ExhebitionGradesComponent extends BaseClass implements OnInit {
   }
 
   createHandler() {
-    const modalRef =this.modalService.open(ExhibitionGradeCreateComponent, {centered: true});
+    const modalRef =this.modalService.open(ExhibitionHallGradeCreateComponent, {centered: true});
     modalRef.result.then((reason) => {
     }, (reason) => {
       if (reason)
@@ -84,7 +82,7 @@ export class ExhebitionGradesComponent extends BaseClass implements OnInit {
   deleteHandler(inputModel) {
     let entity = new GroupModel();
     entity.Id = inputModel.Id;
-    this.exhibitionsService.ExGradedelete(entity).subscribe(res => {
+    this.exhibitionsService.HallGradedelete(entity).subscribe(res => {
       if (res.data.result) {
         this.success();
         this.ngOnInit();
@@ -93,7 +91,7 @@ export class ExhebitionGradesComponent extends BaseClass implements OnInit {
   }
 
   editHandler(inputModel) {
-    const modalRef = this.modalService.open(ExhibitionGradeEditComponent, {centered: true});
+    const modalRef = this.modalService.open(ExhibitionHallGradeEditComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
     modalRef.result.then((reason) => {
     }, (reason) => {

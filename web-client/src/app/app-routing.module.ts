@@ -7,6 +7,8 @@ import {GroupsListComponent} from "./portal/portal-main/groups/groups-list/group
 import {ExhibitionsComponent} from './portal/portal-main/exhibitions/exhibitions.component';
 import {ExhebitionGradesComponent} from './portal/portal-main/exhibitions/exhebition-grades/exhebition-grades.component';
 import {ExhibitionListComponent} from './portal/portal-main/exhibitions/exhibition-list/exhibition-list.component';
+import {ExhibitionHallListComponent} from './portal/portal-main/exhibitions/exhibition-hall-list/exhibition-hall-list.component';
+import {ExhibitionHallGradesComponent} from './portal/portal-main/exhibitions/exhibition-hall-grades/exhibition-hall-grades.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/Login', pathMatch: 'full'},
@@ -30,13 +32,21 @@ const routes: Routes = [
         component: ExhibitionsComponent,
         children: [
           {
-            path: 'GradeList',
+            path: 'ExhibitionGradeList',
             component: ExhebitionGradesComponent,
           },
           {
             path: 'ExhibitionList',
             component: ExhibitionListComponent,
-          }
+          },
+          {
+            path: 'HallGradeList',
+            component: ExhibitionHallGradesComponent,
+          },
+          {
+            path: 'HallList',
+            component: ExhibitionHallListComponent,
+          },
         ]
       },
 

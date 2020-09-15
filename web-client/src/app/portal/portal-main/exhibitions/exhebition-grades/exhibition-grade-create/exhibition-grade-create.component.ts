@@ -32,7 +32,7 @@ export class ExhibitionGradeCreateComponent extends BaseClass implements OnInit 
   }
   save() {
     if (this.formGroup.valid === true) {
-      this.exhibitionsService.create(this.formGroup.value).subscribe(res => {
+      this.exhibitionsService.ExGradecreate(this.formGroup.value).subscribe(res => {
           debugger
           if (res.data.result) {
             this.success();

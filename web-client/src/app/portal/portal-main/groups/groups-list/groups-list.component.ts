@@ -28,7 +28,7 @@ export class GroupsListComponent extends BaseClass implements OnInit {
       custom: [
         {
           name: 'editAction',
-          title: '<i class="fa fa-edit pr-3 ebcs-font-normal text-warning" title="Edit"></i>'
+          title: '<i class="fa fa-ExGradeedit pr-3 ebcs-font-normal text-warning" title="Edit"></i>'
         },
         {
           name: 'deleteAction',

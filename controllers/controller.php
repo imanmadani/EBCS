@@ -26,6 +26,7 @@ class controller
         else "";
     }
 
+
     public function checkToken($token)
     {
         $ip=$_SERVER['REMOTE_ADDR'];

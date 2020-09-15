@@ -205,7 +205,7 @@ pencil:
 pencil-square:
   name: pen-square
 pencil-square-o:
-  name: edit
+  name: ExGradeedit
   prefix: far
 picture:
   name: image

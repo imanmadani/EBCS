@@ -25,7 +25,7 @@ export class ExhibitionGradeEditComponent extends BaseClass implements OnInit {
   ngOnInit(): void {
     debugger
     this.createForm();
-    this.exhibitionsService.getById(this.model.Id).subscribe(res=>{
+    this.exhibitionsService.ExGradegetById(this.model.Id).subscribe(res=>{
       this.formGroup.patchValue(res.data.row);
     })
   }
@@ -39,7 +39,7 @@ export class ExhibitionGradeEditComponent extends BaseClass implements OnInit {
   save() {
     debugger
     if (this.formGroup.valid === true) {
-      this.exhibitionsService.edit(this.formGroup.value).subscribe(res => {
+      this.exhibitionsService.ExGradeedit(this.formGroup.value).subscribe(res => {
 
           if (res.data.result) {
             this.success();

@@ -6,11 +6,11 @@ import {ToastrService} from 'ngx-toastr';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
-  selector: 'app-exhibition-list-create',
-  templateUrl: './exhibition-list-create.component.html',
-  styleUrls: ['./exhibition-list-create.component.css']
+  selector: 'app-exhibition-hall-create',
+  templateUrl: './exhibition-hall-create.component.html',
+  styleUrls: ['./exhibition-hall-create.component.css']
 })
-export class ExhibitionListCreateComponent extends BaseClass implements OnInit {
+export class ExhibitionHallCreateComponent extends BaseClass implements OnInit {
   title='ایجاد گروه';
   formGroup:any ;
   @Output() refresh:EventEmitter<boolean>;
@@ -24,20 +24,19 @@ export class ExhibitionListCreateComponent extends BaseClass implements OnInit {
   }
   ngOnInit(): void {
     this.createForm();
-    this.exhibitionsService.ExgetGradeDropDown().subscribe(res=>{
+    this.exhibitionsService.HallgetGradeDropDown().subscribe(res=>{
       this.gradeDropDown=res.data.rows;
     });
   }
   createForm() {
     this.formGroup = new FormGroup({
       Title: new FormControl(null, Validators.required),
-      Year: new FormControl(null, Validators.required),
       GradeId: new FormControl(null, Validators.required)
     });
   }
   save() {
     if (this.formGroup.valid === true) {
-      this.exhibitionsService.Excreate(this.formGroup.value).subscribe(res => {
+      this.exhibitionsService.Hallcreate(this.formGroup.value).subscribe(res => {
           debugger
           if (res.data.result) {
             this.success();
@@ -59,7 +58,7 @@ export class ExhibitionListCreateComponent extends BaseClass implements OnInit {
   }
 
   test(e) {
-   this.dpdown=e.Title;
-   this.formGroup.get('GradeId').setValue(e.Id);
+    this.dpdown=e.Title;
+    this.formGroup.get('GradeId').setValue(e.Id);
   }
 }

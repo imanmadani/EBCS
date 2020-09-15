@@ -13,15 +13,15 @@ class ExhibitionGrade_model extends model
         $rows = $this->getRow($sql);
         return $rows;
     }
-    public function create($title,$year,$gradeId)
+    public function create($title,$year)
     {
-        $sql = "INSERT INTO `exhibitiongrades`(`Title`,`Year`,`GradeId`) VALUES ('$title',$year,$gradeId)";
+        $sql = "INSERT INTO `exhibitiongrades`(`Title`,`Year`) VALUES ('$title',$year)";
         $rows = $this->execQuery($sql);
         return $rows;
     }
-    public function update($id,$title,$year,$gradeId)
+    public function update($id,$title,$year)
     {
-        $sql = "UPDATE `exhibitiongrades` SET `Title`='$title' , `Year`=$year , `GradeId`=$gradeId WHERE `Id`=$id";
+        $sql = "UPDATE `exhibitiongrades` SET `Title`='$title' , `Year`=$year  WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
     }

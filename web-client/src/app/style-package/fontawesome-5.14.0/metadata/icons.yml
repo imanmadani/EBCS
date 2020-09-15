@@ -1152,7 +1152,7 @@ backspace:
   search:
     terms:
       - command
-      - delete
+      - ExGradedelete
       - erase
       - keyboard
       - undo
@@ -1303,7 +1303,7 @@ ban:
       - ban
       - block
       - cancel
-      - delete
+      - ExGradedelete
       - hide
       - prohibit
       - remove
@@ -2662,7 +2662,7 @@ calendar-minus:
     terms:
       - calendar
       - date
-      - delete
+      - ExGradedelete
       - event
       - negative
       - remove
@@ -2684,7 +2684,7 @@ calendar-plus:
     terms:
       - add
       - calendar
-      - create
+      - ExGradecreate
       - date
       - event
       - new
@@ -2708,7 +2708,7 @@ calendar-times:
       - archive
       - calendar
       - date
-      - delete
+      - ExGradedelete
       - event
       - remove
       - schedule
@@ -3129,7 +3129,7 @@ cart-plus:
   search:
     terms:
       - add
-      - create
+      - ExGradecreate
       - new
       - positive
       - shopping
@@ -6188,7 +6188,7 @@ edit:
   label: Edit
   search:
     terms:
-      - edit
+      - ExGradeedit
       - pen
       - pencil
       - update
@@ -6428,7 +6428,7 @@ eraser:
   search:
     terms:
       - art
-      - delete
+      - ExGradedelete
       - remove
       - rubber
   styles:
@@ -7381,7 +7381,7 @@ file-word:
   search:
     terms:
       - document
-      - edit
+      - ExGradeedit
       - page
       - text
       - writing
@@ -7774,7 +7774,7 @@ folder-minus:
   search:
     terms:
       - archive
-      - delete
+      - ExGradedelete
       - directory
       - document
       - file
@@ -7812,7 +7812,7 @@ folder-plus:
     terms:
       - add
       - archive
-      - create
+      - ExGradecreate
       - directory
       - document
       - file
@@ -10037,7 +10037,7 @@ highlighter:
   label: Highlighter
   search:
     terms:
-      - edit
+      - ExGradeedit
       - marker
       - sharpie
       - update
@@ -10862,7 +10862,7 @@ italic:
   label: italic
   search:
     terms:
-      - edit
+      - ExGradeedit
       - emphasis
       - font
       - format
@@ -11114,7 +11114,7 @@ keyboard:
   search:
     terms:
       - accessory
-      - edit
+      - ExGradeedit
       - input
       - text
       - type
@@ -12247,7 +12247,7 @@ marker:
   search:
     terms:
       - design
-      - edit
+      - ExGradeedit
       - sharpie
       - update
       - write
@@ -12710,7 +12710,7 @@ minus:
   search:
     terms:
       - collapse
-      - delete
+      - ExGradedelete
       - hide
       - minify
       - negative
@@ -12728,7 +12728,7 @@ minus-circle:
   label: Minus Circle
   search:
     terms:
-      - delete
+      - ExGradedelete
       - hide
       - negative
       - remove
@@ -12746,7 +12746,7 @@ minus-square:
   search:
     terms:
       - collapse
-      - delete
+      - ExGradedelete
       - hide
       - minify
       - negative
@@ -13682,7 +13682,7 @@ paragraph:
   label: paragraph
   search:
     terms:
-      - edit
+      - ExGradeedit
       - format
       - text
       - writing
@@ -13838,7 +13838,7 @@ pen:
   search:
     terms:
       - design
-      - edit
+      - ExGradeedit
       - update
       - write
   styles:
@@ -13853,7 +13853,7 @@ pen-alt:
   search:
     terms:
       - design
-      - edit
+      - ExGradeedit
       - update
       - write
   styles:
@@ -13867,7 +13867,7 @@ pen-fancy:
   search:
     terms:
       - design
-      - edit
+      - ExGradeedit
       - fountain pen
       - update
       - write
@@ -13882,7 +13882,7 @@ pen-nib:
   search:
     terms:
       - design
-      - edit
+      - ExGradeedit
       - fountain pen
       - update
       - write
@@ -13897,7 +13897,7 @@ pen-square:
   label: Pen Square
   search:
     terms:
-      - edit
+      - ExGradeedit
       - pencil-square
       - update
       - write
@@ -13912,7 +13912,7 @@ pencil-alt:
   search:
     terms:
       - design
-      - edit
+      - ExGradeedit
       - pencil
       - update
       - write
@@ -14534,7 +14534,7 @@ plus:
   search:
     terms:
       - add
-      - create
+      - ExGradecreate
       - expand
       - new
       - positive
@@ -14551,7 +14551,7 @@ plus-circle:
   search:
     terms:
       - add
-      - create
+      - ExGradecreate
       - expand
       - new
       - positive
@@ -14568,7 +14568,7 @@ plus-square:
   search:
     terms:
       - add
-      - create
+      - ExGradecreate
       - expand
       - new
       - positive
@@ -17414,7 +17414,7 @@ spell-check:
   search:
     terms:
       - dictionary
-      - edit
+      - ExGradeedit
       - editor
       - grammar
       - text
@@ -18004,7 +18004,7 @@ strikethrough:
   search:
     terms:
       - cancel
-      - edit
+      - ExGradeedit
       - font
       - format
       - text
@@ -18091,7 +18091,7 @@ subscript:
   label: subscript
   search:
     terms:
-      - edit
+      - ExGradeedit
       - font
       - format
       - text
@@ -18192,7 +18192,7 @@ superscript:
   label: superscript
   search:
     terms:
-      - edit
+      - ExGradeedit
       - exponential
       - font
       - format
@@ -18693,7 +18693,7 @@ text-height:
   label: text-height
   search:
     terms:
-      - edit
+      - ExGradeedit
       - font
       - format
       - text
@@ -18711,7 +18711,7 @@ text-width:
   label: Text Width
   search:
     terms:
-      - edit
+      - ExGradeedit
       - font
       - format
       - text
@@ -19399,7 +19399,7 @@ trash:
   label: Trash
   search:
     terms:
-      - delete
+      - ExGradedelete
       - garbage
       - hide
       - remove
@@ -19415,7 +19415,7 @@ trash-alt:
   label: Alternate Trash
   search:
     terms:
-      - delete
+      - ExGradedelete
       - garbage
       - hide
       - remove
@@ -19788,7 +19788,7 @@ underline:
   label: Underline
   search:
     terms:
-      - edit
+      - ExGradeedit
       - emphasis
       - format
       - text
@@ -20138,7 +20138,7 @@ user-edit:
   label: User Edit
   search:
     terms:
-      - edit
+      - ExGradeedit
       - pen
       - pencil
       - person
@@ -20240,7 +20240,7 @@ user-minus:
   label: User Minus
   search:
     terms:
-      - delete
+      - ExGradedelete
       - negative
       - remove
   styles:
@@ -20340,7 +20340,7 @@ user-slash:
   search:
     terms:
       - ban
-      - delete
+      - ExGradedelete
       - remove
   styles:
     - solid
@@ -20388,7 +20388,7 @@ user-times:
   search:
     terms:
       - archive
-      - delete
+      - ExGradedelete
       - remove
       - x
   styles:
@@ -20672,7 +20672,7 @@ video-slash:
   search:
     terms:
       - add
-      - create
+      - ExGradecreate
       - film
       - new
       - positive

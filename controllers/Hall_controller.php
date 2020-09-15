@@ -1,6 +1,6 @@
 <?php
-require_once '../entity/ExhibitionHall.php';
-class Exhibition_controller extends controller
+
+class Hall_controller extends controller
 {
     public function Get()
     {
@@ -18,9 +18,8 @@ class Exhibition_controller extends controller
     public function Create($query)
     {
         $title = $this->getVal('Title', $query);
-        $year = $this->getVal('Year', $query);
         $gradeId = $this->getVal('GradeId', $query);
-        $rows = $this->_model->create($title,$year,$gradeId);
+        $rows = $this->_model->create($title,$gradeId);
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
@@ -28,9 +27,8 @@ class Exhibition_controller extends controller
     {
         $id = $this->getVal('Id', $query);
         $title = $this->getVal('Title', $query);
-        $year = $this->getVal('Year', $query);
         $gradeId = $this->getVal('GradeId', $query);
-        $rows = $this->_model->update($id,$title,$year,$gradeId);
+        $rows = $this->_model->update($id,$title,$gradeId);
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
@@ -46,28 +44,6 @@ class Exhibition_controller extends controller
         $rows = $this->_model->gradeDropDown();
         $this->_res->set("rows", $rows);
         $this->_res->output();
-    }
-    public function GetByExhibitionId($query)
-    {
-        $exId=$query['Id'];
-        $rows = $this->_model->getByExhibitionId($exId);
-        $this->_res->set("rows", $rows);
-        $this->_res->output();
-    }
-    public function AssignHall($query)
-    {
-        $exhibitionHallrows = $this->_model->getByExhibitionId($query[1]['ExhibitionId']);
-        foreach($exhibitionHallrows as $exHallRow){
-            $exHallRowId=$exHallRow['Id'];
-            $deleterows = $this->_model->assignHalldelete($exHallRowId);
-        }
-        foreach($query[0] as $obj){
-           $exhibitionId=$query[1]['ExhibitionId'];
-           $hallId=$obj['Id'];
-           $rows = $this->_model->assignHall($exhibitionId,$hallId);
-           $this->_res->set("result", $rows);
-      }
-         $this->_res->output();
     }
     
 }

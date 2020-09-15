@@ -1,25 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import {BaseClass} from '../../../../utilities/base';
-import {GroupsService} from '../../groups/groups.service';
+import {ExhibitionsService} from '../exhibitions.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastrService} from 'ngx-toastr';
-import {GroupListCreateComponent} from '../../groups/groups-list/group-list-create/group-list-create.component';
+import {ExhibitionListCreateComponent} from '../exhibition-list/exhibition-list-create/exhibition-list-create.component';
 import {GroupModel} from '../../groups/entity';
-import {GroupListEditComponent} from '../../groups/groups-list/group-list-edit/group-list-edit.component';
-import {GroupListAssignComponent} from '../../groups/groups-list/group-list-assign/group-list-assign.component';
-import {ExhibitionsService} from '../exhibitions.service';
-import {ExhibitionGradeCreateComponent} from './exhibition-grade-create/exhibition-grade-create.component';
-import {ExhibitionGradeEditComponent} from './exhibition-grade-edit/exhibition-grade-edit.component';
+import {ExhibitionListEditComponent} from '../exhibition-list/exhibition-list-edit/exhibition-list-edit.component';
+import {ExhibitionHallCreateComponent} from './exhibition-hall-create/exhibition-hall-create.component';
+import {ExhibitionHallEditComponent} from './exhibition-hall-edit/exhibition-hall-edit.component';
 
 @Component({
-  selector: 'app-exhebition-grades',
-  templateUrl: './exhebition-grades.component.html',
-  styleUrls: ['./exhebition-grades.component.css']
+  selector: 'app-exhibition-hall-list',
+  templateUrl: './exhibition-hall-list.component.html',
+  styleUrls: ['./exhibition-hall-list.component.css']
 })
-export class ExhebitionGradesComponent extends BaseClass implements OnInit {
+export class ExhibitionHallListComponent extends BaseClass implements OnInit {
   settings = {
     columns: {
       Title: {
+        title: 'عنوان'
+      },
+      Year: {
+        title: 'سال'
+      },
+      GradeId: {
         title: 'گرید'
       },
       FlagBlock: {
@@ -35,8 +39,8 @@ export class ExhebitionGradesComponent extends BaseClass implements OnInit {
         },
         {
           name: 'deleteAction',
-          title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="Delete"></i>'
-        },
+          title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="Edit"></i>'
+        }
       ],
       add: false,
       edit: false,
@@ -54,7 +58,7 @@ export class ExhebitionGradesComponent extends BaseClass implements OnInit {
   }
 
   ngOnInit(): void {
-    this.exhibitionsService.ExGradeget().subscribe(res => {
+    this.exhibitionsService.Hallget().subscribe(res => {
       this.data = res.data.rows;
     });
   }
@@ -73,9 +77,8 @@ export class ExhebitionGradesComponent extends BaseClass implements OnInit {
   }
 
   createHandler() {
-    const modalRef =this.modalService.open(ExhibitionGradeCreateComponent, {centered: true});
-    modalRef.result.then((reason) => {
-    }, (reason) => {
+    let modalRef=this.modalService.open(ExhibitionHallCreateComponent, {centered: true});
+    modalRef.result.then((data) => {}, (reason) => {
       if (reason)
         this.ngOnInit();
     });
@@ -84,7 +87,7 @@ export class ExhebitionGradesComponent extends BaseClass implements OnInit {
   deleteHandler(inputModel) {
     let entity = new GroupModel();
     entity.Id = inputModel.Id;
-    this.exhibitionsService.ExGradedelete(entity).subscribe(res => {
+    this.exhibitionsService.Halldelete(entity).subscribe(res => {
       if (res.data.result) {
         this.success();
         this.ngOnInit();
@@ -93,10 +96,9 @@ export class ExhebitionGradesComponent extends BaseClass implements OnInit {
   }
 
   editHandler(inputModel) {
-    const modalRef = this.modalService.open(ExhibitionGradeEditComponent, {centered: true});
+    const modalRef = this.modalService.open(ExhibitionHallEditComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
-    modalRef.result.then((reason) => {
-    }, (reason) => {
+    modalRef.result.then((data) => {}, (reason) => {
       if (reason)
         this.ngOnInit();
     });

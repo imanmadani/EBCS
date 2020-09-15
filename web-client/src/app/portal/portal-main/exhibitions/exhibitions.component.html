@@ -1,13 +1,21 @@
 <div class="row ebcs-h-5">
   <div class="col-12 border-bottom pr-0 pl-0 h-100 bg-warning">
     <div class="d-flex  h-100 ">
-      <div class="m-auto flex-fill border-left text-center ebcs-clickable" routerLink="GradeList">
-        <fa-icon [icon]="iList"></fa-icon>
-        <span class="pr-2" [class]="mobile?'d-none':''">گرید ها</span>
+      <div class="m-auto flex-fill border-left text-center ebcs-clickable" routerLink="ExhibitionGradeList">
+        <fa-icon [icon]="iAccess"></fa-icon>
+        <span class="pr-2" [class]="mobile?'d-none':''">گرید نمایشگاه</span>
       </div>
       <div class="m-auto flex-fill border-left text-center ebcs-clickable" routerLink="ExhibitionList">
+        <fa-icon [icon]="iList"></fa-icon>
+        <span class="pr-2" [class]="mobile?'d-none':''">نمایشگاه </span>
+      </div>
+      <div class="m-auto flex-fill border-left text-center ebcs-clickable" routerLink="HallGradeList">
         <fa-icon [icon]="iAccess"></fa-icon>
-        <span class="pr-2" [class]="mobile?'d-none':''">نمایشگاه ها</span>
+        <span class="pr-2" [class]="mobile?'d-none':''">گرید سالن </span>
+      </div>
+      <div class="m-auto flex-fill border-left text-center ebcs-clickable" routerLink="HallList">
+        <fa-icon [icon]="iList"></fa-icon>
+        <span class="pr-2" [class]="mobile?'d-none':''">سالن </span>
       </div>
     </div>
   </div>

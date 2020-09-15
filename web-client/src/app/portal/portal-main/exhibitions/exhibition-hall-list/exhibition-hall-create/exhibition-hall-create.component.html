@@ -1,0 +1,33 @@
+<app-modal-header [title]="title" (close)='close()'></app-modal-header>
+<form [formGroup]="formGroup">
+  <div class="row p-3">
+    <div class="col-12">
+      <div class="form-group">
+        <div class="input-group mb-3">
+          <input type="text" formControlName="Title" class="form-control text-right" placeholder="مثال : A">
+          <div class="input-group-append">
+            <span class="input-group-text">عنوان نمایشگاه</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group mb-3 ">
+          <div ngbDropdown  class="d-inline-block ebcs-dir-rtl flex-fill "  >
+            <button class="btn form-control ebcs-border-radius-Left ebcs-border text-right" id="dropdownBasic1" ngbDropdownToggle >{{dpdown}}</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" >
+              <ng-template ngFor let-grade [ngForOf]="gradeDropDown">
+                <button ngbDropdownItem (focus)="test(grade)" >{{grade.Title}}</button>
+              </ng-template>
+            </div>
+          </div>
+          <div class="input-group-append ">
+            <span class="input-group-text">گرید </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</form>
+<app-modal-footer (saved)="save()"></app-modal-footer>

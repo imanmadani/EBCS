@@ -30,6 +30,14 @@ import { ExhibitionGradeEditComponent } from './portal/portal-main/exhibitions/e
 import { ExhibitionListComponent } from './portal/portal-main/exhibitions/exhibition-list/exhibition-list.component';
 import { ExhibitionListCreateComponent } from './portal/portal-main/exhibitions/exhibition-list/exhibition-list-create/exhibition-list-create.component';
 import { ExhibitionListEditComponent } from './portal/portal-main/exhibitions/exhibition-list/exhibition-list-edit/exhibition-list-edit.component';
+import { ExhibitionHallGradesComponent } from './portal/portal-main/exhibitions/exhibition-hall-grades/exhibition-hall-grades.component';
+import { ExhibitionHallListComponent } from './portal/portal-main/exhibitions/exhibition-hall-list/exhibition-hall-list.component';
+import { ExhibitionHallGradeCreateComponent } from './portal/portal-main/exhibitions/exhibition-hall-grades/exhibition-hall-grade-create/exhibition-hall-grade-create.component';
+import { ExhibitionHallGradeEditComponent } from './portal/portal-main/exhibitions/exhibition-hall-grades/exhibition-hall-grade-edit/exhibition-hall-grade-edit.component';
+import { ExhibitionHallCreateComponent } from './portal/portal-main/exhibitions/exhibition-hall-list/exhibition-hall-create/exhibition-hall-create.component';
+import { ExhibitionHallEditComponent } from './portal/portal-main/exhibitions/exhibition-hall-list/exhibition-hall-edit/exhibition-hall-edit.component';
+import { ExhibitionAssignSalonComponent } from './portal/portal-main/exhibitions/exhibition-list/exhibition-assign-salon/exhibition-assign-salon.component';
+import { DuallistComponent } from './utilities/component/duallist/duallist.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +60,14 @@ import { ExhibitionListEditComponent } from './portal/portal-main/exhibitions/ex
     ExhibitionListComponent,
     ExhibitionListCreateComponent,
     ExhibitionListEditComponent,
+    ExhibitionHallGradesComponent,
+    ExhibitionHallListComponent,
+    ExhibitionHallGradeCreateComponent,
+    ExhibitionHallGradeEditComponent,
+    ExhibitionHallCreateComponent,
+    ExhibitionHallEditComponent,
+    ExhibitionAssignSalonComponent,
+    DuallistComponent,
   ],
   imports: [
     BrowserModule,

@@ -13,6 +13,7 @@ class Exhibition_model extends model
         $rows = $this->getRow($sql);
         return $rows;
     }
+
     public function create($title,$year,$gradeId)
     {
         $sql = "INSERT INTO `exhibitions`(`Title`,`Year`,`GradeId`) VALUES ('$title',$year,$gradeId)";
@@ -37,5 +38,23 @@ class Exhibition_model extends model
         $rows = $this->getAll($sql);
         return $rows;
     }
-    
+    public function getByExhibitionId($exhibitionId)
+    {
+        $sql = "SELECT * FROM `exhibitionhalls` WHERE `ExhibitionId`=$exhibitionId AND `FlagDelete`=0";
+        $rows = $this->getAll($sql);
+        return $rows;
+    }
+    public function assignHall($exhibitionId,$hallId)
+    {
+        $sql = "INSERT INTO `exhibitionhalls`( `ExhibitionId`, `HallId`) VALUES ($exhibitionId,$hallId)";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
+    public function assignHalldelete($id)
+    {
+        $sql = "UPDATE `exhibitionhalls` SET `FlagDelete`=1 WHERE `Id`=$id";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
+
 }

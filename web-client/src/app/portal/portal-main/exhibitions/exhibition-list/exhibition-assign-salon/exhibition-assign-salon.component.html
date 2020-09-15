@@ -1,0 +1,7 @@
+<app-modal-header [title]="title" (closed)="close()"></app-modal-header>
+<div class="container-fluid ltr" >
+  <p></p>
+  <app-duallist [sort]="keepSorted"  [source]="source" [key]="key" [display]="display" [filter]="filter"
+             [(destination)]="confirmed" height="265px" [format]="format" [disabled]="disabled"></app-duallist>
+</div>
+<app-modal-footer (saved)="save()"></app-modal-footer>
