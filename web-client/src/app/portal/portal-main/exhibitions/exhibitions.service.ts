@@ -11,12 +11,14 @@ export class ExhibitionsService {
   ExbaseUrl: any;
   HallGradebaseUrl:any;
   HallbaseUrl:any;
+  BoothbaseUrl:any;
   constructor(private http: HttpClient,
               @Inject('BASE_URL') baseUrl: string) {
-    this.ExGradebaseUrl = 'http://localhost:8383/api/' + 'ExhibitionGrade_api.php/';
-    this.ExbaseUrl = 'http://localhost:8383/api/' + 'Exhibition_api.php/';
-    this.HallGradebaseUrl = 'http://localhost:8383/api/' + 'HallGrade_api.php/';
-    this.HallbaseUrl = 'http://localhost:8383/api/' + 'Hall_api.php/';
+    this.ExGradebaseUrl = 'http://localhost/api/' + 'ExhibitionGrade_api.php/';
+    this.ExbaseUrl = 'http://localhost/api/' + 'Exhibition_api.php/';
+    this.HallGradebaseUrl = 'http://localhost/api/' + 'HallGrade_api.php/';
+    this.HallbaseUrl = 'http://localhost/api/' + 'Hall_api.php/';
+    this.BoothbaseUrl = 'http://localhost/api/' + 'Booth_api.php/';
   }
 
   ExGradeget(): Observable<any> {
@@ -108,4 +110,28 @@ export class ExhibitionsService {
     return this.http.get<any>(this.HallbaseUrl + '?api=GradeDropDown');
   }
 
+  Boothget(): Observable<any> {
+    return this.http.get<any>(this.BoothbaseUrl + '?api=Get');
+  }
+  BoothgetById(entity): Observable<any> {
+    return this.http.get<any>(this.BoothbaseUrl + '?api=GetById&Id='+entity);
+  }
+  Boothcreate(entity): Observable<any> {
+    return this.http
+      .post<any>(this.BoothbaseUrl+'?api=Create', entity);
+  }
+  Boothedit(entity): Observable<any> {
+    return this.http
+      .put<any>(this.BoothbaseUrl+'?api=Update', entity);
+  }
+  Boothdelete(entity): Observable<any> {
+    return this.http
+      .post<any>(this.BoothbaseUrl+'?api=Delete', entity);
+  }
+  BoothgetExhibitionDropDown(){
+    return this.http.get<any>(this.BoothbaseUrl + '?api=ExhibitionDropDown');
+  }
+  BoothgetHallDropDown(exhibitionId){
+    return this.http.get<any>(this.BoothbaseUrl + '?api=HallDropDown&ExhibitionId='+exhibitionId);
+  }
 }

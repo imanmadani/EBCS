@@ -10,7 +10,7 @@ export class GroupsService {
 
   constructor(private http: HttpClient,
               @Inject('BASE_URL') baseUrl: string) {
-    this.baseUrl = 'http://localhost:8383/api/' + 'Group_api.php/';
+    this.baseUrl = 'http://localhost/api/' + 'Group_api.php/';
   }
 
   get(): Observable<any> {

@@ -1,15 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {BaseClass} from '../../../../utilities/base';
-import {GroupsService} from '../../groups/groups.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastrService} from 'ngx-toastr';
-import {GroupListCreateComponent} from '../../groups/groups-list/group-list-create/group-list-create.component';
 import {GroupModel} from '../../groups/entity';
-import {GroupListEditComponent} from '../../groups/groups-list/group-list-edit/group-list-edit.component';
-import {GroupListAssignComponent} from '../../groups/groups-list/group-list-assign/group-list-assign.component';
 import {ExhibitionsService} from '../exhibitions.service';
-import {ExhibitionListCreateComponent} from './exhibition-list-create/exhibition-list-create.component';
-import {ExhibitionListEditComponent} from './exhibition-list-edit/exhibition-list-edit.component';
 import {ExhibitionHallCreateComponent} from '../exhibition-hall-list/exhibition-hall-create/exhibition-hall-create.component';
 import {ExhibitionHallEditComponent} from '../exhibition-hall-list/exhibition-hall-edit/exhibition-hall-edit.component';
 import {ExhibitionAssignSalonComponent} from './exhibition-assign-salon/exhibition-assign-salon.component';

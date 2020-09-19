@@ -9,6 +9,7 @@ import {ExhebitionGradesComponent} from './portal/portal-main/exhibitions/exhebi
 import {ExhibitionListComponent} from './portal/portal-main/exhibitions/exhibition-list/exhibition-list.component';
 import {ExhibitionHallListComponent} from './portal/portal-main/exhibitions/exhibition-hall-list/exhibition-hall-list.component';
 import {ExhibitionHallGradesComponent} from './portal/portal-main/exhibitions/exhibition-hall-grades/exhibition-hall-grades.component';
+import {ExhibitionBoothListComponent} from "./portal/portal-main/exhibitions/exhibition-booth-list/exhibition-booth-list.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/Login', pathMatch: 'full'},
@@ -46,6 +47,10 @@ const routes: Routes = [
           {
             path: 'HallList',
             component: ExhibitionHallListComponent,
+          },
+          {
+            path: 'BoothList',
+            component: ExhibitionBoothListComponent,
           },
         ]
       },
