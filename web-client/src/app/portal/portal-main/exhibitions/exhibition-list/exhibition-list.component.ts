@@ -7,6 +7,7 @@ import {ExhibitionsService} from '../exhibitions.service';
 import {ExhibitionHallCreateComponent} from '../exhibition-hall-list/exhibition-hall-create/exhibition-hall-create.component';
 import {ExhibitionHallEditComponent} from '../exhibition-hall-list/exhibition-hall-edit/exhibition-hall-edit.component';
 import {ExhibitionAssignSalonComponent} from './exhibition-assign-salon/exhibition-assign-salon.component';
+import {ExhibitionAssignExecuterComponent} from "./exhibition-assign-executer/exhibition-assign-executer.component";
 
 @Component({
   selector: 'app-exhibition-list',
@@ -80,6 +81,10 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
         this.assignSalonHandler(e.data);
         break;
       }
+      case 'assignExecuter' : {
+        this.assignExecuterHandler(e.data);
+        break;
+      }
     }
   }
 
@@ -112,6 +117,14 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
   }
   assignSalonHandler(inputModel) {
     const modalRef = this.modalService.open(ExhibitionAssignSalonComponent, {centered: true});
+    modalRef.componentInstance.model = inputModel;
+    modalRef.result.then((data) => {}, (reason) => {
+      if (reason)
+        this.ngOnInit();
+    });
+  }
+  assignExecuterHandler(inputModel){
+    const modalRef = this.modalService.open(ExhibitionAssignExecuterComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)

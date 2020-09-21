@@ -41,6 +41,7 @@ import { DuallistComponent } from './utilities/component/duallist/duallist.compo
 import { ExhibitionBoothListComponent } from './portal/portal-main/exhibitions/exhibition-booth-list/exhibition-booth-list.component';
 import { ExhibitionBoothCreateComponent } from './portal/portal-main/exhibitions/exhibition-booth-list/exhibition-booth-create/exhibition-booth-create.component';
 import { ExhibitionBoothEditComponent } from './portal/portal-main/exhibitions/exhibition-booth-list/exhibition-booth-edit/exhibition-booth-edit.component';
+import { ExhibitionAssignExecuterComponent } from './portal/portal-main/exhibitions/exhibition-list/exhibition-assign-executer/exhibition-assign-executer.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { ExhibitionBoothEditComponent } from './portal/portal-main/exhibitions/e
     ExhibitionBoothListComponent,
     ExhibitionBoothCreateComponent,
     ExhibitionBoothEditComponent,
+    ExhibitionAssignExecuterComponent,
   ],
   imports: [
     BrowserModule,

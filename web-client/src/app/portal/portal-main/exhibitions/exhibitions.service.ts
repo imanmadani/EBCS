@@ -65,6 +65,10 @@ export class ExhibitionsService {
     return this.http
       .post<any>(this.ExbaseUrl+'?api=AssignHall', [entity,{'ExhibitionId':id}]);
   }
+  ExAssignExecuter(entity,id): Observable<any> {
+    return this.http
+      .post<any>(this.ExbaseUrl+'?api=AssignExecuter', [entity,{'ExhibitionId':id}]);
+  }
   getByExhibitionId(entity): Observable<any> {
     return this.http.get<any>(this.ExbaseUrl + '?api=GetByExhibitionId&Id='+entity);
   }
