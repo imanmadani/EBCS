@@ -69,5 +69,33 @@ class Exhibition_controller extends controller
       }
          $this->_res->output();
     }
+    public function ExecuterDropDown()
+    {
+        $rows = $this->_model->executerDropDown();
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function GetExecuterByExhibitionId($query)
+    {
+        $exId=$query['Id'];
+        $rows = $this->_model->getExecuterByExhibitionId($exId);
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function AssignExecuter($query)
+    {
+        $exhibitionId = $this->getVal('ExhibitionId', $query);
+        $ExecuterId = $this->getVal('ExecuterId', $query);
+        $rows = $this->_model->assignExecuter($exhibitionId,$ExecuterId);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
+    public function DeleteAssignExecuter($query)
+    {
+        $id = $this->getVal('Id', $query);
+        $rows = $this->_model->deleteassignExecuter($id);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
     
 }

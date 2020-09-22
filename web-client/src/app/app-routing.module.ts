@@ -10,6 +10,9 @@ import {ExhibitionListComponent} from './portal/portal-main/exhibitions/exhibiti
 import {ExhibitionHallListComponent} from './portal/portal-main/exhibitions/exhibition-hall-list/exhibition-hall-list.component';
 import {ExhibitionHallGradesComponent} from './portal/portal-main/exhibitions/exhibition-hall-grades/exhibition-hall-grades.component';
 import {ExhibitionBoothListComponent} from "./portal/portal-main/exhibitions/exhibition-booth-list/exhibition-booth-list.component";
+import {BoothBuildersComponent} from "./portal/portal-main/booth-builders/booth-builders.component";
+import {BoothbuilderListComponent} from "./portal/portal-main/booth-builders/boothbuilder-list/boothbuilder-list.component";
+import {BoothbuilderDeskComponent} from "./portal/portal-main/booth-builders/boothbuilder-desk/boothbuilder-desk.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/Login', pathMatch: 'full'},
@@ -54,7 +57,20 @@ const routes: Routes = [
           },
         ]
       },
-
+      {
+        path: 'BoothBuilders',
+        component: BoothBuildersComponent,
+        children: [
+          {
+            path: 'BoothbuilderList',
+            component: BoothbuilderListComponent,
+          },
+          {
+            path: 'BoothbuilderDesk',
+            component: BoothbuilderDeskComponent,
+          },
+        ]
+      },
       ]
   }
   ];

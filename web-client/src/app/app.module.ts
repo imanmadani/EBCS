@@ -42,6 +42,10 @@ import { ExhibitionBoothListComponent } from './portal/portal-main/exhibitions/e
 import { ExhibitionBoothCreateComponent } from './portal/portal-main/exhibitions/exhibition-booth-list/exhibition-booth-create/exhibition-booth-create.component';
 import { ExhibitionBoothEditComponent } from './portal/portal-main/exhibitions/exhibition-booth-list/exhibition-booth-edit/exhibition-booth-edit.component';
 import { ExhibitionAssignExecuterComponent } from './portal/portal-main/exhibitions/exhibition-list/exhibition-assign-executer/exhibition-assign-executer.component';
+import { BoothBuildersComponent } from './portal/portal-main/booth-builders/booth-builders.component';
+import { BoothbuilderListComponent } from './portal/portal-main/booth-builders/boothbuilder-list/boothbuilder-list.component';
+import { RateComponent } from './utilities/component/rate/rate.component';
+import { BoothbuilderDeskComponent } from './portal/portal-main/booth-builders/boothbuilder-desk/boothbuilder-desk.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +80,10 @@ import { ExhibitionAssignExecuterComponent } from './portal/portal-main/exhibiti
     ExhibitionBoothCreateComponent,
     ExhibitionBoothEditComponent,
     ExhibitionAssignExecuterComponent,
+    BoothBuildersComponent,
+    BoothbuilderListComponent,
+    RateComponent,
+    BoothbuilderDeskComponent,
   ],
   imports: [
     BrowserModule,
@@ -106,6 +114,10 @@ import { ExhibitionAssignExecuterComponent } from './portal/portal-main/exhibiti
     }),
 
 
+  ],
+  entryComponents: [
+    RateComponent,
+    BoothbuilderListComponent
   ],
   providers: [
     { provide: 'BASE_URL', useFactory: getBaseUrl },

@@ -40,6 +40,21 @@
           </div>
         </div>
       </div>
+      <div class="form-group">
+        <div class="input-group mb-3 ">
+          <div ngbDropdown  class="d-inline-block ebcs-dir-rtl flex-fill "  >
+            <button class="btn form-control ebcs-border-radius-Left ebcs-border text-right" id="dropdownBasic3" ngbDropdownToggle >{{participantdpdown}}</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" >
+              <ng-template ngFor let-partic [ngForOf]="participantDropDown">
+                <button ngbDropdownItem (focus)="setParticipantData(partic)" >{{partic.Title}}</button>
+              </ng-template>
+            </div>
+          </div>
+          <div class="input-group-append ">
+            <span class="input-group-text">مشارکت کننده </span>
+          </div>
+        </div>
+      </div>
 
     </div>
   </div>

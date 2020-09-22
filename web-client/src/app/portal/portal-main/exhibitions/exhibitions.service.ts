@@ -65,9 +65,19 @@ export class ExhibitionsService {
     return this.http
       .post<any>(this.ExbaseUrl+'?api=AssignHall', [entity,{'ExhibitionId':id}]);
   }
-  ExAssignExecuter(entity,id): Observable<any> {
+  ExgetExecuterDropDown(){
+    return this.http.get<any>(this.ExbaseUrl + '?api=ExecuterDropDown');
+  }
+  ExAssignExecuter(entity): Observable<any> {
     return this.http
-      .post<any>(this.ExbaseUrl+'?api=AssignExecuter', [entity,{'ExhibitionId':id}]);
+      .post<any>(this.ExbaseUrl+'?api=AssignExecuter', entity);
+  }
+  ExDeleteAssignExecuter(entity): Observable<any> {
+    return this.http
+      .post<any>(this.ExbaseUrl+'?api=DeleteAssignExecuter', entity);
+  }
+  ExgetExecuterByExhibitionId(entity): Observable<any> {
+    return this.http.get<any>(this.ExbaseUrl + '?api=GetExecuterByExhibitionId&Id='+entity);
   }
   getByExhibitionId(entity): Observable<any> {
     return this.http.get<any>(this.ExbaseUrl + '?api=GetByExhibitionId&Id='+entity);
@@ -134,6 +144,9 @@ export class ExhibitionsService {
   }
   BoothgetExhibitionDropDown(){
     return this.http.get<any>(this.BoothbaseUrl + '?api=ExhibitionDropDown');
+  }
+  BoothgetParticipantDropDown(){
+    return this.http.get<any>(this.BoothbaseUrl + '?api=ParticipantDropDown');
   }
   BoothgetHallDropDown(exhibitionId){
     return this.http.get<any>(this.BoothbaseUrl + '?api=HallDropDown&ExhibitionId='+exhibitionId);

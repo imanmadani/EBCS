@@ -11,27 +11,32 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./exhibition-booth-create.component.css']
 })
 export class ExhibitionBoothCreateComponent extends BaseClass implements OnInit {
-  title='ایجاد غرفه';
-  formGroup:any ;
-  @Output() refresh:EventEmitter<boolean>;
+  title = 'ایجاد غرفه';
+  formGroup: any;
+  @Output() refresh: EventEmitter<boolean>;
   exhibitionDropDown;
-  dpdown='.....';
+  dpdown = '.....';
   hallDropDown;
-  halldpdown='.....';
+  halldpdown = '.....';
   participantDropDown;
-  participantdpdown='.....';
+  participantdpdown = '.....';
 
-  constructor(private exhibitionsService: ExhibitionsService   ,
+  constructor(private exhibitionsService: ExhibitionsService,
               private modalService: NgbModal,
               protected toastr: ToastrService) {
     super(toastr);
   }
+
   ngOnInit(): void {
     this.createForm();
-    this.exhibitionsService.BoothgetExhibitionDropDown().subscribe(res=>{
-      this.exhibitionDropDown=res.data.rows;
+    this.exhibitionsService.BoothgetExhibitionDropDown().subscribe(res => {
+      this.exhibitionDropDown = res.data.rows;
+      this.exhibitionsService.BoothgetParticipantDropDown().subscribe(resParticipant => {
+        this.participantDropDown = resParticipant.data.rows;
+      });
     });
   }
+
   createForm() {
     this.formGroup = new FormGroup({
       Name: new FormControl(null, Validators.required),
@@ -40,14 +45,13 @@ export class ExhibitionBoothCreateComponent extends BaseClass implements OnInit 
       ParticipantId: new FormControl(null, Validators.required),
     });
   }
+
   save() {
     if (this.formGroup.valid === true) {
-      this.exhibitionsService.Hallcreate(this.formGroup.value).subscribe(res => {
-          debugger
+      this.exhibitionsService.Boothcreate(this.formGroup.value).subscribe(res => {
           if (res.data.result) {
             this.success();
             this.modalService.dismissAll(true);
-
           } else {
             this.error();
           }
@@ -59,26 +63,26 @@ export class ExhibitionBoothCreateComponent extends BaseClass implements OnInit 
       // this.validateAllFormFields(this.formGroup);
     }
   }
-  close(){
+
+  close() {
 
   }
 
   setData(e) {
-    this.dpdown=e.Title;
-    this.formGroup.get('GradeId').setValue(e.Id);
-    debugger
-    this.exhibitionsService.BoothgetHallDropDown(e.Id).subscribe(res=>{
-      this.hallDropDown=res.data.rows;
-      this.halldpdown='';
-      this.formGroup.get('GradeId').setValue(null);
+    this.dpdown = e.Title;
+    this.formGroup.get('ExhibitionId').setValue(e.Id);
+    this.exhibitionsService.BoothgetHallDropDown(e.Id).subscribe(res => {
+      this.hallDropDown = res.data.rows;
     });
   }
+
   setHallData(e) {
-    this.halldpdown=e.Title;
-    this.formGroup.get('GradeId').setValue(e.Id);
+    this.halldpdown = e.Title;
+    this.formGroup.get('HallId').setValue(e.Id);
   }
+
   setParticipantData(e) {
-    this.halldpdown=e.Title;
-    this.formGroup.get('GradeId').setValue(e.Id);
+    this.participantdpdown = e.Title;
+    this.formGroup.get('ParticipantId').setValue(e.Id);
   }
 }

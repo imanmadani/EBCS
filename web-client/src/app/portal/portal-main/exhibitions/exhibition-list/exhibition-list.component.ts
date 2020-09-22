@@ -43,7 +43,11 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
         },
         {
           name: 'assignSalon',
-          title: '<i class="fa fa-sitemap pr-3 ebcs-font-normal text-success"  title="Assign"></i>'
+          title: '<i class="fa fa-sitemap pr-3 ebcs-font-normal text-success"  title="Assign Salon"></i>'
+        },
+        {
+          name: 'assignExecuter',
+          title: '<i class="fa fa-user-tie pr-3 ebcs-font-normal text-success"  title="Assign Executer"></i>'
         },
       ],
       add: false,

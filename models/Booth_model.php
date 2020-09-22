@@ -47,4 +47,10 @@ class Booth_model extends model
         $rows = $this->getAll($sql);
         return $rows;
     }
+    public function participantDropDown()
+    {
+        $sql = "SELECT Id,Username AS Title FROM `participants` WHERE FlagDelete=0 ";
+        $rows = $this->getAll($sql);
+        return $rows;
+    }
 }

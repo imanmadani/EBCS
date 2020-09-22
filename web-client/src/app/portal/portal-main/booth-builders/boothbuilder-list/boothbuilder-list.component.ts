@@ -1,31 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import {BaseClass} from "../../../../utilities/base";
-import {ExhibitionsService} from "../exhibitions.service";
+import {ExhibitionsService} from "../../exhibitions/exhibitions.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ToastrService} from "ngx-toastr";
+import {ExhibitionHallCreateComponent} from "../../exhibitions/exhibition-hall-list/exhibition-hall-create/exhibition-hall-create.component";
 import {GroupModel} from "../../groups/entity";
-import {ExhibitionBoothCreateComponent} from "./exhibition-booth-create/exhibition-booth-create.component";
-import {ExhibitionBoothEditComponent} from "./exhibition-booth-edit/exhibition-booth-edit.component";
+import {ExhibitionHallEditComponent} from "../../exhibitions/exhibition-hall-list/exhibition-hall-edit/exhibition-hall-edit.component";
+import {BoothbuildersService} from "../boothbuilders.service";
+import {RateComponent} from "../../../../utilities/component/rate/rate.component";
 
 @Component({
-  selector: 'app-exhibition-booth-list',
-  templateUrl: './exhibition-booth-list.component.html',
-  styleUrls: ['./exhibition-booth-list.component.css']
+  selector: 'app-boothbuilder-list',
+  templateUrl: './boothbuilder-list.component.html',
+  styleUrls: ['./boothbuilder-list.component.css']
 })
-export class ExhibitionBoothListComponent extends BaseClass implements OnInit {
+export class BoothbuilderListComponent extends BaseClass implements OnInit {
   settings = {
     columns: {
-      ExhibitionId: {
-        title: 'نام نمایشگاه'
-      },
-      HallId: {
-        title: 'سالن'
-      },
-      ParticipantId: {
-        title: 'مشارکت کننده'
-      },
       Name: {
-        title: 'شماره غرفه'
+        title: 'نام'
+      },
+      Rates: {
+        title:'امتیاز',
+        type: 'custom',
+        renderComponent:RateComponent,
       },
       FlagBlock: {
         title: 'وضعیت'
@@ -52,14 +50,14 @@ export class ExhibitionBoothListComponent extends BaseClass implements OnInit {
   data;
 
   constructor(
-    private exhibitionsService: ExhibitionsService,
+    private boothBuilderService: BoothbuildersService,
     private modalService: NgbModal,
     protected toastr: ToastrService) {
     super(toastr);
   }
 
   ngOnInit(): void {
-    this.exhibitionsService.Boothget().subscribe(res => {
+    this.boothBuilderService.get().subscribe(res => {
       this.data = res.data.rows;
     });
   }
@@ -78,7 +76,7 @@ export class ExhibitionBoothListComponent extends BaseClass implements OnInit {
   }
 
   createHandler() {
-    let modalRef=this.modalService.open(ExhibitionBoothCreateComponent, {centered: true});
+    let modalRef=this.modalService.open(ExhibitionHallCreateComponent, {centered: true});
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)
         this.ngOnInit();
@@ -88,7 +86,7 @@ export class ExhibitionBoothListComponent extends BaseClass implements OnInit {
   deleteHandler(inputModel) {
     let entity = new GroupModel();
     entity.Id = inputModel.Id;
-    this.exhibitionsService.Boothdelete(entity).subscribe(res => {
+    this.boothBuilderService.delete(entity).subscribe(res => {
       if (res.data.result) {
         this.success();
         this.ngOnInit();
@@ -97,12 +95,11 @@ export class ExhibitionBoothListComponent extends BaseClass implements OnInit {
   }
 
   editHandler(inputModel) {
-    const modalRef = this.modalService.open(ExhibitionBoothEditComponent, {centered: true});
+    const modalRef = this.modalService.open(ExhibitionHallEditComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)
         this.ngOnInit();
     });
   }
-
 }

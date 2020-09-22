@@ -1,10 +1,17 @@
 <?php
 
-class Booth_controller extends controller
+class BoothBuilder_controller extends controller
 {
     public function Get()
     {
         $rows = $this->_model->get();
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function GetBoothBuilderTask($query)
+    {
+        $boothBuilderId = $this->getVal('BoothBuilderId', $query);
+        $rows = $this->_model->getBoothBuilderTask($boothBuilderId);
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }
@@ -18,10 +25,7 @@ class Booth_controller extends controller
     public function Create($query)
     {
         $name = $this->getVal('Name', $query);
-        $exhibitionId = $this->getVal('ExhibitionId', $query);
-        $hallId = $this->getVal('HallId', $query);
-        $participantId = $this->getVal('ParticipantId', $query);
-        $rows = $this->_model->create($name,$exhibitionId,$hallId,$participantId);
+        $rows = $this->_model->create($name);
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
@@ -29,10 +33,7 @@ class Booth_controller extends controller
     {
         $id = $this->getVal('Id', $query);
         $name = $this->getVal('Name', $query);
-        $exhibitionId = $this->getVal('ExhibitionId', $query);
-        $hallId = $this->getVal('HallId', $query);
-        $participantId = $this->getVal('ParticipantId', $query);
-        $rows = $this->_model->update($name,$exhibitionId,$hallId,$participantId);
+        $rows = $this->_model->update($id,$name);
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
@@ -43,24 +44,26 @@ class Booth_controller extends controller
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
-    public function ExhibitionDropDown()
+    public function GetMenuWithAccess($query)
     {
-        $rows = $this->_model->exhibitionDropDown();
-        $this->_res->set("rows", $rows);
+        $groupId = $this->getVal('GroupId', $query);
+        $row = $this->_model->getMenuWithAccess($groupId);
+        $this->_res->set("row", $row);
         $this->_res->output();
     }
-    public function HallDropDown($query)
+    public function SetMenuAccess($query)
     {
-        $exhibitionId = $this->getVal('ExhibitionId', $query);
-        $rows = $this->_model->hallDropDown($exhibitionId);
-        $this->_res->set("rows", $rows);
+        $menuId = $this->getVal('MenuId', $query);
+        $groupId = $this->getVal('GroupId', $query);
+        $rows = $this->_model->setMenuAccess($menuId,$groupId);
+        $this->_res->set("result", $rows);
         $this->_res->output();
     }
-    public function ParticipantDropDown()
+    public function DeleteMenuAccess($query)
     {
-        $rows = $this->_model->participantDropDown();
-        $this->_res->set("rows", $rows);
+        $groupAccessId = $this->getVal('Id', $query);
+        $rows = $this->_model->deleteMenuAccess($groupAccessId);
+        $this->_res->set("result", $rows);
         $this->_res->output();
     }
-    
 }

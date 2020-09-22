@@ -1,7 +1,5 @@
 <?php
-require_once '../Enum/Group-Enum.php';
-
-class Exhibition_model extends model
+class ExhibitionExecuter_model extends model
 {
     public function get()
     {
@@ -52,36 +50,11 @@ class Exhibition_model extends model
         $rows = $this->execQuery($sql);
         return $rows;
     }
-    public function executerDropDown()
-    {
-        $sql = "SELECT `Id`,`Username` As Title FROM `users` WHERE `FlagDelete`=0 AND `GroupId`=".GroupEnum::Executer;
-        $rows = $this->getAll($sql);
-        return $rows;
-    }
-    public function assignExecuter($exhibitionId,$executerId)
-    {
-        $sql = "INSERT INTO `exhibitionExecuters`( `ExhibitionId`, `UserId`) VALUES ($exhibitionId,$executerId)";
-        $rows = $this->execQuery($sql);
-        return $rows;
-    }
-    public function deleteassignExecuter($id)
-    {
-        $sql = "UPDATE `exhibitionExecuters` SET `FlagDelete`=1 WHERE `Id`=$id";
-        $rows = $this->execQuery($sql);
-        return $rows;
-    }
-    public function getExecuterByExhibitionId($exhibitionId)
-    {
-        $sql = "SELECT executer.Username AS Name , exexecuter.Id AS Id FROM `exhibitionExecuters` AS exexecuter INNER JOIN `users` AS executer  ON exexecuter.UserId=executer.Id WHERE exexecuter.ExhibitionId =$exhibitionId AND exexecuter.FlagDelete=0 AND executer.FlagDelete=0";
-        $rows = $this->getAll($sql);
-        return $rows;
-    }
     public function assignHalldelete($id)
     {
         $sql = "UPDATE `exhibitionhalls` SET `FlagDelete`=1 WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
     }
-
 
 }
