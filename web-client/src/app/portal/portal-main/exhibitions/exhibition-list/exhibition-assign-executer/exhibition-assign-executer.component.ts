@@ -100,7 +100,7 @@ export class ExhibitionAssignExecuterComponent extends BaseClass implements OnIn
 
   }
   close() {
-
+    this.modalService.dismissAll(false);
   }
 
 

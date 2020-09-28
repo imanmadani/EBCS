@@ -1,0 +1,18 @@
+bg-participant{
+  background-color: #121534 !important;
+}
+
+.bg-card{
+  background-color: #1c2146 !important;
+  color: whitesmoke;
+  text-align: right;
+  border-bottom-color: whitesmoke !important;
+}
+.test{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  border: 3px solid green;
+
+}

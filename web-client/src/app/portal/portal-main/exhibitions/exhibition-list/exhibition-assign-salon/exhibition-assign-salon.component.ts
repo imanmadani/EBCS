@@ -76,7 +76,7 @@ export class ExhibitionAssignSalonComponent extends BaseClass implements OnInit 
 
   }
   close() {
-
+    this.modalService.dismissAll(false);
   }
 
 

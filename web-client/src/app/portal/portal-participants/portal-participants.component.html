@@ -1,0 +1,108 @@
+<header class="base-header bg-participant ebcs-h-7 border-bottom">
+  <div class="container h-100">
+    <div class="row h-100">
+      <div class="col-lg-3 col-sm-1"></div>
+      <div class="col-lg-6 col-sm-10 text-center p-1">
+        <h3 class="h-100">نمایشگاه بین المللی تهران</h3>
+      </div>
+      <div class="col-lg-3 col-sm-1"></div>
+    </div>
+  </div>
+</header>
+<body class="base-content bg-participant ebcs-h-93 ">
+<div class="row p-4 h-50">
+  <div class="col-4 bg-transparent h-100">
+    <div class="card h-100">
+      <div class="card-header bg-card">اطلاعات نمایشگاه</div>
+      <div class="card-body bg-card">
+        <ul class="list-group  bg-transparent list-group-flush">
+          <li class="list-group-item bg-transparent">
+            <div class="row">
+              <div class="col-6">نام نمایشگاه</div>
+              <div class="col-6 text-center" *ngIf="userInformation">{{userInformation.ExTitle}}</div>
+            </div>
+          </li>
+          <li class="list-group-item bg-transparent">
+            <div class="row">
+              <div class="col-6">سال</div>
+              <div class="col-6 text-center" *ngIf="userInformation">{{userInformation.ExYear}}</div>
+            </div>
+          </li>
+          <li class="list-group-item bg-transparent">
+            <div class="row">
+              <div class="col-6">گرید</div>
+              <div class="col-6 text-center" *ngIf="userInformation">{{userInformation.GradeTitle}}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-4 bg-transparent h-100">
+    <div class="card h-100">
+      <div class="card-header bg-card">اطلاعات غرفه</div>
+      <div class="card-body bg-card">
+        <ul class="list-group  bg-transparent list-group-flush">
+          <li class="list-group-item bg-transparent">
+            <div class="row">
+              <div class="col-6">سالن</div>
+              <div class="col-6 text-center" *ngIf="userInformation">{{userInformation.HallTitle}}</div>
+            </div>
+          </li>
+          <li class="list-group-item bg-transparent">
+            <div class="row">
+              <div class="col-6">شماره غرفه</div>
+              <div class="col-6 text-center" *ngIf="userInformation">{{userInformation.BoothName}}</div>
+            </div>
+          </li>
+          <li class="list-group-item bg-transparent">
+            <div class="row">
+              <div class="col-6">متراژ</div>
+              <div class="col-6 text-center">-</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-4 bg-transparent h-100">
+    <div class="card h-100">
+      <div class="card-header bg-card">اطلاعات غرفه ساز</div>
+      <div class="card-body bg-card" *ngIf="boothBuilder">
+        <ul class="list-group  bg-transparent list-group-flush">
+          <li class="list-group-item bg-transparent">
+            <div class="row">
+              <div class="col-6">نام شرکت</div>
+              <div class="col-6 text-center" *ngIf="boothBuilder">{{boothBuilder.Name}}</div>
+            </div>
+          </li>
+          <li class="list-group-item bg-transparent">
+            <div class="row">
+              <div class="col-6"> امتیاز</div>
+              <div class="col-6 text-center" *ngIf="boothBuilder">
+                <app-rate [rowData]="boothBuilder"></app-rate>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="card-body bg-card text-center" *ngIf="!boothBuilder">
+        <button *ngIf="!boothBuilder" class="btn btn-primary" (click)="openBoothBuilders()">
+          انتخاب غرفه ساز
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row p-4 ">
+  <div class="col-12 bg-transparent ">
+    <div class="card">
+      <div class="card-header bg-card">زمان شروع نمایشگاه</div>
+      <div class=" bg-body bg-card p-3">
+        <app-count-down-day [text]="text" units="Year | Month | Days | Hours | Minutes"
+                            end="July 22, 2021"></app-count-down-day>
+      </div>
+    </div>
+  </div>
+</div>
+</body>

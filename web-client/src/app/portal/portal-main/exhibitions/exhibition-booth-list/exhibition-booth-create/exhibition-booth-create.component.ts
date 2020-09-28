@@ -65,7 +65,7 @@ export class ExhibitionBoothCreateComponent extends BaseClass implements OnInit 
   }
 
   close() {
-
+    this.modalService.dismissAll(false);
   }
 
   setData(e) {

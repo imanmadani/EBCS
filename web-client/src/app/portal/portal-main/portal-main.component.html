@@ -1,45 +1,60 @@
-<div class="container-fluid h-100 ebcs-dir-rtl">
-  <div class="row ebcs-h-95">
-    <div class="col-2 ebcs-bg ebcs-white-color border-left">
-      <div class="row ebcs-h-5 ebcs-color border-bottom e ebcs-bg-yellow ebcs-clickable text-center" (click)="changeUserMenu()">
-        <div class="col-lg-2 col-sm-6 m-auto"><i class="fa fa-id-card"></i></div>
-        <div class="col-lg-10 col-sm-1 m-auto" [ngClass]="mobile?'d-none':''">
-          <span class="m-auto">ایمان مدنی</span>
-        </div>
+<header class="base-header ebcs-h-7 border-bottom">
+  <div class="container h-100">
+    <div class="row h-100">
+      <div class="col-lg-3 col-sm-1"></div>
+      <div class="col-lg-6 col-sm-10 text-center p-1">
+        <h3 class="h-100">سیستم مدیریت پیمانکاران ساخت غرفه</h3>
       </div>
-      <div class="row">
-        <div class="col-12 position-absolute ebcs-bg-yellow ebc-level-3 p-0" [ngClass]="userMenu?'':'d-none' ">
-          <ul class="list-group p-0 ebcs-border-radius-0 ">
-            <li class="list-group-item ebcs-bg-yellow ebcs-border-bold-right-red ebcs-clickable text-center">
-              <span class="pl-2" >I</span>
-              <span [ngClass]="mobile?'d-none':''">خروج</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="row ebcs-h-7  border-bottom ebcs-clickable ">
-        <div class="col-lg-2 col-sm-11 m-auto"><i ngClass="fa fa-home"></i></div>
-        <div class="col-lg-10 col-sm-1 m-auto text-regular" [ngClass]="mobile?'d-none':''">خانه</div>
-      </div>
-      <ng-template ngFor let-menu [ngForOf]="menus">
-        <div class="row ebcs-h-7  border-bottom ebcs-clickable" [routerLink]="menu.Link">
-          <div class="col-lg-2 col-sm-11 m-auto"><i [ngClass]="menu.Icon"></i></div>
-          <div class="col-lg-10 col-sm-1 m-auto text-regular" [ngClass]="mobile?'d-none':''">{{menu.Title}}</div>
-        </div>
-      </ng-template>
-    </div>
-    <div class="col-10 bg-white">
-      <router-outlet (activate)="activeLinkHandler()"></router-outlet>
+      <div class="col-lg-3 col-sm-1"></div>
     </div>
   </div>
-  <div class="row ebcs-h-5 border-top  ">
+</header>
+<header class="base-content ebcs-h-93">
+  <div class="container-fluid h-100 ebcs-dir-rtl">
+    <div class="row ebcs-h-95">
+      <div class="col-2 ebcs-bg ebcs-white-color border-left">
+        <div class="row ebcs-h-5 ebcs-color border-bottom e ebcs-bg-yellow ebcs-clickable text-center"
+             (click)="changeUserMenu()">
+          <div class="col-lg-2 col-sm-6 m-auto"><i class="fa fa-id-card"></i></div>
+          <div class="col-lg-10 col-sm-1 m-auto" [ngClass]="mobile?'d-none':''">
+            <span class="m-auto">ایمان مدنی</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 position-absolute ebcs-bg-yellow ebc-level-3 p-0" [ngClass]="userMenu?'':'d-none' ">
+            <ul class="list-group p-0 ebcs-border-radius-0 ">
+              <li class="list-group-item ebcs-bg-yellow ebcs-border-bold-right-red ebcs-clickable text-center">
+                <span class="pl-2">I</span>
+                <span [ngClass]="mobile?'d-none':''">خروج</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row ebcs-h-7  border-bottom ebcs-clickable ">
+          <div class="col-lg-2 col-sm-11 m-auto"><i ngClass="fa fa-home"></i></div>
+          <div class="col-lg-10 col-sm-1 m-auto text-regular" [ngClass]="mobile?'d-none':''">خانه</div>
+        </div>
+        <ng-template ngFor let-menu [ngForOf]="menus">
+          <div class="row ebcs-h-7  border-bottom ebcs-clickable" [routerLink]="menu.Link">
+            <div class="col-lg-2 col-sm-11 m-auto"><i [ngClass]="menu.Icon"></i></div>
+            <div class="col-lg-10 col-sm-1 m-auto text-regular" [ngClass]="mobile?'d-none':''">{{menu.Title}}</div>
+          </div>
+        </ng-template>
+      </div>
+      <div class="col-10 bg-white">
+        <router-outlet (activate)="activeLinkHandler()"></router-outlet>
+      </div>
+    </div>
+    <div class="row ebcs-h-5 border-top  ">
 
-    <div class="col-2 ebcs-bg ebcs-white-color text-center border-left m-auto ebcs-clickable" [ngbTooltip]="versionDetail">
-      <span [ngClass]="mobile?'d-none':''">ver </span>
-      <span> 0.0.1</span>
-    </div>
-    <div class="col-10 bg-white h-100  text-center m-auto">
-      شرکت نمایشگاه های بین المللی ایران
+      <div class="col-2 ebcs-bg ebcs-white-color text-center border-left m-auto ebcs-clickable"
+           [ngbTooltip]="versionDetail">
+        <span [ngClass]="mobile?'d-none':''">ver </span>
+        <span> 0.0.1</span>
+      </div>
+      <div class="col-10 bg-white h-100  text-center m-auto">
+        شرکت نمایشگاه های بین المللی ایران
+      </div>
     </div>
   </div>
-</div>
+</header>

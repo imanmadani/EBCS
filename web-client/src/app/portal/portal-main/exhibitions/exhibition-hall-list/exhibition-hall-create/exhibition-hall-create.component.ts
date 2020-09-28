@@ -54,7 +54,7 @@ export class ExhibitionHallCreateComponent extends BaseClass implements OnInit {
     }
   }
   close(){
-
+    this.modalService.dismissAll(false);
   }
 
   test(e) {

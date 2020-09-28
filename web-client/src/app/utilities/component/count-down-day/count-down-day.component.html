@@ -1,0 +1,14 @@
+<div class="countdown">
+  <div *ngFor="let time of display; let i = index" class="measurements {{time}}"
+       [ngClass]="i===0?'border-danger':
+                  i===1?'border-secondary':i===2?'border-success':i===3?'border-warning':i===4?'border-primary':'d-none'">
+    <p class="measurements-number">
+      {{ (showZero && displayNumbers[i] < 10) ? '0' + displayNumbers[i].trim() : displayNumbers[i]}}
+    </p>
+    <span *ngIf="display[i+1]" class="divider"> {{divider}} </span>
+    <p class="measurements-text ">
+      {{time}}
+    </p>
+  </div>
+</div>
+<ng-content></ng-content>

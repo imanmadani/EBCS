@@ -9,7 +9,17 @@ class BoothBuilder_model extends model
     }
     public function getBoothBuilderTask($boothBuilderId)
     {
-        $sql = "SELECT * FROM `boothboothbuilders` WHERE `FlagDelete`=0 AND BoothBuilderId=$boothBuilderId";
+        $sql = "SELECT myBooth.Name AS BoothName,
+                       myHall.Title AS HallName,
+                       myParti.Username AS ParticipantName,
+                       myEx.Title AS ExhibitionName,
+                       myBoothBuilderRel.FlagDelete As FlagBlock
+                FROM `boothboothbuilders` AS myBoothBuilderRel
+                INNER JOIN `booths` AS myBooth ON myBoothBuilderRel.BoothId=myBooth.Id
+                INNER JOIN `halls` AS myHall ON myBooth.HallId=myHall.Id
+                INNER JOIN `participants` AS myParti ON myBooth.ParticipantId=myParti.Id
+                INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
+                WHERE myBoothBuilderRel.FlagDelete=0 AND myBoothBuilderRel.BoothBuilderId=$boothBuilderId";
         $rows = $this->getAll($sql);
         return $rows;
     }

@@ -21,7 +21,7 @@ export class BoothbuildersService {
     return this.http.get<any>(this.baseUrl + '?api=GetById&Id='+entity);
   }
   getBoothBuilderTask(entity): Observable<any> {
-    return this.http.get<any>(this.baseUrl + '?api=GetById&BoothBuilderId='+entity);
+    return this.http.get<any>(this.baseUrl + '?api=getBoothBuilderTask&BoothBuilderId='+entity);
   }
   create(entity: GroupModel): Observable<any> {
     return this.http

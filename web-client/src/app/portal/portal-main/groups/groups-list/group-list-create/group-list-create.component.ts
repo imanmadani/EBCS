@@ -48,6 +48,6 @@ export class GroupListCreateComponent extends BaseClass implements OnInit {
       }
   }
   close(){
-
+    this.modalService.dismissAll(false);
   }
 }

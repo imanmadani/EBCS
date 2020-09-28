@@ -16,18 +16,17 @@ import {ExhibitionHallEditComponent} from "../../exhibitions/exhibition-hall-lis
 export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
   settings = {
     columns: {
-      Booth: {
-        title: 'نام'
+      ExhibitionName: {
+        title: 'نمایشگاه'
       },
-      Hall: {
-        title:'امتیاز',
-        type: 'custom',
-        renderComponent:RateComponent,
+      HallName: {
+        title: 'سالن'
       },
-      Paticipant: {
-        title:'امتیاز',
-        type: 'custom',
-        renderComponent:RateComponent,
+      BoothName: {
+        title:'شماره غرفه',
+      },
+      ParticipantName: {
+        title:'مشارکت کننده',
       },
       FlagBlock: {
         title: 'وضعیت'
@@ -61,8 +60,9 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
   }
 
   ngOnInit(): void {
-    this.boothBuilderService.getBoothBuilderTask('s').subscribe(res => {
+    this.boothBuilderService.getBoothBuilderTask(1).subscribe(res => {
       this.data = res.data.rows;
+      console.log(this.data)
     });
   }
 

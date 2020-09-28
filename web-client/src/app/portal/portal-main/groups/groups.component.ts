@@ -16,6 +16,8 @@ export class GroupsComponent extends BaseClass implements OnInit {
   super(toastr);
 }
   ngOnInit(): void {
+    debugger
+    this.router.navigateByUrl('/GroupsList');
   }
 
   activeLinkHandler() {

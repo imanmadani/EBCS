@@ -51,6 +51,6 @@ export class ExhibitionGradeCreateComponent extends BaseClass implements OnInit 
     }
   }
   close(){
-
+    this.modalService.dismissAll(false);
   }
 }

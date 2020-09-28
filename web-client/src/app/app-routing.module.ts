@@ -13,6 +13,8 @@ import {ExhibitionBoothListComponent} from "./portal/portal-main/exhibitions/exh
 import {BoothBuildersComponent} from "./portal/portal-main/booth-builders/booth-builders.component";
 import {BoothbuilderListComponent} from "./portal/portal-main/booth-builders/boothbuilder-list/boothbuilder-list.component";
 import {BoothbuilderDeskComponent} from "./portal/portal-main/booth-builders/boothbuilder-desk/boothbuilder-desk.component";
+import {AuthGuard} from "./main/auth/auth.guard";
+import {PortalParticipantsComponent} from "./portal/portal-participants/portal-participants.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/Login', pathMatch: 'full'},
@@ -72,7 +74,12 @@ const routes: Routes = [
         ]
       },
       ]
+  },
+  {
+    path: 'Participant',
+    component: PortalParticipantsComponent
   }
+
   ];
 
 @NgModule({

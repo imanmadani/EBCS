@@ -25,7 +25,6 @@ export class PortalMainComponent extends BaseClass implements OnInit  {
         this.menus=res3.data.row;
       });
       let x = res2.rows;
-      console.log(x)
     });
     this.versionDetail='تغییرات : ایجاد منو داینامیک';
   }

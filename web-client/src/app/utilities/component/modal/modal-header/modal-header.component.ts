@@ -16,6 +16,5 @@ export class ModalHeaderComponent  implements OnInit {
 
   close() {
     this.closed.emit();
-
   }
 }
