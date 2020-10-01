@@ -82,6 +82,14 @@ export class ExhibitionsService {
   getByExhibitionId(entity): Observable<any> {
     return this.http.get<any>(this.ExbaseUrl + '?api=GetByExhibitionId&Id='+entity);
   }
+  ExAssignHallAdmin(entity): Observable<any> {
+    return this.http
+      .post<any>(this.ExbaseUrl+'?api=AssignHallAdmin', entity);
+  }
+  ExDeleteAssignHallAdmin(entity): Observable<any> {
+    return this.http
+      .post<any>(this.ExbaseUrl+'?api=DeleteAssignHallAdmin', entity);
+  }
 
   HallGradeget(): Observable<any> {
     return this.http.get<any>(this.HallGradebaseUrl + '?api=Get');

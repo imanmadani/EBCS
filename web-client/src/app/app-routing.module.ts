@@ -73,6 +73,10 @@ const routes: Routes = [
           },
         ]
       },
+      {
+        path: 'Executers',
+        component: BoothBuildersComponent,
+      },
       ]
   },
   {

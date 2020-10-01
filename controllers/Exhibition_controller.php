@@ -97,5 +97,6 @@ class Exhibition_controller extends controller
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
+
     
 }

@@ -45,5 +45,20 @@ class Hall_controller extends controller
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }
+    public function AssignHallAdmin($query)
+    {
+        $salonId = $this->getVal('SalonId', $query);
+        $hallAdmin = $this->getVal('SalonId', $query);
+        $rows = $this->_model->assignHallAdmin($salonId,$hallAdmin);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
+    public function DeleteAssignHallAdmin($query)
+    {
+        $id = $this->getVal('Id', $query);
+        $rows = $this->_model->deleteassignHallAdmin($id);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
     
 }

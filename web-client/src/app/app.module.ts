@@ -48,6 +48,7 @@ import { RateComponent } from './utilities/component/rate/rate.component';
 import { BoothbuilderDeskComponent } from './portal/portal-main/booth-builders/boothbuilder-desk/boothbuilder-desk.component';
 import { PortalParticipantsComponent } from './portal/portal-participants/portal-participants.component';
 import { CountDownDayComponent } from './utilities/component/count-down-day/count-down-day.component';
+import { ExhibitionHallAssignAdminComponent } from './portal/portal-main/exhibitions/exhibition-hall-list/exhibition-hall-assign-admin/exhibition-hall-assign-admin.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { CountDownDayComponent } from './utilities/component/count-down-day/coun
     BoothbuilderDeskComponent,
     PortalParticipantsComponent,
     CountDownDayComponent,
+    ExhibitionHallAssignAdminComponent,
   ],
   imports: [
     BrowserModule,

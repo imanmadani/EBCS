@@ -37,5 +37,23 @@ class Hall_model extends model
         $rows = $this->getAll($sql);
         return $rows;
     }
-    
+    public function assignHallAdmin($hallId,$userId)
+    {
+        $sql = "INSERT INTO `HallAdmins`( `HallId`, `UserId`) VALUES ($hallId,$userId)";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
+    public function deleteassignHallAdmin($id)
+    {
+        $sql = "UPDATE `HallAdmins` SET `FlagDelete`=1 WHERE `Id`=$id";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
+    public function HallDropDown($query)
+    {
+        $exhibitionId = $this->getVal('ExhibitionId', $query);
+        $rows = $this->_model->hallDropDown($exhibitionId);
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
 }
