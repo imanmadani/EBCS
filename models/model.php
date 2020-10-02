@@ -18,6 +18,7 @@ class model
         return $res;
     }
 
+
     public function getAll($sql)
     {
         $res = mysqli_query($this->conn, $sql);

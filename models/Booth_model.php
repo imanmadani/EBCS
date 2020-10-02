@@ -3,7 +3,14 @@ class Booth_model extends model
 {
     public function get()
     {
-        $sql = "SELECT * FROM `booths` WHERE `FlagDelete`=0";
+        $sql = "SELECT myBooth.Id,myBooth.Name,myBooth.HallId,myBooth.ParticipantId,
+                myHall.Title AS HallTitle,myParticipant.Username AS ParticipantUsername,
+                myEx.Title AS ExName , myBooth.FlagBlock
+                FROM `booths` AS myBooth 
+                INNER JOIN `halls` AS myHall ON myBooth.HallId=myHall.Id
+                INNER JOIN `participants` AS myParticipant ON myBooth.ParticipantId=myParticipant.Id
+                INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
+                WHERE myBooth.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
     }
@@ -35,7 +42,12 @@ class Booth_model extends model
     }
     public function exhibitionDropDown()
     {
-        $sql = "SELECT `Id`,`Title` FROM `exhibitions` WHERE `FlagDelete`=0";
+        $head=getallheaders();
+        $ip=$_SERVER['REMOTE_ADDR'];
+        $user=$this->getUserByToken($head['token'],$ip);
+        $sql = "SELECT myEx.Id,myEx.Title FROM `exhibitions` AS myEx
+                INNER JOIN `exhibitionexecuters` AS myExExecuter ON myEx.Id=myExExecuter.ExhibitionId  
+                WHERE myEx.FlagDelete=0 AND myExExecuter.FlagDelete=0 AND myExExecuter.UserId=".$user['Id'];
         $rows = $this->getAll($sql);
         return $rows;
     }

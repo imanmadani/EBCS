@@ -9,12 +9,14 @@ import {ExhebitionGradesComponent} from './portal/portal-main/exhibitions/exhebi
 import {ExhibitionListComponent} from './portal/portal-main/exhibitions/exhibition-list/exhibition-list.component';
 import {ExhibitionHallListComponent} from './portal/portal-main/exhibitions/exhibition-hall-list/exhibition-hall-list.component';
 import {ExhibitionHallGradesComponent} from './portal/portal-main/exhibitions/exhibition-hall-grades/exhibition-hall-grades.component';
-import {ExhibitionBoothListComponent} from "./portal/portal-main/exhibitions/exhibition-booth-list/exhibition-booth-list.component";
+import {ExecuterBoothListComponent} from "./portal/portal-main/executers/executer-booth-list/executer-booth-list.component";
 import {BoothBuildersComponent} from "./portal/portal-main/booth-builders/booth-builders.component";
 import {BoothbuilderListComponent} from "./portal/portal-main/booth-builders/boothbuilder-list/boothbuilder-list.component";
 import {BoothbuilderDeskComponent} from "./portal/portal-main/booth-builders/boothbuilder-desk/boothbuilder-desk.component";
 import {AuthGuard} from "./main/auth/auth.guard";
 import {PortalParticipantsComponent} from "./portal/portal-participants/portal-participants.component";
+import {ExecutersComponent} from "./portal/portal-main/executers/executers.component";
+import {ExecuterListComponent} from "./portal/portal-main/executers/executer-list/executer-list.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/Login', pathMatch: 'full'},
@@ -53,10 +55,7 @@ const routes: Routes = [
             path: 'HallList',
             component: ExhibitionHallListComponent,
           },
-          {
-            path: 'BoothList',
-            component: ExhibitionBoothListComponent,
-          },
+
         ]
       },
       {
@@ -75,7 +74,17 @@ const routes: Routes = [
       },
       {
         path: 'Executers',
-        component: BoothBuildersComponent,
+        component: ExecutersComponent,
+        children:[
+          {
+            path: 'ExecuterList',
+            component: ExecuterListComponent,
+          },
+          {
+            path: 'BoothList',
+            component: ExecuterBoothListComponent,
+          },
+        ]
       },
       ]
   },

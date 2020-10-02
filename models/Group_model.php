@@ -5,7 +5,7 @@ class Group_model extends model
 {
     public function get()
     {
-        $sql = "SELECT * FROM `groups` WHERE `FlagDelete`=0";
+        $sql = "SELECT * FROM `groups` WHERE `FlagDelete`=0 ORDER BY Id";
         $rows = $this->getAll($sql);
         return $rows;
     }

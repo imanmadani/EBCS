@@ -1,16 +1,17 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {BaseClass} from "../../../../../utilities/base";
-import {ExhibitionsService} from "../../exhibitions.service";
+import {ExhibitionsService} from "../../../exhibitions/exhibitions.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ToastrService} from "ngx-toastr";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {ExecutersService} from "../../executers.service";
 
 @Component({
   selector: 'app-exhibition-booth-edit',
-  templateUrl: './exhibition-booth-edit.component.html',
-  styleUrls: ['./exhibition-booth-edit.component.css']
+  templateUrl: './executer-booth-edit.component.html',
+  styleUrls: ['./executer-booth-edit.component.css']
 })
-export class ExhibitionBoothEditComponent extends BaseClass implements OnInit {
+export class ExecuterBoothEditComponent extends BaseClass implements OnInit {
   title='ایجاد غرفه';
   formGroup:any ;
   @Output() refresh:EventEmitter<boolean>;
@@ -19,14 +20,14 @@ export class ExhibitionBoothEditComponent extends BaseClass implements OnInit {
   hallDropDown;
   halldpdown='.....';
 
-  constructor(private exhibitionsService: ExhibitionsService   ,
+  constructor(private executersService: ExecutersService   ,
               private modalService: NgbModal,
               protected toastr: ToastrService) {
     super(toastr);
   }
   ngOnInit(): void {
     this.createForm();
-    this.exhibitionsService.BoothgetExhibitionDropDown().subscribe(res=>{
+    this.executersService.BoothgetExhibitionDropDown().subscribe(res=>{
       this.exhibitionDropDown=res.data.rows;
     });
   }
@@ -38,7 +39,7 @@ export class ExhibitionBoothEditComponent extends BaseClass implements OnInit {
   }
   save() {
     if (this.formGroup.valid === true) {
-      this.exhibitionsService.Hallcreate(this.formGroup.value).subscribe(res => {
+      this.executersService.Boothedit(this.formGroup.value).subscribe(res => {
           debugger
           if (res.data.result) {
             this.success();
@@ -63,7 +64,7 @@ export class ExhibitionBoothEditComponent extends BaseClass implements OnInit {
     this.dpdown=e.Title;
     this.formGroup.get('GradeId').setValue(e.Id);
     debugger
-    this.exhibitionsService.BoothgetHallDropDown(e.Id).subscribe(res=>{
+    this.executersService.BoothgetHallDropDown(e.Id).subscribe(res=>{
       this.hallDropDown=res.data.rows;
       this.halldpdown='';
       this.formGroup.get('GradeId').setValue(null);

@@ -1,5 +1,5 @@
 import {HostListener, Component} from '@angular/core';
-import {faPlus, faEdit, faTrash, faStop, faList, faKey} from "@fortawesome/free-solid-svg-icons";
+import {faPlus, faEdit, faTrash, faStop, faList, faKey, faUsers} from "@fortawesome/free-solid-svg-icons";
 import {take} from "rxjs/operators";
 import {ToastrService} from 'ngx-toastr';
 @Component({
@@ -14,6 +14,7 @@ export class BaseClass {
   iBlock=faStop;
   iList=faList;
   iAccess=faKey;
+  iUsers=faUsers;
   mobile = false;
   @HostListener('window:resize', ['$event'])
   onResize(event?) {

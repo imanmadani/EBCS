@@ -22,8 +22,9 @@ elseif($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
+
 $method = $_GET['api'];
 $api=new APIClient();
-$res=$api->request("User",$method,$params);
+$res=$api->request("Executer",$method,$params);
 
 ?>

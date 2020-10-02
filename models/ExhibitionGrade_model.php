@@ -3,7 +3,7 @@ class ExhibitionGrade_model extends model
 {
     public function get()
     {
-        $sql = "SELECT * FROM `exhibitiongrades` WHERE `FlagDelete`=0";
+        $sql = "SELECT * FROM `exhibitiongrades` WHERE `FlagDelete`=0 ";
         $rows = $this->getAll($sql);
         return $rows;
     }

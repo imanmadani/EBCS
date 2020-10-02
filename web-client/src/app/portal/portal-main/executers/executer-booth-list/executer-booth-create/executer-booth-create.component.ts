@@ -1,16 +1,17 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {BaseClass} from "../../../../../utilities/base";
-import {ExhibitionsService} from "../../exhibitions.service";
+import {ExhibitionsService} from "../../../exhibitions/exhibitions.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ToastrService} from "ngx-toastr";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {ExecutersService} from "../../executers.service";
 
 @Component({
   selector: 'app-exhibition-booth-create',
-  templateUrl: './exhibition-booth-create.component.html',
-  styleUrls: ['./exhibition-booth-create.component.css']
+  templateUrl: './executer-booth-create.component.html',
+  styleUrls: ['./executer-booth-create.component.css']
 })
-export class ExhibitionBoothCreateComponent extends BaseClass implements OnInit {
+export class ExecuterBoothCreateComponent extends BaseClass implements OnInit {
   title = 'ایجاد غرفه';
   formGroup: any;
   @Output() refresh: EventEmitter<boolean>;
@@ -21,7 +22,7 @@ export class ExhibitionBoothCreateComponent extends BaseClass implements OnInit 
   participantDropDown;
   participantdpdown = '.....';
 
-  constructor(private exhibitionsService: ExhibitionsService,
+  constructor(private executersService: ExecutersService,
               private modalService: NgbModal,
               protected toastr: ToastrService) {
     super(toastr);
@@ -29,9 +30,9 @@ export class ExhibitionBoothCreateComponent extends BaseClass implements OnInit 
 
   ngOnInit(): void {
     this.createForm();
-    this.exhibitionsService.BoothgetExhibitionDropDown().subscribe(res => {
+    this.executersService.BoothgetExhibitionDropDown().subscribe(res => {
       this.exhibitionDropDown = res.data.rows;
-      this.exhibitionsService.BoothgetParticipantDropDown().subscribe(resParticipant => {
+      this.executersService.BoothgetParticipantDropDown().subscribe(resParticipant => {
         this.participantDropDown = resParticipant.data.rows;
       });
     });
@@ -48,7 +49,7 @@ export class ExhibitionBoothCreateComponent extends BaseClass implements OnInit 
 
   save() {
     if (this.formGroup.valid === true) {
-      this.exhibitionsService.Boothcreate(this.formGroup.value).subscribe(res => {
+      this.executersService.Boothcreate(this.formGroup.value).subscribe(res => {
           if (res.data.result) {
             this.success();
             this.modalService.dismissAll(true);
@@ -71,7 +72,7 @@ export class ExhibitionBoothCreateComponent extends BaseClass implements OnInit 
   setData(e) {
     this.dpdown = e.Title;
     this.formGroup.get('ExhibitionId').setValue(e.Id);
-    this.exhibitionsService.BoothgetHallDropDown(e.Id).subscribe(res => {
+    this.executersService.BoothgetHallDropDown(e.Id).subscribe(res => {
       this.hallDropDown = res.data.rows;
     });
   }

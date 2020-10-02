@@ -3,13 +3,36 @@ require_once '../entity/User.php';
 
 class User_model extends model
 {
-    public function getRows()
+    public function get($groupId)
     {
-        $sql = "SELECT * FROM users";
+        $sql = "SELECT * FROM users WHERE GroupId=$groupId AND FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
     }
-
+    public function getById($id)
+    {
+        $sql = "SELECT * FROM `users` WHERE `Id`=$id ";
+        $rows = $this->getRow($sql);
+        return $rows;
+    }
+    public function create($username,$password,$groupId)
+    {
+        $sql = "INSERT INTO `users`(`Username`, `Password`, `GroupId`) VALUES ('$username','$password',$groupId)";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
+    public function update($id,$username)
+    {
+        $sql = "UPDATE `users` SET `Username`='$username' WHERE `Id`=$id";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
+    public function delete($id)
+    {
+        $sql = "UPDATE `users` SET `FlagDelete`=1 WHERE `Id`=$id";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
     public function login($username = "", $password = "")
     {
         $sqlUser = "SELECT * FROM users";

@@ -1,27 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import {BaseClass} from "../../../../utilities/base";
-import {ExhibitionsService} from "../exhibitions.service";
+import {ExhibitionsService} from "../../exhibitions/exhibitions.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ToastrService} from "ngx-toastr";
 import {GroupModel} from "../../groups/entity";
-import {ExhibitionBoothCreateComponent} from "./exhibition-booth-create/exhibition-booth-create.component";
-import {ExhibitionBoothEditComponent} from "./exhibition-booth-edit/exhibition-booth-edit.component";
+import {ExecuterBoothCreateComponent} from "./executer-booth-create/executer-booth-create.component";
+import {ExecuterBoothEditComponent} from "./executer-booth-edit/executer-booth-edit.component";
+import {ExecutersService} from "../executers.service";
 
 @Component({
   selector: 'app-exhibition-booth-list',
-  templateUrl: './exhibition-booth-list.component.html',
-  styleUrls: ['./exhibition-booth-list.component.css']
+  templateUrl: './executer-booth-list.component.html',
+  styleUrls: ['./executer-booth-list.component.css']
 })
-export class ExhibitionBoothListComponent extends BaseClass implements OnInit {
+export class ExecuterBoothListComponent extends BaseClass implements OnInit {
   settings = {
     columns: {
-      ExhibitionId: {
+      ExName: {
         title: 'نام نمایشگاه'
       },
-      HallId: {
+      HallTitle: {
         title: 'سالن'
       },
-      ParticipantId: {
+      ParticipantUsername: {
         title: 'مشارکت کننده'
       },
       Name: {
@@ -52,14 +53,14 @@ export class ExhibitionBoothListComponent extends BaseClass implements OnInit {
   data;
 
   constructor(
-    private exhibitionsService: ExhibitionsService,
+    private executersService: ExecutersService,
     private modalService: NgbModal,
     protected toastr: ToastrService) {
     super(toastr);
   }
 
   ngOnInit(): void {
-    this.exhibitionsService.Boothget().subscribe(res => {
+    this.executersService.Boothget().subscribe(res => {
       this.data = res.data.rows;
     });
   }
@@ -78,7 +79,7 @@ export class ExhibitionBoothListComponent extends BaseClass implements OnInit {
   }
 
   createHandler() {
-    let modalRef=this.modalService.open(ExhibitionBoothCreateComponent, {centered: true});
+    let modalRef=this.modalService.open(ExecuterBoothCreateComponent, {centered: true});
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)
         this.ngOnInit();
@@ -88,7 +89,7 @@ export class ExhibitionBoothListComponent extends BaseClass implements OnInit {
   deleteHandler(inputModel) {
     let entity = new GroupModel();
     entity.Id = inputModel.Id;
-    this.exhibitionsService.Boothdelete(entity).subscribe(res => {
+    this.executersService.Boothdelete(entity).subscribe(res => {
       if (res.data.result) {
         this.success();
         this.ngOnInit();
@@ -97,7 +98,7 @@ export class ExhibitionBoothListComponent extends BaseClass implements OnInit {
   }
 
   editHandler(inputModel) {
-    const modalRef = this.modalService.open(ExhibitionBoothEditComponent, {centered: true});
+    const modalRef = this.modalService.open(ExecuterBoothEditComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)

@@ -38,9 +38,9 @@ import { ExhibitionHallCreateComponent } from './portal/portal-main/exhibitions/
 import { ExhibitionHallEditComponent } from './portal/portal-main/exhibitions/exhibition-hall-list/exhibition-hall-edit/exhibition-hall-edit.component';
 import { ExhibitionAssignSalonComponent } from './portal/portal-main/exhibitions/exhibition-list/exhibition-assign-salon/exhibition-assign-salon.component';
 import { DuallistComponent } from './utilities/component/duallist/duallist.component';
-import { ExhibitionBoothListComponent } from './portal/portal-main/exhibitions/exhibition-booth-list/exhibition-booth-list.component';
-import { ExhibitionBoothCreateComponent } from './portal/portal-main/exhibitions/exhibition-booth-list/exhibition-booth-create/exhibition-booth-create.component';
-import { ExhibitionBoothEditComponent } from './portal/portal-main/exhibitions/exhibition-booth-list/exhibition-booth-edit/exhibition-booth-edit.component';
+import { ExecuterBoothListComponent } from './portal/portal-main/executers/executer-booth-list/executer-booth-list.component';
+import { ExecuterBoothCreateComponent } from './portal/portal-main/executers/executer-booth-list/executer-booth-create/executer-booth-create.component';
+import { ExecuterBoothEditComponent } from './portal/portal-main/executers/executer-booth-list/executer-booth-edit/executer-booth-edit.component';
 import { ExhibitionAssignExecuterComponent } from './portal/portal-main/exhibitions/exhibition-list/exhibition-assign-executer/exhibition-assign-executer.component';
 import { BoothBuildersComponent } from './portal/portal-main/booth-builders/booth-builders.component';
 import { BoothbuilderListComponent } from './portal/portal-main/booth-builders/boothbuilder-list/boothbuilder-list.component';
@@ -49,6 +49,10 @@ import { BoothbuilderDeskComponent } from './portal/portal-main/booth-builders/b
 import { PortalParticipantsComponent } from './portal/portal-participants/portal-participants.component';
 import { CountDownDayComponent } from './utilities/component/count-down-day/count-down-day.component';
 import { ExhibitionHallAssignAdminComponent } from './portal/portal-main/exhibitions/exhibition-hall-list/exhibition-hall-assign-admin/exhibition-hall-assign-admin.component';
+import { ExecutersComponent } from './portal/portal-main/executers/executers.component';
+import { ExecuterListComponent } from './portal/portal-main/executers/executer-list/executer-list.component';
+import { ExecuterCreateComponent } from './portal/portal-main/executers/executer-list/executer-create/executer-create.component';
+import { ExecuterEditComponent } from './portal/portal-main/executers/executer-list/executer-edit/executer-edit.component';
 
 @NgModule({
   declarations: [
@@ -79,9 +83,9 @@ import { ExhibitionHallAssignAdminComponent } from './portal/portal-main/exhibit
     ExhibitionHallEditComponent,
     ExhibitionAssignSalonComponent,
     DuallistComponent,
-    ExhibitionBoothListComponent,
-    ExhibitionBoothCreateComponent,
-    ExhibitionBoothEditComponent,
+    ExecuterBoothListComponent,
+    ExecuterBoothCreateComponent,
+    ExecuterBoothEditComponent,
     ExhibitionAssignExecuterComponent,
     BoothBuildersComponent,
     BoothbuilderListComponent,
@@ -90,6 +94,10 @@ import { ExhibitionHallAssignAdminComponent } from './portal/portal-main/exhibit
     PortalParticipantsComponent,
     CountDownDayComponent,
     ExhibitionHallAssignAdminComponent,
+    ExecutersComponent,
+    ExecuterListComponent,
+    ExecuterCreateComponent,
+    ExecuterEditComponent,
   ],
   imports: [
     BrowserModule,
