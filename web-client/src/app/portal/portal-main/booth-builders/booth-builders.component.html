@@ -1,11 +1,13 @@
 <div class="row ebcs-h-5">
-  <div class="col-12 border-bottom pr-0 pl-0 h-100 bg-warning">
+  <div class="col-12 border-bottom pr-0 pl-0 h-100 ebcs-bg-yellow">
     <div class="d-flex  h-100 ">
-      <div class="m-auto flex-fill border-left text-center ebcs-clickable" routerLink="BoothbuilderList">
+      <div class="m-auto flex-fill border-left text-center ebcs-clickable"
+           routerLink="BoothbuilderList" [ngClass]="this.router.url.includes('/BoothbuilderList')?'text-white':''">
         <fa-icon [icon]="iAccess"></fa-icon>
         <span class="pr-2" [class]="mobile?'d-none':''">لیست پیمانکاران </span>
       </div>
-      <div class="m-auto flex-fill border-left text-center ebcs-clickable" routerLink="BoothbuilderDesk">
+      <div class="m-auto flex-fill border-left text-center ebcs-clickable"
+           routerLink="BoothbuilderDesk" [ngClass]="this.router.url.includes('/BoothbuilderDesk')?'text-white':''">
         <fa-icon [icon]="iAccess"></fa-icon>
         <span class="pr-2" [class]="mobile?'d-none':''">میز کار </span>
       </div>

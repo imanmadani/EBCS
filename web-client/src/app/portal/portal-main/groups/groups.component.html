@@ -1,8 +1,8 @@
 <div class="row ebcs-h-5">
-  <div class="col-12 border-bottom pr-0 pl-0 h-100 bg-warning">
+  <div class="col-12 border-bottom pr-0 pl-0 h-100 ebcs-bg-yellow">
     <div class="d-flex  h-100 ">
       <div class="m-auto flex-fill border-left text-center ebcs-clickable"
-            routerLink="GroupsList">
+            routerLink="GroupsList" [ngClass]="this.router.url.includes('/GroupsList')?'text-white':''">
         <fa-icon [icon]="iList"></fa-icon>
         <span class="pr-2" [class]="mobile?'d-none':''">لیست</span>
       </div>

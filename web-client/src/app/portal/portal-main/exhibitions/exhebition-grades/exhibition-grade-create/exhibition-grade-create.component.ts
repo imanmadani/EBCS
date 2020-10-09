@@ -12,7 +12,7 @@ import {ExhibitionsService} from '../../exhibitions.service';
   styleUrls: ['./exhibition-grade-create.component.css']
 })
 export class ExhibitionGradeCreateComponent extends BaseClass implements OnInit {
-  title='ایجاد گروه';
+  title='ایجاد گرید';
   formGroup:any ;
   @Output() refresh:EventEmitter<boolean>;
 
@@ -33,7 +33,6 @@ export class ExhibitionGradeCreateComponent extends BaseClass implements OnInit 
   save() {
     if (this.formGroup.valid === true) {
       this.exhibitionsService.ExGradecreate(this.formGroup.value).subscribe(res => {
-          debugger
           if (res.data.result) {
             this.success();
             // this.refresh.emit(true);

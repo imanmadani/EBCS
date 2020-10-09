@@ -12,7 +12,7 @@ import {ExhibitionsService} from '../../exhibitions.service';
   styleUrls: ['./exhibition-grade-edit.component.css']
 })
 export class ExhibitionGradeEditComponent extends BaseClass implements OnInit {
-  title='ایجاد گروه';
+  title='ویرایش گرید';
   formGroup:any ;
   @Input() model;
   @Output() refresh:EventEmitter<boolean>;
@@ -23,7 +23,6 @@ export class ExhibitionGradeEditComponent extends BaseClass implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger
     this.createForm();
     this.exhibitionsService.ExGradegetById(this.model.Id).subscribe(res=>{
       this.formGroup.patchValue(res.data.row);
@@ -37,7 +36,6 @@ export class ExhibitionGradeEditComponent extends BaseClass implements OnInit {
     });
   }
   save() {
-    debugger
     if (this.formGroup.valid === true) {
       this.exhibitionsService.ExGradeedit(this.formGroup.value).subscribe(res => {
 

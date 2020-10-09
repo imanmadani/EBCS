@@ -12,7 +12,7 @@ import {ExecutersService} from "../../executers.service";
   styleUrls: ['./executer-booth-edit.component.css']
 })
 export class ExecuterBoothEditComponent extends BaseClass implements OnInit {
-  title='ایجاد غرفه';
+  title='ویرایش غرفه';
   formGroup:any ;
   @Output() refresh:EventEmitter<boolean>;
   exhibitionDropDown;
@@ -40,7 +40,6 @@ export class ExecuterBoothEditComponent extends BaseClass implements OnInit {
   save() {
     if (this.formGroup.valid === true) {
       this.executersService.Boothedit(this.formGroup.value).subscribe(res => {
-          debugger
           if (res.data.result) {
             this.success();
             this.modalService.dismissAll(true);
@@ -63,7 +62,6 @@ export class ExecuterBoothEditComponent extends BaseClass implements OnInit {
   setData(e) {
     this.dpdown=e.Title;
     this.formGroup.get('GradeId').setValue(e.Id);
-    debugger
     this.executersService.BoothgetHallDropDown(e.Id).subscribe(res=>{
       this.hallDropDown=res.data.rows;
       this.halldpdown='';

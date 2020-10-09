@@ -11,7 +11,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./exhibition-list-create.component.css']
 })
 export class ExhibitionListCreateComponent extends BaseClass implements OnInit {
-  title='ایجاد گروه';
+  title='ایجاد نمایشگاه';
   formGroup:any ;
   @Output() refresh:EventEmitter<boolean>;
   gradeDropDown;
@@ -38,7 +38,6 @@ export class ExhibitionListCreateComponent extends BaseClass implements OnInit {
   save() {
     if (this.formGroup.valid === true) {
       this.exhibitionsService.Excreate(this.formGroup.value).subscribe(res => {
-          debugger
           if (res.data.result) {
             this.success();
             this.modalService.dismissAll(true);

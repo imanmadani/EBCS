@@ -11,7 +11,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./exhibition-hall-grade-edit.component.css']
 })
 export class ExhibitionHallGradeEditComponent extends BaseClass implements OnInit {
-  title='ایجاد گروه';
+  title='ویرایش گرید';
   formGroup:any ;
   @Input() model;
   @Output() refresh:EventEmitter<boolean>;
@@ -22,7 +22,6 @@ export class ExhibitionHallGradeEditComponent extends BaseClass implements OnIni
   }
 
   ngOnInit(): void {
-    debugger
     this.createForm();
     this.exhibitionsService.HallGradegetById(this.model.Id).subscribe(res=>{
       this.formGroup.patchValue(res.data.row);
@@ -35,7 +34,6 @@ export class ExhibitionHallGradeEditComponent extends BaseClass implements OnIni
     });
   }
   save() {
-    debugger
     if (this.formGroup.valid === true) {
       this.exhibitionsService.HallGradeedit(this.formGroup.value).subscribe(res => {
 

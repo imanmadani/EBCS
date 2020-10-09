@@ -32,7 +32,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    debugger
     // this.showLoader();
     // if (this.unAuthotizeService.isUnAuthorize === false  &&  localStorage.getItem('token') ) {
     //   let clonedReq = req.clone();

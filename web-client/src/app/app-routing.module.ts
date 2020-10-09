@@ -17,6 +17,11 @@ import {AuthGuard} from "./main/auth/auth.guard";
 import {PortalParticipantsComponent} from "./portal/portal-participants/portal-participants.component";
 import {ExecutersComponent} from "./portal/portal-main/executers/executers.component";
 import {ExecuterListComponent} from "./portal/portal-main/executers/executer-list/executer-list.component";
+import {HalladminsComponent} from "./portal/portal-main/hall-admins/halladmins.component";
+import {HalladminListComponent} from "./portal/portal-main/hall-admins/halladmin-list/halladmin-list.component";
+import {TechnicalexpertListComponent} from "./portal/portal-main/technical-expert/technicalexpert-list/technicalexpert-list.component";
+import {TechnicalexpertsComponent} from "./portal/portal-main/technical-expert/technicalexperts.component";
+import {HalladminDeskComponent} from "./portal/portal-main/hall-admins/halladmin-desk/halladmin-desk.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/Login', pathMatch: 'full'},
@@ -83,6 +88,34 @@ const routes: Routes = [
           {
             path: 'BoothList',
             component: ExecuterBoothListComponent,
+          },
+        ]
+      },
+      {
+        path: 'HallAdmins',
+        component: HalladminsComponent,
+        children:[
+          {
+            path: 'HallAdminList',
+            component: HalladminListComponent,
+          },
+          {
+            path: 'HallAdminDesk',
+            component: HalladminDeskComponent,
+          },
+        ]
+      },
+      {
+        path: 'TechnicalExperts',
+        component: TechnicalexpertsComponent,
+        children:[
+          {
+            path: 'TechnicalExpertList',
+            component: TechnicalexpertListComponent,
+          },
+          {
+            path: 'TechnicalExpertDesk',
+            component: BoothbuilderDeskComponent,
           },
         ]
       },

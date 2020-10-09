@@ -22,7 +22,6 @@ export class ExecuterEditComponent extends BaseClass implements OnInit {
   ngOnInit(): void {
     this.createForm();
     this.executersService.getExecuterById(this.model.Id).subscribe(res=>{
-      debugger
       this.formGroup.patchValue(res.data.row);
     });
   }
@@ -35,7 +34,6 @@ export class ExecuterEditComponent extends BaseClass implements OnInit {
   save() {
     if (this.formGroup.valid === true) {
       this.executersService.Executeredit(this.formGroup.value).subscribe(res => {
-          debugger
           if (res.data.result) {
             this.success();
             this.modalService.dismissAll(true);

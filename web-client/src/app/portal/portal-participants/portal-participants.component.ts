@@ -23,7 +23,6 @@ export class PortalParticipantsComponent implements OnInit {
 
   ngOnInit() {
     this.portalParticipantsService.getDataByParticipant(1).subscribe(res=>{
-      debugger
       this.userInformation=res.data.row;
       this.portalParticipantsService.getBoothBuilder(this.userInformation.BoothId).subscribe(resBoothBuilder=>{
         this.boothBuilder=resBoothBuilder.data.row;

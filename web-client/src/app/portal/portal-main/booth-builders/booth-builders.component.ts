@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {BaseClass} from "../../../utilities/base";
 import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-booth-builders',
@@ -9,7 +10,9 @@ import {ToastrService} from "ngx-toastr";
 })
 export class BoothBuildersComponent extends BaseClass implements OnInit {
 
-  constructor(protected toastr: ToastrService) {
+  constructor(protected toastr: ToastrService,
+              readonly router:Router,
+  ) {
     super(toastr);
   }
   ngOnInit(): void {

@@ -43,7 +43,6 @@ export class ExhibitionAssignSalonComponent extends BaseClass implements OnInit 
     this.confirmedSource = new Array<any>();
     this.exhibitionsService.getByExhibitionId(this.model.Id).subscribe(res=>{
       res.data.rows.forEach((obj) => {
-        debugger
         const index = this.source.findIndex(e => e.Id == obj.HallId);
         if(index>-1)
           this.confirmedSource.push(this.source[index]);
@@ -60,9 +59,7 @@ export class ExhibitionAssignSalonComponent extends BaseClass implements OnInit 
     this.confirmed = this.confirmedSource;
   }
   save() {
-    debugger
       this.exhibitionsService.ExAssignHall(this.confirmedSource,this.model.Id).subscribe(res => {
-        debugger
           if (res.data.result) {
             this.success();
             this.modalService.dismissAll(true);

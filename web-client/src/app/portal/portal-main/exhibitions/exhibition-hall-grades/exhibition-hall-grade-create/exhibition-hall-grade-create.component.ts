@@ -11,7 +11,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./exhibition-hall-grade-create.component.css']
 })
 export class ExhibitionHallGradeCreateComponent extends BaseClass implements OnInit {
-  title='ایجاد گروه';
+  title='ایجاد گرید';
   formGroup:any ;
   @Output() refresh:EventEmitter<boolean>;
 
@@ -29,10 +29,8 @@ export class ExhibitionHallGradeCreateComponent extends BaseClass implements OnI
     });
   }
   save() {
-    debugger
     if (this.formGroup.valid === true) {
       this.exhibitionsService.HallGradecreate(this.formGroup.value).subscribe(res => {
-          debugger
           if (res.data.result) {
             this.success();
             // this.refresh.emit(true);

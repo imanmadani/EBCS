@@ -52,9 +52,7 @@ export class ExhibitionAssignExecuterComponent extends BaseClass implements OnIn
     this.createForm();
     this.exhibitionsService.ExgetExecuterDropDown().subscribe(res=>{
       this.executerDropDown=res.data.rows;
-      debugger
       this.exhibitionsService.ExgetExecuterByExhibitionId(this.model.Id).subscribe(resExecuterList=>{
-        debugger
         this.data=resExecuterList.data.rows;
       });
     });
@@ -84,9 +82,7 @@ export class ExhibitionAssignExecuterComponent extends BaseClass implements OnIn
     });
   }
   save() {
-    debugger
     this.exhibitionsService.ExAssignExecuter(this.formGroup.value).subscribe(res => {
-      debugger
         if (res.data.result) {
           this.success();
           this.ngOnInit();

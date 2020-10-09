@@ -53,6 +53,15 @@ import { ExecutersComponent } from './portal/portal-main/executers/executers.com
 import { ExecuterListComponent } from './portal/portal-main/executers/executer-list/executer-list.component';
 import { ExecuterCreateComponent } from './portal/portal-main/executers/executer-list/executer-create/executer-create.component';
 import { ExecuterEditComponent } from './portal/portal-main/executers/executer-list/executer-edit/executer-edit.component';
+import {HalladminsComponent} from "./portal/portal-main/hall-admins/halladmins.component";
+import {HalladminListComponent} from "./portal/portal-main/hall-admins/halladmin-list/halladmin-list.component";
+import {HalladminCreateComponent} from "./portal/portal-main/hall-admins/halladmin-list/halladmin-create/halladmin-create.component";
+import {HalladminEditComponent} from "./portal/portal-main/hall-admins/halladmin-list/halladmin-edit/halladmin-edit.component";
+import {TechnicalexpertsComponent} from "./portal/portal-main/technical-expert/technicalexperts.component";
+import {TechnicalexpertCreateComponent} from "./portal/portal-main/technical-expert/technicalexpert-list/technicalexpert-create/technicalexpert-create.component";
+import {TechnicalexpertEditComponent} from "./portal/portal-main/technical-expert/technicalexpert-list/technicalexpert-edit/technicalexpert-edit.component";
+import {TechnicalexpertListComponent} from "./portal/portal-main/technical-expert/technicalexpert-list/technicalexpert-list.component";
+import { HalladminDeskComponent } from './portal/portal-main/hall-admins/halladmin-desk/halladmin-desk.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +107,15 @@ import { ExecuterEditComponent } from './portal/portal-main/executers/executer-l
     ExecuterListComponent,
     ExecuterCreateComponent,
     ExecuterEditComponent,
+    HalladminsComponent,
+    HalladminCreateComponent,
+    HalladminEditComponent,
+    HalladminListComponent,
+    TechnicalexpertsComponent,
+    TechnicalexpertCreateComponent,
+    TechnicalexpertEditComponent,
+    TechnicalexpertListComponent,
+    HalladminDeskComponent
   ],
   imports: [
     BrowserModule,

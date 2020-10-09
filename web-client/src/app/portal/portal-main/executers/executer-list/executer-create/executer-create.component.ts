@@ -33,7 +33,6 @@ export class ExecuterCreateComponent extends BaseClass implements OnInit {
   }
 
   save() {
-    debugger
     if (this.formGroup.valid === true) {
       this.executersService.Executercreate(this.formGroup.value).subscribe(res => {
           if (res.data.result) {
@@ -44,7 +43,6 @@ export class ExecuterCreateComponent extends BaseClass implements OnInit {
           }
         },
         (err) => {
-        debugger
           this.error(err.error);
         });
     } else {

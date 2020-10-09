@@ -11,12 +11,11 @@ import {ToastrService} from "ngx-toastr";
 export class GroupsComponent extends BaseClass implements OnInit {
   activeMenu;
 
-  constructor(private router: Router ,
+  constructor(readonly router: Router ,
               protected toastr: ToastrService) {
   super(toastr);
 }
   ngOnInit(): void {
-    debugger
     this.router.navigateByUrl('/GroupsList');
   }
 

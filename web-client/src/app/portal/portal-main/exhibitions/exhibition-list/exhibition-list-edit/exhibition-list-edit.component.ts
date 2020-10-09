@@ -11,7 +11,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./exhibition-list-edit.component.css']
 })
 export class ExhibitionListEditComponent extends BaseClass implements OnInit {
-  title = 'ایجاد گروه';
+  title = 'ویرایش نمایشگاه';
   formGroup: any;
   gradeDropDown;
   dpdown = '.....';
@@ -25,7 +25,6 @@ export class ExhibitionListEditComponent extends BaseClass implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
     this.createForm();
     this.exhibitionsService.ExgetGradeDropDown().subscribe(res => {
       this.gradeDropDown = res.data.rows;
@@ -50,7 +49,6 @@ export class ExhibitionListEditComponent extends BaseClass implements OnInit {
   }
 
   save() {
-    debugger
     if (this.formGroup.valid === true) {
       this.exhibitionsService.Exedit(this.formGroup.value).subscribe(res => {
           if (res.data.result) {

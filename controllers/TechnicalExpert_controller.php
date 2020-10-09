@@ -1,6 +1,6 @@
 <?php
 require_once '../entity/ExhibitionHall.php';
-class ExhibitionHallAdmin_controller extends controller
+class TechnicalExpert_controller extends controller
 {
     public function Get()
     {
@@ -8,6 +8,7 @@ class ExhibitionHallAdmin_controller extends controller
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }
+
     public function GetById($query)
     {
         $id = $this->getVal('Id', $query);
@@ -17,10 +18,19 @@ class ExhibitionHallAdmin_controller extends controller
     }
     public function Create($query)
     {
-        $title = $this->getVal('Title', $query);
-        $year = $this->getVal('Year', $query);
-        $gradeId = $this->getVal('GradeId', $query);
-        $rows = $this->_model->create($title,$year,$gradeId);
+        $username = $this->getVal('Username', $query);
+        $password = $this->getVal('Password', $query);
+        $groupId = $this->getVal('GroupId', $query);
+        $name = $this->getVal('Name', $query);
+        $rows = $this->_model->create($username,$password,$groupId,$name);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
+    public function Update($query)
+    {
+        $id = $this->getVal('Id', $query);
+        $name = $this->getVal('Name', $query);
+        $rows = $this->_model->update($id,$name);
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
@@ -31,5 +41,4 @@ class ExhibitionHallAdmin_controller extends controller
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
-
 }

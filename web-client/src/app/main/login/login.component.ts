@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     this.componentService.login(this.formGroup.value).subscribe(res => {
-      debugger;
       localStorage.setItem('token', res.data.row.TokenCode);
       this.router.navigateByUrl('/Dashboard');
       // this.tokenService.setToken('iman');

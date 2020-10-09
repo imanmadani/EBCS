@@ -11,7 +11,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./exhibition-hall-create.component.css']
 })
 export class ExhibitionHallCreateComponent extends BaseClass implements OnInit {
-  title='ایجاد گروه';
+  title='ایجاد سالن';
   formGroup:any ;
   @Output() refresh:EventEmitter<boolean>;
   gradeDropDown;
@@ -37,7 +37,6 @@ export class ExhibitionHallCreateComponent extends BaseClass implements OnInit {
   save() {
     if (this.formGroup.valid === true) {
       this.exhibitionsService.Hallcreate(this.formGroup.value).subscribe(res => {
-          debugger
           if (res.data.result) {
             this.success();
             this.modalService.dismissAll(true);

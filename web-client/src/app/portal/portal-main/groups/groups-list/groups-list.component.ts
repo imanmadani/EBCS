@@ -7,6 +7,7 @@ import {GroupModel} from '../entity';
 import {GroupListEditComponent} from './group-list-edit/group-list-edit.component';
 import {ToastrService} from 'ngx-toastr';
 import {GroupListAssignComponent} from './group-list-assign/group-list-assign.component';
+import {Route, Router} from "@angular/router";
 
 @Component({
   selector: 'app-groups-list',
@@ -50,12 +51,14 @@ export class GroupsListComponent extends BaseClass implements OnInit {
   constructor(
     private groupsService: GroupsService,
     private modalService: NgbModal,
+    private router:Router,
     protected toastr: ToastrService) {
     super(toastr);
   }
 
   ngOnInit(): void {
     this.groupsService.get().subscribe(res => {
+      console.log(this.router.url);
       this.data = res.data.rows;
     });
   }
@@ -99,7 +102,8 @@ export class GroupsListComponent extends BaseClass implements OnInit {
   editHandler(inputModel) {
     const modalRef = this.modalService.open(GroupListEditComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
-    modalRef.result.then((data) => {}, (reason) => {
+    modalRef.result.then((reason) => {
+    }, (reason) => {
       if (reason)
         this.ngOnInit();
     });

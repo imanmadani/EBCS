@@ -31,7 +31,6 @@ export class GroupListCreateComponent extends BaseClass implements OnInit {
   save() {
       if (this.formGroup.valid === true) {
         this.groupsService.create(this.formGroup.value).subscribe(res => {
-          debugger
             if (res.data.result) {
               this.success();
               this.modalService.dismissAll(true);

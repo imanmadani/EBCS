@@ -54,13 +54,13 @@ class Exhibition_model extends model
     }
     public function executerDropDown()
     {
-        $sql = "SELECT `Id`,`Username` As Title FROM `users` WHERE `FlagDelete`=0 AND `GroupId`=".GroupEnum::Executer;
+        $sql = "SELECT `Id`,`Name` As Title FROM `executers` WHERE `FlagDelete`=0 ";
         $rows = $this->getAll($sql);
         return $rows;
     }
     public function assignExecuter($exhibitionId,$executerId)
     {
-        $sql = "INSERT INTO `exhibitionExecuters`( `ExhibitionId`, `UserId`) VALUES ($exhibitionId,$executerId)";
+        $sql = "INSERT INTO `exhibitionExecuters`( `ExhibitionId`, `ExecuterId`) VALUES ($exhibitionId,$executerId)";
         $rows = $this->execQuery($sql);
         return $rows;
     }
@@ -72,7 +72,7 @@ class Exhibition_model extends model
     }
     public function getExecuterByExhibitionId($exhibitionId)
     {
-        $sql = "SELECT executer.Username AS Name , exexecuter.Id AS Id FROM `exhibitionExecuters` AS exexecuter INNER JOIN `users` AS executer  ON exexecuter.UserId=executer.Id WHERE exexecuter.ExhibitionId =$exhibitionId AND exexecuter.FlagDelete=0 AND executer.FlagDelete=0";
+        $sql = "SELECT executer.Name AS Name , exexecuter.Id AS Id FROM `exhibitionExecuters` AS exexecuter INNER JOIN `executers` AS executer  ON exexecuter.ExecuterId=executer.Id WHERE exexecuter.ExhibitionId =$exhibitionId AND exexecuter.FlagDelete=0 AND executer.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
     }
