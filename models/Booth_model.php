@@ -3,11 +3,12 @@ class Booth_model extends model
 {
     public function get()
     {
-        $sql = "SELECT myBooth.Id,myBooth.Name,myBooth.HallId,myBooth.ParticipantId,
+        $sql = "SELECT myBooth.Id,myBooth.Name,myBooth.ExhibitionHallId,myBooth.ParticipantId,
                 myHall.Title AS HallTitle,myParticipant.Username AS ParticipantUsername,
                 myEx.Title AS ExName , myBooth.FlagBlock
                 FROM `booths` AS myBooth 
-                INNER JOIN `halls` AS myHall ON myBooth.HallId=myHall.Id
+                INNER JOIN `exhibitionhalls` AS myHallEx ON myBooth.ExhibitionHallId=myHallEx.Id
+                INNER JOIN `halls` AS myHall ON myHallEx.HallId=myHall.Id
                 INNER JOIN `participants` AS myParticipant ON myBooth.ParticipantId=myParticipant.Id
                 INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
                 WHERE myBooth.FlagDelete=0";
@@ -20,16 +21,16 @@ class Booth_model extends model
         $rows = $this->getRow($sql);
         return $rows;
     }
-    public function create($name,$exhibitionId,$hallId,$participantId)
+    public function create($name,$exhibitionId,$exHallId,$participantId)
     {
-        $sql = "INSERT INTO `booths`(`Name`,`ExhibitionId`, `HallId`, `ParticipantId`)
-                VALUES ('$name',$exhibitionId,$hallId,$participantId)";
+        $sql = "INSERT INTO `booths`(`Name`,`ExhibitionId`, `ExhibitionHallId`, `ParticipantId`)
+                VALUES ('$name',$exhibitionId,$exHallId,$participantId)";
         $rows = $this->execQuery($sql);
         return $rows;
     }
     public function update($id,$name,$exhibitionId,$hallId,$participantId)
     {
-        $sql = "UPDATE `booths` SET `Name`='$name' , `ExhibitionId`=$exhibitionId ,`HallId`=$hallId,`ParticipantId`=$participantId  
+        $sql = "UPDATE `booths` SET `Name`='$name' , `ExhibitionId`=$exhibitionId ,`ExhibitionHallId`=$hallId,`ParticipantId`=$participantId  
                 WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
@@ -47,7 +48,8 @@ class Booth_model extends model
         $user=$this->getUserByToken($head['token'],$ip);
         $sql = "SELECT myEx.Id,myEx.Title FROM `exhibitions` AS myEx
                 INNER JOIN `exhibitionexecuters` AS myExExecuter ON myEx.Id=myExExecuter.ExhibitionId  
-                WHERE myEx.FlagDelete=0 AND myExExecuter.FlagDelete=0 AND myExExecuter.UserId=".$user['Id'];
+                INNER JOIN `executers` AS myExecuter ON myExExecuter.ExecuterId=myExecuter.Id 
+                WHERE myEx.FlagDelete=0 AND myExExecuter.FlagDelete=0 AND myExecuter.UserId=".$user['Id'];
         $rows = $this->getAll($sql);
         return $rows;
     }

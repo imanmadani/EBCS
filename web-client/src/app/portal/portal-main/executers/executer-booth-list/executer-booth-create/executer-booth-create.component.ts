@@ -42,7 +42,7 @@ export class ExecuterBoothCreateComponent extends BaseClass implements OnInit {
     this.formGroup = new FormGroup({
       Name: new FormControl(null, Validators.required),
       ExhibitionId: new FormControl(null, Validators.required),
-      HallId: new FormControl(null, Validators.required),
+      ExhibitionHallId: new FormControl(null, Validators.required),
       ParticipantId: new FormControl(null, Validators.required),
     });
   }
@@ -79,7 +79,7 @@ export class ExecuterBoothCreateComponent extends BaseClass implements OnInit {
 
   setHallData(e) {
     this.halldpdown = e.Title;
-    this.formGroup.get('HallId').setValue(e.Id);
+    this.formGroup.get('ExhibitionHallId').setValue(e.Id);
   }
 
   setParticipantData(e) {

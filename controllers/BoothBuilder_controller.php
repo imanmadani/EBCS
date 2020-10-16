@@ -44,5 +44,16 @@ class BoothBuilder_controller extends controller
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
+    public function UploadPlan($query)
+    {
+        $Id = $this->getVal('Id', $query);
+        $name = $this->getVal('Name', $query);
+        $length = $this->getVal('Length', $query);
+        $contentType = $this->getVal('ContentType', $query);
+        $image = $this->getVal('Data', $query);
+        $rows = $this->_model->uploadPlan($Id,$image,$name,$length,$contentType);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
 
 }

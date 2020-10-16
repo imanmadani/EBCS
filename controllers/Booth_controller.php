@@ -19,9 +19,9 @@ class Booth_controller extends controller
     {
         $name = $this->getVal('Name', $query);
         $exhibitionId = $this->getVal('ExhibitionId', $query);
-        $hallId = $this->getVal('HallId', $query);
+        $exHallId = $this->getVal('ExhibitionHallId', $query);
         $participantId = $this->getVal('ParticipantId', $query);
-        $rows = $this->_model->create($name,$exhibitionId,$hallId,$participantId);
+        $rows = $this->_model->create($name,$exhibitionId,$exHallId,$participantId);
         $this->_res->set("result", $rows);
         $this->_res->output();
     }

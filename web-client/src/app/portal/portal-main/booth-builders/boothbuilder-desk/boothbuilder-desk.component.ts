@@ -7,6 +7,7 @@ import {ToastrService} from "ngx-toastr";
 import {ExhibitionHallCreateComponent} from "../../exhibitions/exhibition-hall-list/exhibition-hall-create/exhibition-hall-create.component";
 import {GroupModel} from "../../groups/entity";
 import {ExhibitionHallEditComponent} from "../../exhibitions/exhibition-hall-list/exhibition-hall-edit/exhibition-hall-edit.component";
+import {BoothbuilderPlanUploadComponent} from "./boothbuilder-plan-upload/boothbuilder-plan-upload.component";
 
 @Component({
   selector: 'app-boothbuilder-desk',
@@ -35,14 +36,18 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
     actions: {
       columnTitle: 'عملیات',
       custom: [
-        // {
-        //   name: 'editAction',
-        //   title: '<i class="fa fa-edit pr-3 ebcs-font-normal text-warning" title="Edit"></i>'
-        // },
-        // {
-        //   name: 'deleteAction',
-        //   title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="Edit"></i>'
-        // }
+        {
+          name: 'editAction',
+          title: '<i class="fa fa-edit pr-3 ebcs-font-normal text-warning" title="Edit"></i>'
+        },
+        {
+          name: 'deleteAction',
+          title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="Delete"></i>'
+        },
+        {
+          name: 'uploadAction',
+          title: '<i class="fa fa-upload pr-3 ebcs-font-normal text-info" title="Upload"></i>'
+        }
       ],
       add: false,
       edit: false,
@@ -76,6 +81,10 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
         this.deleteHandler(e.data);
         break;
       }
+      case 'uploadAction' : {
+        this.planUpdateHandler(e.data);
+        break;
+      }
     }
   }
 
@@ -100,6 +109,15 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
 
   editHandler(inputModel) {
     const modalRef = this.modalService.open(ExhibitionHallEditComponent, {centered: true});
+    modalRef.componentInstance.model = inputModel;
+    modalRef.result.then((data) => {}, (reason) => {
+      if (reason)
+        this.ngOnInit();
+    });
+  }
+
+  planUpdateHandler(inputModel) {
+    let modalRef=this.modalService.open(BoothbuilderPlanUploadComponent, {centered: true,size:'xl'});
     modalRef.componentInstance.model = inputModel;
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)

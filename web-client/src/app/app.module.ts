@@ -62,6 +62,10 @@ import {TechnicalexpertCreateComponent} from "./portal/portal-main/technical-exp
 import {TechnicalexpertEditComponent} from "./portal/portal-main/technical-expert/technicalexpert-list/technicalexpert-edit/technicalexpert-edit.component";
 import {TechnicalexpertListComponent} from "./portal/portal-main/technical-expert/technicalexpert-list/technicalexpert-list.component";
 import { HalladminDeskComponent } from './portal/portal-main/hall-admins/halladmin-desk/halladmin-desk.component';
+import { FileUploadComponent } from './utilities/component/file-upload/file-upload.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import {TabsModule} from "ngx-bootstrap/tabs";
+import { BoothbuilderPlanUploadComponent } from './portal/portal-main/booth-builders/boothbuilder-desk/boothbuilder-plan-upload/boothbuilder-plan-upload.component';
 
 @NgModule({
   declarations: [
@@ -115,7 +119,9 @@ import { HalladminDeskComponent } from './portal/portal-main/hall-admins/halladm
     TechnicalexpertCreateComponent,
     TechnicalexpertEditComponent,
     TechnicalexpertListComponent,
-    HalladminDeskComponent
+    HalladminDeskComponent,
+    FileUploadComponent,
+    BoothbuilderPlanUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -133,6 +139,8 @@ import { HalladminDeskComponent } from './portal/portal-main/hall-admins/halladm
     Ng2SmartTableModule,
     ReactiveFormsModule,
     FormsModule,
+    FileUploadModule,
+    TabsModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-bottom-right',

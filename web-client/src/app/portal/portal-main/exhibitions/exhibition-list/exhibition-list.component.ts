@@ -8,6 +8,8 @@ import {ExhibitionHallCreateComponent} from '../exhibition-hall-list/exhibition-
 import {ExhibitionHallEditComponent} from '../exhibition-hall-list/exhibition-hall-edit/exhibition-hall-edit.component';
 import {ExhibitionAssignSalonComponent} from './exhibition-assign-salon/exhibition-assign-salon.component';
 import {ExhibitionAssignExecuterComponent} from "./exhibition-assign-executer/exhibition-assign-executer.component";
+import {ExhibitionListCreateComponent} from "./exhibition-list-create/exhibition-list-create.component";
+import {ExhibitionListEditComponent} from "./exhibition-list-edit/exhibition-list-edit.component";
 
 @Component({
   selector: 'app-exhibition-list',
@@ -93,7 +95,7 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
   }
 
   createHandler() {
-    let modalRef=this.modalService.open(ExhibitionHallCreateComponent, {centered: true});
+    let modalRef=this.modalService.open(ExhibitionListCreateComponent, {centered: true});
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)
         this.ngOnInit();
@@ -112,7 +114,7 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
   }
 
   editHandler(inputModel) {
-    const modalRef = this.modalService.open(ExhibitionHallEditComponent, {centered: true});
+    const modalRef = this.modalService.open(ExhibitionListEditComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)

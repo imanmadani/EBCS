@@ -2,6 +2,7 @@ import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {GroupModel} from "../groups/entity";
+import {UploadModel} from "../../../utilities/component/file-upload/uploadModel";
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,10 @@ export class BoothbuildersService {
   delete(entity: GroupModel): Observable<any> {
     return this.http
       .post<any>(this.baseUrl+'?api=Delete', entity);
+  }
+  uploadPlan(entity): Observable<any> {
+    return this.http
+      .post<any>(this.baseUrl+'?api=UploadPlan', entity);
   }
 
 }
