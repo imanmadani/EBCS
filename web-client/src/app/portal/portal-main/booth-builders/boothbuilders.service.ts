@@ -40,5 +40,11 @@ export class BoothbuildersService {
     return this.http
       .post<any>(this.baseUrl+'?api=UploadPlan', entity);
   }
-
+  deletePlan(entity): Observable<any> {
+    return this.http
+      .post<any>(this.baseUrl+'?api=DeletePlan', entity);
+  }
+  GetUploadFileByBoothBoothbuilderId(entity): Observable<any> {
+    return this.http.get<any>(this.baseUrl + '?api=GetUploadFileByBoothBoothbuilderId&Id='+entity);
+  }
 }

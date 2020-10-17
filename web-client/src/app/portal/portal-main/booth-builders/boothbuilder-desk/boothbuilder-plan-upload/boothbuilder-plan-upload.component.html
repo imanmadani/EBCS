@@ -1,2 +1,2 @@
 <app-modal-header (closed)="close()"></app-modal-header>
-  <app-file-upload (itemUpload)="uplaod($event)"></app-file-upload>
+  <app-file-upload (itemUpload)="uplaod($event)" (itemDelete)="deletePlan($event)" [lastFiles]="data"></app-file-upload>

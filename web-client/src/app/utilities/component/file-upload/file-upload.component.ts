@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 
 const URL = 'http://localhost/api/BoothBuilder_api.php/?api=UploadPlan';
@@ -10,6 +10,8 @@ const URL = 'http://localhost/api/BoothBuilder_api.php/?api=UploadPlan';
 })
 export class FileUploadComponent{
   @Output() itemUpload = new EventEmitter();
+  @Output() itemDelete = new EventEmitter();
+  @Input() lastFiles;
   uploader:FileUploader;
   hasBaseDropZoneOver:boolean;
   response:string;
@@ -21,6 +23,7 @@ export class FileUploadComponent{
       formatDataFunctionIsAsync: true,
       formatDataFunction:  (item) => {
         this.itemUpload.emit(item)
+        this.uploader.queue=[];
       }
     });
     this.hasBaseDropZoneOver = false;
@@ -32,4 +35,7 @@ export class FileUploadComponent{
     this.hasBaseDropZoneOver = e;
   }
 
+  deleteLastRow(Id: any) {
+    this.itemDelete.emit(Id)
+  }
 }

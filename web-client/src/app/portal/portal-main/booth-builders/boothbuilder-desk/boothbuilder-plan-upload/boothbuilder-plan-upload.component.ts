@@ -5,6 +5,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {BaseClass} from "../../../../../utilities/base";
 import {ToastrService} from "ngx-toastr";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {GroupModel} from "../../../groups/entity";
 
 @Component({
   selector: 'app-boothbuilder-plan-upload',
@@ -14,6 +15,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 export class BoothbuilderPlanUploadComponent extends BaseClass implements OnInit {
   form;
   imageSrc;
+  data;
   @Input() model;
 
   constructor(private boothBuilderService: BoothbuildersService,
@@ -23,16 +25,13 @@ export class BoothbuilderPlanUploadComponent extends BaseClass implements OnInit
 }
 
   ngOnInit(): void {
+   this.boothBuilderService.GetUploadFileByBoothBoothbuilderId(this.model.Id).subscribe(res=>{
+       this.data=res.data.rows;
+       console.log(this.data)
+   });
   }
 
   uplaod(item) {
-    debugger
-    // let model = new UploadModel();
-    // model.name = item._file.name;
-    // model.length = item._file.size;
-    // model.contentType = item._file.type;
-    // model.date = new Date();
-    // model.data =item.file;
     const reader = new FileReader();
     reader.readAsDataURL(item.file.rawFile);
     reader.onload = () => {
@@ -48,6 +47,7 @@ export class BoothbuilderPlanUploadComponent extends BaseClass implements OnInit
       this.boothBuilderService.uploadPlan(this.form.value).subscribe(res=>{
           if (res.data.result) {
             this.success();
+            this.ngOnInit();
           } else {
             this.error();
           }
@@ -59,5 +59,17 @@ export class BoothbuilderPlanUploadComponent extends BaseClass implements OnInit
   }
   close(){
     this.modalService.dismissAll(false);
+  }
+
+  deletePlan($event) {
+    debugger
+    let entity = new GroupModel();
+    entity.Id = +$event;
+    this.boothBuilderService.deletePlan(entity).subscribe(res => {
+      if (res.data.result) {
+        this.success();
+        this.ngOnInit();
+      }
+    });
   }
 }

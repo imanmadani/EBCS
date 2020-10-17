@@ -55,5 +55,19 @@ class BoothBuilder_controller extends controller
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
+    public function GetUploadFileByBoothBoothbuilderId($query)
+    {
+        $id = $this->getVal('Id', $query);
+        $rows = $this->_model->getUploadFileByBoothBoothbuilderId($id);
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function DeletePlan($query)
+    {
+        $id = $this->getVal('Id', $query);
+        $rows = $this->_model->deletePlan($id);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
 
 }

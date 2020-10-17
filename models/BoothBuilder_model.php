@@ -77,5 +77,25 @@ class BoothBuilder_model extends model
         mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=1");
         return $rows;
     }
-
+    public function getUploadFileByBoothBoothbuilderId($boothBoothBuilderId)
+    {
+        $sql = "SELECT 
+                       myFile.Id As Id,
+                       myFile.Name AS NameDB,
+                       myFile.Length AS Size,
+                       myFile.ViewName As Name
+                FROM `boothboothbuilderplans` AS myTask
+                INNER JOIN `files` AS myFile ON  myTask.FileId=myFile.Id
+                WHERE myFile.FlagDelete=0 AND myTask.BoothBoothbuilderId=$boothBoothBuilderId";
+        $rows = $this->getAll($sql);
+        return $rows;
+    }
+    public function deletePlan($id)
+    {
+        $sql = "UPDATE  `boothboothbuilderplans` As myTaskPlan,`files` As myFile
+                SET myFile.FlagDelete =1,myTaskPlan.FlagDelete=1
+                WHERE myFile.Id = myTaskPlan.FileId AND myTaskPlan.FileId=$id AND myFile.Id=$id";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
 }
