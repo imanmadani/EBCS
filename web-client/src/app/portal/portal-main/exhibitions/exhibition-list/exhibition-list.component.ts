@@ -25,7 +25,7 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
       Year: {
         title: 'سال'
       },
-      GradeId: {
+      Grade: {
         title: 'گرید'
       },
       FlagBlock: {

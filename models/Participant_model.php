@@ -25,7 +25,8 @@ class Participant_model extends model
                 From `booths` AS myBooth
                 INNER JOIN  `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id 
                 INNER JOIN  `exhibitiongrades` AS myGrade ON myEx.GradeId=myGrade.Id 
-                INNER JOIN  `halls` AS myHalls ON myBooth.HallId=myHalls.Id 
+                INNER JOIN  `exhibitionhalls` AS myExHall ON myBooth.ExhibitionHallId=myExHall.Id 
+                INNER JOIN  `halls` AS myHalls ON myExHall.HallId=myHalls.Id 
                 WHERE myBooth.ParticipantId=$participantId AND myBooth.FlagDelete=0";
         $row = $this->getRow($sql);
         return $row;

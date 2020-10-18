@@ -5,7 +5,8 @@ class Exhibition_model extends model
 {
     public function get()
     {
-        $sql = "SELECT * FROM `exhibitions` WHERE `FlagDelete`=0";
+        $sql = "SELECT myExhibition.Id,myExhibition.Year,myExhibition.Title,myExhibition.GradeId,myExhibition.FlagBlock,myExGrade.Title AS Grade FROM `exhibitions` myExhibition
+                INNER JOIN `exhibitiongrades` AS myExGrade ON myExhibition.GradeId=myExGrade.Id WHERE myExhibition.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
     }

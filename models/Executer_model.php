@@ -4,7 +4,7 @@ class Executer_model extends model
 {
     public function get()
     {
-        $sql = "SELECT myExecuter.Id,myExecuter.Name,myExecuter.Rate,myUser.Username,myUser.Id As UserId
+        $sql = "SELECT myExecuter.Id,myExecuter.Name,myExecuter.Rate,myUser.Username,myUser.Id As UserId,myExecuter.FlagBlock
                 FROM `executers` AS myExecuter
                 INNER JOIN `users` AS myUser ON myExecuter.UserId=myUser.Id 
                 WHERE myExecuter.FlagDelete=0";
