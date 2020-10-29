@@ -22,6 +22,16 @@ import {HalladminListComponent} from "./portal/portal-main/hall-admins/halladmin
 import {TechnicalexpertListComponent} from "./portal/portal-main/technical-expert/technicalexpert-list/technicalexpert-list.component";
 import {TechnicalexpertsComponent} from "./portal/portal-main/technical-expert/technicalexperts.component";
 import {HalladminDeskComponent} from "./portal/portal-main/hall-admins/halladmin-desk/halladmin-desk.component";
+import {ArchitecturalexpertListComponent} from "./portal/portal-main/architectural-expert/architecturalexpert-list/architecturalexpert-list.component";
+import {ArchitecturalExpertComponent} from "./portal/portal-main/architectural-expert/architectural-expert.component";
+import {BoothbuilderGradeComponent} from "./portal/portal-main/booth-builders/boothbuilder-grade/boothbuilder-grade.component";
+import {TechnicalexpertDeskComponent} from "./portal/portal-main/technical-expert/technicalexpert-desk/technicalexpert-desk.component";
+import {FinancialExpertComponent} from "./portal/portal-main/financial-expert/financial-expert.component";
+import {FinancialexpertListComponent} from "./portal/portal-main/financial-expert/financialexpert-list/financialexpert-list.component";
+import {FinancialexpertDeskComponent} from "./portal/portal-main/financial-expert/financialexpert-desk/financialexpert-desk.component";
+import {SharedataComponent} from "./portal/portal-main/sharedata/sharedata.component";
+import {BoothbuilderinfringementListComponent} from "./portal/portal-main/sharedata/boothbuilderinfringement-list/boothbuilderinfringement-list.component";
+import {ArchitecturalexpertDeskComponent} from "./portal/portal-main/architectural-expert/architecturalexpert-desk/architecturalexpert-desk.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/Login', pathMatch: 'full'},
@@ -75,6 +85,10 @@ const routes: Routes = [
             path: 'BoothbuilderDesk',
             component: BoothbuilderDeskComponent,
           },
+          {
+            path: 'BoothbuilderGrade',
+            component: BoothbuilderGradeComponent,
+          },
         ]
       },
       {
@@ -115,8 +129,46 @@ const routes: Routes = [
           },
           {
             path: 'TechnicalExpertDesk',
-            component: BoothbuilderDeskComponent,
+            component: TechnicalexpertDeskComponent,
           },
+        ]
+      },
+      {
+        path: 'ArchitecturalExperts',
+        component: ArchitecturalExpertComponent,
+        children:[
+          {
+            path: 'TechnicalExpertList',
+            component: ArchitecturalexpertListComponent,
+          },
+          {
+            path: 'ArchitecturalExpertDesk',
+            component: ArchitecturalexpertDeskComponent,
+          },
+        ]
+      },
+      {
+        path: 'FinancialExperts',
+        component: FinancialExpertComponent,
+        children:[
+          {
+            path: 'FinancialExpertList',
+            component: FinancialexpertListComponent,
+          },
+          {
+            path: 'FinancialExpertDesk',
+            component: FinancialexpertDeskComponent,
+          },
+        ]
+      },
+      {
+        path: 'ShareData',
+        component: SharedataComponent,
+        children:[
+          {
+            path: 'BoothBuilderInfringementList',
+            component: BoothbuilderinfringementListComponent,
+          }
         ]
       },
       ]

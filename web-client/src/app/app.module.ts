@@ -66,6 +66,31 @@ import { FileUploadComponent } from './utilities/component/file-upload/file-uplo
 import { FileUploadModule } from 'ng2-file-upload';
 import {TabsModule} from "ngx-bootstrap/tabs";
 import { BoothbuilderPlanUploadComponent } from './portal/portal-main/booth-builders/boothbuilder-desk/boothbuilder-plan-upload/boothbuilder-plan-upload.component';
+import { BoothbuilderCreateComponent } from './portal/portal-main/booth-builders/boothbuilder-list/boothbuilder-create/boothbuilder-create.component';
+import { BoothbuilderEditComponent } from './portal/portal-main/booth-builders/boothbuilder-list/boothbuilder-edit/boothbuilder-edit.component';
+import { ExhibitionAssignTechnicalexpertComponent } from './portal/portal-main/exhibitions/exhibition-list/exhibition-assign-technicalexpert/exhibition-assign-technicalexpert.component';
+import { ExhibitionAssignArchitecturalexpertComponent } from './portal/portal-main/exhibitions/exhibition-list/exhibition-assign-architecturalexpert/exhibition-assign-architecturalexpert.component';
+import { ArchitecturalExpertComponent } from './portal/portal-main/architectural-expert/architectural-expert.component';
+import { ArchitecturalexpertListComponent } from './portal/portal-main/architectural-expert/architecturalexpert-list/architecturalexpert-list.component';
+import { ArchitecturalexpertCreateComponent } from './portal/portal-main/architectural-expert/architecturalexpert-list/architecturalexpert-create/architecturalexpert-create.component';
+import { ArchitecturalexpertEditComponent } from './portal/portal-main/architectural-expert/architecturalexpert-list/architecturalexpert-edit/architecturalexpert-edit.component';
+import { BoothbuilderGradeComponent } from './portal/portal-main/booth-builders/boothbuilder-grade/boothbuilder-grade.component';
+import { BoothbuilderGradeCreateComponent } from './portal/portal-main/booth-builders/boothbuilder-grade/boothbuilder-grade-create/boothbuilder-grade-create.component';
+import { BoothbuilderGradeEditComponent } from './portal/portal-main/booth-builders/boothbuilder-grade/boothbuilder-grade-edit/boothbuilder-grade-edit.component';
+import { TechnicalexpertDeskComponent } from './portal/portal-main/technical-expert/technicalexpert-desk/technicalexpert-desk.component';
+import { TechnicalexpertFilemanagementComponent } from './portal/portal-main/technical-expert/technicalexpert-desk/technicalexpert-filemanagement/technicalexpert-filemanagement.component';
+import {IvyGalleryModule} from "angular-gallery";
+import { FinancialExpertComponent } from './portal/portal-main/financial-expert/financial-expert.component';
+import { FinancialexpertListComponent } from './portal/portal-main/financial-expert/financialexpert-list/financialexpert-list.component';
+import { FinancialexpertCreateComponent } from './portal/portal-main/financial-expert/financialexpert-list/financialexpert-create/financialexpert-create.component';
+import { FinancialexpertEditComponent } from './portal/portal-main/financial-expert/financialexpert-list/financialexpert-edit/financialexpert-edit.component';
+import { FinancialexpertDeskComponent } from './portal/portal-main/financial-expert/financialexpert-desk/financialexpert-desk.component';
+import { SharedataComponent } from './portal/portal-main/sharedata/sharedata.component';
+import { BoothbuilderinfringementListComponent } from './portal/portal-main/sharedata/boothbuilderinfringement-list/boothbuilderinfringement-list.component';
+import { BoothbuilderinfringementEditComponent } from './portal/portal-main/sharedata/boothbuilderinfringement-list/boothbuilderinfringement-edit/boothbuilderinfringement-edit.component';
+import { ArchitecturalexpertDeskComponent } from './portal/portal-main/architectural-expert/architecturalexpert-desk/architecturalexpert-desk.component';
+import {BoothbuilderinfringementCreateComponent} from "./portal/portal-main/sharedata/boothbuilderinfringement-list/boothbuilderinfringement-create/boothbuilderinfringement-create.component";
+import {BoothbuilderinfringementSetComponent} from "./portal/portal-main/architectural-expert/architecturalexpert-desk/boothbuilderinfringement-set/boothbuilderinfringement-set.component";
 
 @NgModule({
   declarations: [
@@ -121,7 +146,32 @@ import { BoothbuilderPlanUploadComponent } from './portal/portal-main/booth-buil
     TechnicalexpertListComponent,
     HalladminDeskComponent,
     FileUploadComponent,
-    BoothbuilderPlanUploadComponent
+    BoothbuilderPlanUploadComponent,
+    BoothbuilderCreateComponent,
+    BoothbuilderEditComponent,
+    ExhibitionAssignTechnicalexpertComponent,
+    ExhibitionAssignArchitecturalexpertComponent,
+    ArchitecturalExpertComponent,
+    ArchitecturalexpertListComponent,
+    ArchitecturalexpertCreateComponent,
+    ArchitecturalexpertEditComponent,
+    BoothbuilderGradeComponent,
+    BoothbuilderGradeCreateComponent,
+    BoothbuilderGradeEditComponent,
+    TechnicalexpertDeskComponent,
+    TechnicalexpertFilemanagementComponent,
+    FinancialExpertComponent,
+    FinancialexpertListComponent,
+    FinancialexpertCreateComponent,
+    FinancialexpertEditComponent,
+    FinancialexpertDeskComponent,
+    SharedataComponent,
+    BoothbuilderinfringementListComponent,
+    BoothbuilderinfringementCreateComponent,
+    BoothbuilderinfringementEditComponent,
+    ArchitecturalexpertDeskComponent,
+    BoothbuilderinfringementSetComponent
+
   ],
   imports: [
     BrowserModule,
@@ -140,6 +190,7 @@ import { BoothbuilderPlanUploadComponent } from './portal/portal-main/booth-buil
     ReactiveFormsModule,
     FormsModule,
     FileUploadModule,
+    IvyGalleryModule,
     TabsModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 10000,

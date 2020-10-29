@@ -26,7 +26,7 @@ class HallAdmin_controller extends controller
     {
         $username = $this->getVal('Username', $query);
         $password = $this->getVal('Password', $query);
-        $groupId = $this->getVal('GroupId', $query);
+        $groupId = 3;
         $name = $this->getVal('Name', $query);
         $rows = $this->_model->create($username,$password,$groupId,$name);
         $this->_res->set("result", $rows);

@@ -8,11 +8,24 @@ class TechnicalExpert_controller extends controller
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }
-
+    public function GetTechnicalExpertTask($query)
+    {
+        $technicalExpertId = $this->getVal('TechnicalExpertId', $query);
+        $rows = $this->_model->getTechnicalExpertTask($technicalExpertId);
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
     public function GetById($query)
     {
         $id = $this->getVal('Id', $query);
         $rows = $this->_model->getById($id);
+        $this->_res->set("row", $rows);
+        $this->_res->output();
+    }
+    public function GetPlanByBoothBoothbuilderId($query)
+    {
+        $boothBoothbuilderId = $this->getVal('BoothBoothBuilderId', $query);
+        $rows = $this->_model->getPlanByBoothBoothbuilderId($boothBoothbuilderId);
         $this->_res->set("row", $rows);
         $this->_res->output();
     }

@@ -6,6 +6,11 @@
         <fa-icon [icon]="iUsers"></fa-icon>
         <span class="pr-2" [class]="mobile?'d-none':''">لیست کارشناسان فنی</span>
       </div>
+      <div class="m-auto flex-fill border-left text-center ebcs-clickable"
+           routerLink="TechnicalExpertDesk" [ngClass]="this.router.url.includes('/TechnicalExpertDesk')?'text-white':''">
+        <fa-icon [icon]="iUsers"></fa-icon>
+        <span class="pr-2" [class]="mobile?'d-none':''">میز کار</span>
+      </div>
     </div>
   </div>
 </div>

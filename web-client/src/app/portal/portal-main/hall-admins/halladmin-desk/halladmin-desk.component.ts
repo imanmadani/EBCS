@@ -23,7 +23,13 @@ export class HalladminDeskComponent extends BaseClass implements OnInit {
         title: 'سالن'
       },
       FlagBlock: {
-        title: 'وضعیت'
+        title: 'وضعیت',
+        type:'html',
+        valuePrepareFunction: (value) => {
+          debugger
+          if (value==="0") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
+          return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';
+        },
       }
     },
     actions: {

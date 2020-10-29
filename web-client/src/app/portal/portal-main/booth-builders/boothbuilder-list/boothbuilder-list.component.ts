@@ -8,6 +8,7 @@ import {GroupModel} from "../../groups/entity";
 import {ExhibitionHallEditComponent} from "../../exhibitions/exhibition-hall-list/exhibition-hall-edit/exhibition-hall-edit.component";
 import {BoothbuildersService} from "../boothbuilders.service";
 import {RateComponent} from "../../../../utilities/component/rate/rate.component";
+import {BoothbuilderCreateComponent} from "./boothbuilder-create/boothbuilder-create.component";
 
 @Component({
   selector: 'app-boothbuilder-list',
@@ -20,13 +21,22 @@ export class BoothbuilderListComponent extends BaseClass implements OnInit {
       Name: {
         title: 'نام'
       },
+      Grade: {
+        title: 'گرید'
+      },
       Rates: {
         title:'امتیاز',
         type: 'custom',
         renderComponent:RateComponent,
       },
       FlagBlock: {
-        title: 'وضعیت'
+        title: 'وضعیت',
+        type:'html',
+        valuePrepareFunction: (value) => {
+          debugger
+          if (value==="0") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
+          return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';
+        },
       }
     },
     actions: {
@@ -76,7 +86,7 @@ export class BoothbuilderListComponent extends BaseClass implements OnInit {
   }
 
   createHandler() {
-    let modalRef=this.modalService.open(ExhibitionHallCreateComponent, {centered: true});
+    let modalRef=this.modalService.open(BoothbuilderCreateComponent, {centered: true});
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)
         this.ngOnInit();

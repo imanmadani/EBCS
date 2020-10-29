@@ -2,7 +2,6 @@ import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {GroupModel} from "../groups/entity";
-import {UploadModel} from "../../../utilities/component/file-upload/uploadModel";
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +17,14 @@ export class BoothbuildersService {
   get(): Observable<any> {
     return this.http.get<any>(this.baseUrl + '?api=Get');
   }
+  getGrade(): Observable<any> {
+    return this.http.get<any>(this.baseUrl + '?api=GetGrade');
+  }
   getById(entity): Observable<any> {
     return this.http.get<any>(this.baseUrl + '?api=GetById&Id='+entity);
+  }
+  getGradeById(entity): Observable<any> {
+    return this.http.get<any>(this.baseUrl + '?api=GetGradeById&Id='+entity);
   }
   getBoothBuilderTask(entity): Observable<any> {
     return this.http.get<any>(this.baseUrl + '?api=getBoothBuilderTask&BoothBuilderId='+entity);
@@ -28,13 +33,28 @@ export class BoothbuildersService {
     return this.http
       .post<any>(this.baseUrl+'?api=Create', entity);
   }
+  createGrade(entity: GroupModel): Observable<any> {
+    return this.http
+      .post<any>(this.baseUrl+'?api=CreateGrade', entity);
+  }
   edit(entity: GroupModel): Observable<any> {
     return this.http
       .put<any>(this.baseUrl+'?api=Update', entity);
   }
+  editGrade(entity: GroupModel): Observable<any> {
+    return this.http
+      .put<any>(this.baseUrl+'?api=UpdateGrade', entity);
+  }
   delete(entity: GroupModel): Observable<any> {
     return this.http
       .post<any>(this.baseUrl+'?api=Delete', entity);
+  }
+  deleteGrade(entity: GroupModel): Observable<any> {
+    return this.http
+      .post<any>(this.baseUrl+'?api=DeleteGrade', entity);
+  }
+  getBoothBuilderGradeDropDown(){
+    return this.http.get<any>(this.baseUrl + '?api=BoothBuilderGradeDropDown');
   }
   uploadPlan(entity): Observable<any> {
     return this.http
@@ -47,4 +67,5 @@ export class BoothbuildersService {
   GetUploadFileByBoothBoothbuilderId(entity): Observable<any> {
     return this.http.get<any>(this.baseUrl + '?api=GetUploadFileByBoothBoothbuilderId&Id='+entity);
   }
+
 }

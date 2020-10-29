@@ -29,8 +29,21 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
       ParticipantName: {
         title:'مشارکت کننده',
       },
+      PayStatus: {
+        title: 'وضعیت پرداخت',
+        type:'html',
+        valuePrepareFunction: (value) => {
+          if (value==="1") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
+          return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';
+        },
+      },
       FlagBlock: {
-        title: 'وضعیت'
+        title: 'وضعیت',
+        type:'html',
+        valuePrepareFunction: (value) => {
+          if (value==="0") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
+          return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';
+        },
       }
     },
     actions: {
@@ -38,16 +51,20 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
       custom: [
         {
           name: 'editAction',
-          title: '<i class="fa fa-edit pr-3 ebcs-font-normal text-warning" title="Edit"></i>'
+          title: '<i class="fa fa-edit pr-3 ebcs-font-normal text-warning" title="ویرایش"></i>'
         },
         {
           name: 'deleteAction',
-          title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="Delete"></i>'
+          title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="حذف"></i>'
         },
         {
           name: 'uploadAction',
-          title: '<i class="fa fa-upload pr-3 ebcs-font-normal text-info" title="Upload"></i>'
-        }
+          title: '<i class="fa fa-upload pr-3 ebcs-font-normal text-info" title="آپلود"></i>'
+        },
+        {
+          name: 'paymentAction',
+          title: '<i class="fa fa-money-bill-wave pr-3 ebcs-font-normal text-primary" title="پرداخت"></i>'
+        },
       ],
       add: false,
       edit: false,
@@ -83,6 +100,10 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
       }
       case 'uploadAction' : {
         this.planUpdateHandler(e.data);
+        break;
+      }
+      case 'paymentAction' : {
+        this.paymentHandler(e.data);
         break;
       }
     }
@@ -123,6 +144,10 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
       if (reason)
         this.ngOnInit();
     });
+  }
+
+  paymentHandler(inputModel) {
+
   }
 }
 

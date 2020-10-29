@@ -65,16 +65,44 @@ export class ExhibitionsService {
   ExgetExecuterDropDown(){
     return this.http.get<any>(this.ExbaseUrl + '?api=ExecuterDropDown');
   }
+  ExgetTechnicalExpertDropDown(){
+    return this.http.get<any>(this.ExbaseUrl + '?api=TechnicalExpertDropDown');
+  }
+  ExgetArchitecturalExpertDropDown(){
+    return this.http.get<any>(this.ExbaseUrl + '?api=ArchitecturalExpertDropDown');
+  }
   ExAssignExecuter(entity): Observable<any> {
     return this.http
       .post<any>(this.ExbaseUrl+'?api=AssignExecuter', entity);
+  }
+  ExAssignTechnicalExpert(entity): Observable<any> {
+    return this.http
+      .post<any>(this.ExbaseUrl+'?api=AssignTechnicalExpert', entity);
+  }
+  ExAssignArchitecturalExpert(entity): Observable<any> {
+    return this.http
+      .post<any>(this.ExbaseUrl+'?api=AssignArchitecturalExpert', entity);
   }
   ExDeleteAssignExecuter(entity): Observable<any> {
     return this.http
       .post<any>(this.ExbaseUrl+'?api=DeleteAssignExecuter', entity);
   }
+  ExDeleteAssignTechnicalExpert(entity): Observable<any> {
+    return this.http
+      .post<any>(this.ExbaseUrl+'?api=DeleteAssignTechnicalExpert', entity);
+  }
+  ExDeleteAssignArchitecturalExpert(entity): Observable<any> {
+    return this.http
+      .post<any>(this.ExbaseUrl+'?api=DeleteAssignArchitecturalExpert', entity);
+  }
   ExgetExecuterByExhibitionId(entity): Observable<any> {
     return this.http.get<any>(this.ExbaseUrl + '?api=GetExecuterByExhibitionId&Id='+entity);
+  }
+  ExgetTechnicalExpertByExhibitionId(entity): Observable<any> {
+    return this.http.get<any>(this.ExbaseUrl + '?api=GetTechnicalExpertByExhibitionId&Id='+entity);
+  }
+  ExgetArchitecturalExpertByExhibitionId(entity): Observable<any> {
+    return this.http.get<any>(this.ExbaseUrl + '?api=GetArchitecturalExpertByExhibitionId&Id='+entity);
   }
   getByExhibitionId(entity): Observable<any> {
     return this.http.get<any>(this.ExbaseUrl + '?api=GetByExhibitionId&Id='+entity);

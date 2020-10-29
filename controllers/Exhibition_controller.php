@@ -82,11 +82,54 @@ class Exhibition_controller extends controller
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }
+    public function TechnicalExpertDropDown()
+    {
+        $rows = $this->_model->technicalExpertDropDown();
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function ArchitecturalExpertDropDown()
+    {
+        $rows = $this->_model->architecturalExpertDropDown();
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function GetTechnicalExpertByExhibitionId($query)
+    {
+        $exId=$query['Id'];
+        $rows = $this->_model->getTechnicalExpertByExhibitionId($exId);
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function GetArchitecturalExpertByExhibitionId($query)
+    {
+        $exId=$query['Id'];
+        $rows = $this->_model->getArchitecturalExpertByExhibitionId($exId);
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+
     public function AssignExecuter($query)
     {
         $exhibitionId = $this->getVal('ExhibitionId', $query);
         $ExecuterId = $this->getVal('ExecuterId', $query);
         $rows = $this->_model->assignExecuter($exhibitionId,$ExecuterId);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
+    public function AssignTechnicalExpert($query)
+    {
+        $exhibitionId = $this->getVal('ExhibitionId', $query);
+        $technicalExpertId = $this->getVal('TechnicalExpertId', $query);
+        $rows = $this->_model->assignTechnicalExpert($exhibitionId,$technicalExpertId);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
+    public function AssignArchitecturalExpert($query)
+    {
+        $exhibitionId = $this->getVal('ExhibitionId', $query);
+        $architecturalExpertId = $this->getVal('ArchitecturalExpertId', $query);
+        $rows = $this->_model->assignArchitecturalExpert($exhibitionId,$architecturalExpertId);
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
@@ -97,6 +140,18 @@ class Exhibition_controller extends controller
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
-
-    
+    public function DeleteAssignTechnicalExpert($query)
+    {
+        $id = $this->getVal('Id', $query);
+        $rows = $this->_model->deleteassignTechnicalExpert($id);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
+    public function DeleteAssignArchitecturalExpert($query)
+    {
+        $id = $this->getVal('Id', $query);
+        $rows = $this->_model->deleteassignArchitecturalExpert($id);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
 }

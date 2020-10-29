@@ -68,7 +68,7 @@ class User_model extends model
         $user = $this->getUserByToken($head['token'], $ip);
         $sql = "SELECT myMenu.Id,myMenu.Title,myMenu.Link,myMenu.Icon FROM groupaccess AS myGrpAccess
                 INNER JOIN menus As myMenu ON myGrpAccess.MenuId=myMenu.Id
-                WHERE  myGrpAccess.FlagDelete=0 AND myMenu.FlagDelete=0 AND  GroupId=" . $user['GroupId'];
+                WHERE  myGrpAccess.FlagDelete=0 AND myMenu.FlagDelete=0 AND  GroupId=" . $user['GroupId']." ORDER BY myMenu.Id";
         $res = $this->getAll($sql);
         return $res;
     }

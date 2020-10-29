@@ -15,8 +15,14 @@ export class TechnicalexpertsService {
   get(): Observable<any> {
     return this.http.get<any>(this.TechnicalexpertbaseUrl + '?api=Get');
   }
+  getTechnicalExpertTask(entity): Observable<any> {
+    return this.http.get<any>(this.TechnicalexpertbaseUrl + '?api=GetTechnicalExpertTask&TechnicalExpertId='+entity);
+  }
   getById(entity): Observable<any> {
     return this.http.get<any>(this.TechnicalexpertbaseUrl + '?api=GetById&Id='+entity);
+  }
+  getPlanByBoothBoothbuilderId(entity): Observable<any> {
+    return this.http.get<any>(this.TechnicalexpertbaseUrl + '?api=GetPlanByBoothBoothbuilderId&BoothBoothbuilderId='+entity);
   }
   create(entity): Observable<any> {
     return this.http

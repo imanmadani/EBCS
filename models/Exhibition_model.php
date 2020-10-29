@@ -59,9 +59,33 @@ class Exhibition_model extends model
         $rows = $this->getAll($sql);
         return $rows;
     }
+    public function technicalExpertDropDown()
+    {
+        $sql = "SELECT `Id`,`Name` As Title FROM `technicalExperts` WHERE `FlagDelete`=0 ";
+        $rows = $this->getAll($sql);
+        return $rows;
+    }
+    public function architecturalExpertDropDown()
+    {
+        $sql = "SELECT `Id`,`Name` As Title FROM `architecturalExperts` WHERE `FlagDelete`=0 ";
+        $rows = $this->getAll($sql);
+        return $rows;
+    }
     public function assignExecuter($exhibitionId,$executerId)
     {
         $sql = "INSERT INTO `exhibitionExecuters`( `ExhibitionId`, `ExecuterId`) VALUES ($exhibitionId,$executerId)";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
+    public function assignTechnicalExpert($exhibitionId,$technicalExpertId)
+    {
+        $sql = "INSERT INTO `exhibitiontechnicalexperts`( `ExhibitionId`, `TechnicalExpertId`) VALUES ($exhibitionId,$technicalExpertId)";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
+    public function assignArchitecturalExpert($exhibitionId,$architecturalExpertId)
+    {
+        $sql = "INSERT INTO `exhibitionarchitecturalExperts`( `ExhibitionId`, `ArchitecturalExpertId`) VALUES ($exhibitionId,$architecturalExpertId)";
         $rows = $this->execQuery($sql);
         return $rows;
     }
@@ -71,9 +95,33 @@ class Exhibition_model extends model
         $rows = $this->execQuery($sql);
         return $rows;
     }
+    public function deleteassignTechnicalExpert($id)
+    {
+        $sql = "UPDATE `exhibitiontechnicalexperts` SET `FlagDelete`=1 WHERE `Id`=$id";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
+    public function deleteassignArchitecturalExpert($id)
+    {
+        $sql = "UPDATE `exhibitionarchitecturalexperts` SET `FlagDelete`=1 WHERE `Id`=$id";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
     public function getExecuterByExhibitionId($exhibitionId)
     {
         $sql = "SELECT executer.Name AS Name , exexecuter.Id AS Id FROM `exhibitionExecuters` AS exexecuter INNER JOIN `executers` AS executer  ON exexecuter.ExecuterId=executer.Id WHERE exexecuter.ExhibitionId =$exhibitionId AND exexecuter.FlagDelete=0 AND executer.FlagDelete=0";
+        $rows = $this->getAll($sql);
+        return $rows;
+    }
+    public function getTechnicalExpertByExhibitionId($exhibitionId)
+    {
+        $sql = "SELECT myTechnicalExpert.Name AS Name , myTechnicalExpertRel.Id AS Id FROM `exhibitionTechnicalExperts` AS myTechnicalExpertRel INNER JOIN `technicalexperts` AS myTechnicalExpert  ON myTechnicalExpertRel.TechnicalExpertId=myTechnicalExpert.Id WHERE myTechnicalExpertRel.ExhibitionId =$exhibitionId AND myTechnicalExpertRel.FlagDelete=0";
+        $rows = $this->getAll($sql);
+        return $rows;
+    }
+    public function getArchitecturalExpertByExhibitionId($exhibitionId)
+    {
+        $sql = "SELECT myArchitecturalExpert.Name AS Name , myArchitecturalExpertRel.Id AS Id FROM `exhibitionArchitecturalExperts` AS myArchitecturalExpertRel INNER JOIN `architecturalexperts` AS myArchitecturalExpert  ON myArchitecturalExpertRel.ArchitecturalExpertId=myArchitecturalExpert.Id WHERE myArchitecturalExpertRel.ExhibitionId =$exhibitionId AND myArchitecturalExpertRel.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
     }

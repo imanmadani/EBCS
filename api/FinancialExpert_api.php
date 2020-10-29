@@ -25,6 +25,6 @@ elseif($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 $method = $_GET['api'];
 $api=new APIClient();
-$res=$api->request("ExhibitionExecuter",$method,$params);
+$res=$api->request("FinancialExpert",$method,$params);
 
 ?>

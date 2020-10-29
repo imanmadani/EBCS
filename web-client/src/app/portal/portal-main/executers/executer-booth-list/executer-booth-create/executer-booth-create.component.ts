@@ -44,6 +44,8 @@ export class ExecuterBoothCreateComponent extends BaseClass implements OnInit {
       ExhibitionId: new FormControl(null, Validators.required),
       ExhibitionHallId: new FormControl(null, Validators.required),
       ParticipantId: new FormControl(null, Validators.required),
+      Area: new FormControl(null, Validators.required),
+      Area2: new FormControl(0),
     });
   }
 

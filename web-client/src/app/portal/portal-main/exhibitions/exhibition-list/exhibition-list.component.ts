@@ -10,6 +10,8 @@ import {ExhibitionAssignSalonComponent} from './exhibition-assign-salon/exhibiti
 import {ExhibitionAssignExecuterComponent} from "./exhibition-assign-executer/exhibition-assign-executer.component";
 import {ExhibitionListCreateComponent} from "./exhibition-list-create/exhibition-list-create.component";
 import {ExhibitionListEditComponent} from "./exhibition-list-edit/exhibition-list-edit.component";
+import {ExhibitionAssignTechnicalexpertComponent} from "./exhibition-assign-technicalexpert/exhibition-assign-technicalexpert.component";
+import {ExhibitionAssignArchitecturalexpertComponent} from "./exhibition-assign-architecturalexpert/exhibition-assign-architecturalexpert.component";
 
 @Component({
   selector: 'app-exhibition-list',
@@ -29,7 +31,13 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
         title: 'گرید'
       },
       FlagBlock: {
-        title: 'وضعیت'
+        title: 'وضعیت',
+        type:'html',
+        valuePrepareFunction: (value) => {
+          debugger
+          if (value==="0") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
+          return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';
+        },
       }
     },
     actions: {
@@ -50,6 +58,14 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
         {
           name: 'assignExecuter',
           title: '<i class="fa fa-user-tie pr-3 ebcs-font-normal text-success"  title="Assign Executer"></i>'
+        },
+        {
+          name: 'assignTechnicalExpert',
+          title: '<i class="fa fa-pencil-ruler pr-3 ebcs-font-normal text-success"  title="Assign Technical Expert"></i>'
+        },
+        {
+          name: 'assignArchitecturalExpert',
+          title: '<i class="fa fa-drafting-compass pr-3 ebcs-font-normal text-success"  title="Assign Architectural Expert"></i>'
         },
       ],
       add: false,
@@ -89,6 +105,14 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
       }
       case 'assignExecuter' : {
         this.assignExecuterHandler(e.data);
+        break;
+      }
+      case 'assignTechnicalExpert' : {
+        this.assignTechnicalExpertHandler(e.data);
+        break;
+      }
+      case 'assignArchitecturalExpert' : {
+        this.assignArchitecturalExpertHandler(e.data);
         break;
       }
     }
@@ -131,6 +155,22 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
   }
   assignExecuterHandler(inputModel){
     const modalRef = this.modalService.open(ExhibitionAssignExecuterComponent, {centered: true});
+    modalRef.componentInstance.model = inputModel;
+    modalRef.result.then((data) => {}, (reason) => {
+      if (reason)
+        this.ngOnInit();
+    });
+  }
+  assignTechnicalExpertHandler(inputModel){
+    const modalRef = this.modalService.open(ExhibitionAssignTechnicalexpertComponent, {centered: true});
+    modalRef.componentInstance.model = inputModel;
+    modalRef.result.then((data) => {}, (reason) => {
+      if (reason)
+        this.ngOnInit();
+    });
+  }
+  assignArchitecturalExpertHandler(inputModel){
+    const modalRef = this.modalService.open(ExhibitionAssignArchitecturalexpertComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)
