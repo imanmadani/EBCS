@@ -16,6 +16,7 @@ export class ExhibitionsComponent extends BaseClass implements OnInit {
     super(toastr);
   }
   ngOnInit(): void {
+    this.router.navigate(['Dashboard/Exhibitions/ExhibitionList']);
   }
 
   activeLinkHandler() {

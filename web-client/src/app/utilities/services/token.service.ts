@@ -12,6 +12,5 @@ export class TokenService {
 
   setToken(t: any): void {
     this.token = t;
-    console.log(this.token);
   }
 }

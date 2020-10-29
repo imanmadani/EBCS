@@ -28,7 +28,6 @@ export class BoothbuilderGradeComponent extends BaseClass implements OnInit {
         title: 'وضعیت',
         type:'html',
         valuePrepareFunction: (value) => {
-          debugger
           if (value==="0") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
           return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';
         },
@@ -63,7 +62,6 @@ export class BoothbuilderGradeComponent extends BaseClass implements OnInit {
 
   ngOnInit(): void {
     this.boothBuilderService.getGrade().subscribe(res => {
-      debugger
       this.data = res.data.rows;
     });
   }

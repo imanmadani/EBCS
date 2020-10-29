@@ -24,7 +24,6 @@ export class GroupsListComponent extends BaseClass implements OnInit {
         title: 'وضعیت',
         type:'html',
         valuePrepareFunction: (value) => {
-          debugger
           if (value==="0") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
           return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';
         },
@@ -64,7 +63,6 @@ export class GroupsListComponent extends BaseClass implements OnInit {
 
   ngOnInit(): void {
     this.groupsService.get().subscribe(res => {
-      console.log(this.router.url);
       this.data = res.data.rows;
     });
   }

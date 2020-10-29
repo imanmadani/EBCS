@@ -48,7 +48,7 @@ const routes: Routes = [
         component: GroupsComponent,
         children: [
           {
-            path: 'GroupsList',
+            path: 'GroupList',
             component: GroupsListComponent,
           }]
       },

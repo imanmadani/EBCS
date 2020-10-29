@@ -31,7 +31,6 @@ export class ArchitecturalexpertListComponent extends BaseClass implements OnIni
         title: 'وضعیت',
         type:'html',
         valuePrepareFunction: (value) => {
-          debugger
           if (value==="0") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
           return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';
         },
@@ -64,7 +63,6 @@ export class ArchitecturalexpertListComponent extends BaseClass implements OnIni
   ngOnInit(): void {
     this.architecturalexpertsService.get().subscribe(res=>{
       this.data = res.data.rows;
-      console.log(this.data);
     });
   }
 

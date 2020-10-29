@@ -16,6 +16,7 @@ export class HalladminsComponent extends BaseClass implements OnInit {
     super(toastr);
   }
   ngOnInit(): void {
+    this.router.navigate(['Dashboard/HallAdmins/HallAdminDesk']);
   }
 
   activeLinkHandler() {

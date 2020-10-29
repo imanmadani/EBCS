@@ -39,7 +39,6 @@ export class BoothbuilderinfringementSetComponent  extends BaseClass implements 
   }
 
   save() {
-    debugger
     if (this.formGroup.valid === true) {
       this.architecturalexpertsService.infringementCreate(this.formGroup.value).subscribe(res => {
           if (res.data.result) {

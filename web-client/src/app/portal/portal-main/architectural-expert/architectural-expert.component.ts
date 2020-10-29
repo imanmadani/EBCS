@@ -16,6 +16,7 @@ export class ArchitecturalExpertComponent  extends BaseClass implements OnInit {
     super(toastr);
   }
   ngOnInit(): void {
+    this.router.navigate(['Dashboard/ArchitecturalExperts/ArchitecturalExpertDesk']);
   }
 
   activeLinkHandler() {

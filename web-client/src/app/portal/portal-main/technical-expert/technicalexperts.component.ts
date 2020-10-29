@@ -16,6 +16,7 @@ export class TechnicalexpertsComponent extends BaseClass implements OnInit {
     super(toastr);
   }
   ngOnInit(): void {
+    this.router.navigate(['Dashboard/TechnicalExperts/TechnicalExpertDesk']);
   }
 
   activeLinkHandler() {

@@ -16,6 +16,7 @@ export class FinancialExpertComponent extends BaseClass implements OnInit {
     super(toastr);
   }
   ngOnInit(): void {
+    this.router.navigate(['Dashboard/FinancialExperts/FinancialExpertDesk']);
   }
 
   activeLinkHandler() {

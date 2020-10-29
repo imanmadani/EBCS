@@ -61,7 +61,6 @@ export class ExecuterhallPlanUploadComponent extends BaseClass implements OnInit
   }
 
   deletePlan($event) {
-    debugger
     let entity = new GroupModel();
     entity.Id = +$event;
     this.executerService.deletePlan(entity).subscribe(res => {

@@ -27,7 +27,6 @@ export class BoothbuilderPlanUploadComponent extends BaseClass implements OnInit
   ngOnInit(): void {
    this.boothBuilderService.GetUploadFileByBoothBoothbuilderId(this.model.Id).subscribe(res=>{
        this.data=res.data.rows;
-       console.log(this.data)
    });
   }
 
@@ -62,7 +61,6 @@ export class BoothbuilderPlanUploadComponent extends BaseClass implements OnInit
   }
 
   deletePlan($event) {
-    debugger
     let entity = new GroupModel();
     entity.Id = +$event;
     this.boothBuilderService.deletePlan(entity).subscribe(res => {

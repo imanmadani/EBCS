@@ -84,7 +84,6 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
   ngOnInit(): void {
     this.boothBuilderService.getBoothBuilderTask(1).subscribe(res => {
       this.data = res.data.rows;
-      console.log(this.data)
     });
   }
 

@@ -18,26 +18,21 @@ app.use(function (req, res, next) {
 app.use(multer({
   dest: DIR,
   rename: function (fieldname, filename) {
-    debugger
     return filename + Date.now();
   },
   onFileUploadStart: function (file) {
-    debugger
     console.log(file.originalname + ' is starting ...');
   },
   onFileUploadComplete: function (file) {
-    debugger
     console.log(file.fieldname + ' uploaded to  ' + file.path);
   }
 }));
 
 app.get('/api', function (req, res) {
-  debugger
   res.end('file catcher example');
 });
 
 app.post('/api', function (req, res) {
-  debugger
   upload(req, res, function (err) {
     if (err) {
       return res.end(err.toString());
@@ -50,6 +45,5 @@ app.post('/api', function (req, res) {
 var PORT = process.env.PORT || 3000;
 
 app.listen(PORT, function () {
-  debugger
   console.log('Working on port ' + PORT);
 });

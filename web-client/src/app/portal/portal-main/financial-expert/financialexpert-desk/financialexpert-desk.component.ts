@@ -43,7 +43,6 @@ export class FinancialexpertDeskComponent extends BaseClass implements OnInit {
         title: 'وضعیت پرداخت',
         type:'html',
         valuePrepareFunction: (value) => {
-          debugger
           if (value==="1") return '<i class="fa fa-circle pr-3  text-success" title="تایید شده"></i>';
           return '<i class="fa fa-circle pr-3  text-warning" title="تایید نشده"></i>';
         },
@@ -74,7 +73,6 @@ export class FinancialexpertDeskComponent extends BaseClass implements OnInit {
 
   ngOnInit(): void {
     this.financialexpertsService.getFinancialExpertTask().subscribe(res => {
-      debugger
       this.data = res.data.rows;
     });
   }
@@ -124,7 +122,6 @@ export class FinancialexpertDeskComponent extends BaseClass implements OnInit {
     });
   }
   acceptHandler(inputModel){
-    debugger
     let entity = new GroupModel();
     entity.Id = inputModel.Id;
     this.financialexpertsService.FinancialExpertAccept(entity).subscribe(res => {

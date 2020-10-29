@@ -28,7 +28,6 @@ export class FinancialexpertListComponent extends BaseClass implements OnInit {
         title: 'وضعیت',
         type:'html',
         valuePrepareFunction: (value) => {
-          debugger
           if (value==="0") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
           return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';
         },
@@ -61,7 +60,6 @@ export class FinancialexpertListComponent extends BaseClass implements OnInit {
   ngOnInit(): void {
     this.financialexpertService.getFinancialExpert().subscribe(res=>{
       this.data = res.data.rows;
-      console.log(this.data);
     });
   }
 

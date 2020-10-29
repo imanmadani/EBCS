@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {BaseClass} from "../../../utilities/base";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
@@ -11,12 +11,13 @@ import {ToastrService} from "ngx-toastr";
 export class GroupsComponent extends BaseClass implements OnInit {
   activeMenu;
 
-  constructor(readonly router: Router ,
+  constructor(readonly router: Router,
               protected toastr: ToastrService) {
-  super(toastr);
-}
+    super(toastr);
+  }
+
   ngOnInit(): void {
-    this.router.navigateByUrl('/GroupsList');
+    this.router.navigate(['Dashboard/Groups/GroupList']);
   }
 
   activeLinkHandler() {

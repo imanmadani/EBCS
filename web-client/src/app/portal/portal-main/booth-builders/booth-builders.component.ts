@@ -16,6 +16,7 @@ export class BoothBuildersComponent extends BaseClass implements OnInit {
     super(toastr);
   }
   ngOnInit(): void {
+    this.router.navigate(['Dashboard/BoothBuilders/BoothbuilderDesk']);
   }
 
   activeLinkHandler() {

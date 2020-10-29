@@ -26,7 +26,6 @@ export class PortalParticipantsComponent implements OnInit {
       this.userInformation=res.data.row;
       this.portalParticipantsService.getBoothBuilder(this.userInformation.BoothId).subscribe(resBoothBuilder=>{
         this.boothBuilder=resBoothBuilder.data.row;
-        console.log(this.boothBuilder);
       });
     });
   }

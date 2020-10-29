@@ -62,7 +62,6 @@ export class BoothbuilderinfringementListComponent extends BaseClass implements 
   ngOnInit(): void {
     this.boothBuilderInfringementService.getBoothBuilderInfringement().subscribe(res=>{
       this.data = res.data.rows;
-      console.log(this.data);
     });
   }
 
