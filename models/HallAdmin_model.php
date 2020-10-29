@@ -3,23 +3,27 @@ class HallAdmin_model extends model
 {
     public function get()
     {
-        $sql = "SELECT myHallAdmin.Id,myHallAdmin.Name,myHallAdmin.Rate,myUser.Username,myUser.Id As UserId
+        $sql = "SELECT myHallAdmin.Id,myHallAdmin.Name,myHallAdmin.Rate,myUser.Username,myUser.Id As UserId,myHallAdmin.FlagBlock
                 FROM `halladmins` AS myHallAdmin
                 INNER JOIN `users` AS myUser ON myHallAdmin.UserId=myUser.Id 
                 WHERE myHallAdmin.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
     }
-    public function getHallAdminTask($hallAdminId)
+    public function getHallAdminTask()
     {
+        $head=getallheaders();
+        $ip=$_SERVER['REMOTE_ADDR'];
+        $user=$this->getUserByToken($head['token'],$ip);
         $sql = "SELECT 
                        myHall.Title AS HallName,
                        myEx.Title AS ExhibitionName
-                FROM `hallhalladmins` AS myHallAdminRel
+                From `halladmins` AS myHallAdmin        
+                INNER JOIN `hallhalladmins` AS myHallAdminRel ON myHallAdmin.Id=myHallAdminRel.HallAdminId 
                 INNER JOIN `exhibitionhalls` AS myExhibitionhall ON myHallAdminRel.ExhibitionHallId=myExhibitionhall.Id
                 INNER JOIN `halls` AS myHall ON myExhibitionhall.HallId=myHall.Id
                 INNER JOIN `exhibitions` AS myEx ON myExhibitionhall.ExhibitionId=myEx.Id
-                WHERE myHallAdminRel.FlagDelete=0 AND myHallAdminRel.HallAdminId=$hallAdminId";
+                WHERE myHallAdminRel.FlagDelete=0 AND myHallAdmin.UserId=".$user['Id'];
         $rows = $this->getAll($sql);
         return $rows;
     }

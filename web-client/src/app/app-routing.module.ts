@@ -32,6 +32,8 @@ import {FinancialexpertDeskComponent} from "./portal/portal-main/financial-exper
 import {SharedataComponent} from "./portal/portal-main/sharedata/sharedata.component";
 import {BoothbuilderinfringementListComponent} from "./portal/portal-main/sharedata/boothbuilderinfringement-list/boothbuilderinfringement-list.component";
 import {ArchitecturalexpertDeskComponent} from "./portal/portal-main/architectural-expert/architecturalexpert-desk/architecturalexpert-desk.component";
+import {ArchitecturalexpertInfringementsComponent} from "./portal/portal-main/architectural-expert/architecturalexpert-infringements/architecturalexpert-infringements.component";
+import {ExecuterhallListComponent} from "./portal/portal-main/executers/executerhall-list/executerhall-list.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/Login', pathMatch: 'full'},
@@ -103,6 +105,10 @@ const routes: Routes = [
             path: 'BoothList',
             component: ExecuterBoothListComponent,
           },
+          {
+            path: 'HallList',
+            component: ExecuterhallListComponent,
+          },
         ]
       },
       {
@@ -138,12 +144,16 @@ const routes: Routes = [
         component: ArchitecturalExpertComponent,
         children:[
           {
-            path: 'TechnicalExpertList',
+            path: 'ArchitecturalExpertList',
             component: ArchitecturalexpertListComponent,
           },
           {
             path: 'ArchitecturalExpertDesk',
             component: ArchitecturalexpertDeskComponent,
+          },
+          {
+            path: 'ArchitecturalExpertInfringements',
+            component: ArchitecturalexpertInfringementsComponent,
           },
         ]
       },

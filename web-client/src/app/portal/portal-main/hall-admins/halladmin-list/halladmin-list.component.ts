@@ -22,11 +22,6 @@ export class HalladminListComponent extends BaseClass implements OnInit {
       Username: {
         title: 'نام کاربری'
       },
-      Rates: {
-        title:'امتیاز',
-        type: 'custom',
-        renderComponent:RateComponent,
-      },
       FlagBlock: {
         title: 'وضعیت',
         type:'html',

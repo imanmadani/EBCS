@@ -46,7 +46,7 @@ class TechnicalExpert_model extends model
     {
         $sql = "SELECT myFile.Name,myFile.Type,myFile.ViewName FROM `boothboothbuilderplans` AS myBoothPlan
                 INNER JOIN `files` AS myFile ON myBoothPlan.FileId=myFile.Id
-                WHERE myBoothPlan.BoothBoothbuilderId=$boothBoothbuilderId";
+                WHERE myBoothPlan.BoothBoothbuilderId=$boothBoothbuilderId AND myFile.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
     }

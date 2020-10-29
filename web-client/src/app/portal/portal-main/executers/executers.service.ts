@@ -15,7 +15,10 @@ export class ExecutersService {
 
   }
   Boothget(): Observable<any> {
-    return this.http.get<any>(this.BoothbaseUrl + '?api=Get');
+    return this.http.get<any>(this.ExecuterbaseUrl + '?api=GetBoothByExecuter');
+  }
+  Hallget(): Observable<any> {
+    return this.http.get<any>(this.ExecuterbaseUrl + '?api=GetHallByExecuter');
   }
   BoothgetById(entity): Observable<any> {
     return this.http.get<any>(this.BoothbaseUrl + '?api=GetById&Id='+entity);
@@ -58,5 +61,16 @@ export class ExecutersService {
   Executerdelete(entity): Observable<any> {
     return this.http
       .post<any>(this.ExecuterbaseUrl+'?api=Delete', entity);
+  }
+  uploadPlan(entity): Observable<any> {
+    return this.http
+      .post<any>(this.ExecuterbaseUrl+'?api=UploadPlan', entity);
+  }
+  deletePlan(entity): Observable<any> {
+    return this.http
+      .post<any>(this.ExecuterbaseUrl+'?api=DeletePlan', entity);
+  }
+  GetUploadFileByExhibitionHallId(entity): Observable<any> {
+    return this.http.get<any>(this.ExecuterbaseUrl + '?api=GetUploadFileByExhibitionHallId&Id='+entity);
   }
 }

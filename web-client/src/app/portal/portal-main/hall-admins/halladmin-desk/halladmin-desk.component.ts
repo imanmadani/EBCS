@@ -60,7 +60,7 @@ export class HalladminDeskComponent extends BaseClass implements OnInit {
   }
 
   ngOnInit(): void {
-    this.halladminsService.getHallAdminTask(2).subscribe(res => {
+    this.halladminsService.getHallAdminTask().subscribe(res => {
       this.data = res.data.rows;
       console.log(this.data)
     });

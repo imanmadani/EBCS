@@ -30,7 +30,7 @@ export class HalladminsService {
     return this.http
       .post<any>(this.HalladminbaseUrl+'?api=Delete', entity);
   }
-  getHallAdminTask(entity): Observable<any> {
-    return this.http.get<any>(this.HalladminbaseUrl + '?api=GetHallAdminsTask&HallAdminId='+entity);
+  getHallAdminTask(): Observable<any> {
+    return this.http.get<any>(this.HalladminbaseUrl + '?api=GetHallAdminsTask');
   }
 }

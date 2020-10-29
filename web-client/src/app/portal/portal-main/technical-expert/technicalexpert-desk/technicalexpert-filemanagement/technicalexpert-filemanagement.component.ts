@@ -4,6 +4,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ToastrService} from "ngx-toastr";
 import {BaseClass} from "../../../../../utilities/base";
 import {TechnicalexpertsService} from "../../technicalexperts.service";
+import {TechnicalExpertModel} from "../../entity";
 
 @Component({
   selector: 'app-technicalexpert-filemanagement',
@@ -23,8 +24,7 @@ export class TechnicalexpertFilemanagementComponent extends BaseClass implements
 
 
   ngOnInit(): void {
-    this.technicalexpertsService.getPlanByBoothBoothbuilderId(this.model).subscribe(res=>{
-      debugger
+    this.technicalexpertsService.getPlanByBoothBoothbuilderId(this.model.BoothBoothBuilderId).subscribe(res=>{
       this.files=res.data.rows;
     });
   }

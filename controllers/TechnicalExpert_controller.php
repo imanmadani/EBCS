@@ -24,9 +24,9 @@ class TechnicalExpert_controller extends controller
     }
     public function GetPlanByBoothBoothbuilderId($query)
     {
-        $boothBoothbuilderId = $this->getVal('BoothBoothBuilderId', $query);
+        $boothBoothbuilderId = $this->getVal('BoothBoothbuilderId', $query);
         $rows = $this->_model->getPlanByBoothBoothbuilderId($boothBoothbuilderId);
-        $this->_res->set("row", $rows);
+        $this->_res->set("rows", $rows);
         $this->_res->output();
     }
     public function Create($query)

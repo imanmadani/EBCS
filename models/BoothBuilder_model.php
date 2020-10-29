@@ -25,8 +25,12 @@ class BoothBuilder_model extends model
         return $rows;
     }
 
-    public function getBoothBuilderTask($boothBuilderId)
+    public function getBoothBuilderTask()
     {
+        $head=getallheaders();
+        $ip=$_SERVER['REMOTE_ADDR'];
+        $user=$this->getUserByToken($head['token'],$ip);
+
         $billTypeValid=BillTypeEnum::ExhibitionService;
         $sql = "SELECT 
                        myBoothBuilderRel.Id As Id,
@@ -39,14 +43,15 @@ class BoothBuilder_model extends model
                        myBill.Quantity,
                        myBill.Amount,
                        myBoothBuilderRel.FlagDelete As FlagBlock
-                FROM `boothboothbuilders` AS myBoothBuilderRel
+                FROM `BoothBuilders` AS myBoothBuilder     
+                INNER JOIN `boothboothbuilders` AS myBoothBuilderRel ON myBoothBuilder.Id=myBoothBuilderRel.BoothBuilderId
                 INNER JOIN `booths` AS myBooth ON myBoothBuilderRel.BoothId=myBooth.Id
                 INNER JOIN `bills` AS myBill ON myBooth.Id=myBill.BoothId
                 INNER JOIN `exhibitionhalls` As myExHall ON myBooth.ExhibitionHallId=myExHall.Id
                 INNER JOIN `halls` AS myHall ON myExHall.HallId=myHall.Id
                 INNER JOIN `participants` AS myParti ON myBooth.ParticipantId=myParti.Id
                 INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
-                WHERE myBoothBuilderRel.FlagDelete=0 AND myBill.BillType=$billTypeValid AND myBoothBuilderRel.BoothBuilderId=$boothBuilderId";
+                WHERE myBoothBuilderRel.FlagDelete=0 AND myBill.BillType=$billTypeValid AND myBoothBuilder.UserId=".$user['Id'];
         $rows = $this->getAll($sql);
         return $rows;
     }

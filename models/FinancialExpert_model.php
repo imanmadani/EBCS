@@ -10,16 +10,16 @@ class FinancialExpert_model extends model
         $rows = $this->getAll($sql);
         return $rows;
     }
-    public function getFinancialExpertTask($hallAdminId)
+    public function getFinancialExpertTask()
     {
-        $sql = "SELECT myBill.Id,
+        $sql = "SELECT myBill.Id ,
                        myBill.BoothId,
                        myBill.Quantity,
                        myBill.Amount,
-                       myBill.PayStatus,
+                       myBill.FinancialApprove,
                        myBillType.Title AS BillType,
                        myQtyType.Title AS QuantityType,
-                       myBooth.Id,myBooth.Name,myBooth.ExhibitionHallId,myBooth.ParticipantId,myBooth.Area,myBooth.Area2,
+                       myBooth.Id AS BoothId,myBooth.Name,myBooth.ExhibitionHallId,myBooth.ParticipantId,myBooth.Area,myBooth.Area2,
                        myHall.Title AS HallTitle,
                        myParticipant.Username AS ParticipantUsername,
                        myEx.Title AS ExName 
@@ -31,7 +31,7 @@ class FinancialExpert_model extends model
                 INNER JOIN `halls` AS myHall ON myHallEx.HallId=myHall.Id
                 INNER JOIN `participants` AS myParticipant ON myBooth.ParticipantId=myParticipant.Id
                 INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
-                WHERE myBill.FlagDelete=0";
+                WHERE myBill.FlagDelete=0 AND myBill.PayStatus=1";
         $rows = $this->getAll($sql);
         return $rows;
     }
@@ -73,7 +73,7 @@ class FinancialExpert_model extends model
     }
     public function acceptPay($id)
     {
-        $sql = "UPDATE `bills` SET `PayStatus`=1 WHERE `Id`=$id";
+        $sql = "UPDATE `bills` SET `FinancialApprove`=1 WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
     }

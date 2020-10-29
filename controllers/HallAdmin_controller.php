@@ -10,8 +10,7 @@ class HallAdmin_controller extends controller
     }
     public function GetHallAdminsTask($query)
     {
-        $hallAdminId = $this->getVal('HallAdminId', $query);
-        $rows = $this->_model->getHallAdminTask($hallAdminId);
+        $rows = $this->_model->getHallAdminTask();
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }

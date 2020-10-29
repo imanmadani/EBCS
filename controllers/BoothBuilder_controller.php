@@ -16,8 +16,7 @@ class BoothBuilder_controller extends controller
     }
     public function GetBoothBuilderTask($query)
     {
-        $boothBuilderId = $this->getVal('BoothBuilderId', $query);
-        $rows = $this->_model->getBoothBuilderTask($boothBuilderId);
+        $rows = $this->_model->getBoothBuilderTask();
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }

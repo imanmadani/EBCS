@@ -9,8 +9,7 @@ class FinancialExpert_controller extends controller
     }
     public function GetFinancialExpertsTask($query)
     {
-        $hallAdminId = $this->getVal('HallAdminId', $query);
-        $rows = $this->_model->getFinancialExpertTask($hallAdminId);
+        $rows = $this->_model->getFinancialExpertTask();
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }

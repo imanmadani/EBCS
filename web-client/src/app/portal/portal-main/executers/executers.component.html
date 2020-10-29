@@ -7,6 +7,11 @@
         <span class="pr-2" [class]="mobile?'d-none':''">لیست مجریان</span>
       </div>
       <div class="m-auto flex-fill border-left text-center ebcs-clickable"
+           routerLink="HallList" [ngClass]="this.router.url.includes('/HallList')?'text-white':''">
+        <fa-icon [icon]="iList"></fa-icon>
+        <span class="pr-2" [class]="mobile?'d-none':''">سالن ها</span>
+      </div>
+      <div class="m-auto flex-fill border-left text-center ebcs-clickable"
            routerLink="BoothList" [ngClass]="this.router.url.includes('/BoothList')?'text-white':''">
         <fa-icon [icon]="iList"></fa-icon>
         <span class="pr-2" [class]="mobile?'d-none':''">غرفه ها</span>

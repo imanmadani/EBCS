@@ -39,7 +39,7 @@ export class FinancialexpertDeskComponent extends BaseClass implements OnInit {
       Amount: {
         title: 'مبلغ'
       },
-      PayStatus: {
+      FinancialApprove: {
         title: 'وضعیت پرداخت',
         type:'html',
         valuePrepareFunction: (value) => {
@@ -74,6 +74,7 @@ export class FinancialexpertDeskComponent extends BaseClass implements OnInit {
 
   ngOnInit(): void {
     this.financialexpertsService.getFinancialExpertTask().subscribe(res => {
+      debugger
       this.data = res.data.rows;
     });
   }
@@ -123,6 +124,7 @@ export class FinancialexpertDeskComponent extends BaseClass implements OnInit {
     });
   }
   acceptHandler(inputModel){
+    debugger
     let entity = new GroupModel();
     entity.Id = inputModel.Id;
     this.financialexpertsService.FinancialExpertAccept(entity).subscribe(res => {

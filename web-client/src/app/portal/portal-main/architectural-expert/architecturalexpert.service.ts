@@ -39,4 +39,7 @@ export class ArchitecturalexpertService {
   getInfringementDropDown(){
     return this.http.get<any>(this.ArchitecturalexpertbaseUrl + '?api=InfrigementDropDown');
   }
+  getArchitecturalexpertInfringements(){
+    return this.http.get<any>(this.ArchitecturalexpertbaseUrl + '?api=GetArchitecturalInfringements');
+  }
 }

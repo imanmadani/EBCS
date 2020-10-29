@@ -8,6 +8,19 @@ class Executer_controller extends controller
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }
+    public function GetHallByExecuter()
+    {
+        $rows = $this->_model->getHallByExecuter();
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function GetBoothByExecuter()
+    {
+        $rows = $this->_model->getBoothByExecuter();
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+
 
     public function GetById($query)
     {
@@ -38,6 +51,31 @@ class Executer_controller extends controller
     {
         $id = $this->getVal('Id', $query);
         $rows = $this->_model->delete($id);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
+    public function UploadPlan($query)
+    {
+        $Id = $this->getVal('Id', $query);
+        $name = $this->getVal('Name', $query);
+        $length = $this->getVal('Length', $query);
+        $contentType = $this->getVal('ContentType', $query);
+        $image = $this->getVal('Data', $query);
+        $rows = $this->_model->uploadPlan($Id,$image,$name,$length,$contentType);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
+    public function GetUploadFileByExhibitionHallId($query)
+    {
+        $id = $this->getVal('Id', $query);
+        $rows = $this->_model->getUploadFileByExhibitionHallId($id);
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function DeletePlan($query)
+    {
+        $id = $this->getVal('Id', $query);
+        $rows = $this->_model->deletePlan($id);
         $this->_res->set("result", $rows);
         $this->_res->output();
     }

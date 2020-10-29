@@ -91,6 +91,9 @@ import { BoothbuilderinfringementEditComponent } from './portal/portal-main/shar
 import { ArchitecturalexpertDeskComponent } from './portal/portal-main/architectural-expert/architecturalexpert-desk/architecturalexpert-desk.component';
 import {BoothbuilderinfringementCreateComponent} from "./portal/portal-main/sharedata/boothbuilderinfringement-list/boothbuilderinfringement-create/boothbuilderinfringement-create.component";
 import {BoothbuilderinfringementSetComponent} from "./portal/portal-main/architectural-expert/architecturalexpert-desk/boothbuilderinfringement-set/boothbuilderinfringement-set.component";
+import { ArchitecturalexpertInfringementsComponent } from './portal/portal-main/architectural-expert/architecturalexpert-infringements/architecturalexpert-infringements.component';
+import { ExecuterhallListComponent } from './portal/portal-main/executers/executerhall-list/executerhall-list.component';
+import { ExecuterhallPlanUploadComponent } from './portal/portal-main/executers/executerhall-list/executerhall-plan-upload/executerhall-plan-upload.component';
 
 @NgModule({
   declarations: [
@@ -170,7 +173,10 @@ import {BoothbuilderinfringementSetComponent} from "./portal/portal-main/archite
     BoothbuilderinfringementCreateComponent,
     BoothbuilderinfringementEditComponent,
     ArchitecturalexpertDeskComponent,
-    BoothbuilderinfringementSetComponent
+    BoothbuilderinfringementSetComponent,
+    ArchitecturalexpertInfringementsComponent,
+    ExecuterhallListComponent,
+    ExecuterhallPlanUploadComponent
 
   ],
   imports: [
