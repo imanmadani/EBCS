@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BaseClass} from '../../../../utilities/base';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastrService} from 'ngx-toastr';
@@ -12,6 +12,7 @@ import {ExhibitionListCreateComponent} from "./exhibition-list-create/exhibition
 import {ExhibitionListEditComponent} from "./exhibition-list-edit/exhibition-list-edit.component";
 import {ExhibitionAssignTechnicalexpertComponent} from "./exhibition-assign-technicalexpert/exhibition-assign-technicalexpert.component";
 import {ExhibitionAssignArchitecturalexpertComponent} from "./exhibition-assign-architecturalexpert/exhibition-assign-architecturalexpert.component";
+import * as moment from 'jalali-moment';
 
 @Component({
   selector: 'app-exhibition-list',
@@ -30,11 +31,28 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
       Grade: {
         title: 'گرید'
       },
+      StartDateTime: {
+        title: 'زمان شروع',
+        valuePrepareFunction: (value) => {
+          if (value==='0000-00-00 00:00:00') return '-';
+          let t=moment(value, 'YYYY/MM/DD hh:mm:ss').locale('fa').format('hh:mm:ss YYYY/MM/DD');
+          return t;
+        },
+
+      },
+      EndDateTime: {
+        title: 'زمان پایان',
+        valuePrepareFunction: (value) => {
+          if (value === "0000-00-00 00:00:00") return '-';
+          let t=moment(value, 'YYYY/MM/DD hh:mm:ss').locale('fa').format('hh:mm:ss YYYY/MM/DD');
+          return t;
+        },
+      },
       FlagBlock: {
         title: 'وضعیت',
-        type:'html',
+        type: 'html',
         valuePrepareFunction: (value) => {
-          if (value==="0") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
+          if (value === "0") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
           return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';
         },
       }
@@ -118,8 +136,9 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
   }
 
   createHandler() {
-    let modalRef=this.modalService.open(ExhibitionListCreateComponent, {centered: true});
-    modalRef.result.then((data) => {}, (reason) => {
+    let modalRef = this.modalService.open(ExhibitionListCreateComponent, {centered: true});
+    modalRef.result.then((data) => {
+    }, (reason) => {
       if (reason)
         this.ngOnInit();
     });
@@ -139,39 +158,48 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
   editHandler(inputModel) {
     const modalRef = this.modalService.open(ExhibitionListEditComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
-    modalRef.result.then((data) => {}, (reason) => {
+    modalRef.result.then((data) => {
+    }, (reason) => {
       if (reason)
         this.ngOnInit();
     });
   }
+
   assignSalonHandler(inputModel) {
     const modalRef = this.modalService.open(ExhibitionAssignSalonComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
-    modalRef.result.then((data) => {}, (reason) => {
+    modalRef.result.then((data) => {
+    }, (reason) => {
       if (reason)
         this.ngOnInit();
     });
   }
-  assignExecuterHandler(inputModel){
+
+  assignExecuterHandler(inputModel) {
     const modalRef = this.modalService.open(ExhibitionAssignExecuterComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
-    modalRef.result.then((data) => {}, (reason) => {
+    modalRef.result.then((data) => {
+    }, (reason) => {
       if (reason)
         this.ngOnInit();
     });
   }
-  assignTechnicalExpertHandler(inputModel){
+
+  assignTechnicalExpertHandler(inputModel) {
     const modalRef = this.modalService.open(ExhibitionAssignTechnicalexpertComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
-    modalRef.result.then((data) => {}, (reason) => {
+    modalRef.result.then((data) => {
+    }, (reason) => {
       if (reason)
         this.ngOnInit();
     });
   }
-  assignArchitecturalExpertHandler(inputModel){
+
+  assignArchitecturalExpertHandler(inputModel) {
     const modalRef = this.modalService.open(ExhibitionAssignArchitecturalexpertComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
-    modalRef.result.then((data) => {}, (reason) => {
+    modalRef.result.then((data) => {
+    }, (reason) => {
       if (reason)
         this.ngOnInit();
     });

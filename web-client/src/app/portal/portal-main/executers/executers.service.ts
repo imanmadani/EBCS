@@ -41,6 +41,9 @@ export class ExecutersService {
   BoothgetParticipantDropDown(){
     return this.http.get<any>(this.BoothbaseUrl + '?api=ParticipantDropDown');
   }
+  BoothgetConstTypeDropDown(){
+    return this.http.get<any>(this.BoothbaseUrl + '?api=ConstTypeDropDown');
+  }
   BoothgetHallDropDown(exhibitionId){
     return this.http.get<any>(this.BoothbaseUrl + '?api=HallDropDown&ExhibitionId='+exhibitionId);
   }

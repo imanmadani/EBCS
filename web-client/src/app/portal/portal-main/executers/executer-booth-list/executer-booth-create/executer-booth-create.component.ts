@@ -21,6 +21,8 @@ export class ExecuterBoothCreateComponent extends BaseClass implements OnInit {
   halldpdown = '.....';
   participantDropDown;
   participantdpdown = '.....';
+  constTypeDropDown;
+  constTypedpdown = '.....';
 
   constructor(private executersService: ExecutersService,
               private modalService: NgbModal,
@@ -30,10 +32,13 @@ export class ExecuterBoothCreateComponent extends BaseClass implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    this.executersService.BoothgetExhibitionDropDown().subscribe(res => {
-      this.exhibitionDropDown = res.data.rows;
-      this.executersService.BoothgetParticipantDropDown().subscribe(resParticipant => {
-        this.participantDropDown = resParticipant.data.rows;
+    this.executersService.BoothgetConstTypeDropDown().subscribe(res => {
+      this.constTypeDropDown = res.data.rows;
+      this.executersService.BoothgetExhibitionDropDown().subscribe(res => {
+        this.exhibitionDropDown = res.data.rows;
+        this.executersService.BoothgetParticipantDropDown().subscribe(resParticipant => {
+          this.participantDropDown = resParticipant.data.rows;
+        });
       });
     });
   }
@@ -44,8 +49,10 @@ export class ExecuterBoothCreateComponent extends BaseClass implements OnInit {
       ExhibitionId: new FormControl(null, Validators.required),
       ExhibitionHallId: new FormControl(null, Validators.required),
       ParticipantId: new FormControl(null, Validators.required),
-      Area: new FormControl(null, Validators.required),
+      AreaRial: new FormControl(0, Validators.required),
+      AreaArz: new FormControl(0, Validators.required),
       Area2: new FormControl(0),
+      ConstType: new FormControl(null, Validators.required),
     });
   }
 
@@ -87,5 +94,9 @@ export class ExecuterBoothCreateComponent extends BaseClass implements OnInit {
   setParticipantData(e) {
     this.participantdpdown = e.Title;
     this.formGroup.get('ParticipantId').setValue(e.Id);
+  }
+  setConstTypeData(e){
+    this.constTypedpdown=e.Title;
+    this.formGroup.get('ConstType').setValue(e.Id);
   }
 }

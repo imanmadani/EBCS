@@ -21,9 +21,11 @@ class Booth_controller extends controller
         $exhibitionId = $this->getVal('ExhibitionId', $query);
         $exHallId = $this->getVal('ExhibitionHallId', $query);
         $participantId = $this->getVal('ParticipantId', $query);
-        $area = $this->getVal('Area', $query);
+        $areaRial = $this->getVal('AreaRial', $query);
+        $areaArz = $this->getVal('AreaArz', $query);
         $area2 = $this->getVal('Area2', $query);
-        $rows = $this->_model->create($name,$exhibitionId,$exHallId,$participantId,$area,$area2);
+        $constructionType = $this->getVal('ConstType', $query);
+        $rows = $this->_model->create($name,$exhibitionId,$exHallId,$participantId,$areaRial,$areaArz,$area2,$constructionType);
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
@@ -48,6 +50,12 @@ class Booth_controller extends controller
     public function ExhibitionDropDown()
     {
         $rows = $this->_model->exhibitionDropDown();
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function ConstTypeDropDown()
+    {
+        $rows = $this->_model->constTypeDropDown();
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }

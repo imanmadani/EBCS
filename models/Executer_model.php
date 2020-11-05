@@ -34,7 +34,7 @@ class Executer_model extends model
         $head=getallheaders();
         $ip=$_SERVER['REMOTE_ADDR'];
         $user=$this->getUserByToken($head['token'],$ip);
-        $sql = "SELECT myBooth.Id,myBooth.Name,myBooth.ExhibitionHallId,myBooth.ParticipantId,myBooth.Area,myBooth.Area2,
+        $sql = "SELECT myBooth.Id,myBooth.Name,myBooth.ExhibitionHallId,myBooth.ParticipantId,myBooth.AreaRial,myBooth.AreaArz,myBooth.AreaType,myBooth.Area2,myBooth.ConstructionType,
                        myHall.Title AS HallTitle,myParticipant.Username AS ParticipantUsername,
                        myEx.Title AS ExName , myBooth.FlagBlock
                 FROM `executers` AS myExecuter

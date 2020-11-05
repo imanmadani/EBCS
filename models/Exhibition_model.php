@@ -1,11 +1,10 @@
 <?php
 require_once '../Enum/Group-Enum.php';
-
 class Exhibition_model extends model
 {
     public function get()
     {
-        $sql = "SELECT myExhibition.Id,myExhibition.Year,myExhibition.Title,myExhibition.GradeId,myExhibition.FlagBlock,myExGrade.Title AS Grade FROM `exhibitions` myExhibition
+        $sql = "SELECT myExhibition.Id,myExhibition.Year,myExhibition.Title,myExhibition.GradeId,myExhibition.FlagBlock,myExGrade.Title AS Grade ,myExhibition.StartDateTime,myExhibition.EndDateTime FROM `exhibitions` myExhibition
                 INNER JOIN `exhibitiongrades` AS myExGrade ON myExhibition.GradeId=myExGrade.Id WHERE myExhibition.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
@@ -17,9 +16,9 @@ class Exhibition_model extends model
         return $rows;
     }
 
-    public function create($title,$year,$gradeId)
+    public function create($title,$year,$gradeId,$startDateTime,$endDateTime)
     {
-        $sql = "INSERT INTO `exhibitions`(`Title`,`Year`,`GradeId`) VALUES ('$title',$year,$gradeId)";
+        $sql = "INSERT INTO `exhibitions`(`Title`,`Year`,`GradeId`,`StartDateTime`,`EndDateTime`) VALUES ('$title',$year,$gradeId,'$startDateTime','$endDateTime')";
         $rows = $this->execQuery($sql);
         return $rows;
     }

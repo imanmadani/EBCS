@@ -17,8 +17,11 @@ class TechnicalExpert_model extends model
         $sql = "SELECT myEx.Title AS ExhibitionName,
                        myHall.Title AS HallName,
                        myBooth.Name AS BoothName,
-                       myBooth.Area,
+                       myBooth.AreaRial,
+                       myBooth.AreaArz,
+                       myBooth.AreaType,
                        myBooth.Area2,
+                       myBooth.ConstructionType,
                        myParticipant.Username AS ParticipantName,
                        myBoothBoothBuilder.Id AS BoothBoothBuilderId
                 FROM `exhibitiontechnicalexperts` AS myTechnicalExpert

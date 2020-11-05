@@ -21,6 +21,10 @@ class Participant_model extends model
                        myEx.Year AS ExYear,
                        myBooth.Id AS BoothId,
                        myBooth.Name AS BoothName,
+                       myBooth.AreaRial,
+                       myBooth.AreaArz,
+                       myBooth.AreaType,
+                       myBooth.ConstructionType,
                        myHalls.Title AS HallTitle
                 From `booths` AS myBooth
                 INNER JOIN  `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id 
@@ -28,6 +32,14 @@ class Participant_model extends model
                 INNER JOIN  `exhibitionhalls` AS myExHall ON myBooth.ExhibitionHallId=myExHall.Id 
                 INNER JOIN  `halls` AS myHalls ON myExHall.HallId=myHalls.Id 
                 WHERE myBooth.ParticipantId=$participantId AND myBooth.FlagDelete=0";
+        $row = $this->getRow($sql);
+        return $row;
+    }
+    public function getParticipantDetails($participantId)
+    {
+        $sql = "SELECT * From `participants` AS myPart
+                INNER JOIN  `participantdetails` AS myPartDetail ON myPart.Id=myPartDetail.ParticipantId 
+                WHERE myPart.Id=$participantId AND myPart.FlagDelete=0";
         $row = $this->getRow($sql);
         return $row;
     }

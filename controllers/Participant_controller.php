@@ -22,6 +22,13 @@ class Participant_controller extends controller
         $this->_res->set("row", $row);
         $this->_res->output();
     }
+    public function GetParticipantDetails($query)
+    {
+        $participantId = $this->getVal('ParticipantId', $query);
+        $row = $this->_model->getParticipantDetails($participantId);
+        $this->_res->set("row", $row);
+        $this->_res->output();
+    }
     public function GetBoothBuilder($query)
     {
         $boothId = $this->getVal('BoothId', $query);

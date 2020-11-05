@@ -20,7 +20,9 @@ class Exhibition_controller extends controller
         $title = $this->getVal('Title', $query);
         $year = $this->getVal('Year', $query);
         $gradeId = $this->getVal('GradeId', $query);
-        $rows = $this->_model->create($title,$year,$gradeId);
+        $startDateTime = $this->getVal('StartDateTime', $query);
+        $endDateTime = $this->getVal('EndDateTime', $query);
+        $rows = $this->_model->create($title,$year,$gradeId,$startDateTime,$endDateTime);
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
@@ -30,7 +32,9 @@ class Exhibition_controller extends controller
         $title = $this->getVal('Title', $query);
         $year = $this->getVal('Year', $query);
         $gradeId = $this->getVal('GradeId', $query);
-        $rows = $this->_model->update($id,$title,$year,$gradeId);
+        $startDateTime = $this->getVal('StartDateTime', $query);
+        $endDateTime = $this->getVal('EndDateTime', $query);
+        $rows = $this->_model->update($id,$title,$year,$gradeId,$startDateTime,$endDateTime);
         $this->_res->set("result", $rows);
         $this->_res->output();
     }

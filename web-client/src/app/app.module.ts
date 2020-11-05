@@ -94,6 +94,7 @@ import {BoothbuilderinfringementSetComponent} from "./portal/portal-main/archite
 import { ArchitecturalexpertInfringementsComponent } from './portal/portal-main/architectural-expert/architecturalexpert-infringements/architecturalexpert-infringements.component';
 import { ExecuterhallListComponent } from './portal/portal-main/executers/executerhall-list/executerhall-list.component';
 import { ExecuterhallPlanUploadComponent } from './portal/portal-main/executers/executerhall-list/executerhall-plan-upload/executerhall-plan-upload.component';
+import {NgPersianDatepickerModule} from "ng-persian-datepicker";
 
 @NgModule({
   declarations: [
@@ -197,6 +198,7 @@ import { ExecuterhallPlanUploadComponent } from './portal/portal-main/executers/
     FormsModule,
     FileUploadModule,
     IvyGalleryModule,
+    NgPersianDatepickerModule,
     TabsModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 10000,

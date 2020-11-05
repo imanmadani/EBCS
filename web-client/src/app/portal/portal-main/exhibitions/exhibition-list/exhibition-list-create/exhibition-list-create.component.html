@@ -33,7 +33,34 @@
           </div>
         </div>
       </div>
-
+      <div class="form-group">
+        <div class="input-group mb-3 ">
+          <input type="text" #datepickerInput formControlName="StartDateTime" class="form-control text-right" />
+          <div class="input-group-append ">
+            <span class="input-group-text">تاریخ شروع </span>
+          </div>
+          <ng-persian-datepicker
+            [input]="datepickerInput"
+            [uiTheme]="'gray'"
+            [uiHideOnOutsideClick]="false"
+            [timeShowSecond]="false"
+            [dateFormat]="'jYYYY-jMM-jDD HH:mm:00'"></ng-persian-datepicker>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group mb-3 ">
+          <input type="text" #datepickerInput2 formControlName="EndDateTime" class="form-control text-right" />
+          <div class="input-group-append">
+            <span class="input-group-text">تاریخ پایان </span>
+          </div>
+          <ng-persian-datepicker
+            [input]="datepickerInput2"
+            [uiTheme]="'gray'"
+            [uiHideOnOutsideClick]="false"
+            [timeShowSecond]="false"
+            [dateFormat]="'jYYYY-jMM-jDD HH:mm:00'"></ng-persian-datepicker>
+        </div>
+      </div>
     </div>
   </div>
 

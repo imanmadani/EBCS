@@ -19,7 +19,7 @@ class FinancialExpert_model extends model
                        myBill.FinancialApprove,
                        myBillType.Title AS BillType,
                        myQtyType.Title AS QuantityType,
-                       myBooth.Id AS BoothId,myBooth.Name,myBooth.ExhibitionHallId,myBooth.ParticipantId,myBooth.Area,myBooth.Area2,
+                       myBooth.Id AS BoothId,myBooth.Name,myBooth.ExhibitionHallId,myBooth.ParticipantId,myBooth.AreaRial,myBooth.AreaArz,myBooth.AreaType,myBooth.Area2,myBooth.ConstructionType,
                        myHall.Title AS HallTitle,
                        myParticipant.Username AS ParticipantUsername,
                        myEx.Title AS ExName 

@@ -27,11 +27,31 @@ export class TechnicalexpertDeskComponent extends BaseClass implements OnInit {
       BoothName: {
         title:'شماره غرفه',
       },
-      Area: {
-        title:'متراژ غرفه',
+      AreaRial: {
+        title: 'متراژ ریالی'
+      },
+      AreaArz: {
+        title: 'متراژ ارزی'
+      },
+      AreaType: {
+        title: 'نوع غرفه',
+        valuePrepareFunction: (value) => {
+          if (value==="1") return 'ریالی';
+          if (value==="2") return 'ارزی';
+          if (value==="3") return 'ارزی - ریالی';
+          return '-';
+        },
       },
       Area2: {
-        title:'متراژ طبقه دوم',
+        title: 'متراژ طبقه دوم'
+      },
+      ConstructionType: {
+        title: 'نوع ساخت',
+        valuePrepareFunction: (value) => {
+          if (value==="1") return 'پیش ساخته';
+          if (value==="2") return 'خود ساز';
+          return '-';
+        },
       },
       ParticipantName: {
         title:'مشارکت کننده',

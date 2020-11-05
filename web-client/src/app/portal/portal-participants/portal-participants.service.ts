@@ -23,6 +23,9 @@ export class PortalParticipantsService {
   getDataByParticipant(model): Observable<any> {
     return this.http.get<any>(this.baseUrl + '?api=GetDataByParticipant&ParticipantId='+model);
   }
+  getParticipantDetails(model): Observable<any> {
+    return this.http.get<any>(this.baseUrl + '?api=GetParticipantDetails&ParticipantId='+model);
+  }
   getBoothBuilder(model): Observable<any> {
     return this.http.get<any>(this.baseUrl + '?api=GetBoothBuilder&BoothId='+model);
   }
