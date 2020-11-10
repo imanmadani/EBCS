@@ -29,15 +29,30 @@ class controller
 
     public function checkToken($token)
     {
-        $ip=$_SERVER['REMOTE_ADDR'];
-        $row = $this->_model->getUserByToken($token,$ip);
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $row = $this->_model->checkToken($token, $ip);
         if ($row) return $row;
         return false;
     }
 
-    public function setTokenHistory($tokenId,$controller,$method)
+    public function checkTokenHistory($token)
     {
-        $row = $this->_model->setTokenHistory($tokenId,$controller,$method);
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $row = $this->_model->getTokenHistoryByTokenId($token);
+        if ($row) return $row;
+        return false;
+    }
+
+    public function setTokenHistory($tokenId, $controller, $method)
+    {
+        $row = $this->_model->setTokenHistory($tokenId, $controller, $method);
+        if ($row) return true;
+        return false;
+    }
+
+    public function UnvalidToken($token)
+    {
+        $row = $this->_model->unvalidToken($token);
         if ($row) return true;
         return false;
     }

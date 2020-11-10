@@ -18,6 +18,9 @@ export class LoginService {
   login(formData): Observable<any> {
     return this.http.post<any>(this.baseUrl + '?api=Login', formData);
   }
+  logout(): Observable<any> {
+    return this.http.post<any>(this.baseUrl2 + '?api=Logout', {Id:'0'});
+  }
   getUser(): Observable<any> {
     return this.http.get<any>(this.baseUrl2 + '?api=Get');
   }

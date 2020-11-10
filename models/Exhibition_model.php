@@ -58,6 +58,12 @@ class Exhibition_model extends model
         $rows = $this->getAll($sql);
         return $rows;
     }
+    public function halladminDropDown()
+    {
+        $sql = "SELECT `Id`,`Name` As Title FROM `halladmins` WHERE `FlagDelete`=0 ";
+        $rows = $this->getAll($sql);
+        return $rows;
+    }
     public function technicalExpertDropDown()
     {
         $sql = "SELECT `Id`,`Name` As Title FROM `technicalExperts` WHERE `FlagDelete`=0 ";
@@ -73,6 +79,12 @@ class Exhibition_model extends model
     public function assignExecuter($exhibitionId,$executerId)
     {
         $sql = "INSERT INTO `exhibitionExecuters`( `ExhibitionId`, `ExecuterId`) VALUES ($exhibitionId,$executerId)";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
+    public function assignHalladmin($exhibitionId,$halladminId)
+    {
+        $sql = "INSERT INTO `exhibitionHalladmins`( `ExhibitionId`, `HalladminId`) VALUES ($exhibitionId,$halladminId)";
         $rows = $this->execQuery($sql);
         return $rows;
     }
@@ -94,6 +106,12 @@ class Exhibition_model extends model
         $rows = $this->execQuery($sql);
         return $rows;
     }
+    public function deleteassignHalladmin($id)
+    {
+        $sql = "UPDATE `exhibitionhalladmins` SET `FlagDelete`=1 WHERE `Id`=$id";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
     public function deleteassignTechnicalExpert($id)
     {
         $sql = "UPDATE `exhibitiontechnicalexperts` SET `FlagDelete`=1 WHERE `Id`=$id";
@@ -109,6 +127,12 @@ class Exhibition_model extends model
     public function getExecuterByExhibitionId($exhibitionId)
     {
         $sql = "SELECT executer.Name AS Name , exexecuter.Id AS Id FROM `exhibitionExecuters` AS exexecuter INNER JOIN `executers` AS executer  ON exexecuter.ExecuterId=executer.Id WHERE exexecuter.ExhibitionId =$exhibitionId AND exexecuter.FlagDelete=0 AND executer.FlagDelete=0";
+        $rows = $this->getAll($sql);
+        return $rows;
+    }
+    public function getHalladminByExhibitionId($exhibitionId)
+    {
+        $sql = "SELECT myHalladmin.Name AS Name , myExHalladmin.Id AS Id FROM `exhibitionhalladmins` AS myExHalladmin INNER JOIN `halladmins` AS myHalladmin  ON myExHalladmin.HalladminId=myHalladmin.Id WHERE myExHalladmin.ExhibitionId =$exhibitionId AND myExHalladmin.FlagDelete=0 AND myHalladmin.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
     }

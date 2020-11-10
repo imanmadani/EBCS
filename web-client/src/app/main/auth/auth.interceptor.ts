@@ -51,6 +51,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(authReq).pipe(
       tap(
         (event: HttpEvent<any>) => {
+          debugger
           if (event instanceof HttpResponse) {
             this.onEnd();
           }

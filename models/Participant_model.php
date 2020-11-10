@@ -43,11 +43,49 @@ class Participant_model extends model
         $row = $this->getRow($sql);
         return $row;
     }
-    public function getBoothBuilder($boothId)
+    public function getBoothBuilder()
+    {
+        $sql = "SELECT * FROM(
+			        SELECT mybuilder.Name,
+       		        		  (SUM(myBooth.AreaRial)+SUM(myBooth.AreaArz)) AS MaxArea,
+                           mybuilder.LimitArea AS BuilderLimit,
+       		               mybuilder.Id,
+                           mybuilder.Rate,
+                           myBuilderGrade.LimitArea AS GradeLimit,
+                           myBuilderGrade.Title AS Grade
+                    FROM `boothbuilders` AS mybuilder
+                    INNER JOIN `boothboothbuilders` AS myBoothBuilderRel ON mybuilder.Id=myBoothBuilderRel.BoothBuilderId
+                    INNER JOIN `boothbuildergrades` AS myBuilderGrade ON mybuilder.GradeId=myBuilderGrade.Id
+                    Inner JOIN `booths` AS myBooth ON myBoothBuilderRel.BoothId=myBooth.Id
+                    WHERE mybuilder.FlagDelete=0 AND mybuilder.FlagBlock=0) AS BoothBuilderValid 
+                WHERE (GradeLimit>MaxArea AND BuilderLimit=null) OR (BuilderLimit>MaxArea) ";
+        $rows = $this->getAll($sql);
+        return $rows;
+    }
+    public function getBoothBuilderByBoothId($boothId)
     {
         $sql = "SELECT * FROM `boothboothbuilders`  AS myBoothBuilderRel
                 INNER JOIN `boothbuilders` AS myBoothBuilder ON myBoothBuilderRel.BoothBuilderId=myBoothBuilder.Id 
                 WHERE `BoothId`=$boothId AND myBoothBuilderRel.FlagDelete=0";
+        $rows = $this->getRow($sql);
+        return $rows;
+    }
+    public function setBoothBoothBuilder($boothId,$boothBuilderId)
+    {
+        $sql = "INSERT INTO `boothboothbuilders`( `BoothId`, `BoothBuilderId`) VALUES ($boothId,$boothBuilderId)";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
+    public function setBoothBuilderRate($boothId,$boothBuilderId,$rate)
+    {
+        $sql = "INSERT INTO `boothbuilderrates`(`BoothId`, `BoothBuilderId`, `Rate`) VALUES ($boothId,$boothBuilderId,$rate)";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
+    public function getBoothBuilderRateByBoothId($boothId)
+    {
+        $sql = "SELECT * FROM `boothbuilderrates`  AS myBuilderRate
+                WHERE `BoothId`=$boothId";
         $rows = $this->getRow($sql);
         return $rows;
     }

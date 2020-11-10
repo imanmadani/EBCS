@@ -5,11 +5,22 @@ define ('HOME', dirname(dirname(__FILE__)));
 require_once HOME . DS . 'config.php';
 require_once "api-public.php";
 include("../utilities/response.php");
-if(count($_GET)>0){
-    $params=$_GET;
+if($_SERVER['REQUEST_METHOD'] == 'GET') {
+    if(count($_GET)>0){
+        $params=$_GET;
+    }
+
+} elseif($_SERVER['REQUEST_METHOD'] == 'PUT') {
+    $json = file_get_contents('php://input');
+    if($json){
+        $params = json_decode($json,true);
+    }
 }
-if(count($_POST)>0){
-    $params=$_POST;
+elseif($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $json = file_get_contents('php://input');
+    if($json){
+        $params = json_decode($json,true);
+    }
 }
 $method = $_GET['api'];
 $api=new APIPublic();

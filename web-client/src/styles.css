@@ -43,6 +43,10 @@ body{
   direction: rtl;
   text-align: right;
 }
+.ebcs-dir-ltr{
+  direction: ltr;
+  text-align: right;
+}
 .ebcs-h-90{
   height: 90% !important;
 }
@@ -99,6 +103,10 @@ h3{
   }
 .ebcs-font-normal{
   font-size: 18px;
+}
+.ebcs-font-bold{
+  font-size: 22px;
+  font-weight:bold;
 }
 table{
   text-align: center;

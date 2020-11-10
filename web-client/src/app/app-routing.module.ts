@@ -34,6 +34,8 @@ import {BoothbuilderinfringementListComponent} from "./portal/portal-main/shared
 import {ArchitecturalexpertDeskComponent} from "./portal/portal-main/architectural-expert/architecturalexpert-desk/architecturalexpert-desk.component";
 import {ArchitecturalexpertInfringementsComponent} from "./portal/portal-main/architectural-expert/architecturalexpert-infringements/architecturalexpert-infringements.component";
 import {ExecuterhallListComponent} from "./portal/portal-main/executers/executerhall-list/executerhall-list.component";
+import {ExchangerateListComponent} from "./portal/portal-main/sharedata/exchangerate-list/exchangerate-list.component";
+import {PortalMainDashbordComponent} from "./portal/portal-main/portal-main-dashbord/portal-main-dashbord.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/Login', pathMatch: 'full'},
@@ -43,6 +45,10 @@ const routes: Routes = [
     component: PortalMainComponent,
     // canActivate: [AuthGuard],
     children: [
+      {
+        path: '',
+        component: PortalMainDashbordComponent,
+      },
       {
         path: 'Groups',
         component: GroupsComponent,
@@ -178,6 +184,10 @@ const routes: Routes = [
           {
             path: 'BoothBuilderInfringementList',
             component: BoothbuilderinfringementListComponent,
+          },
+          {
+            path: 'ExchangeRateList',
+            component: ExchangerateListComponent,
           }
         ]
       },

@@ -95,6 +95,14 @@ import { ArchitecturalexpertInfringementsComponent } from './portal/portal-main/
 import { ExecuterhallListComponent } from './portal/portal-main/executers/executerhall-list/executerhall-list.component';
 import { ExecuterhallPlanUploadComponent } from './portal/portal-main/executers/executerhall-list/executerhall-plan-upload/executerhall-plan-upload.component';
 import {NgPersianDatepickerModule} from "ng-persian-datepicker";
+import { PortalParticipantBoothBuilderListComponent } from './portal/portal-participants/portal-participant-booth-builder-list/portal-participant-booth-builder-list.component';
+import { PortalParticipantBoothbuilderPointComponent } from './portal/portal-participants/portal-participant-boothbuilder-point/portal-participant-boothbuilder-point.component';
+import { RateDynamicComponent } from './utilities/component/rate-dynamic/rate-dynamic.component';
+import { ExchangerateListComponent } from './portal/portal-main/sharedata/exchangerate-list/exchangerate-list.component';
+import { ExchangerateCreateComponent } from './portal/portal-main/sharedata/exchangerate-list/exchangerate-create/exchangerate-create.component';
+import { PortalMainDashbordComponent } from './portal/portal-main/portal-main-dashbord/portal-main-dashbord.component';
+import { ExhibitionAssignHalladminComponent } from './portal/portal-main/exhibitions/exhibition-list/exhibition-assign-halladmin/exhibition-assign-halladmin.component';
+import { ExecuterhallHalladminComponent } from './portal/portal-main/executers/executerhall-list/executerhall-halladmin/executerhall-halladmin.component';
 
 @NgModule({
   declarations: [
@@ -177,7 +185,15 @@ import {NgPersianDatepickerModule} from "ng-persian-datepicker";
     BoothbuilderinfringementSetComponent,
     ArchitecturalexpertInfringementsComponent,
     ExecuterhallListComponent,
-    ExecuterhallPlanUploadComponent
+    ExecuterhallPlanUploadComponent,
+    PortalParticipantBoothBuilderListComponent,
+    PortalParticipantBoothbuilderPointComponent,
+    RateDynamicComponent,
+    ExchangerateListComponent,
+    ExchangerateCreateComponent,
+    PortalMainDashbordComponent,
+    ExhibitionAssignHalladminComponent,
+    ExecuterhallHalladminComponent
 
   ],
   imports: [

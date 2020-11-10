@@ -21,10 +21,14 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
         title: 'نمایشگاه'
       },
       HallName: {
-        title: 'سالن'
+        title: 'سالن',
+        width:"150px",
+
       },
       BoothName: {
         title:'شماره غرفه',
+        width:"150px",
+
       },
       ParticipantName: {
         title:'مشارکت کننده',
@@ -32,6 +36,7 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
       PayStatus: {
         title: 'وضعیت پرداخت',
         type:'html',
+
         valuePrepareFunction: (value) => {
           if (value==="1") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
           return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';
@@ -40,6 +45,7 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
       FlagBlock: {
         title: 'وضعیت',
         type:'html',
+        width:"100px",
         valuePrepareFunction: (value) => {
           if (value==="0") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
           return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';

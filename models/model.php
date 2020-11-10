@@ -40,11 +40,28 @@ class model
         $row = $this->getRow("SELECT * FROM `token` AS myToken INNER JOIN users As myUser ON myToken.UserId=myUser.Id WHERE TokenCode='$token' and Ip='$ip'");
         return ($row);
     }
+    public function checkToken($token,$ip)
+    {
+        $row = $this->getRow("SELECT myToken.Id FROM `token` AS myToken INNER JOIN users As myUser ON myToken.UserId=myUser.Id WHERE TokenCode='$token' and Ip='$ip'");
+        return ($row);
+    }
+
+    public function getTokenHistoryByTokenId($token)
+    {
+        $row = $this->getRow("SELECT * FROM tokenhistory WHERE TokenId=$token AND InsertTime<=NOW() ORDER BY Id LIMIT 1");
+        return ($row);
+    }
 
     public function setTokenHistory($tokenId,$controller,$method)
     {
         $sqlTokenHistory = "INSERT INTO `tokenhistory`(`TokenId`, `Controller`, `Method`)
                                                   VALUES($tokenId,'$controller','$method')";
+        $row = $this->execQuery($sqlTokenHistory);
+        return ($row);
+    }
+    public function unvalidToken($tokenId)
+    {
+        $sqlTokenHistory = "UPDATE `token` SET `FlagValid`=0 WHERE `Id`=$tokenId";
         $row = $this->execQuery($sqlTokenHistory);
         return ($row);
     }

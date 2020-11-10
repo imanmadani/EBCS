@@ -6,6 +6,11 @@
         <fa-icon [icon]="iUsers"></fa-icon>
         <span class="pr-2" [class]="mobile?'d-none':''">لیست تخلفات پیمانکار</span>
       </div>
+      <div class="m-auto flex-fill border-left text-center ebcs-clickable "
+           routerLink="ExchangeRateList" [ngClass]="this.router.url.includes('/ExchangeRateList')?'text-white':''">
+        <fa-icon [icon]="iCurrency"></fa-icon>
+        <span class="pr-2" [class]="mobile?'d-none':''">نرخ ارز</span>
+      </div>
 
     </div>
   </div>

@@ -79,10 +79,23 @@ class Exhibition_controller extends controller
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }
+    public function HalladminDropDown()
+    {
+        $rows = $this->_model->halladminDropDown();
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
     public function GetExecuterByExhibitionId($query)
     {
         $exId=$query['Id'];
         $rows = $this->_model->getExecuterByExhibitionId($exId);
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function GetHalladminByExhibitionId($query)
+    {
+        $exId=$query['Id'];
+        $rows = $this->_model->getHalladminByExhibitionId($exId);
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }
@@ -121,6 +134,14 @@ class Exhibition_controller extends controller
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
+    public function AssignHalladmin($query)
+    {
+        $exhibitionId = $this->getVal('ExhibitionId', $query);
+        $HalladminId = $this->getVal('HalladminId', $query);
+        $rows = $this->_model->assignHalladmin($exhibitionId,$HalladminId);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
     public function AssignTechnicalExpert($query)
     {
         $exhibitionId = $this->getVal('ExhibitionId', $query);
@@ -141,6 +162,13 @@ class Exhibition_controller extends controller
     {
         $id = $this->getVal('Id', $query);
         $rows = $this->_model->deleteassignExecuter($id);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
+    public function DeleteAssignHalladmin($query)
+    {
+        $id = $this->getVal('Id', $query);
+        $rows = $this->_model->deleteassignHalladmin($id);
         $this->_res->set("result", $rows);
         $this->_res->output();
     }

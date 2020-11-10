@@ -1,0 +1,92 @@
+<div class="container-fluid ">
+  <div class="row p-2 ">
+    <div class="col-lg-3 col-sm-12 p-0">
+      <div class="card border-dark">
+        <div class="card-header bg-card">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-6 text-white ebcs-font-normal"> نرخ فعال ارز</div>
+              <div class="col-6 text-left text-white ebcs-font-normal"><i class="fa fa-euro-sign"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body ebcs-font-bold text-center">
+          {{currency}}
+          ریال
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-9 col-sm-12 pl-0">
+      <div class="card border-dark">
+        <div class="card-header bg-card">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-6 text-white ebcs-font-normal">به زودی ...</div>
+              <div class="col-6 text-left text-white ebcs-font-normal"><i class="fa fa-dot-circle"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body ebcs-font-bold text-center">
+          به زودی ...
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row p-2 ">
+    <div class="col-12 p-0">
+      <div class="card border-dark">
+        <div class="card-header bg-card">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-6 text-white ebcs-font-normal">نمایشگاه های اخیر</div>
+              <div class="col-6 text-left text-white ebcs-font-normal"><i class="fa fa-cube"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body  text-center">
+          <div class="row">
+            <ng-template ngFor let-ex [ngForOf]="exhibition" let-i="index">
+              <div class="col-lg-4 col-sm-12">
+                <ul class="list-group p-1">
+                  <li class="list-group-item  ebcs-font-normal font-weight-bold"
+                      [ngClass]="i=='0'?'ebcs-bg-yellow':i=='1'?'bg-warning':'bg-info'">
+                    {{ex.Title}}
+                  </li>
+                  <ul class="list-group list-group-horizontal p-0 m-0 ebcs-dir-ltr">
+                    <li class="list-group-item w-50 ebcs-border-radius-0">{{ex.Year}}</li>
+                    <li class="list-group-item w-50 ebcs-border-radius-0">سال</li>
+                  </ul>
+                  <ul class="list-group list-group-horizontal p-0 m-0 ebcs-dir-ltr">
+                    <li class="list-group-item w-50 ebcs-border-radius-0">{{ex.StartDateTime}}</li>
+                    <li class="list-group-item w-50 ebcs-border-radius-0">تاریخ شروع</li>
+                  </ul>
+                  <ul class="list-group list-group-horizontal p-0 m-0 ebcs-dir-ltr">
+                    <li class="list-group-item w-50 ebcs-border-radius-0">{{ex.EndDateTime}}</li>
+                    <li class="list-group-item w-50 ebcs-border-radius-0">تاریخ پایان</li>
+                  </ul>
+                </ul>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row p-2 ">
+    <div class="col-12 p-0">
+      <div class="card border-dark">
+        <div class="card-header bg-card">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-6 text-white ebcs-font-normal">به زودی</div>
+              <div class="col-6 text-left text-white ebcs-font-normal"><i class="fa fa-dot-circle"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body ebcs-font-bold text-center">
+          به زودی ...
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

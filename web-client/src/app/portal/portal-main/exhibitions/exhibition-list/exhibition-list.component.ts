@@ -4,8 +4,6 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastrService} from 'ngx-toastr';
 import {GroupModel} from '../../groups/entity';
 import {ExhibitionsService} from '../exhibitions.service';
-import {ExhibitionHallCreateComponent} from '../exhibition-hall-list/exhibition-hall-create/exhibition-hall-create.component';
-import {ExhibitionHallEditComponent} from '../exhibition-hall-list/exhibition-hall-edit/exhibition-hall-edit.component';
 import {ExhibitionAssignSalonComponent} from './exhibition-assign-salon/exhibition-assign-salon.component';
 import {ExhibitionAssignExecuterComponent} from "./exhibition-assign-executer/exhibition-assign-executer.component";
 import {ExhibitionListCreateComponent} from "./exhibition-list-create/exhibition-list-create.component";
@@ -13,6 +11,7 @@ import {ExhibitionListEditComponent} from "./exhibition-list-edit/exhibition-lis
 import {ExhibitionAssignTechnicalexpertComponent} from "./exhibition-assign-technicalexpert/exhibition-assign-technicalexpert.component";
 import {ExhibitionAssignArchitecturalexpertComponent} from "./exhibition-assign-architecturalexpert/exhibition-assign-architecturalexpert.component";
 import * as moment from 'jalali-moment';
+import {ExhibitionAssignHalladminComponent} from "./exhibition-assign-halladmin/exhibition-assign-halladmin.component";
 
 @Component({
   selector: 'app-exhibition-list',
@@ -26,10 +25,13 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
         title: 'عنوان'
       },
       Year: {
-        title: 'سال'
+        title: 'سال',
+        width:"100px"
       },
       Grade: {
-        title: 'گرید'
+        title: 'گرید',
+        width:"100px"
+
       },
       StartDateTime: {
         title: 'زمان شروع',
@@ -51,11 +53,13 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
       FlagBlock: {
         title: 'وضعیت',
         type: 'html',
+        width:"100px",
         valuePrepareFunction: (value) => {
           if (value === "0") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
           return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';
         },
       }
+
     },
     actions: {
       columnTitle: 'عملیات',
@@ -84,6 +88,11 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
           name: 'assignArchitecturalExpert',
           title: '<i class="fa fa-drafting-compass pr-3 ebcs-font-normal text-success"  title="Assign Architectural Expert"></i>'
         },
+        {
+          name: 'assignHalladmin',
+          title: '<i class="fa fa-user-edit pr-3 ebcs-font-normal text-success"  title="تخصیص مدیر سالن"></i>'
+        },
+
       ],
       add: false,
       edit: false,
@@ -130,6 +139,10 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
       }
       case 'assignArchitecturalExpert' : {
         this.assignArchitecturalExpertHandler(e.data);
+        break;
+      }
+      case 'assignHalladmin' : {
+        this.assignHalladminHandler(e.data);
         break;
       }
     }
@@ -197,6 +210,15 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
 
   assignArchitecturalExpertHandler(inputModel) {
     const modalRef = this.modalService.open(ExhibitionAssignArchitecturalexpertComponent, {centered: true});
+    modalRef.componentInstance.model = inputModel;
+    modalRef.result.then((data) => {
+    }, (reason) => {
+      if (reason)
+        this.ngOnInit();
+    });
+  }
+  assignHalladminHandler(inputModel) {
+    const modalRef = this.modalService.open(ExhibitionAssignHalladminComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
     modalRef.result.then((data) => {
     }, (reason) => {

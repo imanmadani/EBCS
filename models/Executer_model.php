@@ -19,7 +19,8 @@ class Executer_model extends model
         $sql = "SELECT myHallEx.Id,
                        myHall.Title AS HallTitle,
                        myEx.Title AS ExName , 
-                       myHallEx.FlagBlock
+                       myHallEx.FlagBlock,
+                       myEx.Id AS ExhibitionId
                 FROM `executers` AS myExecuter
                 INNER JOIN `exhibitionexecuters` AS myEXexecuter ON myExecuter.Id=myEXexecuter.ExecuterId
                 INNER JOIN `exhibitions` As myEX ON myEXexecuter.ExhibitionId=myEX.Id
@@ -129,6 +130,38 @@ class Executer_model extends model
         $sql = "UPDATE  `exhibitionhallplans` As myTaskPlan,`files` As myFile
                 SET myFile.FlagDelete =1,myTaskPlan.FlagDelete=1
                 WHERE myFile.Id = myTaskPlan.FileId AND myTaskPlan.FileId=$id AND myFile.Id=$id";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
+    public function getHallAdminsByExhibition($exhibitionId)
+    {
+        $sql = "SELECT 
+                       myHalladmin.Name AS Title,
+                       myHalladmin.Id AS HallAdminId
+                FROM `exhibitionhalladmins` AS myExHalladmin
+                INNER JOIN `halladmins` AS myHalladmin ON  myExHalladmin.HalladminId=myHalladmin.Id
+                WHERE myExHalladmin.FlagDelete=0 AND myExHalladmin.ExhibitionId=$exhibitionId";
+        $rows = $this->getAll($sql);
+        return $rows;
+    }
+    public function assignHalladmin($exhibitionHallId,$hallAdminId)
+    {
+        $sql = "INSERT INTO `hallhalladmins`(`ExhibitionHallId`, `HallAdminId`) VALUES ($exhibitionHallId,$hallAdminId)";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
+    public function getHallAdminsByExhibitionHall($exhibitionHallId)
+    {
+        $sql = "SELECT myHallHalladmin.Id AS Id,myHalladmin.Name AS Name
+                FROM `hallhalladmins` AS myHallHalladmin
+                INNER JOIN `halladmins` AS myHalladmin ON  myHallHalladmin.HallAdminId=myHalladmin.Id
+                WHERE myHallHalladmin.FlagDelete=0 AND myHallHalladmin.ExhibitionHallId=$exhibitionHallId";
+        $rows = $this->getAll($sql);
+        return $rows;
+    }
+    public function deleteAssignHalladmin($id)
+    {
+        $sql = "UPDATE  `hallhalladmins` SET FlagDelete =1 WHERE Id = $id";
         $rows = $this->execQuery($sql);
         return $rows;
     }

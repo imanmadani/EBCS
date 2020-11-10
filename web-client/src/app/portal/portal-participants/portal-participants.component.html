@@ -58,13 +58,13 @@
           <li class="list-group-item bg-transparent">
             <div class="row">
               <div class="col-6">متراژ ریالی</div>
-              <div class="col-6 text-center">{{userInformation.AreaRial}}</div>
+              <div class="col-6 text-center" *ngIf="userInformation">{{userInformation.AreaRial}}</div>
             </div>
           </li>
           <li class="list-group-item bg-transparent">
             <div class="row">
               <div class="col-6">متراژ ارزی</div>
-              <div class="col-6 text-center">{{userInformation.AreaArz}}</div>
+              <div class="col-6 text-center" *ngIf="userInformation">{{userInformation.AreaArz}}</div>
             </div>
           </li>
         </ul>
@@ -84,9 +84,21 @@
           </li>
           <li class="list-group-item bg-transparent">
             <div class="row">
-              <div class="col-6"> امتیاز</div>
+              <div class="col-6"> امتیاز
+                <span class="pr-2" *ngIf="rate" [ngbTooltip]="'امتیاز شما'">({{rate.Rate}})</span>
+              </div>
               <div class="col-6 text-center" *ngIf="boothBuilder">
                 <app-rate [rowData]="boothBuilder"></app-rate>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item bg-transparent" *ngIf="!rate">
+            <div class="row">
+              <div class="col-6"> ثبت امتیاز </div>
+              <div class="col-6 text-center" *ngIf="boothBuilder">
+                <button class="btn btn-primary" (click)="setPoint(boothBuilder)">
+                  ثبت
+                </button>
               </div>
             </div>
           </li>

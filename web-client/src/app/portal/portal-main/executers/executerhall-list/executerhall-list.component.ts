@@ -5,6 +5,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ToastrService} from "ngx-toastr";
 import {BoothbuilderPlanUploadComponent} from "../../booth-builders/boothbuilder-desk/boothbuilder-plan-upload/boothbuilder-plan-upload.component";
 import {ExecuterhallPlanUploadComponent} from "./executerhall-plan-upload/executerhall-plan-upload.component";
+import {ExecuterhallHalladminComponent} from "./executerhall-halladmin/executerhall-halladmin.component";
 
 @Component({
   selector: 'app-executerhall-list',
@@ -36,6 +37,10 @@ export class ExecuterhallListComponent extends BaseClass implements OnInit {
           name: 'uploadAction',
           title: '<i class="fa fa-upload pr-3 ebcs-font-normal text-info" title="آپلود"></i>'
         },
+        {
+          name: 'halladminAction',
+          title: '<i class="fa fa-user-edit pr-3 ebcs-font-normal text-success" title="آپلود"></i>'
+        },
       ],
       add: false,
       edit: false,
@@ -63,10 +68,22 @@ export class ExecuterhallListComponent extends BaseClass implements OnInit {
         this.planUpdateHandler(e.data);
         break;
       }
+      case 'halladminAction' : {
+        this.halladminHandler(e.data);
+        break;
+      }
     }
   }
   planUpdateHandler(inputModel) {
     let modalRef=this.modalService.open(ExecuterhallPlanUploadComponent, {centered: true,size:'xl'});
+    modalRef.componentInstance.model = inputModel;
+    modalRef.result.then((data) => {}, (reason) => {
+      if (reason)
+        this.ngOnInit();
+    });
+  }
+  halladminHandler(inputModel) {
+    let modalRef=this.modalService.open(ExecuterhallHalladminComponent, {centered: true,size:'xl'});
     modalRef.componentInstance.model = inputModel;
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)

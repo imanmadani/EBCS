@@ -79,4 +79,34 @@ class Executer_controller extends controller
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
+
+    public function GetHallAdminsByExhibition($query)
+    {
+        $exhibitionId = $this->getVal('ExhibitionId', $query);
+        $rows = $this->_model->getHallAdminsByExhibition($exhibitionId);
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function AssignHalladmin($query)
+    {
+        $exhibitionHallId = $this->getVal('ExhibitionHallId', $query);
+        $hallAdminId = $this->getVal('HallAdminId', $query);
+        $rows = $this->_model->assignHalladmin($exhibitionHallId,$hallAdminId);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
+    public function GetHallAdminsByExhibitionHall($query)
+    {
+        $exhibitionHallId = $this->getVal('ExhibitionHallId', $query);
+        $rows = $this->_model->getHallAdminsByExhibitionHall($exhibitionHallId);
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function DeleteAssignHalladmin($query)
+    {
+        $id = $this->getVal('Id', $query);
+        $rows = $this->_model->deleteAssignHalladmin($id);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
 }

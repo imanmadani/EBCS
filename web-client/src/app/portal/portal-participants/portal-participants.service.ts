@@ -26,8 +26,19 @@ export class PortalParticipantsService {
   getParticipantDetails(model): Observable<any> {
     return this.http.get<any>(this.baseUrl + '?api=GetParticipantDetails&ParticipantId='+model);
   }
-  getBoothBuilder(model): Observable<any> {
-    return this.http.get<any>(this.baseUrl + '?api=GetBoothBuilder&BoothId='+model);
+  getBoothBuilder(): Observable<any> {
+    return this.http.get<any>(this.baseUrl + '?api=GetBoothBuilder');
   }
-
+  getBoothBuilderByBoothId(model): Observable<any> {
+    return this.http.get<any>(this.baseUrl + '?api=GetBoothBuilderByBoothId&BoothId='+model);
+  }
+  selectBoothBuilder(entity) {
+      return this.http.post<any>(this.baseUrl+'?api=SetBoothBoothBuilder', entity);
+  }
+  setBoothBuilderRate(entity) {
+    return this.http.post<any>(this.baseUrl+'?api=SetBoothBuilderRate', entity);
+  }
+  getBoothBuilderRateByBoothId(model): Observable<any> {
+    return this.http.get<any>(this.baseUrl + '?api=GetBoothBuilderRateByBoothId&BoothId='+model);
+  }
 }

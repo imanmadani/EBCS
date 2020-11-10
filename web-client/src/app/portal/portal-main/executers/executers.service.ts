@@ -20,6 +20,16 @@ export class ExecutersService {
   Hallget(): Observable<any> {
     return this.http.get<any>(this.ExecuterbaseUrl + '?api=GetHallByExecuter');
   }
+  getHalladminDropDown($exhibitionId): Observable<any> {
+    return this.http.get<any>(this.ExecuterbaseUrl + '?api=GetHallAdminsByExhibition&ExhibitionId='+$exhibitionId);
+  }
+  getHalladminByExhibitionHallId(model): Observable<any> {
+    return this.http.get<any>(this.ExecuterbaseUrl + '?api=GetHallAdminsByExhibitionHall&ExhibitionHallId='+model);
+  }
+  deleteAssignHalladmin(entity): Observable<any> {
+    return this.http
+      .post<any>(this.ExecuterbaseUrl+'?api=DeleteAssignHalladmin', entity);
+  }
   BoothgetById(entity): Observable<any> {
     return this.http.get<any>(this.BoothbaseUrl + '?api=GetById&Id='+entity);
   }
@@ -35,6 +45,7 @@ export class ExecutersService {
     return this.http
       .post<any>(this.BoothbaseUrl+'?api=Delete', entity);
   }
+
   BoothgetExhibitionDropDown(){
     return this.http.get<any>(this.BoothbaseUrl + '?api=ExhibitionDropDown');
   }
@@ -75,5 +86,9 @@ export class ExecutersService {
   }
   GetUploadFileByExhibitionHallId(entity): Observable<any> {
     return this.http.get<any>(this.ExecuterbaseUrl + '?api=GetUploadFileByExhibitionHallId&Id='+entity);
+  }
+  assignHalladmin(entity): Observable<any> {
+    return this.http
+      .post<any>(this.ExecuterbaseUrl+'?api=AssignHalladmin', entity);
   }
 }
