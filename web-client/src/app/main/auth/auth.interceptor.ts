@@ -45,6 +45,8 @@ export class AuthInterceptor implements HttpInterceptor {
     //   // clonedReq.body..set('token',localStorage.getItem('token'));
     // }
     // clonedReq.headers.append('token','1234');
+    const token=localStorage.getItem('token');
+    if(token){
     const authReq = req.clone({
       headers: req.headers.set('token', localStorage.getItem('token'))
     });
@@ -66,10 +68,10 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       )
     );
-    // } else {
-    //   // this.onEnd();
-    //   return next.handle(req.clone());
-    // }
+    } else {
+      // this.onEnd();
+      return next.handle(req.clone());
+    }
 
   }
 }
