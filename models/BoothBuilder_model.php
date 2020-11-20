@@ -43,7 +43,7 @@ class BoothBuilder_model extends model
                        myBill.Quantity,
                        myBill.Amount,
                        myBoothBuilderRel.FlagDelete As FlagBlock
-                FROM `BoothBuilders` AS myBoothBuilder     
+                FROM `boothbuilders` AS myBoothBuilder     
                 INNER JOIN `boothboothbuilders` AS myBoothBuilderRel ON myBoothBuilder.Id=myBoothBuilderRel.BoothBuilderId
                 INNER JOIN `booths` AS myBooth ON myBoothBuilderRel.BoothId=myBooth.Id
                 INNER JOIN `bills` AS myBill ON myBooth.Id=myBill.BoothId
@@ -165,7 +165,7 @@ class BoothBuilder_model extends model
     }
     public function boothBuilderGradeDropDown()
     {
-        $sql = "SELECT Id,Title AS Title FROM `boothBuildergrades` WHERE FlagDelete=0 ";
+        $sql = "SELECT Id,Title AS Title FROM `boothbuildergrades` WHERE FlagDelete=0 ";
         $rows = $this->getAll($sql);
         return $rows;
     }

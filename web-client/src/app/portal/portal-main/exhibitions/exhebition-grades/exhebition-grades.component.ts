@@ -19,6 +19,9 @@ import {ExhibitionGradeEditComponent} from './exhibition-grade-edit/exhibition-g
 export class ExhebitionGradesComponent extends BaseClass implements OnInit {
   settings = {
     columns: {
+      Year: {
+        title: 'ُسال'
+      },
       Title: {
         title: 'گرید'
       },

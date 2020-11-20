@@ -96,7 +96,7 @@ class Exhibition_model extends model
     }
     public function assignArchitecturalExpert($exhibitionId,$architecturalExpertId)
     {
-        $sql = "INSERT INTO `exhibitionarchitecturalExperts`( `ExhibitionId`, `ArchitecturalExpertId`) VALUES ($exhibitionId,$architecturalExpertId)";
+        $sql = "INSERT INTO `exhibitionarchitecturalexperts`( `ExhibitionId`, `ArchitecturalExpertId`) VALUES ($exhibitionId,$architecturalExpertId)";
         $rows = $this->execQuery($sql);
         return $rows;
     }

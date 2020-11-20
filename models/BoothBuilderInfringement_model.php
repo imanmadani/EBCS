@@ -10,7 +10,7 @@ class BoothBuilderInfringement_model extends model
                        myInfringement.FlagBlock,
                        myQuantityType.Title
                 FROM `boothbuilderinfringements` AS myInfringement
-                INNER JOIN `QuantityType` AS myQuantityType ON myInfringement.QuantityType=myQuantityType.Id 
+                INNER JOIN `quantitytype` AS myQuantityType ON myInfringement.QuantityType=myQuantityType.Id 
                 WHERE myInfringement.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;

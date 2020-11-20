@@ -22,9 +22,9 @@ export class GroupsListComponent extends BaseClass implements OnInit {
       },
       FlagBlock: {
         title: 'وضعیت',
-        type:'html',
+        type: 'html',
         valuePrepareFunction: (value) => {
-          if (value==="0") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
+          if (value === "0") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
           return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';
         },
       }
@@ -56,7 +56,7 @@ export class GroupsListComponent extends BaseClass implements OnInit {
   constructor(
     private groupsService: GroupsService,
     private modalService: NgbModal,
-    private router:Router,
+    private router: Router,
     protected toastr: ToastrService) {
     super(toastr);
   }
@@ -85,8 +85,9 @@ export class GroupsListComponent extends BaseClass implements OnInit {
   }
 
   createHandler() {
-    let modalRef=this.modalService.open(GroupListCreateComponent, {centered: true});
-    modalRef.result.then((data) => {}, (reason) => {
+    let modalRef = this.modalService.open(GroupListCreateComponent, {centered: true});
+    modalRef.result.then((data) => {
+    }, (reason) => {
       if (reason)
         this.ngOnInit();
     });
@@ -95,12 +96,16 @@ export class GroupsListComponent extends BaseClass implements OnInit {
   deleteHandler(inputModel) {
     let entity = new GroupModel();
     entity.Id = inputModel.Id;
-    this.groupsService.delete(entity).subscribe(res => {
-      if (res.data.result) {
-        this.success();
-        this.ngOnInit();
-      }
-    });
+    if (entity.Id > 7) {
+      this.groupsService.delete(entity).subscribe(res => {
+        if (res.data.result) {
+          this.success();
+          this.ngOnInit();
+        }
+      });
+    } else {
+      this.error('امکان حذف این گروه وجود ندارد')
+    }
   }
 
   editHandler(inputModel) {
@@ -116,7 +121,8 @@ export class GroupsListComponent extends BaseClass implements OnInit {
   assignHandler(inputModel) {
     const modalRef = this.modalService.open(GroupListAssignComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
-    modalRef.result.then((data) => {}, (reason) => {
+    modalRef.result.then((data) => {
+    }, (reason) => {
       if (reason)
         this.ngOnInit();
     });

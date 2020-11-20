@@ -49,7 +49,7 @@ class ArchitecturalExpert_model extends model
                 INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
                 INNER JOIN `boothbuilders` AS myBuilder ON myinfringementrecord.BoothBuilderId=myBuilder.Id
                 INNER JOIN `boothbuilderinfringements` AS myInfringement ON myinfringementrecord.InfringementId=myInfringement.Id
-                INNER JOIN `QuantityType` AS myQtype ON myInfringement.QuantityType=myQtype.Id
+                INNER JOIN `quantitytype` AS myQtype ON myInfringement.QuantityType=myQtype.Id
                 WHERE myinfringementrecord.FlagBlock=0";
         $rows = $this->getAll($sql);
         return $rows;
@@ -112,7 +112,7 @@ class ArchitecturalExpert_model extends model
     public function infrigementDropDown()
     {
         $sql = "SELECT myInf.Id,myInf.Description AS Title , myInf.Amount ,myQuantityType.Title AS QuantityType FROM `boothbuilderinfringements`  AS myInf
-                INNER JOIN `QuantityType` As myQuantityType ON myInf.QuantityType=myQuantityType.Id 
+                INNER JOIN `quantitytype` As myQuantityType ON myInf.QuantityType=myQuantityType.Id 
                 WHERE FlagDelete=0 ";
         $rows = $this->getAll($sql);
         return $rows;
