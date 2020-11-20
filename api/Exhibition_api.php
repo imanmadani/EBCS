@@ -21,8 +21,6 @@ elseif($_SERVER['REQUEST_METHOD'] == 'POST') {
         $params = json_decode($json,true);
     }
 }
-
-
 $method = $_GET['api'];
 $api=new APIClient();
 $res=$api->request("Exhibition",$method,$params);

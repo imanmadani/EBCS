@@ -15,7 +15,7 @@ class Executer_model extends model
     {
         $head=getallheaders();
         $ip=$_SERVER['REMOTE_ADDR'];
-        $user=$this->getUserByToken($head['token'],$ip);
+        $user=$this->getUserByToken($head['Token'],$ip);
         $sql = "SELECT myHallEx.Id,
                        myHall.Title AS HallTitle,
                        myEx.Title AS ExName , 
@@ -23,8 +23,8 @@ class Executer_model extends model
                        myEx.Id AS ExhibitionId
                 FROM `executers` AS myExecuter
                 INNER JOIN `exhibitionexecuters` AS myEXexecuter ON myExecuter.Id=myEXexecuter.ExecuterId
-                INNER JOIN `exhibitions` As myEX ON myEXexecuter.ExhibitionId=myEX.Id
-                INNER JOIN `exhibitionhalls` AS myHallEx ON myEX.Id=myHallEx.ExhibitionId
+                INNER JOIN `exhibitions` As myEx ON myEXexecuter.ExhibitionId=myEx.Id
+                INNER JOIN `exhibitionhalls` AS myHallEx ON myEx.Id=myHallEx.ExhibitionId
                 INNER JOIN `halls` AS myHall ON myHallEx.HallId=myHall.Id
                 WHERE myHallEx.FlagDelete=0 AND myEx.FlagDelete=0 AND myExecuter.UserId=".$user['Id'];
         $rows = $this->getAll($sql);
@@ -34,14 +34,14 @@ class Executer_model extends model
     {
         $head=getallheaders();
         $ip=$_SERVER['REMOTE_ADDR'];
-        $user=$this->getUserByToken($head['token'],$ip);
+        $user=$this->getUserByToken($head['Token'],$ip);
         $sql = "SELECT myBooth.Id,myBooth.Name,myBooth.ExhibitionHallId,myBooth.ParticipantId,myBooth.AreaRial,myBooth.AreaArz,myBooth.AreaType,myBooth.Area2,myBooth.ConstructionType,
                        myHall.Title AS HallTitle,myParticipant.Username AS ParticipantUsername,
                        myEx.Title AS ExName , myBooth.FlagBlock
                 FROM `executers` AS myExecuter
                 INNER JOIN `exhibitionexecuters` AS myEXexecuter ON myExecuter.Id=myEXexecuter.ExecuterId
-                INNER JOIN `exhibitions` As myEX ON myEXexecuter.ExhibitionId=myEX.Id
-                INNER JOIN `booths` AS myBooth ON myEX.Id=myBooth.ExhibitionId
+                INNER JOIN `exhibitions` As myEx ON myEXexecuter.ExhibitionId=myEx.Id
+                INNER JOIN `booths` AS myBooth ON myEx.Id=myBooth.ExhibitionId
                 INNER JOIN `exhibitionhalls` AS myHallEx ON myBooth.ExhibitionHallId=myHallEx.Id
                 INNER JOIN `halls` AS myHall ON myHallEx.HallId=myHall.Id
                 INNER JOIN `participants` AS myParticipant ON myBooth.ParticipantId=myParticipant.Id

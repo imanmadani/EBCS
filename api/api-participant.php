@@ -4,16 +4,16 @@ class APIParticipant
     public function request($class, $method, $params = [])
     {
         $head=getallheaders();
-        if (file_exists('../utilities' . DS . strtolower($class) . '.php')) {
-            require_once '../utilities' . DS . strtolower($class) . '.php';
+        if (file_exists('../utilities' . DS . $class . '.php')) {
+            require_once '../utilities' . DS . $class . '.php';
         }
-        if (file_exists('../models' . DS . strtolower($class) . '_model.php')) {
+        if (file_exists('../models' . DS . $class . '_model.php')) {
             require_once '../models' . DS . 'model.php';
-            require_once '../models' . DS . strtolower($class) . '_model.php';
+            require_once '../models' . DS . $class . '_model.php';
         }
-        if (file_exists('../controllers' . DS . strtolower($class) . '_controller.php')) {
+        if (file_exists('../controllers' . DS . $class . '_controller.php')) {
             require_once '../controllers' . DS . 'controller.php';
-            require_once '../controllers' . DS . strtolower($class) . '_controller.php';
+            require_once '../controllers' . DS . $class . '_controller.php';
         }
         $modelName = $class;
         $controller = $class . '_controller';

@@ -58,7 +58,7 @@ class User_model extends model
     {
         $head=getallheaders();
         $ip=$_SERVER['REMOTE_ADDR'];
-        $user=$this->getUserByToken($head['token'],$ip);
+        $user=$this->getUserByToken($head['Token'],$ip);
         $sql = "UPDATE token SET FlagValid=0 WHERE UserId=".$user['Id'];
         $res = $this->execQuery($sql);
         return $res;
@@ -68,7 +68,7 @@ class User_model extends model
     {
         $head = getallheaders();
         $ip = $_SERVER['REMOTE_ADDR'];
-        $user = $this->getUserByToken($head['token'], $ip);
+        $user = $this->getUserByToken($head['Token'], $ip);
         $sql = "SELECT myMenu.Id,myMenu.Title,myMenu.Link,myMenu.Icon FROM groupaccess AS myGrpAccess
                 INNER JOIN menus As myMenu ON myGrpAccess.MenuId=myMenu.Id
                 WHERE  myGrpAccess.FlagDelete=0 AND myMenu.FlagDelete=0 AND  GroupId=" . $user['GroupId']." ORDER BY myMenu.Id";

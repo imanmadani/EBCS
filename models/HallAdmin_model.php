@@ -14,7 +14,7 @@ class HallAdmin_model extends model
     {
         $head=getallheaders();
         $ip=$_SERVER['REMOTE_ADDR'];
-        $user=$this->getUserByToken($head['token'],$ip);
+        $user=$this->getUserByToken($head['Token'],$ip);
         $sql = "SELECT 
                        myHall.Title AS HallName,
                        myEx.Title AS ExhibitionName

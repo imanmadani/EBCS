@@ -81,7 +81,7 @@ class Booth_model extends model
     {
         $head=getallheaders();
         $ip=$_SERVER['REMOTE_ADDR'];
-        $user=$this->getUserByToken($head['token'],$ip);
+        $user=$this->getUserByToken($head['Token'],$ip);
         $sql = "SELECT myEx.Id,myEx.Title FROM `exhibitions` AS myEx
                 INNER JOIN `exhibitionexecuters` AS myExExecuter ON myEx.Id=myExExecuter.ExhibitionId  
                 INNER JOIN `executers` AS myExecuter ON myExExecuter.ExecuterId=myExecuter.Id 

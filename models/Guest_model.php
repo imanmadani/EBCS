@@ -13,7 +13,7 @@ class Guest_model extends model
             $userEntity->UserName = $row['Username'];
             $userEntity->Ip = $_SERVER['REMOTE_ADDR'];
             $TokenCode = md5($row['Username']) . bin2hex(openssl_random_pseudo_bytes(4));
-            $sqlToken = "INSERT INTO Token (UserId,Ip,TokenCode)
+            $sqlToken = "INSERT INTO token (UserId,Ip,TokenCode)
                                VALUES($userEntity->Id,'$userEntity->Ip','$TokenCode'); ";
             $res = $this->execQuery($sqlToken);
             if ($res) {

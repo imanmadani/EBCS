@@ -1,5 +1,4 @@
 <?php
-
 define ('DS', DIRECTORY_SEPARATOR);
 define ('HOME', dirname(dirname(__FILE__)));
 require_once '../config.php';

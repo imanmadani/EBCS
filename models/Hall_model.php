@@ -21,7 +21,7 @@ class Hall_model extends model
     }
     public function update($id,$title,$gradeId)
     {
-        $sql = "UPDATE `Halls` SET `Title`='$title' , `GradeId`=$gradeId WHERE `Id`=$id";
+        $sql = "UPDATE `halls` SET `Title`='$title' , `GradeId`=$gradeId WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
     }
@@ -39,13 +39,13 @@ class Hall_model extends model
     }
     public function assignHallAdmin($hallId,$userId)
     {
-        $sql = "INSERT INTO `HallAdmins`( `HallId`, `UserId`) VALUES ($hallId,$userId)";
+        $sql = "INSERT INTO `halladmins`( `HallId`, `UserId`) VALUES ($hallId,$userId)";
         $rows = $this->execQuery($sql);
         return $rows;
     }
     public function deleteassignHallAdmin($id)
     {
-        $sql = "UPDATE `HallAdmins` SET `FlagDelete`=1 WHERE `Id`=$id";
+        $sql = "UPDATE `halladmins` SET `FlagDelete`=1 WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
     }
