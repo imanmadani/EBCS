@@ -37,7 +37,7 @@ export class ExhibitionHallGradeCreateComponent extends BaseClass implements OnI
             this.modalService.dismissAll(true);
 
           } else {
-            this.error();
+            this.error(res.message);
           }
         },
         (err) => {

@@ -21,7 +21,7 @@ class ExhibitionGrade_controller extends controller
         $year = $this->getVal('Year', $query);
         $rows = $this->_model->create($title,$year);
         $this->_res->set("result", $rows);
-        $this->_res->output();
+        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }
     public function Update($query)
     {
@@ -31,7 +31,12 @@ class ExhibitionGrade_controller extends controller
         $year = $this->getVal('Year', $query);
         $rows = $this->_model->update($id,$title,$year);
         $this->_res->set("result", $rows);
-        $this->_res->output();
+        if($rows){
+            $this->_res->output();
+
+        }else{
+            $this->_res->output(409,ResultEnum::Duplicate);
+        }
     }
     public function Delete($query)
     {

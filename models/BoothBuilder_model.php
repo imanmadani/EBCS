@@ -1,5 +1,6 @@
 <?php
 require_once "../Enum/BillType-Enum.php";
+
 class BoothBuilder_model extends model
 {
     public function get()
@@ -18,6 +19,7 @@ class BoothBuilder_model extends model
         $rows = $this->getAll($sql);
         return $rows;
     }
+
     public function getGrade()
     {
         $sql = "SELECT * FROM `boothbuildergrades` WHERE FlagDelete=0 ";
@@ -27,11 +29,11 @@ class BoothBuilder_model extends model
 
     public function getBoothBuilderTask()
     {
-        $head=getallheaders();
-        $ip=$_SERVER['REMOTE_ADDR'];
-        $user=$this->getUserByToken($head['Token'],$ip);
+        $head = getallheaders();
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $user = $this->getUserByToken($head['Token'], $ip);
 
-        $billTypeValid=BillTypeEnum::ExhibitionService;
+        $billTypeValid = BillTypeEnum::ExhibitionService;
         $sql = "SELECT 
                        myBoothBuilderRel.Id As Id,
                        myBooth.Name AS BoothName,
@@ -51,71 +53,102 @@ class BoothBuilder_model extends model
                 INNER JOIN `halls` AS myHall ON myExHall.HallId=myHall.Id
                 INNER JOIN `participants` AS myParti ON myBooth.ParticipantId=myParti.Id
                 INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
-                WHERE myBoothBuilderRel.FlagDelete=0 AND myBill.BillType=$billTypeValid AND myBoothBuilder.UserId=".$user['Id'];
+                WHERE myBoothBuilderRel.FlagDelete=0 AND myBill.BillType=$billTypeValid AND myBoothBuilder.UserId=" . $user['Id'];
         $rows = $this->getAll($sql);
         return $rows;
     }
+
     public function getById($id)
     {
         $sql = "SELECT * FROM `boothbuilders` WHERE `Id`=$id";
         $rows = $this->getRow($sql);
         return $rows;
     }
+
     public function getGradeById($id)
     {
         $sql = "SELECT * FROM `boothbuildergrades` WHERE `Id`=$id";
         $rows = $this->getRow($sql);
         return $rows;
     }
-    public function create($username,$password,$groupId,$name,$gradeId)
+
+    public function create($username, $password, $groupId, $name, $gradeId)
     {
-        $rows='';
-        $sqlDynamic=new model();
-        mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=0");
-        mysqli_query($sqlDynamic->conn,"START TRANSACTION");
-        $sql = mysqli_query($sqlDynamic->conn,"INSERT INTO `users`(`Username`, `Password`, `GroupId`) VALUES ('$username','$password',$groupId)");
-        $last_id = mysqli_insert_id($sqlDynamic->conn);
-        $sql2 = mysqli_query($sqlDynamic->conn,"INSERT INTO `boothbuilders`(`UserId`,`Name`,`GradeId`) VALUES ($last_id,'$name',$gradeId);");
-        if($sql && $sql2) {
-            mysqli_query($sqlDynamic->conn,"COMMIT");
-            $rows=$sql2;
+        $sqlDuplicate = "SELECT Id FROM `users` WHERE `Username`='$username'  AND FlagDelete=0";
+        $rowsDuplicate = $this->getRow($sqlDuplicate);
+        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+            $rows = false;
         } else {
-            mysqli_query($sqlDynamic->conn,"ROLLBACK");
+            $rows = '';
+            $sqlDynamic = new model();
+            mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=0");
+            mysqli_query($sqlDynamic->conn, "START TRANSACTION");
+            $sql = mysqli_query($sqlDynamic->conn, "INSERT INTO `users`(`Username`, `Password`, `GroupId`) VALUES ('$username','$password',$groupId)");
+            $last_id = mysqli_insert_id($sqlDynamic->conn);
+            $sql2 = mysqli_query($sqlDynamic->conn, "INSERT INTO `boothbuilders`(`UserId`,`Name`,`GradeId`) VALUES ($last_id,'$name',$gradeId);");
+            if ($sql && $sql2) {
+                mysqli_query($sqlDynamic->conn, "COMMIT");
+                $rows = $sql2;
+            } else {
+                mysqli_query($sqlDynamic->conn, "ROLLBACK");
+            }
+            mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=1");
         }
-        mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=1");
         return $rows;
     }
-    public function createGrade($title,$limitarea)
+
+    public function createGrade($title, $limitarea)
     {
-        $sql = "INSERT INTO `boothbuildergrades`(`Title`,`LimitArea`) VALUES ('$title',$limitarea)";
-        $rows = $this->execQuery($sql);
+        $sqlDuplicate = "SELECT Id FROM `boothbuildergrades` WHERE `Title`='$title' AND FlagDelete=0";
+        $rowsDuplicate = $this->getRow($sqlDuplicate);
+        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+            $rows = false;
+        } else {
+            $sql = "INSERT INTO `boothbuildergrades`(`Title`,`LimitArea`) VALUES ('$title',$limitarea)";
+            $rows = $this->execQuery($sql);
+        }
         return $rows;
     }
-    public function update($id,$name)
+
+    public function update($id, $name)
     {
+
         $sql = "UPDATE `boothbuilders` SET `Name`='$name' WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
     }
-    public function updateGrade($id,$title,$limitarea)
+
+    public function updateGrade($id, $title, $limitarea)
     {
-        $sql = "UPDATE `boothbuildergrades` SET `Title`='$title' , `LimitArea`=$limitarea WHERE `Id`=$id";
-        $rows = $this->execQuery($sql);
+        $sqlDuplicate = "SELECT Id FROM `users` WHERE `Title`='$title'  AND FlagDelete=0";
+        $rowsDuplicate = $this->getRow($sqlDuplicate);
+        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+            $rows = false;
+        } else {
+            $sql = "UPDATE `boothbuildergrades` SET `Title`='$title' , `LimitArea`=$limitarea WHERE `Id`=$id";
+            $rows = $this->execQuery($sql);
+        }
         return $rows;
     }
-    public function delete($id)
+
+    public
+    function delete($id)
     {
         $sql = "UPDATE `boothbuilders` SET `FlagDelete`=1 WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
     }
-    public function deleteGrade($id)
+
+    public
+    function deleteGrade($id)
     {
         $sql = "UPDATE `boothbuildergrades` SET `FlagDelete`=1 WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
     }
-    public function uploadPlan($id,$image,$name,$length,$contentType)
+
+    public
+    function uploadPlan($id, $image, $name, $length, $contentType)
     {
         $folderPath = "../Files/Plans/";
         $request = $image;
@@ -123,26 +156,28 @@ class BoothBuilder_model extends model
         $image_base64 = base64_decode($image_parts[1]);
         $image_type_aux = explode("image/", $image_parts[0]);
         $image_type = $image_type_aux[1];
-        $fileValidName=uniqid();
-        $file = $folderPath . $fileValidName .".".$image_type;
+        $fileValidName = uniqid();
+        $file = $folderPath . $fileValidName . "." . $image_type;
         file_put_contents($file, $image_base64);
-        $rows='';
-        $sqlDynamic=new model();
+        $rows = '';
+        $sqlDynamic = new model();
         mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=0");
-        mysqli_query($sqlDynamic->conn,"START TRANSACTION");
-        $sql = mysqli_query($sqlDynamic->conn,"INSERT INTO `files`(`ViewName`, `Name`,`Length`,`Type`,`Category`) VALUES ('$name','$fileValidName',$length,'$contentType','Plans')");
+        mysqli_query($sqlDynamic->conn, "START TRANSACTION");
+        $sql = mysqli_query($sqlDynamic->conn, "INSERT INTO `files`(`ViewName`, `Name`,`Length`,`Type`,`Category`) VALUES ('$name','$fileValidName',$length,'$contentType','Plans')");
         $last_id = mysqli_insert_id($sqlDynamic->conn);
-        $sql2 = mysqli_query($sqlDynamic->conn,"INSERT INTO `boothboothbuilderplans`(`BoothBoothbuilderId`,`FileId`) VALUES ($id,$last_id);");
-        if($sql && $sql2) {
-            mysqli_query($sqlDynamic->conn,"COMMIT");
-            $rows=$sql2;
+        $sql2 = mysqli_query($sqlDynamic->conn, "INSERT INTO `boothboothbuilderplans`(`BoothBoothbuilderId`,`FileId`) VALUES ($id,$last_id);");
+        if ($sql && $sql2) {
+            mysqli_query($sqlDynamic->conn, "COMMIT");
+            $rows = $sql2;
         } else {
-            mysqli_query($sqlDynamic->conn,"ROLLBACK");
+            mysqli_query($sqlDynamic->conn, "ROLLBACK");
         }
         mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=1");
         return $rows;
     }
-    public function getUploadFileByBoothBoothbuilderId($boothBoothBuilderId)
+
+    public
+    function getUploadFileByBoothBoothbuilderId($boothBoothBuilderId)
     {
         $sql = "SELECT 
                        myFile.Id As Id,
@@ -155,7 +190,9 @@ class BoothBuilder_model extends model
         $rows = $this->getAll($sql);
         return $rows;
     }
-    public function deletePlan($id)
+
+    public
+    function deletePlan($id)
     {
         $sql = "UPDATE  `boothboothbuilderplans` As myTaskPlan,`files` As myFile
                 SET myFile.FlagDelete =1,myTaskPlan.FlagDelete=1
@@ -163,7 +200,9 @@ class BoothBuilder_model extends model
         $rows = $this->execQuery($sql);
         return $rows;
     }
-    public function boothBuilderGradeDropDown()
+
+    public
+    function boothBuilderGradeDropDown()
     {
         $sql = "SELECT Id,Title AS Title FROM `boothbuildergrades` WHERE FlagDelete=0 ";
         $rows = $this->getAll($sql);

@@ -20,7 +20,7 @@ class Group_controller extends controller
         $name = $this->getVal('Name', $query);
         $rows = $this->_model->create($name);
         $this->_res->set("result", $rows);
-        $this->_res->output();
+        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }
     public function Update($query)
     {
@@ -28,7 +28,7 @@ class Group_controller extends controller
         $name = $this->getVal('Name', $query);
         $rows = $this->_model->update($id,$name);
         $this->_res->set("result", $rows);
-        $this->_res->output();
+        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }
     public function Delete($query)
     {

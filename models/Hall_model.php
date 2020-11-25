@@ -15,14 +15,26 @@ class Hall_model extends model
     }
     public function create($title,$gradeId)
     {
-        $sql = "INSERT INTO `halls`(`Title`,`GradeId`) VALUES ('$title',$gradeId)";
-        $rows = $this->execQuery($sql);
+        $sqlDuplicate = "SELECT Id FROM `halls` WHERE `Title`='$title'  AND FlagDelete=0";
+        $rowsDuplicate = $this->getRow($sqlDuplicate);
+        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+            $rows = false;
+        } else {
+            $sql = "INSERT INTO `halls`(`Title`,`GradeId`) VALUES ('$title',$gradeId)";
+            $rows = $this->execQuery($sql);
+        }
         return $rows;
     }
     public function update($id,$title,$gradeId)
     {
-        $sql = "UPDATE `halls` SET `Title`='$title' , `GradeId`=$gradeId WHERE `Id`=$id";
-        $rows = $this->execQuery($sql);
+        $sqlDuplicate = "SELECT Id FROM `halls` WHERE `Title`='$title'  AND FlagDelete=0";
+        $rowsDuplicate = $this->getRow($sqlDuplicate);
+        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+            $rows = false;
+        } else {
+            $sql = "UPDATE `halls` SET `Title`='$title' , `GradeId`=$gradeId WHERE `Id`=$id";
+            $rows = $this->execQuery($sql);
+        }
         return $rows;
     }
     public function delete($id)

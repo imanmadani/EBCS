@@ -24,7 +24,7 @@ class Exhibition_controller extends controller
         $endDateTime = $this->getVal('EndDateTime', $query);
         $rows = $this->_model->create($title,$year,$gradeId,$startDateTime,$endDateTime);
         $this->_res->set("result", $rows);
-        $this->_res->output();
+        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }
     public function Update($query)
     {
@@ -36,7 +36,7 @@ class Exhibition_controller extends controller
         $endDateTime = $this->getVal('EndDateTime', $query);
         $rows = $this->_model->update($id,$title,$year,$gradeId,$startDateTime,$endDateTime);
         $this->_res->set("result", $rows);
-        $this->_res->output();
+        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }
     public function Delete($query)
     {

@@ -86,7 +86,7 @@ export class ExhibitionAssignHalladminComponent extends BaseClass implements OnI
           this.success();
           this.ngOnInit();
         } else {
-          this.error();
+          this.error(res.message);
         }
       },
       (err) => {

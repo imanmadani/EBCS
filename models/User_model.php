@@ -17,14 +17,26 @@ class User_model extends model
     }
     public function create($username,$password,$groupId)
     {
-        $sql = "INSERT INTO `users`(`Username`, `Password`, `GroupId`) VALUES ('$username','$password',$groupId)";
-        $rows = $this->execQuery($sql);
+        $sqlDuplicate = "SELECT Id FROM `users` WHERE `Username`='$username'  AND FlagDelete=0";
+        $rowsDuplicate = $this->getRow($sqlDuplicate);
+        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+            $rows = false;
+        } else {
+            $sql = "INSERT INTO `users`(`Username`, `Password`, `GroupId`) VALUES ('$username','$password',$groupId)";
+            $rows = $this->execQuery($sql);
+        }
         return $rows;
     }
     public function update($id,$username)
     {
-        $sql = "UPDATE `users` SET `Username`='$username' WHERE `Id`=$id";
-        $rows = $this->execQuery($sql);
+        $sqlDuplicate = "SELECT Id FROM `users` WHERE `Username`='$username' AND Id!=$id AND FlagDelete=0";
+        $rowsDuplicate = $this->getRow($sqlDuplicate);
+        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+            $rows = false;
+        } else {
+            $sql = "UPDATE `users` SET `Username`='$username' WHERE `Id`=$id";
+            $rows = $this->execQuery($sql);
+        }
         return $rows;
     }
     public function delete($id)

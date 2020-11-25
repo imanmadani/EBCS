@@ -21,7 +21,7 @@ class Hall_controller extends controller
         $gradeId = $this->getVal('GradeId', $query);
         $rows = $this->_model->create($title,$gradeId);
         $this->_res->set("result", $rows);
-        $this->_res->output();
+        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }
     public function Update($query)
     {
@@ -30,7 +30,7 @@ class Hall_controller extends controller
         $gradeId = $this->getVal('GradeId', $query);
         $rows = $this->_model->update($id,$title,$gradeId);
         $this->_res->set("result", $rows);
-        $this->_res->output();
+        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }
     public function Delete($query)
     {

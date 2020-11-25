@@ -41,7 +41,7 @@ export class ExhibitionHallGradeEditComponent extends BaseClass implements OnIni
             this.success();
             this.modalService.dismissAll(true);
           } else {
-            this.error();
+            this.error(res.message);
           }
         },
         (err) => {

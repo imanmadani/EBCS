@@ -87,7 +87,7 @@ export class ExhibitionAssignExecuterComponent extends BaseClass implements OnIn
           this.success();
           this.ngOnInit();
         } else {
-          this.error();
+          this.error(res.message);
         }
       },
       (err) => {

@@ -86,7 +86,7 @@ export class ExhibitionAssignTechnicalexpertComponent extends BaseClass implemen
           this.success();
           this.ngOnInit();
         } else {
-          this.error();
+          this.error(res.message);
         }
       },
       (err) => {

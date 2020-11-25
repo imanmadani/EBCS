@@ -1,4 +1,7 @@
-<?php 
+<?php
+require_once '../Enum/Result-Enum.php';
+require_once 'Result-Translate.php';
+
 class Response 
 {
     protected $_data = array();
@@ -14,8 +17,11 @@ class Response
     {
 //        header("Content Type:application/json");
 //        header("HTTP/1.1 $status");
+        if($message==ResultEnum::Duplicate){
+            $message=ResultTranslate::Duplicate;
+        }
         $res['status']=$status;
-        $res['massage']=$message;
+        $res['message']=$message;
         $res['data'] = $this->_data;
         $res=json_encode($res);
         echo  $res;

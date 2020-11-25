@@ -39,7 +39,7 @@ export class ArchitecturalexpertEditComponent extends BaseClass implements OnIni
             this.modalService.dismissAll(true);
 
           } else {
-            this.error();
+            this.error(res.message);
           }
         },
         (err) => {

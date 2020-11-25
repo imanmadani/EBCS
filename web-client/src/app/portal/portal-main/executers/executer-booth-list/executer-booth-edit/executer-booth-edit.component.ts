@@ -45,7 +45,7 @@ export class ExecuterBoothEditComponent extends BaseClass implements OnInit {
             this.modalService.dismissAll(true);
 
           } else {
-            this.error();
+            this.error(res.message);
           }
         },
         (err) => {

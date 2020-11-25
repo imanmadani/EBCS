@@ -15,14 +15,26 @@ class HallGrade_model extends model
     }
     public function create($title)
     {
-        $sql = "INSERT INTO `hallgrades`(`Title`) VALUES ('$title')";
-        $rows = $this->execQuery($sql);
+        $sqlDuplicate = "SELECT Id FROM `hallgrades` WHERE `Title`='$title'  AND FlagDelete=0";
+        $rowsDuplicate = $this->getRow($sqlDuplicate);
+        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+            $rows = false;
+        } else {
+            $sql = "INSERT INTO `hallgrades`(`Title`) VALUES ('$title')";
+            $rows = $this->execQuery($sql);
+        }
         return $rows;
     }
     public function update($id,$title)
     {
-        $sql = "UPDATE `hallgrades` SET `Title`='$title'  WHERE `Id`=$id";
-        $rows = $this->execQuery($sql);
+        $sqlDuplicate = "SELECT Id FROM `hallgrades` WHERE `Title`='$title'  AND Id!=$id AND FlagDelete=0";
+        $rowsDuplicate = $this->getRow($sqlDuplicate);
+        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+            $rows = false;
+        } else {
+            $sql = "UPDATE `hallgrades` SET `Title`='$title'  WHERE `Id`=$id";
+            $rows = $this->execQuery($sql);
+        }
         return $rows;
     }
     public function delete($id)

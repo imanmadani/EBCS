@@ -27,7 +27,7 @@ class Booth_controller extends controller
         $constructionType = $this->getVal('ConstType', $query);
         $rows = $this->_model->create($name,$exhibitionId,$exHallId,$participantId,$areaRial,$areaArz,$area2,$constructionType);
         $this->_res->set("result", $rows);
-        $this->_res->output();
+        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }
     public function Update($query)
     {
@@ -38,7 +38,7 @@ class Booth_controller extends controller
         $participantId = $this->getVal('ParticipantId', $query);
         $rows = $this->_model->update($name,$exhibitionId,$hallId,$participantId);
         $this->_res->set("result", $rows);
-        $this->_res->output();
+        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }
     public function Delete($query)
     {

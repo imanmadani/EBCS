@@ -87,7 +87,7 @@ export class ExecuterhallHalladminComponent extends BaseClass implements OnInit 
           this.success();
           this.ngOnInit();
         } else {
-          this.error();
+          this.error(res.message);
         }
       },
       (err) => {

@@ -44,7 +44,7 @@ export class BoothbuilderinfringementCreateComponent extends BaseClass implement
             this.success();
             this.modalService.dismissAll(true);
           } else {
-            this.error();
+            this.error(res.message);
           }
         },
         (err) => {

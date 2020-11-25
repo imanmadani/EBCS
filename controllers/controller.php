@@ -1,4 +1,5 @@
 <?php
+require_once '../Enum/Result-Enum.php';
 
 class controller
 {

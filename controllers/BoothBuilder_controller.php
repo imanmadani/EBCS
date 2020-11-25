@@ -43,7 +43,7 @@ class BoothBuilder_controller extends controller
         $gradeId = $this->getVal('GradeId', $query);
         $rows = $this->_model->create($username,$password,$groupId,$name,$gradeId);
         $this->_res->set("result", $rows);
-        $this->_res->output();
+        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }
     public function CreateGrade($query)
     {
@@ -51,7 +51,7 @@ class BoothBuilder_controller extends controller
         $limitarea = $this->getVal('LimitArea', $query);
         $rows = $this->_model->createGrade($title,$limitarea);
         $this->_res->set("result", $rows);
-        $this->_res->output();
+        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }
     public function Update($query)
     {
@@ -68,7 +68,7 @@ class BoothBuilder_controller extends controller
         $limitarea = $this->getVal('LimitArea', $query);
         $rows = $this->_model->updateGrade($id,$title,$limitarea);
         $this->_res->set("result", $rows);
-        $this->_res->output();
+        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }
     public function Delete($query)
     {

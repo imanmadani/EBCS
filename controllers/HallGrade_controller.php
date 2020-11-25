@@ -20,7 +20,7 @@ class HallGrade_controller extends controller
         $title = $this->getVal('Title', $query);
         $rows = $this->_model->create($title);
         $this->_res->set("result", $rows);
-        $this->_res->output();
+        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }
     public function Update($query)
     {
@@ -28,7 +28,7 @@ class HallGrade_controller extends controller
         $title = $this->getVal('Title', $query);
         $rows = $this->_model->update($id,$title);
         $this->_res->set("result", $rows);
-        $this->_res->output();
+        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }
     public function Delete($query)
     {

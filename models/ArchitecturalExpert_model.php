@@ -64,20 +64,26 @@ class ArchitecturalExpert_model extends model
 
     public function create($username, $password, $groupId, $name)
     {
-        $rows = '';
-        $sqlDynamic = new model();
-        mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=0");
-        mysqli_query($sqlDynamic->conn, "START TRANSACTION");
-        $sql = mysqli_query($sqlDynamic->conn, "INSERT INTO `users`(`Username`, `Password`, `GroupId`) VALUES ('$username','$password',$groupId)");
-        $last_id = mysqli_insert_id($sqlDynamic->conn);
-        $sql2 = mysqli_query($sqlDynamic->conn, "INSERT INTO `architecturalexperts`(`UserId`,`Name`) VALUES ($last_id,'$name');");
-        if ($sql && $sql2) {
-            mysqli_query($sqlDynamic->conn, "COMMIT");
-            $rows = $sql2;
-        } else {
-            mysqli_query($sqlDynamic->conn, "ROLLBACK");
+        $sqlDuplicate = "SELECT Id FROM `users` WHERE `Username`='$username'  AND FlagDelete=0";
+        $rowsDuplicate = $this->getRow($sqlDuplicate);
+        if($rowsDuplicate['Id'] and $rowsDuplicate['Id']>0){
+            $rows=false;
+        }else {
+            $rows = '';
+            $sqlDynamic = new model();
+            mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=0");
+            mysqli_query($sqlDynamic->conn, "START TRANSACTION");
+            $sql = mysqli_query($sqlDynamic->conn, "INSERT INTO `users`(`Username`, `Password`, `GroupId`) VALUES ('$username','$password',$groupId)");
+            $last_id = mysqli_insert_id($sqlDynamic->conn);
+            $sql2 = mysqli_query($sqlDynamic->conn, "INSERT INTO `architecturalexperts`(`UserId`,`Name`) VALUES ($last_id,'$name');");
+            if ($sql && $sql2) {
+                mysqli_query($sqlDynamic->conn, "COMMIT");
+                $rows = $sql2;
+            } else {
+                mysqli_query($sqlDynamic->conn, "ROLLBACK");
+            }
+            mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=1");
         }
-        mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=1");
         return $rows;
     }
 
@@ -97,7 +103,7 @@ class ArchitecturalExpert_model extends model
 
     public function infrigementCreate($infringementsId, $boothId, $quantity)
     {
-        $getBoothBuilder = "SELECT * FROM `boothboothbuilders` WHERE BoothId=1 AND FlagDelete=0";
+        $getBoothBuilder = "SELECT * FROM `boothboothbuilders` WHERE BoothId=$boothId AND FlagDelete=0";
         $rowsBoothBoothBuilder = $this->getRow($getBoothBuilder);
         $boothBuilderId = $rowsBoothBoothBuilder['BoothBuilderId'];
         $getInfringementAmount = "SELECT * FROM `boothbuilderinfringements` WHERE Id=$infringementsId AND FlagDelete=0";

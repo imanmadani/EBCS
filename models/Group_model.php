@@ -17,14 +17,26 @@ class Group_model extends model
     }
     public function create($name)
     {
-        $sql = "INSERT INTO `groups`(`Name`) VALUES ('$name')";
-        $rows = $this->execQuery($sql);
+        $sqlDuplicate = "SELECT Id FROM `groups` WHERE `Name`='$name' AND FlagDelete=0";
+        $rowsDuplicate = $this->getRow($sqlDuplicate);
+        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+            $rows = false;
+        } else {
+            $sql = "INSERT INTO `groups`(`Name`) VALUES ('$name')";
+            $rows = $this->execQuery($sql);
+        }
         return $rows;
     }
     public function update($id,$name)
     {
-        $sql = "UPDATE `groups` SET `Name`='$name' WHERE `Id`=$id";
-        $rows = $this->execQuery($sql);
+        $sqlDuplicate = "SELECT Id FROM `groups` WHERE `Name`='$name' AND FlagDelete=0";
+        $rowsDuplicate = $this->getRow($sqlDuplicate);
+        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+            $rows = false;
+        } else {
+            $sql = "UPDATE `groups` SET `Name`='$name' WHERE `Id`=$id";
+            $rows = $this->execQuery($sql);
+        }
         return $rows;
     }
     public function delete($id)

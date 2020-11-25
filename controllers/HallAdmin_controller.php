@@ -29,7 +29,7 @@ class HallAdmin_controller extends controller
         $name = $this->getVal('Name', $query);
         $rows = $this->_model->create($username,$password,$groupId,$name);
         $this->_res->set("result", $rows);
-        $this->_res->output();
+        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }
     public function Update($query)
     {
@@ -37,7 +37,6 @@ class HallAdmin_controller extends controller
         $name = $this->getVal('Name', $query);
         $rows = $this->_model->update($id,$name);
         $this->_res->set("result", $rows);
-        $this->_res->output();
     }
     public function Delete($query)
     {

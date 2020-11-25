@@ -45,7 +45,7 @@ export class BoothbuilderinfringementSetComponent  extends BaseClass implements 
             this.success();
             this.modalService.dismissAll(true);
           } else {
-            this.error();
+            this.error(res.message);
           }
         },
         (err) => {

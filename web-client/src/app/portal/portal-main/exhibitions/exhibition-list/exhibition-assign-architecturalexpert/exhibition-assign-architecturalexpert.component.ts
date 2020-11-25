@@ -86,7 +86,7 @@ export class ExhibitionAssignArchitecturalexpertComponent extends BaseClass impl
           this.success();
           this.ngOnInit();
         } else {
-          this.error();
+          this.error(res.message);
         }
       },
       (err) => {

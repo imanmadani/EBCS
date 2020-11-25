@@ -23,7 +23,7 @@ class User_controller extends controller
         $groupId = $this->getVal('GroupId', $query);
         $rows = $this->_model->create($username,$password,$groupId);
         $this->_res->set("result", $rows);
-        $this->_res->output();
+        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }
     public function Update($query)
     {
@@ -31,7 +31,7 @@ class User_controller extends controller
         $username = $this->getVal('Username', $query);
         $rows = $this->_model->update($id,$username);
         $this->_res->set("result", $rows);
-        $this->_res->output();
+        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }
     public function Delete($query)
     {
