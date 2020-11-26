@@ -37,6 +37,7 @@ class BoothBuilder_model extends model
         $sql = "SELECT 
                        myBoothBuilderRel.Id As Id,
                        myBooth.Name AS BoothName,
+                       myBooth.Id AS BoothId,
                        myHall.Title AS HallName,
                        myParti.Username AS ParticipantName,
                        myEx.Title AS ExhibitionName,
@@ -53,7 +54,11 @@ class BoothBuilder_model extends model
                 INNER JOIN `halls` AS myHall ON myExHall.HallId=myHall.Id
                 INNER JOIN `participants` AS myParti ON myBooth.ParticipantId=myParti.Id
                 INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
-                WHERE myBoothBuilderRel.FlagDelete=0 AND myBill.BillType=$billTypeValid AND myBoothBuilder.UserId=" . $user['Id'];
+                WHERE myBoothBuilderRel.FlagDelete=0 
+                AND myBill.BillType=$billTypeValid
+                AND myBooth.TechnicalExpertApprove=2 
+                OR myBooth.TechnicalExpertApprove=NULL 
+                AND myBoothBuilder.UserId=" . $user['Id'];
         $rows = $this->getAll($sql);
         return $rows;
     }
@@ -206,6 +211,12 @@ class BoothBuilder_model extends model
     {
         $sql = "SELECT Id,Title AS Title FROM `boothbuildergrades` WHERE FlagDelete=0 ";
         $rows = $this->getAll($sql);
+        return $rows;
+    }
+    public function endAction($id)
+    {
+        $sql = "UPDATE `booths` SET `TechnicalExpertApprove`=0 WHERE `Id`=$id";
+        $rows = $this->execQuery($sql);
         return $rows;
     }
 }

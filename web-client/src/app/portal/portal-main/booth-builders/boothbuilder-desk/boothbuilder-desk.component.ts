@@ -71,6 +71,10 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
           name: 'paymentAction',
           title: '<i class="fa fa-money-bill-wave pr-3 ebcs-font-normal text-primary" title="پرداخت"></i>'
         },
+        {
+          name: 'endActionAction',
+          title: '<i class="fa fa-check pr-3 ebcs-font-normal text-info" title="نهایی کردن"></i>'
+        },
       ],
       add: false,
       edit: false,
@@ -105,6 +109,10 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
       }
       case 'uploadAction' : {
         this.planUpdateHandler(e.data);
+        break;
+      }
+      case 'endActionAction' : {
+        this.endActionHandler(e.data);
         break;
       }
       case 'paymentAction' : {
@@ -150,7 +158,17 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
         this.ngOnInit();
     });
   }
-
+  endActionHandler(inputModel) {
+    debugger
+    let entity = new GroupModel();
+    entity.Id = inputModel.BoothId;
+    this.boothBuilderService.endAction(entity).subscribe(res => {
+      if (res.data.result) {
+        this.success();
+        this.ngOnInit();
+      }
+    });
+  }
   paymentHandler(inputModel) {
 
   }

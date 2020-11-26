@@ -36,4 +36,12 @@ export class TechnicalexpertsService {
     return this.http
       .post<any>(this.TechnicalexpertbaseUrl+'?api=Delete', entity);
   }
+  boothApprove(entity): Observable<any> {
+    return this.http
+      .post<any>(this.TechnicalexpertbaseUrl+'?api=BoothApprove', entity);
+  }
+  boothDisApprove(entity): Observable<any> {
+    return this.http
+      .post<any>(this.TechnicalexpertbaseUrl+'?api=BoothDisApprove', entity);
+  }
 }

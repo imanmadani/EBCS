@@ -115,5 +115,12 @@ class BoothBuilder_controller extends controller
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }
+    public function EndAction($query)
+    {
+        $id = $this->getVal('Id', $query);
+        $rows = $this->_model->endAction($id);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
 
 }

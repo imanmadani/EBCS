@@ -49,6 +49,10 @@ export class BoothbuildersService {
     return this.http
       .post<any>(this.baseUrl+'?api=Delete', entity);
   }
+  endAction(entity: GroupModel): Observable<any> {
+    return this.http
+      .post<any>(this.baseUrl+'?api=EndAction', entity);
+  }
   deleteGrade(entity: GroupModel): Observable<any> {
     return this.http
       .post<any>(this.baseUrl+'?api=DeleteGrade', entity);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BaseClass} from "../../../../utilities/base";
 import {BoothbuildersService} from "../../booth-builders/boothbuilders.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
@@ -23,9 +23,10 @@ export class TechnicalexpertDeskComponent extends BaseClass implements OnInit {
       },
       HallName: {
         title: 'سالن'
+
       },
       BoothName: {
-        title:'شماره غرفه',
+        title: 'شماره غرفه'
       },
       AreaRial: {
         title: 'متراژ ریالی'
@@ -36,9 +37,9 @@ export class TechnicalexpertDeskComponent extends BaseClass implements OnInit {
       AreaType: {
         title: 'نوع غرفه',
         valuePrepareFunction: (value) => {
-          if (value==="1") return 'ریالی';
-          if (value==="2") return 'ارزی';
-          if (value==="3") return 'ارزی - ریالی';
+          if (value === "1") return 'ریالی';
+          if (value === "2") return 'ارزی';
+          if (value === "3") return 'ارزی - ریالی';
           return '-';
         },
       },
@@ -48,26 +49,27 @@ export class TechnicalexpertDeskComponent extends BaseClass implements OnInit {
       ConstructionType: {
         title: 'نوع ساخت',
         valuePrepareFunction: (value) => {
-          if (value==="1") return 'پیش ساخته';
-          if (value==="2") return 'خود ساز';
+          if (value === "1") return 'پیش ساخته';
+          if (value === "2") return 'خود ساز';
           return '-';
         },
       },
       ParticipantName: {
-        title:'مشارکت کننده',
+        title: 'مشارکت کننده',
       },
     },
     actions: {
       columnTitle: 'عملیات',
+      width: '300px',
       custom: [
-        // {
-        //   name: 'editAction',
-        //   title: '<i class="fa fa-edit pr-3 ebcs-font-normal text-warning" title="Edit"></i>'
-        // },
-        // {
-        //   name: 'deleteAction',
-        //   title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="Delete"></i>'
-        // },
+        {
+          name: 'approveAction',
+          title: '<i class="fa fa-check pr-3 ebcs-font-normal text-success" title="تایید"></i>'
+        },
+        {
+          name: 'disApproveAction',
+          title: '<i class="fa fa-times pr-3 ebcs-font-normal text-danger" title="عدم تایید"></i>'
+        },
         {
           name: 'fileManagement',
           title: '<i class="fa fa-images pr-3 ebcs-font-normal text-info" title="Files"></i>'
@@ -96,6 +98,14 @@ export class TechnicalexpertDeskComponent extends BaseClass implements OnInit {
 
   methodHandler(e) {
     switch (e.action) {
+      case 'approveAction' : {
+        this.approveHandler(e.data);
+        break;
+      }
+      case 'disApproveAction' : {
+        this.disAproveHandler(e.data);
+        break;
+      }
       case 'fileManagement' : {
         this.fileManagement(e.data);
         break;
@@ -104,11 +114,35 @@ export class TechnicalexpertDeskComponent extends BaseClass implements OnInit {
   }
 
   fileManagement(inputModel) {
-    let modalRef=this.modalService.open(TechnicalexpertFilemanagementComponent, {centered: true,size:'xl'});
+    let modalRef = this.modalService.open(TechnicalexpertFilemanagementComponent, {centered: true, size: 'xl'});
     modalRef.componentInstance.model = inputModel;
-    modalRef.result.then((data) => {}, (reason) => {
+    modalRef.result.then((data) => {
+    }, (reason) => {
       if (reason)
         this.ngOnInit();
+    });
+  }
+
+  private approveHandler(inputModel) {
+    debugger
+    let entity = new GroupModel();
+    entity.Id = inputModel.BoothId;
+    this.technicalexpertsService.boothApprove(entity).subscribe(res => {
+      if (res.data.result) {
+        this.success();
+        this.ngOnInit();
+      }
+    });
+  }
+
+  private disAproveHandler(inputModel) {
+    let entity = new GroupModel();
+    entity.Id = inputModel.BoothId;
+    this.technicalexpertsService.boothDisApprove(entity).subscribe(res => {
+      if (res.data.result) {
+        this.success();
+        this.ngOnInit();
+      }
     });
   }
 }
