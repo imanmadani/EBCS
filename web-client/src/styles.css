@@ -18,6 +18,9 @@ body{
 .ebcs-bg{
   background: #121534 !important;
 }
+.ebcs-bg-light{
+  background: #121534c7 !important;
+}
 .ebcs-bg-yellow{
   background-color: #ff6768;
 }

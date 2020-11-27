@@ -1,5 +1,6 @@
 <?php
 require_once "../Enum/BillType-Enum.php";
+require_once "../Enum/ApproveState-Enum.php";
 
 class BoothBuilder_model extends model
 {
@@ -56,8 +57,8 @@ class BoothBuilder_model extends model
                 INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
                 WHERE myBoothBuilderRel.FlagDelete=0 
                 AND myBill.BillType=$billTypeValid
-                AND myBooth.TechnicalExpertApprove=2 
-                OR myBooth.TechnicalExpertApprove=NULL 
+                AND (myBooth.TechnicalExpertApprove=".ApproveStateEnum::DisApprove." 
+                OR  myBooth.TechnicalExpertApprove IS ".ApproveStateEnum::None.")
                 AND myBoothBuilder.UserId=" . $user['Id'];
         $rows = $this->getAll($sql);
         return $rows;
@@ -215,7 +216,7 @@ class BoothBuilder_model extends model
     }
     public function endAction($id)
     {
-        $sql = "UPDATE `booths` SET `TechnicalExpertApprove`=0 WHERE `Id`=$id";
+        $sql = "UPDATE `booths` SET `TechnicalExpertApprove`=".ApproveStateEnum::EndAction." WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
     }

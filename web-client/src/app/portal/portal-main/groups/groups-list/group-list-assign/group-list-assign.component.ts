@@ -5,6 +5,7 @@ import {GroupAccessModel} from '../../entity';
 import {BaseClass} from '../../../../../utilities/base';
 import {ToastrService} from 'ngx-toastr';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {MenuModel} from "../../../menu";
 
 @Component({
   selector: 'app-group-list-assign',
@@ -14,7 +15,8 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 export class GroupListAssignComponent extends BaseClass implements OnInit {
 @Input() model;
   access=true;
-  menus: any;
+  menus=[];
+  data: any;
   constructor(private groupService:GroupsService  ,
               private modalService: NgbModal,
               protected toastr: ToastrService) {
@@ -23,7 +25,17 @@ export class GroupListAssignComponent extends BaseClass implements OnInit {
 
   ngOnInit(): void {
     this.groupService.getMenuWithAccess(this.model).subscribe(res=>{
-      this.menus=res.data.row;
+      this.menus=[];
+      this.data=res.data.row;
+      this.data.forEach(mnu=>{
+        if(!mnu.MenuRef){
+          mnu.SubMenu=[]
+          this.menus.push(mnu);
+        }else {
+          let find=this.menus.find(e => e.MenuId === mnu.MenuRef);
+          find.SubMenu.push(mnu);
+        }
+      });
     });
   }
 

@@ -6,5 +6,6 @@ class MenuAccessClass
     public $MenuIcon;
     public $GroupId;
     public $MenuAccessId;
+    public $MenuRef;
 }
 ?>

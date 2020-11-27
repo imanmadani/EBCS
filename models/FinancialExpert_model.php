@@ -31,7 +31,7 @@ class FinancialExpert_model extends model
                 INNER JOIN `halls` AS myHall ON myHallEx.HallId=myHall.Id
                 INNER JOIN `participants` AS myParticipant ON myBooth.ParticipantId=myParticipant.Id
                 INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
-                WHERE myBill.FlagDelete=0 AND myBill.PayStatus=1";
+                WHERE myBill.FlagDelete=0 AND myBill.PayStatus=1 AND myBill.FinancialApprove=0";
         $rows = $this->getAll($sql);
         return $rows;
     }

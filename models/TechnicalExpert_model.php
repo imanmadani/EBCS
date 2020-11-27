@@ -1,4 +1,5 @@
 <?php
+require_once "../Enum/ApproveState-Enum.php";
 
 class TechnicalExpert_model extends model
 {
@@ -18,6 +19,7 @@ class TechnicalExpert_model extends model
                        myHall.Title AS HallName,
                        myBooth.Name AS BoothName,
                        myBooth.Id AS BoothId,
+                       CONCAT( myBooth.TechnicalExpertApprove, myBooth.ArchitecturalExpertApprove ) AS ApproveState,
                        myBooth.AreaRial,
                        myBooth.AreaArz,
                        myBooth.AreaType,
@@ -36,7 +38,10 @@ class TechnicalExpert_model extends model
                 INNER JOIN `boothboothbuilderplans` AS myBoothPlan ON myBoothBoothBuilder.Id=myBoothPlan.BoothBoothbuilderId
                 WHERE myTechnicalExpert.TechnicalExpertId=1=$technicalExpertId AND myBoothPlan.FlagDelete=0 
                 AND myBill.BillType=1 AND myBill.PayStatus=1
-                AND myBooth.TechnicalExpertApprove=0 
+                AND myBooth.TechnicalExpertApprove!=".ApproveStateEnum::DisApprove."
+                AND myBooth.TechnicalExpertApprove!=".ApproveStateEnum::Approve."
+                AND (myBooth.TechnicalExpertApprove=".ApproveStateEnum::EndAction." 
+                OR  myBooth.ArchitecturalExpertApprove=".ApproveStateEnum::DisApprove.")
                 GROUP BY myTechnicalExpert.ExhibitionId";
         $rows = $this->getAll($sql);
         return $rows;
@@ -96,14 +101,14 @@ class TechnicalExpert_model extends model
     }
     public function BoothApprove($id)
     {
-        $sql = "UPDATE `booths` SET `TechnicalExpertApprove`=1 WHERE `Id`=$id";
+        $sql = "UPDATE `booths` SET `TechnicalExpertApprove`=".ApproveStateEnum::Approve." WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
     }
 
     public function BoothDisApprove($id)
     {
-        $sql = "UPDATE `booths` SET `TechnicalExpertApprove`=2 WHERE `Id`=$id";
+        $sql = "UPDATE `booths` SET `TechnicalExpertApprove`=".ApproveStateEnum::DisApprove." WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
     }

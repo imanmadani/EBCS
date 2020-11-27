@@ -5,6 +5,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ToastrService} from "ngx-toastr";
 import {ArchitecturalexpertEditComponent} from "../architecturalexpert-list/architecturalexpert-edit/architecturalexpert-edit.component";
 import {BoothbuilderinfringementSetComponent} from "./boothbuilderinfringement-set/boothbuilderinfringement-set.component";
+import {GroupModel} from "../../groups/entity";
 
 @Component({
   selector: 'app-architecturalexpert-desk',
@@ -26,10 +27,27 @@ export class ArchitecturalexpertDeskComponent extends BaseClass implements OnIni
       ParticipantName: {
         title: 'مشارکت کننده'
       },
+      ApproveState: {
+        title: 'وضعیت',
+        type: 'html',
+        valuePrepareFunction: (value) => {
+          if (value === "1") return '<i class="fa fa-circle pr-3  text-success" title="تایید"></i>';
+          if (value === "2") return '<i class="fa fa-circle pr-3  text-warning" title="عدم تایید"></i>';
+          return '-';
+        },
+      },
     },
     actions: {
       columnTitle: 'عملیات',
       custom: [
+        {
+          name: 'approveAction',
+          title: '<i class="fa fa-check pr-3 ebcs-font-normal text-success" title="تایید"></i>'
+        },
+        {
+          name: 'disApproveAction',
+          title: '<i class="fa fa-times pr-3 ebcs-font-normal text-danger" title="عدم تایید"></i>'
+        },
         {
           name: 'setInfringements',
           title: '<i class="fa fa-exclamation-triangle pr-3 ebcs-font-normal text-danger" title="ثبت تخلف"></i>'
@@ -54,6 +72,14 @@ export class ArchitecturalexpertDeskComponent extends BaseClass implements OnIni
   }
   methodHandler(e) {
     switch (e.action) {
+      case 'approveAction' : {
+        this.approveHandler(e.data);
+        break;
+      }
+      case 'disApproveAction' : {
+        this.disAproveHandler(e.data);
+        break;
+      }
       case 'setInfringements' : {
         this.setInfringementHandler(e.data);
         break;
@@ -66,6 +92,28 @@ export class ArchitecturalexpertDeskComponent extends BaseClass implements OnIni
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)
         this.ngOnInit();
+    });
+  }
+  private approveHandler(inputModel) {
+    debugger
+    let entity = new GroupModel();
+    entity.Id = inputModel.BoothId;
+    this.architecturalexpertsService.boothApprove(entity).subscribe(res => {
+      if (res.data.result) {
+        this.success();
+        this.ngOnInit();
+      }
+    });
+  }
+
+  private disAproveHandler(inputModel) {
+    let entity = new GroupModel();
+    entity.Id = inputModel.BoothId;
+    this.architecturalexpertsService.boothDisApprove(entity).subscribe(res => {
+      if (res.data.result) {
+        this.success();
+        this.ngOnInit();
+      }
     });
   }
 }

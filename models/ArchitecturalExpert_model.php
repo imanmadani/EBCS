@@ -1,4 +1,5 @@
 <?php
+require_once "../Enum/ApproveState-Enum.php";
 
 class ArchitecturalExpert_model extends model
 {
@@ -18,13 +19,15 @@ class ArchitecturalExpert_model extends model
                        myBooth.Name AS BoothName,
                        myBooth.Id AS BoothId,
                        myHall.Title AS HallName,
+                       myBooth.ArchitecturalExpertApprove AS ApproveState,
                        myParti.Username AS ParticipantName,
                        myEx.Title AS ExhibitionName
                 FROM `booths` AS myBooth 
                 INNER JOIN `exhibitionhalls` As myExHall ON myBooth.ExhibitionHallId=myExHall.Id
                 INNER JOIN `halls` AS myHall ON myExHall.HallId=myHall.Id
                 INNER JOIN `participants` AS myParti ON myBooth.ParticipantId=myParti.Id
-                INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id";
+                INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
+                WHERE myBooth.TechnicalExpertApprove=".ApproveStateEnum::Approve;
         $rows = $this->getAll($sql);
         return $rows;
     }
@@ -121,6 +124,21 @@ class ArchitecturalExpert_model extends model
                 INNER JOIN `quantitytype` As myQuantityType ON myInf.QuantityType=myQuantityType.Id 
                 WHERE FlagDelete=0 ";
         $rows = $this->getAll($sql);
+        return $rows;
+    }
+    public function BoothApprove($id)
+    {
+        $sql = "UPDATE `booths` SET `ArchitecturalExpertApprove`=".ApproveStateEnum::Approve." WHERE `Id`=$id";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
+
+    public function BoothDisApprove($id)
+    {
+        $sql = "UPDATE `booths` SET `ArchitecturalExpertApprove`=".ApproveStateEnum::DisApprove." WHERE `Id`=$id";
+        $rows = $this->execQuery($sql);
+        $sql = "UPDATE `booths` SET `TechnicalExpertApprove`=".ApproveStateEnum::EndAction." WHERE `Id`=$id";
+        $rows = $this->execQuery($sql);
         return $rows;
     }
 }

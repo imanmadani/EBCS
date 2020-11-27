@@ -50,8 +50,9 @@ class Group_model extends model
         $sql = "SELECT 
         myMenu.Id,
         myMenu.Title,
+        myMenu.MenuRef,
         myMenu.Icon FROM  menus As myMenu 
-        WHERE FlagDelete=0";
+        WHERE FlagDelete=0 ORDER BY MenuRef";
         $res = $this->getAll($sql);
         $modelList=[];
         foreach($res AS $menu){
@@ -59,6 +60,7 @@ class Group_model extends model
             $model->MenuId=$menu['Id'];
             $model->MenuTitle=$menu['Title'];
             $model->MenuIcon=$menu['Icon'];
+            $model->MenuRef=$menu['MenuRef'];
             $model->GroupId=NULL;
             $model->GroupAccessId=NULL;
             $sql2 = "SELECT * From groupaccess Where MenuId=$model->MenuId AND GroupId=$groupId AND FlagDelete=0";

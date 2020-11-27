@@ -57,6 +57,14 @@ export class TechnicalexpertDeskComponent extends BaseClass implements OnInit {
       ParticipantName: {
         title: 'مشارکت کننده',
       },
+      ApproveState: {
+        title: 'وضعیت',
+        type: 'html',
+        valuePrepareFunction: (value) => {
+          if (value === "02") return '<i class="fa fa-circle pr-3  text-warning" title="عدم تایید"></i>';
+          return '-';
+        },
+      },
     },
     actions: {
       columnTitle: 'عملیات',

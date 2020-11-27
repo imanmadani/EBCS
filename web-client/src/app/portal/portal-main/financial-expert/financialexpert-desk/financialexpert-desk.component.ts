@@ -39,14 +39,14 @@ export class FinancialexpertDeskComponent extends BaseClass implements OnInit {
       Amount: {
         title: 'مبلغ'
       },
-      FinancialApprove: {
-        title: 'وضعیت پرداخت',
-        type:'html',
-        valuePrepareFunction: (value) => {
-          if (value==="1") return '<i class="fa fa-circle pr-3  text-success" title="تایید شده"></i>';
-          return '<i class="fa fa-circle pr-3  text-warning" title="تایید نشده"></i>';
-        },
-      },
+      // FinancialApprove: {
+      //   title: 'وضعیت پرداخت',
+      //   type:'html',
+      //   valuePrepareFunction: (value) => {
+      //     if (value==="1") return '<i class="fa fa-circle pr-3  text-success" title="تایید شده"></i>';
+      //     return '<i class="fa fa-circle pr-3  text-warning" title="تایید نشده"></i>';
+      //   },
+      // },
     },
     actions: {
       columnTitle: 'عملیات',

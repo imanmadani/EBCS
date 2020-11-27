@@ -42,4 +42,12 @@ export class ArchitecturalexpertService {
   getArchitecturalexpertInfringements(){
     return this.http.get<any>(this.ArchitecturalexpertbaseUrl + '?api=GetArchitecturalInfringements');
   }
+  boothApprove(entity): Observable<any> {
+    return this.http
+      .post<any>(this.ArchitecturalexpertbaseUrl+'?api=BoothApprove', entity);
+  }
+  boothDisApprove(entity): Observable<any> {
+    return this.http
+      .post<any>(this.ArchitecturalexpertbaseUrl+'?api=BoothDisApprove', entity);
+  }
 }

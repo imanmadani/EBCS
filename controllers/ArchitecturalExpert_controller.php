@@ -68,4 +68,18 @@ class ArchitecturalExpert_controller extends controller
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }
+    public function BoothApprove($query)
+    {
+        $id = $this->getVal('Id', $query);
+        $rows = $this->_model->boothApprove($id);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
+    public function BoothDisApprove($query)
+    {
+        $id = $this->getVal('Id', $query);
+        $rows = $this->_model->boothDisApprove($id);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
 }
