@@ -1,21 +1,28 @@
 <div class="row ebcs-h-5">
   <div class="col-12 border-bottom pr-0 pl-0 h-100 ebcs-bg-yellow">
     <div class="d-flex  h-100 ">
-      <div class="m-auto flex-fill border-left text-center ebcs-clickable"
-           routerLink="ArchitecturalExpertList" [ngClass]="this.router.url.includes('/ArchitecturalExpertList')?'text-white':''">
-        <fa-icon [icon]="iUsers"></fa-icon>
-        <span class="pr-2" [class]="mobile?'d-none':''">لیست کارشناسان معماری داخلی</span>
-      </div>
-      <div class="m-auto flex-fill border-left text-center ebcs-clickable"
-           routerLink="ArchitecturalExpertDesk" [ngClass]="this.router.url.includes('/ArchitecturalExpertDesk')?'text-white':''">
-        <fa-icon [icon]="iUsers"></fa-icon>
-        <span class="pr-2" [class]="mobile?'d-none':''">لیست نمایشگاه</span>
-      </div>
-      <div class="m-auto flex-fill border-left text-center ebcs-clickable"
-           routerLink="ArchitecturalExpertInfringements" [ngClass]="this.router.url.includes('/ArchitecturalExpertInfringements')?'text-white':''">
-        <fa-icon [icon]="iUsers"></fa-icon>
-        <span class="pr-2" [class]="mobile?'d-none':''">لیست تخلفات</span>
-      </div>
+      <ng-template ngFor let-subMenu [ngForOf]="subMenus">
+        <div class="m-auto flex-fill border-left text-center ebcs-clickable"
+             [routerLink]="subMenu.Link" [ngClass]="this.router.url.includes('/'+subMenu.Link)?'text-white':''">
+          <i  [ngClass]="subMenu.Icon"></i>
+          <span class="pr-2" [class]="mobile?'d-none':''">{{subMenu.Title}}</span>
+        </div>
+      </ng-template>
+<!--      <div class="m-auto flex-fill border-left text-center ebcs-clickable"-->
+<!--           routerLink="ArchitecturalExpertList" [ngClass]="this.router.url.includes('/ArchitecturalExpertList')?'text-white':''">-->
+<!--        <fa-icon [icon]="iUsers"></fa-icon>-->
+<!--        <span class="pr-2" [class]="mobile?'d-none':''">لیست کارشناسان معماری داخلی</span>-->
+<!--      </div>-->
+<!--      <div class="m-auto flex-fill border-left text-center ebcs-clickable"-->
+<!--           routerLink="ArchitecturalExpertDesk" [ngClass]="this.router.url.includes('/ArchitecturalExpertDesk')?'text-white':''">-->
+<!--        <fa-icon [icon]="iUsers"></fa-icon>-->
+<!--        <span class="pr-2" [class]="mobile?'d-none':''">لیست نمایشگاه</span>-->
+<!--      </div>-->
+<!--      <div class="m-auto flex-fill border-left text-center ebcs-clickable"-->
+<!--           routerLink="ArchitecturalExpertInfringements" [ngClass]="this.router.url.includes('/ArchitecturalExpertInfringements')?'text-white':''">-->
+<!--        <fa-icon [icon]="iUsers"></fa-icon>-->
+<!--        <span class="pr-2" [class]="mobile?'d-none':''">لیست تخلفات</span>-->
+<!--      </div>-->
     </div>
   </div>
 </div>

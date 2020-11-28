@@ -1,16 +1,23 @@
 <div class="row ebcs-h-5">
   <div class="col-12 border-bottom pr-0 pl-0 h-100 ebcs-bg-yellow">
     <div class="d-flex  h-100 ">
-      <div class="m-auto flex-fill border-left text-center ebcs-clickable"
-           routerLink="FinancialExpertList" [ngClass]="this.router.url.includes('/FinancialExpertList')?'text-white':''">
-        <fa-icon [icon]="iUsers"></fa-icon>
-        <span class="pr-2" [class]="mobile?'d-none':''">لیست مدیران مالی</span>
-      </div>
-      <div class="m-auto flex-fill border-left text-center ebcs-clickable"
-           routerLink="FinancialExpertDesk" [ngClass]="this.router.url.includes('/FinancialExpertDesk')?'text-white':''">
-        <fa-icon [icon]="iUsers"></fa-icon>
-        <span class="pr-2" [class]="mobile?'d-none':''">میز کار</span>
-      </div>
+      <ng-template ngFor let-subMenu [ngForOf]="subMenus">
+        <div class="m-auto flex-fill border-left text-center ebcs-clickable"
+             [routerLink]="subMenu.Link" [ngClass]="this.router.url.includes('/'+subMenu.Link)?'text-white':''">
+          <i  [ngClass]="subMenu.Icon"></i>
+          <span class="pr-2" [class]="mobile?'d-none':''">{{subMenu.Title}}</span>
+        </div>
+      </ng-template>
+<!--      <div class="m-auto flex-fill border-left text-center ebcs-clickable"-->
+<!--           routerLink="FinancialExpertList" [ngClass]="this.router.url.includes('/FinancialExpertList')?'text-white':''">-->
+<!--        <fa-icon [icon]="iUsers"></fa-icon>-->
+<!--        <span class="pr-2" [class]="mobile?'d-none':''">لیست مدیران مالی</span>-->
+<!--      </div>-->
+<!--      <div class="m-auto flex-fill border-left text-center ebcs-clickable"-->
+<!--           routerLink="FinancialExpertDesk" [ngClass]="this.router.url.includes('/FinancialExpertDesk')?'text-white':''">-->
+<!--        <fa-icon [icon]="iUsers"></fa-icon>-->
+<!--        <span class="pr-2" [class]="mobile?'d-none':''">میز کار</span>-->
+<!--      </div>-->
     </div>
   </div>
 </div>

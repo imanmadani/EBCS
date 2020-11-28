@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./technicalexperts.component.css']
 })
 export class TechnicalexpertsComponent extends BaseClass implements OnInit {
+  subMenus;
 
   constructor(protected toastr: ToastrService,
               readonly router:Router,
@@ -16,7 +17,11 @@ export class TechnicalexpertsComponent extends BaseClass implements OnInit {
     super(toastr);
   }
   ngOnInit(): void {
-    this.router.navigate(['Dashboard/TechnicalExperts/TechnicalExpertDesk']);
+    let url = this.router.url.split('/');
+    let menus = JSON.parse(localStorage.getItem('menu'));
+    this.subMenus = menus.find(e => e.Link === url[2]).SubMenu;
+    let defult='Dashboard/TechnicalExperts/'+this.subMenus[this.subMenus.length - 1].Link;
+    this.router.navigate([defult]);
   }
 
   activeLinkHandler() {

@@ -10,7 +10,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./portal-main.component.css']
 })
 export class PortalMainComponent extends BaseClass implements OnInit {
-  menus;
+  menus=[];
+  data;
   versionDetail;
   userMenu = false;
 
@@ -26,14 +27,30 @@ export class PortalMainComponent extends BaseClass implements OnInit {
     //  this.componentService.getUser().subscribe(res2 => {
     if(!localStorage.getItem('menu')){
     this.componentService.getMenu().subscribe(res3 => {
-      this.menus = res3.data.row;
+      this.data = res3.data.row;
+      this.data.forEach(mnu=>{
+        if(!mnu.MenuRef){
+          mnu.SubMenu=[]
+          this.menus.push(mnu);
+        }else {
+          let find=this.menus.find(e => e.Id === mnu.MenuRef);
+          find.SubMenu.push(mnu);
+        }
+      });
       localStorage.setItem('menu',JSON.stringify(this.menus));
     });
     }else {
-      this.menus =JSON.parse(localStorage.getItem('menu'));
+      this.data =JSON.parse(localStorage.getItem('menu'));
+      this.data.forEach(mnu=>{
+        if(!mnu.MenuRef){
+          mnu.SubMenu=[]
+          this.menus.push(mnu);
+        }else {
+          let find=this.menus.find(e => e.Id === mnu.MenuRef);
+          find.SubMenu.push(mnu);
+        }
+      });
     }
-    //  let x = res2.rows;
-    //  });
     this.versionDetail = 'تغییرات : ایجاد منو داینامیک';
   }
 

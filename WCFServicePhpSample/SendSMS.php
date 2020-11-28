@@ -5,8 +5,8 @@ $sms_client = new SoapClient('http://payamak-service.ir/SendService.svc?wsdl', a
 try {
 	$parameters['userName'] = "c.malek64";
 	$parameters['password'] = "06831";
-	$parameters['fromNumber'] = "09810002164";
-	$parameters['toNumbers'] = array("09123268317");
+	$parameters['fromNumber'] = "10009611";
+	$parameters['toNumbers'] = array("09121969432");
 	$parameters['messageContent'] = "تست";
 	$parameters['isFlash'] = false;
 	$recId = array(0);

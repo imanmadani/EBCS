@@ -18,13 +18,11 @@ export class ExhibitionsComponent extends BaseClass implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger
     let url = this.router.url.split('/');
     let menus = JSON.parse(localStorage.getItem('menu'));
-    console.log(menus);
-    this.subMenus = menus.find(e => e.Link === url[2]);
-    console.log(this.subMenus);
-    // this.router.navigate(['Dashboard/Exhibitions/ExhibitionList']);
+    this.subMenus = menus.find(e => e.Link === url[2]).SubMenu;
+    let defult='Dashboard/Exhibitions/'+this.subMenus[this.subMenus.length - 1].Link;
+    this.router.navigate([defult]);
   }
 
   activeLinkHandler() {

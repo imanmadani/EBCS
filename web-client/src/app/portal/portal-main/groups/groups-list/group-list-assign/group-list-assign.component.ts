@@ -40,6 +40,7 @@ export class GroupListAssignComponent extends BaseClass implements OnInit {
   }
 
   changeAccess(item) {
+    localStorage.removeItem('menu');
     let model=new GroupAccessModel();
     model.MenuId=item.MenuId;
     model.GroupId=this.model.Id;
