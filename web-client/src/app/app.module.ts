@@ -103,6 +103,10 @@ import { ExchangerateCreateComponent } from './portal/portal-main/sharedata/exch
 import { PortalMainDashbordComponent } from './portal/portal-main/portal-main-dashbord/portal-main-dashbord.component';
 import { ExhibitionAssignHalladminComponent } from './portal/portal-main/exhibitions/exhibition-list/exhibition-assign-halladmin/exhibition-assign-halladmin.component';
 import { ExecuterhallHalladminComponent } from './portal/portal-main/executers/executerhall-list/executerhall-halladmin/executerhall-halladmin.component';
+import { ParticipantsComponent } from './portal/portal-main/participants/participants.component';
+import {NgxSpinnerModule} from "ngx-spinner";
+import { PageLoaderComponent } from './utilities/component/page-loader/page-loader.component';
+import { ParticipantListComponent } from './portal/portal-main/participants/participant-list/participant-list.component';
 
 @NgModule({
   declarations: [
@@ -193,7 +197,10 @@ import { ExecuterhallHalladminComponent } from './portal/portal-main/executers/e
     ExchangerateCreateComponent,
     PortalMainDashbordComponent,
     ExhibitionAssignHalladminComponent,
-    ExecuterhallHalladminComponent
+    ExecuterhallHalladminComponent,
+    ParticipantsComponent,
+    PageLoaderComponent,
+    ParticipantListComponent
 
   ],
   imports: [
@@ -215,6 +222,7 @@ import { ExecuterhallHalladminComponent } from './portal/portal-main/executers/e
     FileUploadModule,
     IvyGalleryModule,
     NgPersianDatepickerModule,
+    NgxSpinnerModule,
     TabsModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 10000,

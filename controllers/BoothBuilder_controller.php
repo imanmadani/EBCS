@@ -36,12 +36,11 @@ class BoothBuilder_controller extends controller
     }
     public function Create($query)
     {
-        $username = $this->getVal('Username', $query);
-        $password = $this->getVal('Password', $query);
+        $mobile = $this->getVal('Mobile', $query);
         $groupId =5;
         $name = $this->getVal('Name', $query);
         $gradeId = $this->getVal('GradeId', $query);
-        $rows = $this->_model->create($username,$password,$groupId,$name,$gradeId);
+        $rows = $this->_model->create($mobile,$groupId,$name,$gradeId);
         $this->_res->set("result", $rows);
         if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }

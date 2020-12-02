@@ -9,6 +9,4 @@ header('Access-Control-Allow-Headers:*');
 header('Access-Control-Allow-Methods: PUT, POST, GET, DELETE, PATCH, OPTIONS');
 header('Access-Control-Allow-Credentials:true');
 header('Content-Type: application/json');
-
-
 ?>

@@ -31,8 +31,7 @@ export class BoothbuilderCreateComponent extends BaseClass implements OnInit {
 
   createForm() {
     this.formGroup = new FormGroup({
-      Username: new FormControl(null, Validators.required),
-      Password: new FormControl(null, Validators.required),
+      Mobile: new FormControl(null, Validators.required),
       Name: new FormControl(null, Validators.required),
       GroupId: new FormControl(3),
       GradeId: new FormControl(null, Validators.required),
@@ -40,6 +39,7 @@ export class BoothbuilderCreateComponent extends BaseClass implements OnInit {
   }
 
   save() {
+    debugger
     if (this.formGroup.valid === true) {
       this.boothbuildersService.create(this.formGroup.value).subscribe(res => {
           if (res.data.result) {

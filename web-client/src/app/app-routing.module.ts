@@ -36,6 +36,8 @@ import {ArchitecturalexpertInfringementsComponent} from "./portal/portal-main/ar
 import {ExecuterhallListComponent} from "./portal/portal-main/executers/executerhall-list/executerhall-list.component";
 import {ExchangerateListComponent} from "./portal/portal-main/sharedata/exchangerate-list/exchangerate-list.component";
 import {PortalMainDashbordComponent} from "./portal/portal-main/portal-main-dashbord/portal-main-dashbord.component";
+import {ParticipantsComponent} from "./portal/portal-main/participants/participants.component";
+import {ParticipantListComponent} from "./portal/portal-main/participants/participant-list/participant-list.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/Login', pathMatch: 'full'},
@@ -175,6 +177,16 @@ const routes: Routes = [
             path: 'FinancialExpertDesk',
             component: FinancialexpertDeskComponent,
           },
+        ]
+      },
+      {
+        path: 'Participants',
+        component: ParticipantsComponent,
+        children:[
+          {
+            path: 'ParticipantList',
+            component: ParticipantListComponent,
+          }
         ]
       },
       {

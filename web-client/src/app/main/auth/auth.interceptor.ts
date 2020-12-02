@@ -32,19 +32,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // this.showLoader();
-    // if (this.unAuthotizeService.isUnAuthorize === false  &&  localStorage.getItem('token') ) {
-    //   let clonedReq = req.clone();
-    // if (localStorage.getItem('token')){
-    //   if(clonedReq.body){
-    //     clonedReq.body.token = localStorage.getItem('token');
-    //   }else {
-    //     clonedReq.body.push({'token':localStorage.getItem('token')});
-    //
-    //   }
-    //   // clonedReq.body..set('token',localStorage.getItem('token'));
-    // }
-    // clonedReq.headers.append('token','1234');
+    this.showLoader();
     const token=localStorage.getItem('token');
     if(token){
     const authReq = req.clone({
@@ -59,6 +47,7 @@ export class AuthInterceptor implements HttpInterceptor {
           }
         },
         error => {
+          debugger
           if (error.status === 401) {
             this.onEnd();
             localStorage.removeItem('token');

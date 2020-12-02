@@ -5,7 +5,8 @@ class Guest_model extends model
 {
     public function login($username, $password)
     {
-        $sqlUser = "SELECT * FROM users WHERE Username='$username' and Password='$password'";
+        $Passmd5 = md5(bin2hex($password));
+        $sqlUser = "SELECT * FROM users WHERE Username='$username' and Password='$Passmd5'";
         $row = $this->getRow($sqlUser);
         if($row['Id']) {
             $userEntity = new User();

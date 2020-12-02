@@ -57,8 +57,8 @@ class BoothBuilder_model extends model
                 INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
                 WHERE myBoothBuilderRel.FlagDelete=0 
                 AND myBill.BillType=$billTypeValid
-                AND (myBooth.TechnicalExpertApprove=".ApproveStateEnum::DisApprove." 
-                OR  myBooth.TechnicalExpertApprove IS ".ApproveStateEnum::None.")
+                AND (myBooth.TechnicalExpertApprove=" . ApproveStateEnum::DisApprove . " 
+                OR  myBooth.TechnicalExpertApprove IS " . ApproveStateEnum::None . ")
                 AND myBoothBuilder.UserId=" . $user['Id'];
         $rows = $this->getAll($sql);
         return $rows;
@@ -78,27 +78,33 @@ class BoothBuilder_model extends model
         return $rows;
     }
 
-    public function create($username, $password, $groupId, $name, $gradeId)
+    public function create($mobile, $groupId, $name, $gradeId)
     {
-        $sqlDuplicate = "SELECT Id FROM `users` WHERE `Username`='$username'  AND FlagDelete=0";
-        $rowsDuplicate = $this->getRow($sqlDuplicate);
-        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
-            $rows = false;
-        } else {
-            $rows = '';
-            $sqlDynamic = new model();
-            mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=0");
-            mysqli_query($sqlDynamic->conn, "START TRANSACTION");
-            $sql = mysqli_query($sqlDynamic->conn, "INSERT INTO `users`(`Username`, `Password`, `GroupId`) VALUES ('$username','$password',$groupId)");
-            $last_id = mysqli_insert_id($sqlDynamic->conn);
-            $sql2 = mysqli_query($sqlDynamic->conn, "INSERT INTO `boothbuilders`(`UserId`,`Name`,`GradeId`) VALUES ($last_id,'$name',$gradeId);");
-            if ($sql && $sql2) {
-                mysqli_query($sqlDynamic->conn, "COMMIT");
-                $rows = $sql2;
+        $randomPass = rand(1000000, 99999999);
+        $randomPassmd5 = md5(bin2hex($randomPass));
+        $smsText="نام کاربری : ".$mobile."\n"." رمز عبور : ".$randomPass;
+        $smsResponse = $this->sendSms($mobile,$smsText);
+        if ($smsResponse) {
+            $sqlDuplicate = "SELECT Id FROM `users` WHERE `Username`='$mobile' AND FlagDelete=0";
+            $rowsDuplicate = $this->getRow($sqlDuplicate);
+            if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+                $rows = false;
             } else {
-                mysqli_query($sqlDynamic->conn, "ROLLBACK");
+                $rows = '';
+                $sqlDynamic = new model();
+                mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=0");
+                mysqli_query($sqlDynamic->conn, "START TRANSACTION");
+                $sql = mysqli_query($sqlDynamic->conn, "INSERT INTO `users`(`Username`, `Password`,`GroupId`) VALUES ('$mobile','$randomPassmd5',$groupId)");
+                $last_id = mysqli_insert_id($sqlDynamic->conn);
+                $sql2 = mysqli_query($sqlDynamic->conn, "INSERT INTO `boothbuilders`(`UserId`,`Name`,`Mobile`,`GradeId`) VALUES ($last_id,'$name','$mobile',$gradeId);");
+                if ($sql && $sql2) {
+                    mysqli_query($sqlDynamic->conn, "COMMIT");
+                    $rows = $sql2;
+                } else {
+                    mysqli_query($sqlDynamic->conn, "ROLLBACK");
+                }
+                mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=1");
             }
-            mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=1");
         }
         return $rows;
     }
@@ -214,9 +220,10 @@ class BoothBuilder_model extends model
         $rows = $this->getAll($sql);
         return $rows;
     }
+
     public function endAction($id)
     {
-        $sql = "UPDATE `booths` SET `TechnicalExpertApprove`=".ApproveStateEnum::EndAction." WHERE `Id`=$id";
+        $sql = "UPDATE `booths` SET `TechnicalExpertApprove`=" . ApproveStateEnum::EndAction . " WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
     }

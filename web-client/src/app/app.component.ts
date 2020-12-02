@@ -6,6 +6,7 @@ import {findIconDefinition, library} from '@fortawesome/fontawesome-svg-core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   title = 'web-client';
    // glasses = findIconDefinition({ prefix: 'fas', iconName: 'glasses' })
 }
