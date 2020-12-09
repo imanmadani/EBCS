@@ -38,10 +38,12 @@ import {ExchangerateListComponent} from "./portal/portal-main/sharedata/exchange
 import {PortalMainDashbordComponent} from "./portal/portal-main/portal-main-dashbord/portal-main-dashbord.component";
 import {ParticipantsComponent} from "./portal/portal-main/participants/participants.component";
 import {ParticipantListComponent} from "./portal/portal-main/participants/participant-list/participant-list.component";
+import {SharedExhibitionComponent} from "./main/shared-exhibition/shared-exhibition.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/Login', pathMatch: 'full'},
   {path: 'Login', component: LoginComponent},
+  {path: 'Exhibitions', component: SharedExhibitionComponent},
   {
     path: 'Dashboard',
     component: PortalMainComponent,

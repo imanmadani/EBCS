@@ -1,0 +1,37 @@
+<div class="row p-4 h-50">
+  <ng-template ngFor let-exhibition [ngForOf]="exhibitions">
+    <div class="col-lg-4 col-sm-12 bg-transparent h-100">
+      <div class="card h-100">
+        <div class="card-header bg-card text-center">{{exhibition.Title}}</div>
+        <div class="card-body bg-card">
+          <ul class="list-group  bg-transparent list-group-flush">
+            <li class="list-group-item bg-transparent">
+              <div class="row">
+                <div class="col-6 text-success">تاریخ شروع</div>
+                <div class="col-6 text-center">{{exhibition.StartDateTime}}</div>
+              </div>
+            </li>
+            <li class="list-group-item bg-transparent">
+              <div class="row">
+                <div class="col-6 text-danger">تاریخ پایان</div>
+                <div class="col-6 text-center">{{exhibition.EndDateTime}}</div>
+              </div>
+            </li>
+            <li class="list-group-item bg-transparent">
+              <div class="row">
+                <div class="col-6 text-white">لیست سالن ها</div>
+              </div>
+              <div class="row pt-3 ebcs-dir-ltr">
+                <ng-template ngFor let-hall [ngForOf]="exhibition.Hall">
+                  <div class="col-3 ">
+                    <button class="btn btn-primary w-100 ebcs-clickable" (click)="showBooths(hall.ExhibitionHallId)">{{hall.Title}}</button>
+                  </div>
+                </ng-template>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

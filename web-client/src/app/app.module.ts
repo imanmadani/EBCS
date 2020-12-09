@@ -107,6 +107,8 @@ import { ParticipantsComponent } from './portal/portal-main/participants/partici
 import {NgxSpinnerModule} from "ngx-spinner";
 import { PageLoaderComponent } from './utilities/component/page-loader/page-loader.component';
 import { ParticipantListComponent } from './portal/portal-main/participants/participant-list/participant-list.component';
+import { SharedExhibitionComponent } from './main/shared-exhibition/shared-exhibition.component';
+import { SharedExhibitionHallComponent } from './main/shared-exhibition/shared-exhibition-hall/shared-exhibition-hall.component';
 
 @NgModule({
   declarations: [
@@ -200,7 +202,9 @@ import { ParticipantListComponent } from './portal/portal-main/participants/part
     ExecuterhallHalladminComponent,
     ParticipantsComponent,
     PageLoaderComponent,
-    ParticipantListComponent
+    ParticipantListComponent,
+    SharedExhibitionComponent,
+    SharedExhibitionHallComponent
 
   ],
   imports: [

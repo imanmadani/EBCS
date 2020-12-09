@@ -25,5 +25,45 @@ class Guest_model extends model
 
         }
     }
-
+    public function getExhibitionActive()
+    {
+        $sql = "SELECT 
+                        myExhibition.Id,
+                        myExhibition.Title,
+                        myExhibition.StartDateTime,
+                        myExhibition.EndDateTime FROM `exhibitions` AS myExhibition
+                        WHERE FlagDelete=0 AND FlagBlock=0";
+        $rows = $this->getAll($sql);
+        foreach($rows as $key=>$val) {
+            $sqlHall="SELECT
+                        myHall.Id,
+                        myExhibitionHall.Id AS ExhibitionHallId,
+                        myHall.Title AS HallTitle
+                        FROM `exhibitionhalls` AS myExhibitionHall
+                        INNER JOIN `halls` AS myHall
+                        ON myExhibitionHall.HallId=myHall.Id
+                        WHERE myExhibitionHall.ExhibitionId=".$val['Id']."
+                        AND myExhibitionHall.FlagBlock=0 AND myExhibitionHall.FlagDelete=0";
+             $rowsHall = $this->getAll($sqlHall);
+            foreach ($rowsHall as $valHall){
+                $rows[$key]['Hall'][]=(object)['Id'=>$valHall['Id'],'ExhibitionHallId'=>$valHall['ExhibitionHallId'],'Title'=>$valHall['HallTitle']];
+            }
+        }
+        return $rows;
+    }
+    public function getBoothsByHall($exhibitionHallId)
+    {
+        $sql="SELECT myBooth.Name,
+                     myParticipant.CompanyName,
+                     myParticipant.ComapnyAddress,
+                     myParticipant.ActivityField, 
+                     myParticipant.Tell, 
+                     myParticipant.AdminName
+                     FROM `booths` AS myBooth 
+              INNER JOIN `participantdetails` AS myParticipant
+              ON myBooth.ParticipantId=myParticipant.ParticipantId
+              WHERE myBooth.FlagBlock=0 AND myBooth.FlagDelete=0 AND myBooth.ExhibitionHallId=$exhibitionHallId";
+        $rows=$this->getAll($sql);
+        return $rows;
+    }
 }

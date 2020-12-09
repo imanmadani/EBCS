@@ -10,4 +10,18 @@ class Guest_controller extends controller
         $this->_res->set("row", $row);
         $this->_res->output();
     }
+    public function GetExhibitionActive()
+    {
+        $rows = $this->_model->getExhibitionActive();
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function GetBoothsByHall($query)
+    {
+        $exhibitionHallId = $this->getVal('ExhibitionHallId', $query);
+        $rows = $this->_model->getBoothsByHall($exhibitionHallId);
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+
 }
