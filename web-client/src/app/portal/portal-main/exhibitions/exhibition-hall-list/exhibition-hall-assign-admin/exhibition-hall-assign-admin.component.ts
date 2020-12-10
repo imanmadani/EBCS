@@ -30,7 +30,7 @@ export class ExhibitionHallAssignAdminComponent extends BaseClass implements OnI
       custom: [
         {
           name: 'deleteAction',
-          title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="Edit"></i>'
+          title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="حذف"></i>'
         }
       ],
       add: false,

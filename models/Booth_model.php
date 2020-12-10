@@ -15,7 +15,7 @@ class Booth_model extends model
                 INNER JOIN `halls` AS myHall ON myHallEx.HallId=myHall.Id
                 INNER JOIN `participants` AS myParticipant ON myBooth.ParticipantId=myParticipant.Id
                 INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
-                WHERE myBooth.FlagDelete=0";
+                WHERE myBooth.FlagDelete=0 AND myBooth.FlagBlock=0";
         $rows = $this->getAll($sql);
         return $rows;
     }

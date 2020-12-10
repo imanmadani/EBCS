@@ -39,11 +39,11 @@ export class ExhebitionGradesComponent extends BaseClass implements OnInit {
       custom: [
         {
           name: 'editAction',
-          title: '<i class="fa fa-edit pr-3 ebcs-font-normal text-warning" title="Edit"></i>'
+          title: '<i class="fa fa-edit pr-3 ebcs-font-normal text-warning" title="ویرایش"></i>'
         },
         {
           name: 'deleteAction',
-          title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="Delete"></i>'
+          title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="حذف"></i>'
         },
       ],
       add: false,

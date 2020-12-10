@@ -1,14 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {BaseClass} from "../../../../utilities/base";
-import {BoothbuildersService} from "../../booth-builders/boothbuilders.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ToastrService} from "ngx-toastr";
-import {ExhibitionHallCreateComponent} from "../../exhibitions/exhibition-hall-list/exhibition-hall-create/exhibition-hall-create.component";
 import {GroupModel} from "../../groups/entity";
-import {ExhibitionHallEditComponent} from "../../exhibitions/exhibition-hall-list/exhibition-hall-edit/exhibition-hall-edit.component";
-import {BoothbuilderPlanUploadComponent} from "../../booth-builders/boothbuilder-desk/boothbuilder-plan-upload/boothbuilder-plan-upload.component";
 import {TechnicalexpertsService} from "../technicalexperts.service";
 import {TechnicalexpertFilemanagementComponent} from "./technicalexpert-filemanagement/technicalexpert-filemanagement.component";
+import {HalladminCommentComponent} from "../../hall-admins/halladmin-desk/halladmin-comment/halladmin-comment.component";
 
 @Component({
   selector: 'app-technicalexpert-desk',
@@ -80,7 +77,11 @@ export class TechnicalexpertDeskComponent extends BaseClass implements OnInit {
         },
         {
           name: 'fileManagement',
-          title: '<i class="fa fa-images pr-3 ebcs-font-normal text-info" title="Files"></i>'
+          title: '<i class="fa fa-images pr-3 ebcs-font-normal text-info" title="تصاویر پلان"></i>'
+        },
+        {
+          name: 'commentAction',
+          title: '<i class="fa fa-comment pr-3 ebcs-font-normal text-warning" title="ثبت پیام"></i>'
         }
       ],
       add: false,
@@ -118,6 +119,10 @@ export class TechnicalexpertDeskComponent extends BaseClass implements OnInit {
         this.fileManagement(e.data);
         break;
       }
+      case 'commentAction' : {
+        this.commentHandler(e.data);
+        break;
+      }
     }
   }
 
@@ -152,6 +157,10 @@ export class TechnicalexpertDeskComponent extends BaseClass implements OnInit {
         this.ngOnInit();
       }
     });
+  }
+  commentHandler(inputModel) {
+    const modalRef = this.modalService.open(HalladminCommentComponent, {centered: true,size:'lg'});
+    modalRef.componentInstance.model = inputModel;
   }
 }
 

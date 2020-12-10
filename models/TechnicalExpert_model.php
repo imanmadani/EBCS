@@ -19,6 +19,7 @@ class TechnicalExpert_model extends model
                        myHall.Title AS HallName,
                        myBooth.Name AS BoothName,
                        myBooth.Id AS BoothId,
+                       myExHallHallAdmin.HallAdminId AS HallAdminId,
                        CONCAT( myBooth.TechnicalExpertApprove, myBooth.ArchitecturalExpertApprove ) AS ApproveState,
                        myBooth.AreaRial,
                        myBooth.AreaArz,
@@ -33,11 +34,12 @@ class TechnicalExpert_model extends model
                 INNER JOIN `bills` AS myBill ON myBooth.Id=myBill.BoothId
                 INNER JOIN `participants` AS myParticipant ON myBooth.ParticipantId=myParticipant.Id
                 INNER JOIN `exhibitionhalls` As myExHall ON myBooth.ExhibitionHallId=myExHall.Id
+                INNER JOIN `hallhalladmins` As myExHallHallAdmin ON myExHallHallAdmin.ExhibitionHallId=myExHall.Id
                 INNER JOIN `halls` AS myHall ON myExHall.HallId=myHall.Id
                 INNER JOIN `boothboothbuilders` AS myBoothBoothBuilder ON myBooth.Id =myBoothBoothBuilder.BoothId
-                INNER JOIN `boothboothbuilderplans` AS myBoothPlan ON myBoothBoothBuilder.Id=myBoothPlan.BoothBoothbuilderId
-                WHERE myTechnicalExpert.TechnicalExpertId=1=$technicalExpertId AND myBoothPlan.FlagDelete=0 
-                AND myBill.BillType=1 AND myBill.PayStatus=1
+                LEFT JOIN `boothboothbuilderplans` AS myBoothPlan ON myBoothBoothBuilder.Id=myBoothPlan.BoothBoothbuilderId
+                WHERE myTechnicalExpert.TechnicalExpertId=$technicalExpertId 
+                AND myBill.BillType=1 AND myBill.PayStatus=1 AND myBill.FinancialApprove
                 AND myBooth.TechnicalExpertApprove!=".ApproveStateEnum::DisApprove."
                 AND myBooth.TechnicalExpertApprove!=".ApproveStateEnum::Approve."
                 AND (myBooth.TechnicalExpertApprove=".ApproveStateEnum::EndAction." 
@@ -56,7 +58,7 @@ class TechnicalExpert_model extends model
     {
         $sql = "SELECT myFile.Name,myFile.Type,myFile.ViewName FROM `boothboothbuilderplans` AS myBoothPlan
                 INNER JOIN `files` AS myFile ON myBoothPlan.FileId=myFile.Id
-                WHERE myBoothPlan.BoothBoothbuilderId=$boothBoothbuilderId AND myFile.FlagDelete=0";
+                WHERE myBoothPlan.BoothBoothbuilderId=$boothBoothbuilderId AND myFile.FlagDelete=0 AND myFile.FlagBlock=0";
         $rows = $this->getAll($sql);
         return $rows;
     }

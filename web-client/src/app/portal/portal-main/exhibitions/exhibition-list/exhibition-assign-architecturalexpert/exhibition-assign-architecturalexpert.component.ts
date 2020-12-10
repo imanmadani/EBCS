@@ -30,7 +30,7 @@ export class ExhibitionAssignArchitecturalexpertComponent extends BaseClass impl
       custom: [
         {
           name: 'deleteAction',
-          title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="Edit"></i>'
+          title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="حذف"></i>'
         }
       ],
       add: false,

@@ -56,6 +56,7 @@ class BoothBuilder_model extends model
                 INNER JOIN `participants` AS myParti ON myBooth.ParticipantId=myParti.Id
                 INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
                 WHERE myBoothBuilderRel.FlagDelete=0 
+                AND myBoothBuilderRel.FlagBlock=0 
                 AND myBill.BillType=$billTypeValid
                 AND (myBooth.TechnicalExpertApprove=" . ApproveStateEnum::DisApprove . " 
                 OR  myBooth.TechnicalExpertApprove IS " . ApproveStateEnum::None . ")

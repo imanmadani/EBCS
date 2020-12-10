@@ -15,25 +15,45 @@ class ArchitecturalExpert_model extends model
 
     public function getArchitecturalExpertTask($architecturalExpertId)
     {
+        $head=getallheaders();
+        $ip=$_SERVER['REMOTE_ADDR'];
+        $user=$this->getUserByToken($head['Token'],$ip);
         $sql = "SELECT 
                        myBooth.Name AS BoothName,
                        myBooth.Id AS BoothId,
+                       myExHallHallAdmin.HallAdminId AS HallAdminId,
                        myHall.Title AS HallName,
                        myBooth.ArchitecturalExpertApprove AS ApproveState,
                        myParti.Username AS ParticipantName,
-                       myEx.Title AS ExhibitionName
+                       myEx.Title AS ExhibitionName,
+                       myBoothBoothBuilder.Id AS BoothBoothBuilderId
                 FROM `booths` AS myBooth 
                 INNER JOIN `exhibitionhalls` As myExHall ON myBooth.ExhibitionHallId=myExHall.Id
+                INNER JOIN `hallhalladmins` As myExHallHallAdmin ON myExHallHallAdmin.ExhibitionHallId=myExHall.Id
                 INNER JOIN `halls` AS myHall ON myExHall.HallId=myHall.Id
                 INNER JOIN `participants` AS myParti ON myBooth.ParticipantId=myParti.Id
-                INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
-                WHERE myBooth.TechnicalExpertApprove=".ApproveStateEnum::Approve;
+                INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id 
+                INNER JOIN `exhibitionarchitecturalexperts` AS myExArchitecturalExpert ON myExArchitecturalExpert.ExhibitionId=myEx.Id
+                INNER JOIN `architecturalexperts` AS myArchitecturalexperts ON myArchitecturalexperts.Id=myExArchitecturalExpert.ArchitecturalExpertId
+                INNER JOIN `boothboothbuilders` AS myBoothBoothBuilder ON myBooth.Id =myBoothBoothBuilder.BoothId
+                LEFT JOIN `boothboothbuilderplans` AS myBoothPlan ON myBoothBoothBuilder.Id=myBoothPlan.BoothBoothbuilderId
+                WHERE 
+                myArchitecturalexperts.UserId=".$user['Id']." 
+                AND myBooth.FlagDelete=0
+                AND myBooth.FlagBlock=0 
+                AND myExArchitecturalExpert.FlagDelete=0
+                AND myExArchitecturalExpert.FlagBlock=0 
+                AND myBooth.TechnicalExpertApprove=".ApproveStateEnum::Approve.
+                " GROUP BY myExArchitecturalExpert.ExhibitionId";
         $rows = $this->getAll($sql);
         return $rows;
     }
 
     public function getArchitecturalInfringements()
     {
+        $head=getallheaders();
+        $ip=$_SERVER['REMOTE_ADDR'];
+        $user=$this->getUserByToken($head['Token'],$ip);
         $sql = "SELECT myinfringementrecord.Amount AS SUMQuantity ,
                        myinfringementrecord.Quantity,
                        myBooth.Name AS BoothName,
@@ -50,10 +70,15 @@ class ArchitecturalExpert_model extends model
                 INNER JOIN `halls` AS myHall ON myExHall.HallId=myHall.Id
                 INNER JOIN `participants` AS myParti ON myBooth.ParticipantId=myParti.Id
                 INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
+                INNER JOIN `exhibitionarchitecturalexperts` AS myExArchitecturalExpert ON myExArchitecturalExpert.ExhibitionId=myEx.Id
                 INNER JOIN `boothbuilders` AS myBuilder ON myinfringementrecord.BoothBuilderId=myBuilder.Id
                 INNER JOIN `boothbuilderinfringements` AS myInfringement ON myinfringementrecord.InfringementId=myInfringement.Id
                 INNER JOIN `quantitytype` AS myQtype ON myInfringement.QuantityType=myQtype.Id
-                WHERE myinfringementrecord.FlagBlock=0";
+                WHERE myExArchitecturalExpert.ArchitecturalExpertId=".$user['Id']." 
+                AND myinfringementrecord.FlagBlock=0 
+                AND myinfringementrecord.FlagDelete=0
+                AND myExArchitecturalExpert.FlagBlock=0 
+                AND myExArchitecturalExpert.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
     }

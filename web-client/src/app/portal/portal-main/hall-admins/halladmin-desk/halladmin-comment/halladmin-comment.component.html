@@ -1,0 +1,37 @@
+<app-modal-header [title]="'پیام ها'" (closed)="close()"></app-modal-header>
+<div class="row pt-2 text-right ">
+  <div class="col-1"></div>
+  <div class="col-10 p-0">
+    <ng-template ngFor let-note [ngForOf]="comments">
+      <div class="card p-0 mb-2">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-6">از : {{note.GroupName}}</div>
+            <div class="col-6 "> تاریخ : {{note.DateTime}}</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{note.Description}}</p>
+        </div>
+
+      </div>
+    </ng-template>
+  </div>
+  <div class="col-1"></div>
+</div>
+
+<div class="row ">
+  <div class="col-1"></div>
+  <div class="col-10 p-1 border my-border-radius bg-white">
+    <textarea [(ngModel)]="commentValue" placeholder="پیام" class="w-100" rows="6"></textarea>
+  </div>
+</div>
+<div class="row p-2">
+  <div class="col-lg-1 col-sm-1"></div>
+  <div class="col-lg-3 col-sm-10 ">
+    <button class="btn btn-success w-100" (click)="setComment()">ارسال</button>
+  </div>
+  <div class="col-lg-3 col-sm-10 ">
+    <button class="btn btn-primary w-100" (click)="refreshComment()">همگام سازی پیام ها</button>
+  </div>
+</div>

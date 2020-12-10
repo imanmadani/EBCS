@@ -1,4 +1,6 @@
 <?php
+require_once "../Enum/BillType-Enum.php";
+require_once "../Enum/ApproveState-Enum.php";
 class FinancialExpert_model extends model
 {
     public function get()
@@ -31,7 +33,9 @@ class FinancialExpert_model extends model
                 INNER JOIN `halls` AS myHall ON myHallEx.HallId=myHall.Id
                 INNER JOIN `participants` AS myParticipant ON myBooth.ParticipantId=myParticipant.Id
                 INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
-                WHERE myBill.FlagDelete=0 AND myBill.PayStatus=1 AND myBill.FinancialApprove=0";
+                WHERE myBill.FlagDelete=0 
+                AND myBill.PayStatus=1 
+                AND myBill.FinancialApprove = ".ApproveStateEnum::EndAction;
         $rows = $this->getAll($sql);
         return $rows;
     }

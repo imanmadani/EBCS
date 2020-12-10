@@ -16,14 +16,26 @@ class HallAdmin_model extends model
         $ip=$_SERVER['REMOTE_ADDR'];
         $user=$this->getUserByToken($head['Token'],$ip);
         $sql = "SELECT 
+                       myHallAdmin.Id AS HallAdminId,
                        myHall.Title AS HallName,
-                       myEx.Title AS ExhibitionName
+                       myEx.Title AS ExhibitionName,
+                       myBooth.Name AS BoothName,
+                       myBooth.Id AS BoothId,
+                       myParticipant.CompanyName AS BoothParty,
+                       myParticipant.AgentName AS BoothPartyName,
+                       myParticipant.AgentTell AS BoothPartyTell,
+                       myBooth.FlagBlock
                 From `halladmins` AS myHallAdmin        
                 INNER JOIN `hallhalladmins` AS myHallAdminRel ON myHallAdmin.Id=myHallAdminRel.HallAdminId 
                 INNER JOIN `exhibitionhalls` AS myExhibitionhall ON myHallAdminRel.ExhibitionHallId=myExhibitionhall.Id
+                INNER JOIN `booths` AS myBooth ON myExhibitionhall.Id=myBooth.ExhibitionHallId            
+                INNER JOIN `participantdetails` AS myParticipant ON myBooth.ParticipantId=myParticipant.ParticipantId
                 INNER JOIN `halls` AS myHall ON myExhibitionhall.HallId=myHall.Id
                 INNER JOIN `exhibitions` AS myEx ON myExhibitionhall.ExhibitionId=myEx.Id
-                WHERE myHallAdminRel.FlagDelete=0 AND myHallAdmin.UserId=".$user['Id'];
+                WHERE 
+                myHallAdminRel.FlagDelete=0
+                AND myHallAdminRel.FlagBlock=0 
+                AND myHallAdmin.UserId=".$user['Id'];
         $rows = $this->getAll($sql);
         return $rows;
     }

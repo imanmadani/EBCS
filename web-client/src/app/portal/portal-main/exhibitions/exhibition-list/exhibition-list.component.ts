@@ -66,27 +66,27 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
       custom: [
         {
           name: 'editAction',
-          title: '<i class="fa fa-edit pr-3 ebcs-font-normal text-warning" title="Edit"></i>'
+          title: '<i class="fa fa-edit pr-3 ebcs-font-normal text-warning" title="ویرایش"></i>'
         },
         {
           name: 'deleteAction',
-          title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="Edit"></i>'
+          title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="حذف"></i>'
         },
         {
           name: 'assignSalon',
-          title: '<i class="fa fa-sitemap pr-3 ebcs-font-normal text-success"  title="Assign Salon"></i>'
+          title: '<i class="fa fa-sitemap pr-3 ebcs-font-normal text-success"  title="افزودن سالن"></i>'
         },
         {
           name: 'assignExecuter',
-          title: '<i class="fa fa-user-tie pr-3 ebcs-font-normal text-success"  title="Assign Executer"></i>'
+          title: '<i class="fa fa-user-tie pr-3 ebcs-font-normal text-success"  title="افزودن مجری"></i>'
         },
         {
           name: 'assignTechnicalExpert',
-          title: '<i class="fa fa-pencil-ruler pr-3 ebcs-font-normal text-success"  title="Assign Technical Expert"></i>'
+          title: '<i class="fa fa-pencil-ruler pr-3 ebcs-font-normal text-success"  title=" افزودن کارشناس فنی"></i>'
         },
         {
           name: 'assignArchitecturalExpert',
-          title: '<i class="fa fa-drafting-compass pr-3 ebcs-font-normal text-success"  title="Assign Architectural Expert"></i>'
+          title: '<i class="fa fa-drafting-compass pr-3 ebcs-font-normal text-success"  title="افزودن کارشناس معماری"></i>'
         },
         {
           name: 'assignHalladmin',

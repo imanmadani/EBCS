@@ -18,7 +18,7 @@ class ParticipantAdmin_model extends model
                 ON myBooth.ExhibitionHallId=myExHall.Id 
                 INNER JOIN `halls` AS myHall
                 ON myExHall.HallId=myHall.Id 
-                WHERE myPart.FlagDelete=0";
+                WHERE myPart.FlagDelete=0 AND myPart.FlagBlock=0";
         $rows = $this->getAll($sql);
         return $rows;
     }

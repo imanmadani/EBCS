@@ -26,7 +26,12 @@ class Executer_model extends model
                 INNER JOIN `exhibitions` As myEx ON myEXexecuter.ExhibitionId=myEx.Id
                 INNER JOIN `exhibitionhalls` AS myHallEx ON myEx.Id=myHallEx.ExhibitionId
                 INNER JOIN `halls` AS myHall ON myHallEx.HallId=myHall.Id
-                WHERE myHallEx.FlagDelete=0 AND myEx.FlagDelete=0 AND myExecuter.UserId=".$user['Id'];
+                WHERE 
+                myHallEx.FlagDelete=0 
+                AND myHallEx.FlagBlock=0
+                AND myEx.FlagDelete=0
+                AND myEx.FlagBlock=0 
+                AND myExecuter.UserId=".$user['Id'];
         $rows = $this->getAll($sql);
         return $rows;
     }
@@ -45,7 +50,7 @@ class Executer_model extends model
                 INNER JOIN `exhibitionhalls` AS myHallEx ON myBooth.ExhibitionHallId=myHallEx.Id
                 INNER JOIN `halls` AS myHall ON myHallEx.HallId=myHall.Id
                 INNER JOIN `participants` AS myParticipant ON myBooth.ParticipantId=myParticipant.Id
-                WHERE myBooth.FlagDelete=0 AND myEx.FlagDelete=0 AND myExecuter.UserId=".$user['Id'];
+                WHERE myBooth.FlagDelete=0 AND myEx.FlagBlock=0 AND myExecuter.UserId=".$user['Id'];
         $rows = $this->getAll($sql);
         return $rows;
     }

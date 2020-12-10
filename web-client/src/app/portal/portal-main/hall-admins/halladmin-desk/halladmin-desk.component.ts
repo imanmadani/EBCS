@@ -7,6 +7,7 @@ import {ExhibitionHallCreateComponent} from "../../exhibitions/exhibition-hall-l
 import {GroupModel} from "../../groups/entity";
 import {ExhibitionHallEditComponent} from "../../exhibitions/exhibition-hall-list/exhibition-hall-edit/exhibition-hall-edit.component";
 import {HalladminsService} from "../halladmins.service";
+import {HalladminCommentComponent} from "./halladmin-comment/halladmin-comment.component";
 
 @Component({
   selector: 'app-halladmin-desk',
@@ -22,6 +23,18 @@ export class HalladminDeskComponent extends BaseClass implements OnInit {
       HallName: {
         title: 'سالن'
       },
+      BoothName: {
+        title: 'شماره غرفه'
+      },
+      BoothParty: {
+        title: 'مشارکت کننده'
+      },
+      BoothPartyName: {
+        title: 'نماینده'
+      },
+      BoothPartyTell: {
+        title: 'تلفن'
+      },
       FlagBlock: {
         title: 'وضعیت',
         type:'html',
@@ -34,13 +47,13 @@ export class HalladminDeskComponent extends BaseClass implements OnInit {
     actions: {
       columnTitle: 'عملیات',
       custom: [
-        // {
-        //   name: 'editAction',
-        //   title: '<i class="fa fa-edit pr-3 ebcs-font-normal text-warning" title="Edit"></i>'
-        // },
+        {
+          name: 'commentAction',
+          title: '<i class="fa fa-comment pr-3 ebcs-font-normal text-warning" title="ثبت پیام"></i>'
+        },
         // {
         //   name: 'deleteAction',
-        //   title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="Edit"></i>'
+        //   title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="حذف"></i>'
         // }
       ],
       add: false,
@@ -66,43 +79,16 @@ export class HalladminDeskComponent extends BaseClass implements OnInit {
 
   methodHandler(e) {
     switch (e.action) {
-      case 'editAction' : {
-        this.editHandler(e.data);
-        break;
-      }
-      case 'deleteAction' : {
-        this.deleteHandler(e.data);
+      case 'commentAction' : {
+        this.commentHandler(e.data);
         break;
       }
     }
   }
 
-  createHandler() {
-    let modalRef=this.modalService.open(ExhibitionHallCreateComponent, {centered: true});
-    modalRef.result.then((data) => {}, (reason) => {
-      if (reason)
-        this.ngOnInit();
-    });
-  }
-
-  deleteHandler(inputModel) {
-    let entity = new GroupModel();
-    entity.Id = inputModel.Id;
-    this.halladminsService.HallAdmindelete(entity).subscribe(res => {
-      if (res.data.result) {
-        this.success();
-        this.ngOnInit();
-      }
-    });
-  }
-
-  editHandler(inputModel) {
-    const modalRef = this.modalService.open(ExhibitionHallEditComponent, {centered: true});
+  commentHandler(inputModel) {
+    const modalRef = this.modalService.open(HalladminCommentComponent, {centered: true,size:'lg'});
     modalRef.componentInstance.model = inputModel;
-    modalRef.result.then((data) => {}, (reason) => {
-      if (reason)
-        this.ngOnInit();
-    });
   }
 }
 
