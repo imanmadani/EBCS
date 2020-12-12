@@ -3,9 +3,18 @@ require_once '../entity/User.php';
 
 class User_model extends model
 {
-    public function get($groupId)
+    public function get()
     {
-        $sql = "SELECT * FROM users WHERE GroupId=$groupId AND FlagDelete=0";
+        $sql = "SELECT 
+                myUser.Username,
+                myUser.FlagBlock,
+                myUserdetail.Name,
+                myUserdetail.Mobile,
+                myGroup.Name AS GroupName
+                FROM `users` AS myUser
+                LEFT JOIN `userdetails` AS myUserdetail ON myUser.Id= myUserdetail.UserId
+                INNER JOIN `groups` AS myGroup ON myUser.GroupId=myGroup.Id
+                WHERE  myUser.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
     }

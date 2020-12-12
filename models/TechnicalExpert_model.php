@@ -5,9 +5,16 @@ class TechnicalExpert_model extends model
 {
     public function get()
     {
-        $sql = "SELECT myTechExpert.Id,myTechExpert.Name,myTechExpert.Rate,myUser.Username,myUser.Id As UserId
+        $sql = "SELECT 
+                myTechExpert.Id,
+                myTechExpert.Rate,
+                myUser.Username,
+                myUser.Id As UserId, 
+                myUserDetail.Name,
+                myUserDetail.Mobile
                 FROM `technicalexperts` AS myTechExpert
-                INNER JOIN `users` AS myUser ON myTechExpert.UserId=myUser.Id 
+                INNER JOIN `users` AS myUser ON myTechExpert.UserId=myUser.Id
+                LEFT JOIN `userdetails` AS myUserDetail ON myUser.Id=myUserDetail.UserId  
                 WHERE myTechExpert.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
@@ -40,20 +47,22 @@ class TechnicalExpert_model extends model
                 LEFT JOIN `boothboothbuilderplans` AS myBoothPlan ON myBoothBoothBuilder.Id=myBoothPlan.BoothBoothbuilderId
                 WHERE myTechnicalExpert.TechnicalExpertId=$technicalExpertId 
                 AND myBill.BillType=1 AND myBill.PayStatus=1 AND myBill.FinancialApprove
-                AND myBooth.TechnicalExpertApprove!=".ApproveStateEnum::DisApprove."
-                AND myBooth.TechnicalExpertApprove!=".ApproveStateEnum::Approve."
-                AND (myBooth.TechnicalExpertApprove=".ApproveStateEnum::EndAction." 
-                OR  myBooth.ArchitecturalExpertApprove=".ApproveStateEnum::DisApprove.")
+                AND myBooth.TechnicalExpertApprove!=" . ApproveStateEnum::DisApprove . "
+                AND myBooth.TechnicalExpertApprove!=" . ApproveStateEnum::Approve . "
+                AND (myBooth.TechnicalExpertApprove=" . ApproveStateEnum::EndAction . " 
+                OR  myBooth.ArchitecturalExpertApprove=" . ApproveStateEnum::DisApprove . ")
                 GROUP BY myTechnicalExpert.ExhibitionId";
         $rows = $this->getAll($sql);
         return $rows;
     }
+
     public function getById($id)
     {
         $sql = "SELECT * FROM `technicalexperts` WHERE `Id`=$id";
         $rows = $this->getRow($sql);
         return $rows;
     }
+
     public function getPlanByBoothBoothbuilderId($boothBoothbuilderId)
     {
         $sql = "SELECT myFile.Name,myFile.Type,myFile.ViewName FROM `boothboothbuilderplans` AS myBoothPlan
@@ -63,27 +72,36 @@ class TechnicalExpert_model extends model
         return $rows;
     }
 
-    public function create($username, $password, $groupId, $name)
+    public function create($groupId, $name, $mobile)
     {
-        $sqlDuplicate = "SELECT Id FROM `users` WHERE `Username`='$username'  AND FlagDelete=0";
+        $sqlDuplicate = "SELECT Id FROM `users` WHERE `Username`='$mobile'  AND FlagDelete=0";
         $rowsDuplicate = $this->getRow($sqlDuplicate);
         if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
             $rows = false;
         } else {
-            $rows = '';
-            $sqlDynamic = new model();
-            mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=0");
-            mysqli_query($sqlDynamic->conn, "START TRANSACTION");
-            $sql = mysqli_query($sqlDynamic->conn, "INSERT INTO `users`(`Username`, `Password`, `GroupId`) VALUES ('$username','$password',$groupId)");
-            $last_id = mysqli_insert_id($sqlDynamic->conn);
-            $sql2 = mysqli_query($sqlDynamic->conn, "INSERT INTO `technicalexperts`(`UserId`,`Name`) VALUES ($last_id,'$name');");
-            if ($sql && $sql2) {
-                mysqli_query($sqlDynamic->conn, "COMMIT");
-                $rows = $sql2;
-            } else {
-                mysqli_query($sqlDynamic->conn, "ROLLBACK");
+            $randomPass = rand(1000000, 99999999);
+            $randomPassmd5 = md5(bin2hex($randomPass));
+            $smsText = "نام کاربری : " . $mobile . "\n" . " رمز عبور : " . $randomPass;
+            //$smsResponse = $this->sendSms($mobile, $smsText);
+            $smsResponse=true;
+
+            if ($smsResponse) {
+                $rows = '';
+                $sqlDynamic = new model();
+                mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=0");
+                mysqli_query($sqlDynamic->conn, "START TRANSACTION");
+                $sql = mysqli_query($sqlDynamic->conn, "INSERT INTO `users`(`Username`, `Password`,`GroupId`) VALUES ('$mobile','$randomPassmd5',$groupId)");
+                $last_id = mysqli_insert_id($sqlDynamic->conn);
+                $sqlDetail = mysqli_query($sqlDynamic->conn, "INSERT INTO `userdetails`(`UserId`,`Name`,`Mobile`) VALUES ($last_id,'$name','$mobile')");
+                $sql2 = mysqli_query($sqlDynamic->conn, "INSERT INTO `technicalexperts`(`UserId`) VALUES ($last_id);");
+                if ($sql && $sql2) {
+                    mysqli_query($sqlDynamic->conn, "COMMIT");
+                    $rows = $sql2;
+                } else {
+                    mysqli_query($sqlDynamic->conn, "ROLLBACK");
+                }
+                mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=1");
             }
-            mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=1");
         }
         return $rows;
     }
@@ -101,16 +119,17 @@ class TechnicalExpert_model extends model
         $rows = $this->execQuery($sql);
         return $rows;
     }
+
     public function BoothApprove($id)
     {
-        $sql = "UPDATE `booths` SET `TechnicalExpertApprove`=".ApproveStateEnum::Approve." WHERE `Id`=$id";
+        $sql = "UPDATE `booths` SET `TechnicalExpertApprove`=" . ApproveStateEnum::Approve . " WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
     }
 
     public function BoothDisApprove($id)
     {
-        $sql = "UPDATE `booths` SET `TechnicalExpertApprove`=".ApproveStateEnum::DisApprove." WHERE `Id`=$id";
+        $sql = "UPDATE `booths` SET `TechnicalExpertApprove`=" . ApproveStateEnum::DisApprove . " WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
     }

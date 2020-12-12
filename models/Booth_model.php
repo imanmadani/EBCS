@@ -125,7 +125,12 @@ class Booth_model extends model
 
     public function participantDropDown()
     {
-        $sql = "SELECT Id,Username AS Title FROM `participants` WHERE FlagDelete=0 ";
+        $sql = "SELECT 
+                myParti.Id,
+                myPartiDetail.CompanyName AS Title 
+                FROM `participants` AS myParti
+                INNER JOIN `participantdetails` AS myPartiDetail ON myParti.Id=myPartiDetail.ParticipantId
+                WHERE FlagDelete=0 ";
         $rows = $this->getAll($sql);
         return $rows;
     }

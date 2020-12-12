@@ -19,6 +19,9 @@ export class ArchitecturalexpertListComponent extends BaseClass implements OnIni
       Name: {
         title: 'نام '
       },
+      Mobile: {
+        title: 'موبایل'
+      },
       Username: {
         title: 'نام کاربری'
       },

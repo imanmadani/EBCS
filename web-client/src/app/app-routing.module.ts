@@ -13,7 +13,6 @@ import {ExecuterBoothListComponent} from "./portal/portal-main/executers/execute
 import {BoothBuildersComponent} from "./portal/portal-main/booth-builders/booth-builders.component";
 import {BoothbuilderListComponent} from "./portal/portal-main/booth-builders/boothbuilder-list/boothbuilder-list.component";
 import {BoothbuilderDeskComponent} from "./portal/portal-main/booth-builders/boothbuilder-desk/boothbuilder-desk.component";
-import {AuthGuard} from "./main/auth/auth.guard";
 import {PortalParticipantsComponent} from "./portal/portal-participants/portal-participants.component";
 import {ExecutersComponent} from "./portal/portal-main/executers/executers.component";
 import {ExecuterListComponent} from "./portal/portal-main/executers/executer-list/executer-list.component";
@@ -39,6 +38,8 @@ import {PortalMainDashbordComponent} from "./portal/portal-main/portal-main-dash
 import {ParticipantsComponent} from "./portal/portal-main/participants/participants.component";
 import {ParticipantListComponent} from "./portal/portal-main/participants/participant-list/participant-list.component";
 import {SharedExhibitionComponent} from "./main/shared-exhibition/shared-exhibition.component";
+import {UserListComponent} from "./portal/portal-main/users/user-list/user-list.component";
+import {UsersComponent} from "./portal/portal-main/users/users.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/Login', pathMatch: 'full'},
@@ -60,6 +61,15 @@ const routes: Routes = [
           {
             path: 'GroupList',
             component: GroupsListComponent,
+          }]
+      },
+      {
+        path: 'Users',
+        component: UsersComponent,
+        children: [
+          {
+            path: 'UserList',
+            component: UserListComponent,
           }]
       },
       {

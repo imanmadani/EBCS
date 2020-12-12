@@ -38,7 +38,8 @@ export class LoginComponent implements OnInit {
     this.componentService.login(this.formGroup.value).subscribe(res => {
       if(res.data.row){
       localStorage.setItem('token', res.data.row.TokenCode);
-      this.router.navigateByUrl('/Dashboard');
+        localStorage.removeItem('menu');
+        this.router.navigateByUrl('/Dashboard');
       }else {
         this.toastr.error('نام کاربری و یا رمز عبور اشتباه است','خطا',{
           timeOut: 3000,progressBar:true,easeTime:700

@@ -19,6 +19,9 @@ export class TechnicalexpertListComponent extends BaseClass implements OnInit {
       Name: {
         title: 'نام '
       },
+      Mobile: {
+        title: 'موبایل'
+      },
       Username: {
         title: 'نام کاربری'
       },

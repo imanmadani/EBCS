@@ -13,9 +13,10 @@ class BoothComment_model extends model
                 myComment.TimeStamp AS DateTime,
                 myUser.Username,
                 myGroup.Name AS GroupName,
-                myHallAdmin.Name AS HallAdminName
+                myUserdetail.Name AS HallAdminName
                 FROM `boothcomments` AS myComment 
                 INNER JOIN `users` AS myUser ON myComment.UserInsertId=myUser.Id
+                LEFT JOIN `userdetails` AS myUserdetail ON myUser.Id=myUserdetail.UserId
                 INNER JOIN `groups` AS myGroup ON myUser.GroupId=myGroup.Id
                 INNER JOIN `halladmins` AS myHallAdmin ON myComment.HallAdminId=myHallAdmin.UserId
                 WHERE 

@@ -74,28 +74,48 @@ class Exhibition_model extends model
 
     public function executerDropDown()
     {
-        $sql = "SELECT `Id`,`Name` As Title FROM `executers` WHERE `FlagDelete`=0 ";
+        $sql = "SELECT 
+                myExecuter.Id,
+                myUserDetail.Name As Title 
+                FROM `executers` AS myExecuter
+                LEFT JOIN `userdetails` AS myUserDetail ON myExecuter.UserId=myUserDetail.UserId  
+                WHERE `FlagDelete`=0 ";
         $rows = $this->getAll($sql);
         return $rows;
     }
 
     public function halladminDropDown()
     {
-        $sql = "SELECT `Id`,`Name` As Title FROM `halladmins` WHERE `FlagDelete`=0 ";
+        $sql = "SELECT 
+                myHallAdmin.Id,
+                myUserDetail.Name As Title 
+                FROM `halladmins` AS myHallAdmin 
+                LEFT JOIN `userdetails` AS myUserDetail ON myHallAdmin.UserId=myUserDetail.UserId  
+                WHERE `FlagDelete`=0 ";
         $rows = $this->getAll($sql);
         return $rows;
     }
 
     public function technicalExpertDropDown()
     {
-        $sql = "SELECT `Id`,`Name` As Title FROM `technicalexperts` WHERE `FlagDelete`=0 ";
+        $sql = "SELECT 
+                myTechnicalexpert.Id,
+                myUserDetail.Name As Title 
+                FROM `technicalexperts` AS myTechnicalexpert 
+                LEFT JOIN `userdetails` AS myUserDetail ON myTechnicalexpert.UserId=myUserDetail.UserId  
+                WHERE `FlagDelete`=0 ";
         $rows = $this->getAll($sql);
         return $rows;
     }
 
     public function architecturalExpertDropDown()
     {
-        $sql = "SELECT `Id`,`Name` As Title FROM `architecturalexperts` WHERE `FlagDelete`=0 ";
+        $sql = "SELECT 
+                myArchitecturalexpert.Id,
+                myUserDetail.Name As Title 
+                FROM `architecturalexperts` AS myArchitecturalexpert
+                LEFT JOIN `userdetails` AS myUserDetail ON myArchitecturalexpert.UserId=myUserDetail.UserId  
+                WHERE `FlagDelete`=0 ";
         $rows = $this->getAll($sql);
         return $rows;
     }
@@ -158,28 +178,56 @@ class Exhibition_model extends model
 
     public function getExecuterByExhibitionId($exhibitionId)
     {
-        $sql = "SELECT executer.Name AS Name , exexecuter.Id AS Id FROM `exhibitionexecuters` AS exexecuter INNER JOIN `executers` AS executer  ON exexecuter.ExecuterId=executer.Id WHERE exexecuter.ExhibitionId =$exhibitionId AND exexecuter.FlagDelete=0 AND executer.FlagDelete=0";
+        $sql = "SELECT 
+                myUserdetail.Name AS Name , 
+                exexecuter.Id AS Id 
+                FROM `exhibitionexecuters` AS exexecuter 
+                INNER JOIN `executers` AS executer  ON exexecuter.ExecuterId=executer.Id 
+                LEFT JOIN `userdetails` AS myUserdetail ON executer.UserId=myUserdetail.UserId
+                WHERE exexecuter.ExhibitionId =$exhibitionId AND exexecuter.FlagDelete=0 AND executer.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
     }
 
     public function getHalladminByExhibitionId($exhibitionId)
     {
-        $sql = "SELECT myHalladmin.Name AS Name , myExHalladmin.Id AS Id FROM `exhibitionhalladmins` AS myExHalladmin INNER JOIN `halladmins` AS myHalladmin  ON myExHalladmin.HalladminId=myHalladmin.Id WHERE myExHalladmin.ExhibitionId =$exhibitionId AND myExHalladmin.FlagDelete=0 AND myHalladmin.FlagDelete=0";
+        $sql = "SELECT 
+                myUserdetail.Name AS Name ,
+                myExHalladmin.Id AS Id 
+                FROM `exhibitionhalladmins` AS myExHalladmin 
+                INNER JOIN `halladmins` AS myHalladmin  ON myExHalladmin.HalladminId=myHalladmin.Id
+                LEFT JOIN `userdetails` AS myUserdetail ON myHalladmin.UserId=myUserdetail.UserId
+                WHERE myExHalladmin.ExhibitionId =$exhibitionId 
+                AND myExHalladmin.FlagDelete=0 
+                AND myHalladmin.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
     }
 
     public function getTechnicalExpertByExhibitionId($exhibitionId)
     {
-        $sql = "SELECT myTechnicalExpert.Name AS Name , myTechnicalExpertRel.Id AS Id FROM `exhibitiontechnicalexperts` AS myTechnicalExpertRel INNER JOIN `technicalexperts` AS myTechnicalExpert  ON myTechnicalExpertRel.TechnicalExpertId=myTechnicalExpert.Id WHERE myTechnicalExpertRel.ExhibitionId =$exhibitionId AND myTechnicalExpertRel.FlagDelete=0";
+        $sql = "SELECT 
+                myUserdetail.Name AS Name ,
+                myTechnicalExpertRel.Id AS Id 
+                FROM `exhibitiontechnicalexperts` AS myTechnicalExpertRel 
+                INNER JOIN `technicalexperts` AS myTechnicalExpert  ON myTechnicalExpertRel.TechnicalExpertId=myTechnicalExpert.Id 
+                LEFT JOIN `userdetails` AS myUserdetail ON myTechnicalExpert.UserId=myUserdetail.UserId
+                WHERE myTechnicalExpertRel.ExhibitionId =$exhibitionId 
+                AND myTechnicalExpertRel.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
     }
 
     public function getArchitecturalExpertByExhibitionId($exhibitionId)
     {
-        $sql = "SELECT myArchitecturalExpert.Name AS Name , myArchitecturalExpertRel.Id AS Id FROM `exhibitionarchitecturalexperts` AS myArchitecturalExpertRel INNER JOIN `architecturalexperts` AS myArchitecturalExpert  ON myArchitecturalExpertRel.ArchitecturalExpertId=myArchitecturalExpert.Id WHERE myArchitecturalExpertRel.ExhibitionId =$exhibitionId AND myArchitecturalExpertRel.FlagDelete=0";
+        $sql = "SELECT 
+                myUserdetail.Name AS Name , 
+                myArchitecturalExpertRel.Id AS Id 
+                FROM `exhibitionarchitecturalexperts` AS myArchitecturalExpertRel 
+                INNER JOIN `architecturalexperts` AS myArchitecturalExpert  ON myArchitecturalExpertRel.ArchitecturalExpertId=myArchitecturalExpert.Id 
+                LEFT JOIN `userdetails` AS myUserdetail ON myArchitecturalExpert.UserId=myUserdetail.UserId
+                WHERE myArchitecturalExpertRel.ExhibitionId =$exhibitionId 
+                AND myArchitecturalExpertRel.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
     }

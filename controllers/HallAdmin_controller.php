@@ -23,11 +23,10 @@ class HallAdmin_controller extends controller
     }
     public function Create($query)
     {
-        $username = $this->getVal('Username', $query);
-        $password = $this->getVal('Password', $query);
-        $groupId = 3;
+        $groupId = $this->getVal('GroupId', $query);
         $name = $this->getVal('Name', $query);
-        $rows = $this->_model->create($username,$password,$groupId,$name);
+        $mobile = $this->getVal('Mobile', $query);
+        $rows = $this->_model->create($groupId,$name,$mobile);
         $this->_res->set("result", $rows);
         if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }

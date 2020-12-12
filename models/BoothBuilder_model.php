@@ -10,12 +10,17 @@ class BoothBuilder_model extends model
                        myBoothBuilder.FlagBlock,
                        myBoothBuilder.GradeId,
                        myBoothBuilder.LimitArea AS SLimitArea,
-                       myBoothBuilder.Name,
                        myBoothBuilder.Rate,
                        myBoothbuildergrades.Title AS Grade,
-                       myBoothbuildergrades.LimitArea
+                       myBoothbuildergrades.LimitArea,
+                       myUserDetail.Name,
+                       myUserDetail.Mobile,
+                       myUser.Username,
+                       myUser.Id AS UserId
                 FROM `boothbuilders` AS myBoothBuilder 
                 INNER JOIN `boothbuildergrades` AS myBoothbuildergrades ON myBoothBuilder.GradeId=myBoothbuildergrades.Id
+                INNER JOIN `users` AS myUser ON myBoothBuilder.UserId=myUser.Id 
+                LEFT JOIN `userdetails` AS myUserDetail ON myUser.Id=myUserDetail.UserId
                 WHERE myBoothBuilder.FlagDelete=0 ";
         $rows = $this->getAll($sql);
         return $rows;
@@ -81,24 +86,27 @@ class BoothBuilder_model extends model
 
     public function create($mobile, $groupId, $name, $gradeId)
     {
-        $randomPass = rand(1000000, 99999999);
-        $randomPassmd5 = md5(bin2hex($randomPass));
-        $smsText="نام کاربری : ".$mobile."\n"." رمز عبور : ".$randomPass;
-        $smsResponse = $this->sendSms($mobile,$smsText);
-        if ($smsResponse) {
-            $sqlDuplicate = "SELECT Id FROM `users` WHERE `Username`='$mobile' AND FlagDelete=0";
-            $rowsDuplicate = $this->getRow($sqlDuplicate);
-            if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
-                $rows = false;
-            } else {
+        $sqlDuplicate = "SELECT Id FROM `users` WHERE `Username`='$mobile' AND FlagDelete=0";
+        $rowsDuplicate = $this->getRow($sqlDuplicate);
+        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+            $rows = false;
+        } else {
+            $randomPass = rand(1000000, 99999999);
+            $randomPassmd5 = md5(bin2hex($randomPass));
+            $smsText = "نام کاربری : " . $mobile . "\n" . " رمز عبور : " . $randomPass;
+            //$smsResponse = $this->sendSms($mobile, $smsText);
+            $smsResponse=true;
+
+            if ($smsResponse) {
                 $rows = '';
                 $sqlDynamic = new model();
                 mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=0");
                 mysqli_query($sqlDynamic->conn, "START TRANSACTION");
                 $sql = mysqli_query($sqlDynamic->conn, "INSERT INTO `users`(`Username`, `Password`,`GroupId`) VALUES ('$mobile','$randomPassmd5',$groupId)");
                 $last_id = mysqli_insert_id($sqlDynamic->conn);
-                $sql2 = mysqli_query($sqlDynamic->conn, "INSERT INTO `boothbuilders`(`UserId`,`Name`,`Mobile`,`GradeId`) VALUES ($last_id,'$name','$mobile',$gradeId);");
-                if ($sql && $sql2) {
+                $sqlDetail = mysqli_query($sqlDynamic->conn, "INSERT INTO `userdetails`(`UserId`,`Name`,`Mobile`) VALUES ($last_id,'$name','$mobile')");
+                $sql2 = mysqli_query($sqlDynamic->conn, "INSERT INTO `boothbuilders`(`UserId`,`GradeId`) VALUES ($last_id,$gradeId);");
+                if ($sql && $sql2 && $sqlDetail) {
                     mysqli_query($sqlDynamic->conn, "COMMIT");
                     $rows = $sql2;
                 } else {

@@ -19,11 +19,24 @@ export class BoothbuilderListComponent extends BaseClass implements OnInit {
   settings = {
     columns: {
       Name: {
-        title: 'نام'
+        title: 'نام '
+      },
+      Mobile: {
+        title: 'موبایل'
+      },
+      Username: {
+        title: 'نام کاربری'
       },
       Grade: {
         title: 'گرید'
       },
+      LimitArea: {
+        title: 'حداکثر متراژ'
+      },
+      SLimitArea: {
+        title: 'حداکثر کاربر'
+      },
+
       Rates: {
         title:'امتیاز',
         type: 'custom',

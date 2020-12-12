@@ -110,6 +110,9 @@ import { ParticipantListComponent } from './portal/portal-main/participants/part
 import { SharedExhibitionComponent } from './main/shared-exhibition/shared-exhibition.component';
 import { SharedExhibitionHallComponent } from './main/shared-exhibition/shared-exhibition-hall/shared-exhibition-hall.component';
 import { HalladminCommentComponent } from './portal/portal-main/hall-admins/halladmin-desk/halladmin-comment/halladmin-comment.component';
+import { UsersComponent } from './portal/portal-main/users/users.component';
+import { UserListComponent } from './portal/portal-main/users/user-list/user-list.component';
+import { UserCreateComponent } from './portal/portal-main/users/user-list/user-create/user-create.component';
 
 @NgModule({
   declarations: [
@@ -206,7 +209,10 @@ import { HalladminCommentComponent } from './portal/portal-main/hall-admins/hall
     ParticipantListComponent,
     SharedExhibitionComponent,
     SharedExhibitionHallComponent,
-    HalladminCommentComponent
+    HalladminCommentComponent,
+    UsersComponent,
+    UserListComponent,
+    UserCreateComponent
 
   ],
   imports: [

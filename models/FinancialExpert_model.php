@@ -5,9 +5,15 @@ class FinancialExpert_model extends model
 {
     public function get()
     {
-        $sql = "SELECT myFinancialExpert.Id,myFinancialExpert.Name,myFinancialExpert.FlagBlock,myUser.Username,myUser.Id As UserId
+        $sql = "SELECT 
+                myFinancialExpert.Id,
+                myUserdetail.Name,
+                myFinancialExpert.FlagBlock,
+                myUser.Username,
+                myUser.Id As UserId
                 FROM `financialexperts` AS myFinancialExpert
-                INNER JOIN `users` AS myUser ON myFinancialExpert.UserId=myUser.Id 
+                INNER JOIN `users` AS myUser ON myFinancialExpert.UserId=myUser.Id
+                LEFT JOIN `userdetails` AS myUserdetail ON myFinancialExpert.UserId=myUserdetail.UserId
                 WHERE myFinancialExpert.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;

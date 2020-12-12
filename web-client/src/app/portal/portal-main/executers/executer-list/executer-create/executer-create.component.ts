@@ -25,9 +25,8 @@ export class ExecuterCreateComponent extends BaseClass implements OnInit {
 
   createForm() {
     this.formGroup = new FormGroup({
-      Username: new FormControl(null, Validators.required),
-      Password: new FormControl(null, Validators.required),
       Name: new FormControl(null, Validators.required),
+      Mobile: new FormControl(null, Validators.required),
       GroupId: new FormControl(2)
     });
   }

@@ -2,10 +2,9 @@
 
 class User_controller extends controller
 {
-    public function Get($query)
+    public function Get()
     {
-        $groupId = $this->getVal('GroupId', $query);
-        $rows = $this->_model->get($groupId);
+        $rows = $this->_model->get();
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }
@@ -40,15 +39,6 @@ class User_controller extends controller
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
-
-//    public function Login($query)
-//    {
-//        $username = $this->getVal('Username', $query);
-//        $password = $this->getVal('Password', $query);
-//        $row = $this->_model->Login($username, $password);
-//        $this->_res->set("row", $row);
-//        $this->_res->output();
-//    }
 
 
     public function Logout($query)

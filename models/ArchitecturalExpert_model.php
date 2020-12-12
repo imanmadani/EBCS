@@ -5,9 +5,16 @@ class ArchitecturalExpert_model extends model
 {
     public function get()
     {
-        $sql = "SELECT myarchExpert.Id,myarchExpert.Name,myarchExpert.Rate,myUser.Username,myUser.Id As UserId
+        $sql = "SELECT 
+                myarchExpert.Id,
+                myUserDetail.Name,
+                myUserDetail.Mobile,
+                myarchExpert.Rate,
+                myUser.Username,
+                myUser.Id As UserId
                 FROM `architecturalexperts` AS myarchExpert
                 INNER JOIN `users` AS myUser ON myarchExpert.UserId=myUser.Id 
+                LEFT JOIN `userdetails` AS myUserDetail ON myUser.Id=myUserDetail.UserId 
                 WHERE myarchExpert.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
@@ -15,9 +22,9 @@ class ArchitecturalExpert_model extends model
 
     public function getArchitecturalExpertTask($architecturalExpertId)
     {
-        $head=getallheaders();
-        $ip=$_SERVER['REMOTE_ADDR'];
-        $user=$this->getUserByToken($head['Token'],$ip);
+        $head = getallheaders();
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $user = $this->getUserByToken($head['Token'], $ip);
         $sql = "SELECT 
                        myBooth.Name AS BoothName,
                        myBooth.Id AS BoothId,
@@ -38,29 +45,29 @@ class ArchitecturalExpert_model extends model
                 INNER JOIN `boothboothbuilders` AS myBoothBoothBuilder ON myBooth.Id =myBoothBoothBuilder.BoothId
                 LEFT JOIN `boothboothbuilderplans` AS myBoothPlan ON myBoothBoothBuilder.Id=myBoothPlan.BoothBoothbuilderId
                 WHERE 
-                myArchitecturalexperts.UserId=".$user['Id']." 
+                myArchitecturalexperts.UserId=" . $user['Id'] . " 
                 AND myBooth.FlagDelete=0
                 AND myBooth.FlagBlock=0 
                 AND myExArchitecturalExpert.FlagDelete=0
                 AND myExArchitecturalExpert.FlagBlock=0 
-                AND myBooth.TechnicalExpertApprove=".ApproveStateEnum::Approve.
-                " GROUP BY myExArchitecturalExpert.ExhibitionId";
+                AND myBooth.TechnicalExpertApprove=" . ApproveStateEnum::Approve .
+            " GROUP BY myExArchitecturalExpert.ExhibitionId";
         $rows = $this->getAll($sql);
         return $rows;
     }
 
     public function getArchitecturalInfringements()
     {
-        $head=getallheaders();
-        $ip=$_SERVER['REMOTE_ADDR'];
-        $user=$this->getUserByToken($head['Token'],$ip);
+        $head = getallheaders();
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $user = $this->getUserByToken($head['Token'], $ip);
         $sql = "SELECT myinfringementrecord.Amount AS SUMQuantity ,
                        myinfringementrecord.Quantity,
                        myBooth.Name AS BoothName,
                        myHall.Title AS HallName,
                        myParti.Username AS ParticipantName,
                        myEx.Title AS ExhibitionName,
-                       myBuilder.Name AS BuilderName,
+                       myUserdetail.Name AS BuilderName,
                        myInfringement.Description,
                        myInfringement.Amount,
                        myQtype.Title                    
@@ -72,9 +79,10 @@ class ArchitecturalExpert_model extends model
                 INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
                 INNER JOIN `exhibitionarchitecturalexperts` AS myExArchitecturalExpert ON myExArchitecturalExpert.ExhibitionId=myEx.Id
                 INNER JOIN `boothbuilders` AS myBuilder ON myinfringementrecord.BoothBuilderId=myBuilder.Id
+                LEFT JOIN `userdetails` AS myUserdetail ON myBuilder.UserId=myUserdetail.UserId
                 INNER JOIN `boothbuilderinfringements` AS myInfringement ON myinfringementrecord.InfringementId=myInfringement.Id
                 INNER JOIN `quantitytype` AS myQtype ON myInfringement.QuantityType=myQtype.Id
-                WHERE myExArchitecturalExpert.ArchitecturalExpertId=".$user['Id']." 
+                WHERE myExArchitecturalExpert.ArchitecturalExpertId=" . $user['Id'] . " 
                 AND myinfringementrecord.FlagBlock=0 
                 AND myinfringementrecord.FlagDelete=0
                 AND myExArchitecturalExpert.FlagBlock=0 
@@ -90,27 +98,35 @@ class ArchitecturalExpert_model extends model
         return $rows;
     }
 
-    public function create($username, $password, $groupId, $name)
+    public function create($groupId, $name, $mobile)
     {
-        $sqlDuplicate = "SELECT Id FROM `users` WHERE `Username`='$username'  AND FlagDelete=0";
+        $sqlDuplicate = "SELECT Id FROM `users` WHERE `Username`='$mobile'  AND FlagDelete=0";
         $rowsDuplicate = $this->getRow($sqlDuplicate);
-        if($rowsDuplicate['Id'] and $rowsDuplicate['Id']>0){
-            $rows=false;
-        }else {
-            $rows = '';
-            $sqlDynamic = new model();
-            mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=0");
-            mysqli_query($sqlDynamic->conn, "START TRANSACTION");
-            $sql = mysqli_query($sqlDynamic->conn, "INSERT INTO `users`(`Username`, `Password`, `GroupId`) VALUES ('$username','$password',$groupId)");
-            $last_id = mysqli_insert_id($sqlDynamic->conn);
-            $sql2 = mysqli_query($sqlDynamic->conn, "INSERT INTO `architecturalexperts`(`UserId`,`Name`) VALUES ($last_id,'$name');");
-            if ($sql && $sql2) {
-                mysqli_query($sqlDynamic->conn, "COMMIT");
-                $rows = $sql2;
-            } else {
-                mysqli_query($sqlDynamic->conn, "ROLLBACK");
+        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+            $rows = false;
+        } else {
+            $randomPass = rand(1000000, 99999999);
+            $randomPassmd5 = md5(bin2hex($randomPass));
+            $smsText = "نام کاربری : " . $mobile . "\n" . " رمز عبور : " . $randomPass;
+            //$smsResponse = $this->sendSms($mobile, $smsText);
+            $smsResponse=true;
+            if ($smsResponse) {
+                $rows = '';
+                $sqlDynamic = new model();
+                mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=0");
+                mysqli_query($sqlDynamic->conn, "START TRANSACTION");
+                $sql = mysqli_query($sqlDynamic->conn, "INSERT INTO `users`(`Username`, `Password`,`GroupId`) VALUES ('$mobile','$randomPassmd5',$groupId)");
+                $last_id = mysqli_insert_id($sqlDynamic->conn);
+                $sqlDetail = mysqli_query($sqlDynamic->conn, "INSERT INTO `userdetails`(`UserId`,`Name`,`Mobile`) VALUES ($last_id,'$name','$mobile')");
+                $sql2 = mysqli_query($sqlDynamic->conn, "INSERT INTO `architecturalexperts`(`UserId`) VALUES ($last_id);");
+                if ($sql && $sql2 && $sqlDetail) {
+                    mysqli_query($sqlDynamic->conn, "COMMIT");
+                    $rows = $sql2;
+                } else {
+                    mysqli_query($sqlDynamic->conn, "ROLLBACK");
+                }
+                mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=1");
             }
-            mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=1");
         }
         return $rows;
     }
@@ -151,18 +167,19 @@ class ArchitecturalExpert_model extends model
         $rows = $this->getAll($sql);
         return $rows;
     }
+
     public function BoothApprove($id)
     {
-        $sql = "UPDATE `booths` SET `ArchitecturalExpertApprove`=".ApproveStateEnum::Approve." WHERE `Id`=$id";
+        $sql = "UPDATE `booths` SET `ArchitecturalExpertApprove`=" . ApproveStateEnum::Approve . " WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
     }
 
     public function BoothDisApprove($id)
     {
-        $sql = "UPDATE `booths` SET `ArchitecturalExpertApprove`=".ApproveStateEnum::DisApprove." WHERE `Id`=$id";
+        $sql = "UPDATE `booths` SET `ArchitecturalExpertApprove`=" . ApproveStateEnum::DisApprove . " WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
-        $sql = "UPDATE `booths` SET `TechnicalExpertApprove`=".ApproveStateEnum::EndAction." WHERE `Id`=$id";
+        $sql = "UPDATE `booths` SET `TechnicalExpertApprove`=" . ApproveStateEnum::EndAction . " WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
     }

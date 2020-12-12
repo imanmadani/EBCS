@@ -49,7 +49,7 @@ class Participant_model extends model
     public function getBoothBuilder()
     {
         $sql = "SELECT * FROM(
-			        SELECT mybuilder.Name,
+			        SELECT myUserdetail.Name,
        		        		  (SUM(myBooth.AreaRial)+SUM(myBooth.AreaArz)) AS MaxArea,
                            mybuilder.LimitArea AS BuilderLimit,
        		               mybuilder.Id,
@@ -57,6 +57,7 @@ class Participant_model extends model
                            myBuilderGrade.LimitArea AS GradeLimit,
                            myBuilderGrade.Title AS Grade
                     FROM `boothbuilders` AS mybuilder
+                    LEFT JOIN `userdetails` AS myUserdetail ON myBuilder.UserId=myUserdetail.UserId
                     INNER JOIN `boothboothbuilders` AS myBoothBuilderRel ON mybuilder.Id=myBoothBuilderRel.BoothBuilderId
                     INNER JOIN `boothbuildergrades` AS myBuilderGrade ON mybuilder.GradeId=myBuilderGrade.Id
                     Inner JOIN `booths` AS myBooth ON myBoothBuilderRel.BoothId=myBooth.Id
