@@ -1,2 +1,8 @@
 <app-modal-header (closed)="close()"></app-modal-header>
-  <app-file-upload (itemUpload)="uplaod($event)" (itemDelete)="deletePlan($event)" [lastFiles]="data"></app-file-upload>
+<div class="row pt-2">
+  <div class="col-12 text-center">
+    <img width="200px" *ngIf="currentImage"
+         src="http://localhost/Files/Plans/{{currentImage.NameDB}}.{{currentImage.Name.split('.')[1]}}">
+  </div>
+</div>
+<app-file-upload (itemUpload)="uplaod($event)" (itemDelete)="deletePlan($event)" (itemGet)="getImage($event)" [lastFiles]="data"></app-file-upload>

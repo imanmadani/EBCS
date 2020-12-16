@@ -37,7 +37,7 @@ export class BoothbuilderListComponent extends BaseClass implements OnInit {
         title: 'حداکثر کاربر'
       },
 
-      Rates: {
+      Rate: {
         title:'امتیاز',
         type: 'custom',
         renderComponent:RateComponent,

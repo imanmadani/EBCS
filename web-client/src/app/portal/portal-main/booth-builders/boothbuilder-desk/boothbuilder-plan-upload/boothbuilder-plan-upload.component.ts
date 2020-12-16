@@ -16,6 +16,7 @@ export class BoothbuilderPlanUploadComponent extends BaseClass implements OnInit
   form;
   imageSrc;
   data;
+  currentImage;
   @Input() model;
 
   constructor(private boothBuilderService: BoothbuildersService,
@@ -69,5 +70,9 @@ export class BoothbuilderPlanUploadComponent extends BaseClass implements OnInit
         this.ngOnInit();
       }
     });
+  }
+  getImage($event) {
+    this.currentImage=$event;
+    console.log(this.currentImage);
   }
 }

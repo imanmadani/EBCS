@@ -26,8 +26,8 @@ export class BoothbuildersService {
   getGradeById(entity): Observable<any> {
     return this.http.get<any>(this.baseUrl + '?api=GetGradeById&Id='+entity);
   }
-  getBoothBuilderTask(entity): Observable<any> {
-    return this.http.get<any>(this.baseUrl + '?api=getBoothBuilderTask&BoothBuilderId='+entity);
+  getBoothBuilderTask(): Observable<any> {
+    return this.http.get<any>(this.baseUrl + '?api=getBoothBuilderTask');
   }
   create(entity: GroupModel): Observable<any> {
     return this.http
@@ -70,6 +70,9 @@ export class BoothbuildersService {
   }
   GetUploadFileByBoothBoothbuilderId(entity): Observable<any> {
     return this.http.get<any>(this.baseUrl + '?api=GetUploadFileByBoothBoothbuilderId&Id='+entity);
+  }
+  getIdentity(entity): Observable<any> {
+    return this.http.get<any>(this.baseUrl + '?api=Verhoeff&Value='+entity.Mobile+"&Amount="+entity.Amount);
   }
 
 }

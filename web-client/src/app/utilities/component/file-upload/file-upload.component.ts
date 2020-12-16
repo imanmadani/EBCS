@@ -11,6 +11,7 @@ const URL = 'http://localhost/api/BoothBuilder_api.php/?api=UploadPlan';
 export class FileUploadComponent{
   @Output() itemUpload = new EventEmitter();
   @Output() itemDelete = new EventEmitter();
+  @Output() itemGet = new EventEmitter();
   @Input() lastFiles;
   uploader:FileUploader;
   hasBaseDropZoneOver:boolean;
@@ -37,5 +38,9 @@ export class FileUploadComponent{
 
   deleteLastRow(Id: any) {
     this.itemDelete.emit(Id)
+  }
+
+  getImage(Item: any) {
+    this.itemGet.emit(Item);
   }
 }

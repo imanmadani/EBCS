@@ -57,7 +57,7 @@ class Booth_model extends model
                                VALUES ('$name',$exhibitionId,$exHallId,$participantId,$areaRial,$areaArz,$areaType,$area2,$constructionType)");
             $last_id = mysqli_insert_id($sqlDynamic->conn);
             $count = 1;
-            $amount = 1;
+            $amount = 10000;
             $billType = BillTypeEnum::ExhibitionService;
             $quantityType = QuantityTypeEnum::Meter;
             $sql2 = mysqli_query($sqlDynamic->conn, "INSERT INTO `bills`( `BoothId`,`BillType`, `QuantityType`, `Quantity`, `Amount`) VALUES ($last_id,$billType,$quantityType,$count,$amount)");

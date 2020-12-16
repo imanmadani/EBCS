@@ -17,6 +17,7 @@ export class ExecuterhallPlanUploadComponent extends BaseClass implements OnInit
   imageSrc;
   data;
   @Input() model;
+  currentImage;
 
   constructor(private executerService: ExecutersService,
               private modalService: NgbModal,
@@ -69,5 +70,10 @@ export class ExecuterhallPlanUploadComponent extends BaseClass implements OnInit
         this.ngOnInit();
       }
     });
+  }
+
+  getImage($event) {
+    this.currentImage=$event;
+    console.log(this.currentImage);
   }
 }

@@ -40,10 +40,12 @@ import {ParticipantListComponent} from "./portal/portal-main/participants/partic
 import {SharedExhibitionComponent} from "./main/shared-exhibition/shared-exhibition.component";
 import {UserListComponent} from "./portal/portal-main/users/user-list/user-list.component";
 import {UsersComponent} from "./portal/portal-main/users/users.component";
+import {LoginParticipantComponent} from "./main/login-participant/login-participant.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/Login', pathMatch: 'full'},
   {path: 'Login', component: LoginComponent},
+  {path: 'LoginParticipant', component: LoginParticipantComponent},
   {path: 'Exhibitions', component: SharedExhibitionComponent},
   {
     path: 'Dashboard',

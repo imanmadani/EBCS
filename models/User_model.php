@@ -18,6 +18,22 @@ class User_model extends model
         $rows = $this->getAll($sql);
         return $rows;
     }
+    public function getByToken()
+    {
+        $head = getallheaders();
+        $user=$head['Token'];
+        $sql = "SELECT 
+                myToken.UserId,
+                myUserDetail.Name,
+                myGroup.Name AS GroupName
+                FROM `token` AS myToken
+                INNER JOIN `users` AS myUser ON myToken.UserId=myUser.Id
+                INNER JOIN `userdetails` AS myUserDetail ON myUser.Id=myUserDetail.UserId
+                INNER JOIN `groups` AS myGroup ON myUser.GroupId=myGroup.Id
+                WHERE `TokenCode`='$user'AND FlagValid=1";
+        $rows = $this->getRow($sql);
+        return $rows;
+    }
     public function getById($id)
     {
         $sql = "SELECT * FROM `users` WHERE `Id`=$id ";

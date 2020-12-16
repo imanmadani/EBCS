@@ -121,5 +121,13 @@ class BoothBuilder_controller extends controller
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
+    public function Verhoeff($query)
+    {
+        $value = $this->getVal('Value', $query);
+        $amount = $this->getVal('Amount', $query);
+        $rows = $this->_model->verhoeff($value,$amount);
+        $this->_res->set("row", $rows);
+        $this->_res->output();
+    }
 
 }

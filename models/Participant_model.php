@@ -13,6 +13,29 @@ class Participant_model extends model
         $rows = $this->getRow($sql);
         return $rows;
     }
+    public function getByToken()
+    {
+        $head = getallheaders();
+        $user=$head['Token'];
+        $sql = "SELECT 
+                myParticipant.Id,
+                myParticipantDetail.CompanyName,
+                myParticipantDetail.ComapnyAddress,
+                myParticipantDetail.ActivityField,
+                myParticipantDetail.Tell,
+                myParticipantDetail.Fax,
+                myParticipantDetail.EconomicCode,
+                myParticipantDetail.AdminName,
+                myParticipantDetail.AdminTell,
+                myParticipantDetail.AgentName,
+                myParticipantDetail.AgentTell
+                FROM `tokenparticipant` AS myToken
+                INNER JOIN `participants` AS myParticipant ON myToken.UserId=myParticipant.Id
+                INNER JOIN `participantdetails` AS myParticipantDetail ON myParticipant.Id=myParticipantDetail.ParticipantId
+                WHERE `TokenCode`='$user'AND FlagValid=1";
+        $rows = $this->getRow($sql);
+        return $rows;
+    }
 
     public function getDataByParticipant($participantId)
     {
@@ -58,19 +81,31 @@ class Participant_model extends model
                            myBuilderGrade.Title AS Grade
                     FROM `boothbuilders` AS mybuilder
                     LEFT JOIN `userdetails` AS myUserdetail ON myBuilder.UserId=myUserdetail.UserId
-                    INNER JOIN `boothboothbuilders` AS myBoothBuilderRel ON mybuilder.Id=myBoothBuilderRel.BoothBuilderId
-                    INNER JOIN `boothbuildergrades` AS myBuilderGrade ON mybuilder.GradeId=myBuilderGrade.Id
-                    Inner JOIN `booths` AS myBooth ON myBoothBuilderRel.BoothId=myBooth.Id
+                    LEFT JOIN `boothboothbuilders` AS myBoothBuilderRel ON mybuilder.Id=myBoothBuilderRel.BoothBuilderId
+                    LEFT JOIN `boothbuildergrades` AS myBuilderGrade ON mybuilder.GradeId=myBuilderGrade.Id
+                    LEFT JOIN `booths` AS myBooth ON myBoothBuilderRel.BoothId=myBooth.Id
                     WHERE mybuilder.FlagDelete=0 AND mybuilder.FlagBlock=0) AS BoothBuilderValid 
-                WHERE (GradeLimit>MaxArea AND BuilderLimit=null) OR (BuilderLimit>MaxArea) ";
+                WHERE (GradeLimit>MaxArea AND BuilderLimit is null) OR (BuilderLimit>MaxArea) OR (MaxArea is null)";
         $rows = $this->getAll($sql);
         return $rows;
     }
     public function getBoothBuilderByBoothId($boothId)
     {
-        $sql = "SELECT * FROM `boothboothbuilders`  AS myBoothBuilderRel
-                INNER JOIN `boothbuilders` AS myBoothBuilder ON myBoothBuilderRel.BoothBuilderId=myBoothBuilder.Id 
-                WHERE `BoothId`=$boothId AND myBoothBuilderRel.FlagDelete=0";
+        $sql = "SELECT 
+                myBoothBuilder.Id,
+                myBoothBuilder.UserId,
+                myBoothBuilder.GradeId,
+                myBoothBuilder.Rate,
+                myBoothBuilder.LimitArea,
+                myBoothBuilder.FlagBlock,
+                myBoothBuilder.FlagDelete,
+                myUserDetail.Name AS CompanyName,
+                AVG(myBuilderRate.Rate) AS Rate
+                FROM `boothboothbuilders`  AS myBoothBuilderRel
+                INNER JOIN `boothbuilders` AS myBoothBuilder ON myBoothBuilderRel.BoothBuilderId=myBoothBuilder.Id
+                LEFT JOIN `userdetails` AS myUserDetail ON myBoothBuilder.UserId=myUserDetail.UserId
+                LEFT JOIN `boothbuilderrates` AS myBuilderRate ON myBoothBuilder.Id=myBuilderRate.BoothBuilderId
+                WHERE myBoothBuilderRel.BoothId=$boothId AND myBoothBuilderRel.FlagDelete=0";
         $rows = $this->getRow($sql);
         return $rows;
     }

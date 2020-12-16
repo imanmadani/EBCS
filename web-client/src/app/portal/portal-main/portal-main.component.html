@@ -17,15 +17,23 @@
              (click)="changeUserMenu()">
           <div class="col-lg-2 col-sm-6 m-auto"><i class="fa fa-id-card"></i></div>
           <div class="col-lg-10 col-sm-1 m-auto" [ngClass]="mobile?'d-none':''">
-            <span class="m-auto">ایمان مدنی</span>
+            <span class="m-auto" *ngIf="this.userDetail">{{userDetail.Name}} - {{userDetail.GroupName}}</span>
           </div>
         </div>
         <div class="row">
           <div class="col-12 position-absolute ebcs-bg-yellow ebc-level-3 p-0" [ngClass]="userMenu?'':'d-none' ">
             <ul class="list-group p-0 ebcs-border-radius-0 ">
               <li class="list-group-item ebcs-bg-yellow ebcs-border-bold-right-red ebcs-clickable text-center" (click)="logout()">
-                <span class="pl-2"><i class="fa fa-power-off"></i></span>
-                <span [ngClass]="mobile?'d-none':''">خروج</span>
+                <div class="row">
+                  <div class="col-lg-2 col-sm-12 text-center"><i class="fa fa-key"></i></div>
+                  <div class="col-10 text-right" [ngClass]="mobile?'d-none':''">تغییر رمز عبور</div>
+                </div>
+              </li>
+              <li  class="list-group-item ebcs-bg-yellow ebcs-border-bold-right-red ebcs-clickable text-center" (click)="logout()">
+                <div class="row">
+                  <div class="col-lg-2 col-sm-12 text-center"><i class="fa fa-power-off"></i></div>
+                  <div class="col-10 text-right" [ngClass]="mobile?'d-none':''">خروج</div>
+                </div>
               </li>
             </ul>
           </div>

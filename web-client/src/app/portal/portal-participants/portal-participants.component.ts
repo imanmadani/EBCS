@@ -25,6 +25,7 @@ export class PortalParticipantsComponent extends BaseClass implements OnInit {
     Hours: "ساعت",
     Minutes: "دقیقه"
   };
+  userdetail;
 
   constructor(private portalParticipantsService: PortalParticipantsService,
               private modalService: NgbModal,
@@ -33,28 +34,32 @@ export class PortalParticipantsComponent extends BaseClass implements OnInit {
   }
 
   ngOnInit() {
-    this.portalParticipantsService.getParticipantDetails(1).subscribe(resDetail => {
-      this.participantDetail = resDetail.data.row;
-      if (!this.participantDetail) {
-        this.portalParticipantsService.getDataByParticipant(1).subscribe(res => {
-          this.userInformation = res.data.row;
-          this.portalParticipantsService.getBoothBuilderByBoothId(this.userInformation.BoothId).subscribe(resBoothBuilder => {
-            this.boothBuilder = resBoothBuilder.data.row;
-            this.portalParticipantsService.getBoothBuilderRateByBoothId(this.userInformation.BoothId).subscribe(res=>{
-              this.rate=res.data.row;
+    this.portalParticipantsService.getUserByToken().subscribe(resParticipant => {
+      this.userdetail = resParticipant.data.row;
+      console.log(this.userdetail);
+      // this.portalParticipantsService.getParticipantDetails(this.userdetail).subscribe(resDetail => {
+      //   this.participantDetail = resDetail.data.row;
+      //   if (!this.participantDetail) {
+          this.portalParticipantsService.getDataByParticipant(this.userdetail.Id).subscribe(res => {
+            this.userInformation = res.data.row;
+            this.portalParticipantsService.getBoothBuilderByBoothId(this.userInformation.BoothId).subscribe(resBoothBuilder => {
+              this.boothBuilder = resBoothBuilder.data.row;
+              this.portalParticipantsService.getBoothBuilderRateByBoothId(this.userInformation.BoothId).subscribe(res => {
+                this.rate = res.data.row;
+              });
             });
           });
-        });
-      } else {
-
-      }
+        // } else {
+        // }
+      // });
     });
   }
 
   openBoothBuilders() {
-    let modalRef = this.modalService.open(PortalParticipantBoothBuilderListComponent, {centered: true});
-    modalRef.componentInstance.model=this.userInformation;
-    modalRef.result.then((data) => {}, (reason) => {
+    let modalRef = this.modalService.open(PortalParticipantBoothBuilderListComponent, {centered: true,size:"lg"});
+    modalRef.componentInstance.model = this.userInformation;
+    modalRef.result.then((data) => {
+    }, (reason) => {
       if (reason)
         this.ngOnInit();
     });
@@ -62,9 +67,10 @@ export class PortalParticipantsComponent extends BaseClass implements OnInit {
 
   setPoint(boothBuilder) {
     let modalRef = this.modalService.open(PortalParticipantBoothbuilderPointComponent, {centered: true});
-    modalRef.componentInstance.model=this.userInformation;
-    modalRef.componentInstance.boothBuilder=boothBuilder;
-    modalRef.result.then((data) => {}, (reason) => {
+    modalRef.componentInstance.model = this.userInformation;
+    modalRef.componentInstance.boothBuilder = boothBuilder;
+    modalRef.result.then((data) => {
+    }, (reason) => {
       if (reason)
         this.ngOnInit();
     });

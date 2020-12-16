@@ -40,7 +40,7 @@ export class SharedExhibitionComponent implements OnInit {
   showBooths(Id) {
     this.sharedExhibitionService.getBoothsByHall(Id).subscribe(res=> {
       this.booths=res.data.rows;
-      let modalRef = this.modalService.open(SharedExhibitionHallComponent, {centered: true});
+      let modalRef = this.modalService.open(SharedExhibitionHallComponent, {centered: true,size:'xl'});
       modalRef.componentInstance.model=this.booths;
     });
   }

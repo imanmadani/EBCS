@@ -15,6 +15,12 @@ class Participant_controller extends controller
         $this->_res->set("row", $rows);
         $this->_res->output();
     }
+    public function GetByToken()
+    {
+        $row = $this->_model->getByToken();
+        $this->_res->set("row", $row);
+        $this->_res->output();
+    }
     public function GetDataByParticipant($query)
     {
         $participantId = $this->getVal('ParticipantId', $query);

@@ -14,6 +14,7 @@ export class PortalMainComponent extends BaseClass implements OnInit {
   data;
   versionDetail;
   userMenu = false;
+  userDetail;
 
   constructor(private componentService: LoginService,
               private router: Router,
@@ -25,6 +26,9 @@ export class PortalMainComponent extends BaseClass implements OnInit {
     debugger
     // localStorage.setItem('token', '8fea33b5e37f52b60559b73d96833888dbfd2f36');
     //  this.componentService.getUser().subscribe(res2 => {
+    this.componentService.getUserByToken().subscribe(resUser=>{
+      this.userDetail=resUser.data.row;
+    });
     if(!localStorage.getItem('menu')){
     this.componentService.getMenu().subscribe(res3 => {
       this.data = res3.data.row;

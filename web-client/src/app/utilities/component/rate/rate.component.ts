@@ -15,6 +15,7 @@ export class RateComponent implements ViewCell, OnInit {
   @Input() rowData: any;
 
   ngOnInit() {
+    debugger
     this.renderValue = this.rowData.Rate ;
   }
 

@@ -15,7 +15,7 @@
         <tbody class="text-right">
         <ng-template ngFor let-lastItem [ngForOf]="lastFiles">
           <tr>
-            <td><strong>{{ lastItem.Name }}</strong></td>
+            <td class="ebcs-clickable" (click)="getImage(lastItem)"><strong>{{ lastItem.Name }}</strong></td>
             <td nowrap>{{ lastItem.Size / 1024 / 1024 | number:'.2' }} MB</td>
             <td><span (click)="deleteLastRow(lastItem.Id)"><i class="ebcs-clickable fa fa-trash text-danger"></i></span></td>
           </tr>

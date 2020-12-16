@@ -36,7 +36,6 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
       PayStatus: {
         title: 'وضعیت پرداخت',
         type:'html',
-
         valuePrepareFunction: (value) => {
           if (value==="1") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
           return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';
@@ -83,6 +82,7 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
     }
   };
   data;
+  verhoeff=null;
 
   constructor(
     private boothBuilderService: BoothbuildersService,
@@ -92,7 +92,7 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
   }
 
   ngOnInit(): void {
-    this.boothBuilderService.getBoothBuilderTask(1).subscribe(res => {
+    this.boothBuilderService.getBoothBuilderTask().subscribe(res => {
       this.data = res.data.rows;
     });
   }
@@ -159,7 +159,8 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
     });
   }
   endActionHandler(inputModel) {
-    debugger
+    debugger;
+    if(+inputModel.PayStatus>0){
     let entity = new GroupModel();
     entity.Id = inputModel.BoothId;
     this.boothBuilderService.endAction(entity).subscribe(res => {
@@ -168,9 +169,14 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
         this.ngOnInit();
       }
     });
+    }else {
+      this.error("ابتدا پرداخت را انجام دهید")
+    }
   }
   paymentHandler(inputModel) {
-
+    this.boothBuilderService.getIdentity(inputModel).subscribe(res=>{
+      this.verhoeff=res.data.row;
+    });
   }
 }
 

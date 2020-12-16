@@ -113,6 +113,7 @@ import { HalladminCommentComponent } from './portal/portal-main/hall-admins/hall
 import { UsersComponent } from './portal/portal-main/users/users.component';
 import { UserListComponent } from './portal/portal-main/users/user-list/user-list.component';
 import { UserCreateComponent } from './portal/portal-main/users/user-list/user-create/user-create.component';
+import { LoginParticipantComponent } from './main/login-participant/login-participant.component';
 
 @NgModule({
   declarations: [
@@ -212,7 +213,8 @@ import { UserCreateComponent } from './portal/portal-main/users/user-list/user-c
     HalladminCommentComponent,
     UsersComponent,
     UserListComponent,
-    UserCreateComponent
+    UserCreateComponent,
+    LoginParticipantComponent
 
   ],
   imports: [

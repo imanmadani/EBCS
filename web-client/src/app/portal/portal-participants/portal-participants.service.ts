@@ -17,6 +17,10 @@ export class PortalParticipantsService {
   get(): Observable<any> {
     return this.http.get<any>(this.baseUrl + '?api=Get');
   }
+  getUserByToken(): Observable<any> {
+
+    return this.http.get<any>(this.baseUrl + '?api=GetByToken');
+  }
   getById(entity): Observable<any> {
     return this.http.get<any>(this.baseUrl + '?api=GetById&Id='+entity);
   }

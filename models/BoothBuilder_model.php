@@ -16,12 +16,14 @@ class BoothBuilder_model extends model
                        myUserDetail.Name,
                        myUserDetail.Mobile,
                        myUser.Username,
-                       myUser.Id AS UserId
+                       myUser.Id AS UserId,
+                       AVG(myBuilderRate.Rate) AS Rate
                 FROM `boothbuilders` AS myBoothBuilder 
                 INNER JOIN `boothbuildergrades` AS myBoothbuildergrades ON myBoothBuilder.GradeId=myBoothbuildergrades.Id
                 INNER JOIN `users` AS myUser ON myBoothBuilder.UserId=myUser.Id 
                 LEFT JOIN `userdetails` AS myUserDetail ON myUser.Id=myUserDetail.UserId
-                WHERE myBoothBuilder.FlagDelete=0 ";
+                LEFT JOIN `boothbuilderrates` AS myBuilderRate ON myBoothBuilder.Id=myBuilderRate.BoothBuilderId
+                WHERE myBoothBuilder.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
     }
@@ -51,8 +53,10 @@ class BoothBuilder_model extends model
                        myBill.QuantityType,
                        myBill.Quantity,
                        myBill.Amount,
+                       myUserDetail.Mobile,
                        myBoothBuilderRel.FlagDelete As FlagBlock
                 FROM `boothbuilders` AS myBoothBuilder     
+                LEFT JOIN  `userdetails` AS myUserDetail ON myBoothBuilder.UserId= myUserDetail.UserId
                 INNER JOIN `boothboothbuilders` AS myBoothBuilderRel ON myBoothBuilder.Id=myBoothBuilderRel.BoothBuilderId
                 INNER JOIN `booths` AS myBooth ON myBoothBuilderRel.BoothId=myBooth.Id
                 INNER JOIN `bills` AS myBill ON myBooth.Id=myBill.BoothId
