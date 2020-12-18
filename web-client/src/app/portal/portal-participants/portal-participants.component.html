@@ -105,7 +105,7 @@
         </ul>
       </div>
       <div class="card-body bg-card text-center" *ngIf="!boothBuilder">
-        <button *ngIf="!boothBuilder" class="btn btn-primary" (click)="openBoothBuilders()">
+        <button *ngIf="!boothBuilder && userInformation" class="btn btn-primary" (click)="openBoothBuilders()">
           انتخاب غرفه ساز
         </button>
       </div>

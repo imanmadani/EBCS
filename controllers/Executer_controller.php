@@ -108,4 +108,16 @@ class Executer_controller extends controller
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
+    public function GetParticipantByExecuter($query)
+    {
+        $rows = $this->_model->getParticipantByExecuter();
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function CreateParticipant($query)
+    {
+        $rows = $this->_model->createParticipant($query);
+        $this->_res->set("result", $rows);
+        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
+    }
 }

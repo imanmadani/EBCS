@@ -1,0 +1,57 @@
+<app-modal-header [title]="'افزودن مشارکت کننده'" (closed)='close()'></app-modal-header>
+<div class="row p-2">
+  <div class="col-12 text-right">
+    <p>
+      لطفا فایل اکسل زیر را دانلود کنید و اطلاعات را به صورت کامل و طبق فرمت موجود وارد نمایید
+    </p>
+    <p (click)="downloadExel()" class="text-center  text-success ebcs-clickable">
+      <i class="fa fa-file-excel ebcs-font-bold"></i>
+      فایل نمونه
+    </p>
+    <p>سپس فایل را انتخاب و آپلود نمایید</p>
+    <p class="text-center">
+    <input type="file" (change)="onFileChange($event)" />
+    </p>
+    <button class="btn btn-primary" (click)="proccess()" *ngIf="participants">ذخیره</button>
+    <hr>
+    <p class="text-danger" *ngIf="participantObjectListFalse">لیست زیر به دلیل اشکال در محتوا ثبت نشد ،
+      <strong>لطفا مجددا</strong>
+      فقط اسامی زیر را به صورت صحیح بارگزاری نمایید</p>
+    <table class="table table-hover table-bordered " *ngIf="participantObjectListFalse">
+      <thead>
+      <td>شناسه ملی</td>
+      <td>نام شرکت</td>
+      <td>آدرس شرکت</td>
+      <td>فعالیت</td>
+      <td>تلفن</td>
+      <td>فکس</td>
+      <td>کد اقتصادی</td>
+      <td>نام مدیرعامل</td>
+      <td>تلفن مدیرعامل</td>
+      <td>نام نماینده</td>
+      <td>تلفن نماینده</td>
+      </thead>
+      <tbody>
+      <tr *ngFor="let parti of participantObjectListFalse">
+        <td>{{parti.Username}}</td>
+        <td>{{parti.CompanyName}}</td>
+        <td>{{parti.CompanyAddress}}</td>
+        <td>{{parti.ActivityField}}</td>
+        <td>{{parti.Tell}}</td>
+        <td>{{parti.Fax}}</td>
+        <td>{{parti.EconomicCode}}</td>
+        <td>{{parti.AdminName}}</td>
+        <td>{{parti.AdminTell}}</td>
+        <td>{{parti.AgentName}}</td>
+        <td>{{parti.AgentTell}}</td>
+      </tr>
+      </tbody>
+    </table>
+<!--    <div id="output"></div>-->
+<!--    <br>-->
+<!--    <div *ngIf="willDownload">-->
+<!--           -->
+<!--    </div>-->
+  </div>
+</div>
+

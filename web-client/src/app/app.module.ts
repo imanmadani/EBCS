@@ -114,6 +114,9 @@ import { UsersComponent } from './portal/portal-main/users/users.component';
 import { UserListComponent } from './portal/portal-main/users/user-list/user-list.component';
 import { UserCreateComponent } from './portal/portal-main/users/user-list/user-create/user-create.component';
 import { LoginParticipantComponent } from './main/login-participant/login-participant.component';
+import { ExecuterParticipantComponent } from './portal/portal-main/executers/executer-participant/executer-participant.component';
+import { ExecuterParticipantCreateComponent } from './portal/portal-main/executers/executer-participant/executer-participant-create/executer-participant-create.component';
+import { ExecuterParticipantEditComponent } from './portal/portal-main/executers/executer-participant/executer-participant-edit/executer-participant-edit.component';
 
 @NgModule({
   declarations: [
@@ -214,7 +217,10 @@ import { LoginParticipantComponent } from './main/login-participant/login-partic
     UsersComponent,
     UserListComponent,
     UserCreateComponent,
-    LoginParticipantComponent
+    LoginParticipantComponent,
+    ExecuterParticipantComponent,
+    ExecuterParticipantCreateComponent,
+    ExecuterParticipantEditComponent
 
   ],
   imports: [

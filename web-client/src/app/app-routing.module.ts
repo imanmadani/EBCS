@@ -41,6 +41,7 @@ import {SharedExhibitionComponent} from "./main/shared-exhibition/shared-exhibit
 import {UserListComponent} from "./portal/portal-main/users/user-list/user-list.component";
 import {UsersComponent} from "./portal/portal-main/users/users.component";
 import {LoginParticipantComponent} from "./main/login-participant/login-participant.component";
+import {ExecuterParticipantComponent} from "./portal/portal-main/executers/executer-participant/executer-participant.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/Login', pathMatch: 'full'},
@@ -122,6 +123,10 @@ const routes: Routes = [
           {
             path: 'ExecuterList',
             component: ExecuterListComponent,
+          },
+          {
+            path: 'ParticipnatExecuter',
+            component: ExecuterParticipantComponent,
           },
           {
             path: 'BoothList',

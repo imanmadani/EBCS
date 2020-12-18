@@ -91,4 +91,11 @@ export class ExecutersService {
     return this.http
       .post<any>(this.ExecuterbaseUrl+'?api=AssignHalladmin', entity);
   }
+  getParticipantByExecuter(): Observable<any> {
+    return this.http.get<any>(this.ExecuterbaseUrl + '?api=GetParticipantByExecuter');
+  }
+  participantcreate(entity): Observable<any> {
+    return this.http
+      .post<any>(this.ExecuterbaseUrl+'?api=CreateParticipant', entity);
+  }
 }

@@ -84,7 +84,7 @@ class Executer_model extends model
             $randomPassmd5 = md5(bin2hex($randomPass));
             $smsText = "نام کاربری : " . $mobile . "\n" . " رمز عبور : " . $randomPass;
             //$smsResponse = $this->sendSms($mobile, $smsText);
-            $smsResponse=true;
+            $smsResponse = true;
 
             if ($smsResponse) {
                 $rows = '';
@@ -215,6 +215,58 @@ class Executer_model extends model
     {
         $sql = "UPDATE  `hallhalladmins` SET FlagDelete =1 WHERE Id = $id";
         $rows = $this->execQuery($sql);
+        return $rows;
+    }
+
+    public function getParticipantByExecuter()
+    {
+        $head = getallheaders();
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $user = $this->getUserByToken($head['Token'], $ip);
+        $sql = "SELECT myParti.Id,
+                       myParti.FlagBlock As FlagBlock,
+                       myPartiDetail.CompanyName
+                FROM `participants` AS myParti
+                INNER JOIN `participantdetails` AS myPartiDetail ON myParti.Id=myPartiDetail.ParticipantId
+                WHERE myParti.FlagDelete=0 AND myParti.ImportUserId=" . $user['Id'];
+        $rows = $this->getAll($sql);
+        return $rows;
+    }
+
+    public function createParticipant($query)
+    {
+        $head = getallheaders();
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $user = $this->getUserByToken($head['Token'], $ip);
+        foreach($query as $participant){
+            $sqlDuplicate = "SELECT Id FROM `participants` WHERE `Username`='".$participant['Username']."'  AND FlagDelete=0";
+            $rowsDuplicate = $this->getRow($sqlDuplicate);
+            if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {$rows=false;} else {
+                $randomPass = rand(1000000, 99999999);
+                $randomPassmd5 = md5(bin2hex($randomPass));
+                $smsText = "نام کاربری : " . $participant['Username'] . "\n" . " رمز عبور : " . $randomPass;
+                //$smsResponse = $this->sendSms($mobile, $smsText);
+                $smsResponse = true;
+                if ($smsResponse) {
+                    $rows = '';
+                    $sqlDynamic = new model();
+                    mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=0");
+                    mysqli_query($sqlDynamic->conn, "START TRANSACTION");
+                    $sql = mysqli_query($sqlDynamic->conn, "INSERT INTO `participants` (`Username`, `Password`, `ImportUserId`) VALUES ('".$participant['Username']."','$randomPassmd5',".$user['Id'].")");
+                    $last_id = mysqli_insert_id($sqlDynamic->conn);
+                    $sqlDetail = mysqli_query($sqlDynamic->conn, "INSERT INTO `participantdetails` (`ParticipantId`, `CompanyName`, `ComapnyAddress`, `ActivityField`, `Tell`, `Fax`, `EconomicCode`, `AdminName`, `AdminTell`, `AgentName`, `AgentTell`) 
+                                                                        VALUES ($last_id,'".$participant['CompanyName']."','".$participant['CompanyAddress']."','".$participant['ActivityField']."','".$participant['Tell']."','".$participant['Fax']."','".$participant['EconomicCode']."','".$participant['AdminName']."','".$participant['AdminTell']."','".$participant['AgentName']."','".$participant['AgentTell']."')");
+                    if ($sql  && $sqlDetail) {
+                        mysqli_query($sqlDynamic->conn, "COMMIT");
+                        $rows = $sqlDetail;
+                    } else {
+                        mysqli_query($sqlDynamic->conn, "ROLLBACK");
+                    }
+                    mysqli_query($sqlDynamic->conn, "SET AUTOCOMMIT=1");
+                }
+            }
+        }
+
         return $rows;
     }
 
