@@ -8,6 +8,7 @@ import {GroupModel} from "../../groups/entity";
 import {ExhibitionHallEditComponent} from "../../exhibitions/exhibition-hall-list/exhibition-hall-edit/exhibition-hall-edit.component";
 import {HalladminsService} from "../halladmins.service";
 import {HalladminCommentComponent} from "./halladmin-comment/halladmin-comment.component";
+import {TechnicalexpertFilemanagementComponent} from "../../technical-expert/technicalexpert-desk/technicalexpert-filemanagement/technicalexpert-filemanagement.component";
 
 @Component({
   selector: 'app-halladmin-desk',
@@ -48,9 +49,14 @@ export class HalladminDeskComponent extends BaseClass implements OnInit {
       columnTitle: 'عملیات',
       custom: [
         {
+          name: 'fileManagement',
+          title: '<i class="fa fa-images pr-3 ebcs-font-normal text-info" title="تصاویر پلان"></i>'
+        },
+        {
           name: 'commentAction',
           title: '<i class="fa fa-comment pr-3 ebcs-font-normal text-warning" title="ثبت پیام"></i>'
         },
+
         // {
         //   name: 'deleteAction',
         //   title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="حذف"></i>'
@@ -79,11 +85,24 @@ export class HalladminDeskComponent extends BaseClass implements OnInit {
 
   methodHandler(e) {
     switch (e.action) {
+      case 'fileManagement' : {
+        this.fileManagement(e.data);
+        break;
+      }
       case 'commentAction' : {
         this.commentHandler(e.data);
         break;
       }
     }
+  }
+  fileManagement(inputModel) {
+    let modalRef = this.modalService.open(TechnicalexpertFilemanagementComponent, {centered: true, size: 'xl'});
+    modalRef.componentInstance.model = inputModel;
+    modalRef.result.then((data) => {
+    }, (reason) => {
+      if (reason)
+        this.ngOnInit();
+    });
   }
 
   commentHandler(inputModel) {

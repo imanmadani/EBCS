@@ -1,6 +1,6 @@
 <?php
 require_once '../entity/ExhibitionHall.php';
-class TechnicalExpert_controller extends controller
+class ElectricalExpert_controller extends controller
 {
     public function Get()
     {
@@ -8,10 +8,9 @@ class TechnicalExpert_controller extends controller
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }
-    public function GetTechnicalExpertTask($query)
+    public function GetElectricalExpertsTask($query)
     {
-        $technicalExpertId = $this->getVal('TechnicalExpertId', $query);
-        $rows = $this->_model->getTechnicalExpertTask($technicalExpertId);
+        $rows = $this->_model->getElectricalExpertTask();
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }
@@ -22,16 +21,9 @@ class TechnicalExpert_controller extends controller
         $this->_res->set("row", $rows);
         $this->_res->output();
     }
-    public function GetPlanByBoothBoothbuilderId($query)
-    {
-        $boothBoothbuilderId = $this->getVal('BoothBoothbuilderId', $query);
-        $rows = $this->_model->getPlanByBoothBoothbuilderId($boothBoothbuilderId);
-        $this->_res->set("rows", $rows);
-        $this->_res->output();
-    }
     public function Create($query)
     {
-        $groupId = 4;
+        $groupId = 8;
         $name = $this->getVal('Name', $query);
         $mobile = $this->getVal('Mobile', $query);
         $rows = $this->_model->create($groupId,$name,$mobile);
@@ -40,7 +32,7 @@ class TechnicalExpert_controller extends controller
     }
     public function Update($query)
     {
-        $id = $this->getVal('Id', $query);
+        $id = $this->getVal('UserId', $query);
         $name = $this->getVal('Name', $query);
         $rows = $this->_model->update($id,$name);
         $this->_res->set("result", $rows);
@@ -53,17 +45,10 @@ class TechnicalExpert_controller extends controller
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
-    public function BoothApprove($query)
+    public function Accept($query)
     {
-        $id = $this->getVal('Id', $query);
-        $rows = $this->_model->boothApprove($id);
-        $this->_res->set("result", $rows);
-        $this->_res->output();
-    }
-    public function BoothDisApprove($query)
-    {
-        $id = $this->getVal('Id', $query);
-        $rows = $this->_model->boothDisApprove($id);
+        $boothId = $this->getVal('Id', $query);
+        $rows = $this->_model->accept($boothId);
         $this->_res->set("result", $rows);
         $this->_res->output();
     }

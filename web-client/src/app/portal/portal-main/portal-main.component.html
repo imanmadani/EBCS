@@ -43,7 +43,11 @@
           <div class="col-lg-10 col-sm-1 m-auto text-regular" [ngClass]="mobile?'d-none':''">خانه</div>
         </div>
         <ng-template ngFor let-menu [ngForOf]="menus">
-          <div class="row ebcs-h-7  border-bottom ebcs-clickable" [routerLink]="menu.Link" *ngIf="!menu.MenuRef">
+          <div class="row ebcs-h-7  border-bottom ebcs-clickable "
+               [routerLink]="menu.Link"
+               *ngIf="!menu.MenuRef"
+               [ngClass]="router.url.split('/')[2]===menu.Link?'ebcs-bg-yellow':''"
+          >
             <div class="col-lg-2 col-sm-11 m-auto"><i [ngClass]="menu.Icon"></i></div>
             <div class="col-lg-10 col-sm-1 m-auto text-regular" [ngClass]="mobile?'d-none':''">{{menu.Title}}</div>
           </div>

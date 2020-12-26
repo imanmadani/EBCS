@@ -1,60 +1,45 @@
 <?php
 
-class HallAdmin_model extends model
+class ElectricalExpert_model extends model
 {
     public function get()
     {
         $sql = "SELECT 
-                myHallAdmin.Id,
-                myHallAdmin.Rate,
-                myHallAdmin.FlagBlock,
+                myElectricalexpert.Id,
+                myElectricalexpert.Rate,
+                myElectricalexpert.FlagBlock,
                 myUser.Username,
                 myUser.Id As UserId, 
                 myUserDetail.Name,
                 myUserDetail.Mobile
-                FROM `halladmins` AS myHallAdmin
-                INNER JOIN `users` AS myUser ON myHallAdmin.UserId=myUser.Id 
+                FROM `electricalexperts` AS myElectricalexpert
+                INNER JOIN `users` AS myUser ON myElectricalexpert.UserId=myUser.Id 
                 LEFT JOIN `userdetails` AS myUserDetail ON myUser.Id=myUserDetail.UserId  
-                WHERE myHallAdmin.FlagDelete=0";
+                WHERE myElectricalexpert.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
     }
 
-    public function getHallAdminTask()
+    public function getElectricalExpertTask()
     {
-        $head = getallheaders();
-        $ip = $_SERVER['REMOTE_ADDR'];
-        $user = $this->getUserByToken($head['Token'], $ip);
         $sql = "SELECT 
-                       myHallAdmin.Id AS HallAdminId,
-                       myHall.Title AS HallName,
-                       myEx.Title AS ExhibitionName,
-                       myBooth.Name AS BoothName,
-                       myBooth.Id AS BoothId,
-                       myParticipant.CompanyName AS BoothParty,
-                       myParticipant.AgentName AS BoothPartyName,
-                       myParticipant.AgentTell AS BoothPartyTell,
-                       myBooth.FlagBlock,
-                       myBoothBoothBuilder.Id AS BoothBoothBuilderId
-                From `halladmins` AS myHallAdmin        
-                INNER JOIN `hallhalladmins` AS myHallAdminRel ON myHallAdmin.Id=myHallAdminRel.HallAdminId 
-                INNER JOIN `exhibitionhalls` AS myExhibitionhall ON myHallAdminRel.ExhibitionHallId=myExhibitionhall.Id
-                INNER JOIN `booths` AS myBooth ON myExhibitionhall.Id=myBooth.ExhibitionHallId 
-                INNER JOIN `boothboothbuilders` AS myBoothBoothBuilder ON myBooth.Id =myBoothBoothBuilder.BoothId           
-                INNER JOIN `participantdetails` AS myParticipant ON myBooth.ParticipantId=myParticipant.ParticipantId
-                INNER JOIN `halls` AS myHall ON myExhibitionhall.HallId=myHall.Id
-                INNER JOIN `exhibitions` AS myEx ON myExhibitionhall.ExhibitionId=myEx.Id
-                WHERE 
-                myHallAdminRel.FlagDelete=0
-                AND myHallAdminRel.FlagBlock=0 
-                AND myHallAdmin.UserId=" . $user['Id'];
+                myBooth.Id,myBooth.Name AS BoothName,myBooth.ExhibitionHallId,myBooth.ParticipantId,myBooth.AreaRial,myBooth.AreaArz,myBooth.AreaType,myBooth.Area2,myBooth.ConstructionType,
+                myHall.Title AS HallName,myParticipantDetails.CompanyName AS BoothParty,myParticipantDetails.AgentName AS BoothPartyName,myParticipantDetails.AgentTell AS BoothPartyTell,
+                myEx.Title AS ExhibitionName , myBooth.FlagBlock
+                FROM `booths` AS myBooth
+                INNER JOIN `exhibitionhalls` AS myHallEx ON myBooth.ExhibitionHallId=myHallEx.Id
+                INNER JOIN `halls` AS myHall ON myHallEx.HallId=myHall.Id
+                INNER JOIN `participants` AS myParticipant ON myBooth.ParticipantId=myParticipant.Id
+                INNER JOIN `participantDetails` AS myParticipantDetails ON myParticipant.Id=myParticipantDetails.ParticipantId
+                INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
+                WHERE myBooth.ExecuterApprove=1 AND myBooth.ElectricalExpertApprove!=1  AND myBooth.FlagDelete=0 AND myBooth.FlagBlock=0";
         $rows = $this->getAll($sql);
         return $rows;
     }
 
     public function getById($id)
     {
-        $sql = "SELECT * FROM `halladmins` WHERE `Id`=$id";
+        $sql = "SELECT * FROM `electricalexperts` WHERE `Id`=$id";
         $rows = $this->getRow($sql);
         return $rows;
     }
@@ -70,7 +55,7 @@ class HallAdmin_model extends model
             $randomPassmd5 = md5(bin2hex($randomPass));
             $smsText = "نام کاربری : " . $mobile . "\n" . " رمز عبور : " . $randomPass;
             //$smsResponse = $this->sendSms($mobile, $smsText);
-            $smsResponse=true;
+            $smsResponse = true;
 
             if ($smsResponse) {
                 $rows = '';
@@ -80,7 +65,7 @@ class HallAdmin_model extends model
                 $sql = mysqli_query($sqlDynamic->conn, "INSERT INTO `users`(`Username`, `Password`,`GroupId`) VALUES ('$mobile','$randomPassmd5',$groupId)");
                 $last_id = mysqli_insert_id($sqlDynamic->conn);
                 $sqlDetail = mysqli_query($sqlDynamic->conn, "INSERT INTO `userdetails`(`UserId`,`Name`,`Mobile`) VALUES ($last_id,'$name','$mobile')");
-                $sql2 = mysqli_query($sqlDynamic->conn, "INSERT INTO `halladmins`(`UserId`) VALUES ($last_id);");
+                $sql2 = mysqli_query($sqlDynamic->conn, "INSERT INTO `electricalexperts`(`UserId`) VALUES ($last_id);");
                 if ($sql && $sql2 && $sqlDetail) {
                     mysqli_query($sqlDynamic->conn, "COMMIT");
                     $rows = $sql2;
@@ -95,16 +80,21 @@ class HallAdmin_model extends model
 
     public function update($id, $name)
     {
-        $sql = "UPDATE `halladmins` SET `Name`='$name' WHERE `Id`=$id";
+        $sql = "UPDATE `userdetails` SET `Name`='$name' WHERE `UserId`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
     }
 
     public function delete($id)
     {
-        $sql = "UPDATE `halladmins` SET `FlagDelete`=1 WHERE `Id`=$id";
+        $sql = "UPDATE `electricalexperts` SET `FlagDelete`=1 WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
     }
-
+    public function accept($boothId)
+    {
+        $sql = "UPDATE `booths` SET `ElectricalExpertApprove`=1 WHERE `Id`=$boothId";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
 }

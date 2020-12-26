@@ -42,6 +42,9 @@ import {UserListComponent} from "./portal/portal-main/users/user-list/user-list.
 import {UsersComponent} from "./portal/portal-main/users/users.component";
 import {LoginParticipantComponent} from "./main/login-participant/login-participant.component";
 import {ExecuterParticipantComponent} from "./portal/portal-main/executers/executer-participant/executer-participant.component";
+import {ElectricalExpertComponent} from "./portal/portal-main/electrical-expert/electrical-expert.component";
+import {ElectricalexpertListComponent} from "./portal/portal-main/electrical-expert/electricalexpert-list/electricalexpert-list.component";
+import {ElectricalexpertDeskComponent} from "./portal/portal-main/electrical-expert/electricalexpert-desk/electricalexpert-desk.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/Login', pathMatch: 'full'},
@@ -222,6 +225,20 @@ const routes: Routes = [
           }
         ]
       },
+      {
+        path: 'ElectricalExperts',
+        component: ElectricalExpertComponent,
+        children:[
+          {
+            path: 'ElectricalExpertList',
+            component: ElectricalexpertListComponent,
+          },
+          {
+            path: 'ElectricalExpertDesk',
+            component: ElectricalexpertDeskComponent,
+          },
+        ]
+      }
       ]
   },
   {

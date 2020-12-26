@@ -19,6 +19,7 @@ class Participant_model extends model
         $user=$head['Token'];
         $sql = "SELECT 
                 myParticipant.Id,
+                myParticipant.PolicyApprove,
                 myParticipantDetail.CompanyName,
                 myParticipantDetail.ComapnyAddress,
                 myParticipantDetail.ActivityField,
@@ -128,4 +129,11 @@ class Participant_model extends model
         $rows = $this->getRow($sql);
         return $rows;
     }
+
+    public function acceptPolicyForm($id){
+        $sql = "UPDATE `participants` SET `PolicyApprove`=1 WHERE `Id`=$id";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
+
 }

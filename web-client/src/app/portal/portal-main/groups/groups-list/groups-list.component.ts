@@ -119,7 +119,7 @@ export class GroupsListComponent extends BaseClass implements OnInit {
   }
 
   assignHandler(inputModel) {
-    const modalRef = this.modalService.open(GroupListAssignComponent, {centered: true});
+    const modalRef = this.modalService.open(GroupListAssignComponent, {centered: true,size:'lg'});
     modalRef.componentInstance.model = inputModel;
     modalRef.result.then((data) => {
     }, (reason) => {

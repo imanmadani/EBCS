@@ -72,5 +72,12 @@ class Participant_controller extends controller
         $this->_res->set("row", $row);
         $this->_res->output();
     }
+    public function AcceptPolicyForm($query)
+    {
+        $participantId = $this->getVal('Id', $query);
+        $rows = $this->_model->acceptPolicyForm($participantId);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
 
 }

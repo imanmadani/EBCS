@@ -8,6 +8,8 @@ import {ExhibitionHallCreateComponent} from "../../exhibitions/exhibition-hall-l
 import {GroupModel} from "../../groups/entity";
 import {ExhibitionHallEditComponent} from "../../exhibitions/exhibition-hall-list/exhibition-hall-edit/exhibition-hall-edit.component";
 import {BoothbuilderPlanUploadComponent} from "./boothbuilder-plan-upload/boothbuilder-plan-upload.component";
+import {PortalParticipantPolicyformComponent} from "../../../portal-participants/portal-participant-policyform/portal-participant-policyform.component";
+import {BoothbuilderPolicyformComponent} from "../boothbuilder-policyform/boothbuilder-policyform.component";
 
 @Component({
   selector: 'app-boothbuilder-desk',
@@ -83,7 +85,7 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
   };
   data;
   verhoeff=null;
-
+  userdetail;
   constructor(
     private boothBuilderService: BoothbuildersService,
     private modalService: NgbModal,
@@ -92,9 +94,22 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
   }
 
   ngOnInit(): void {
-    this.boothBuilderService.getBoothBuilderTask().subscribe(res => {
-      this.data = res.data.rows;
+    this.boothBuilderService.getByToken().subscribe(resUser=>{
+      this.userdetail=resUser.data.row;
+      if(this.userdetail.PolicyApprove==='1'){
+        this.boothBuilderService.getBoothBuilderTask().subscribe(res => {
+          this.data = res.data.rows;
+        });
+      }else {
+        let modalRef = this.modalService.open(BoothbuilderPolicyformComponent,{centered: true, size: "lg"});
+        modalRef.componentInstance.model = this.userdetail;
+        modalRef.result.then((data) => {
+        }, (reason) => {
+          this.ngOnInit();
+        });
+      }
     });
+
   }
 
   methodHandler(e) {

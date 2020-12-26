@@ -23,6 +23,9 @@ export class BoothbuildersService {
   getById(entity): Observable<any> {
     return this.http.get<any>(this.baseUrl + '?api=GetById&Id='+entity);
   }
+  getByToken(): Observable<any> {
+    return this.http.get<any>(this.baseUrl + '?api=GetByToken');
+  }
   getGradeById(entity): Observable<any> {
     return this.http.get<any>(this.baseUrl + '?api=GetGradeById&Id='+entity);
   }
@@ -73,6 +76,10 @@ export class BoothbuildersService {
   }
   getIdentity(entity): Observable<any> {
     return this.http.get<any>(this.baseUrl + '?api=Verhoeff&Value='+entity.Mobile+"&Amount="+entity.Amount);
+  }
+  acceptPolicyForm(entity): Observable<any> {
+    return this.http
+      .put<any>(this.baseUrl+'?api=AcceptPolicyForm', entity);
   }
 
 }

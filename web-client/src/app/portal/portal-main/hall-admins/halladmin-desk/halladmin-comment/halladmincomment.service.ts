@@ -9,7 +9,7 @@ export class HalladmincommentService {
   private HalladminCommentbaseUrl:any;
   constructor(private http: HttpClient,
               @Inject('BASE_URL') baseUrl: string) {
-    this.HalladminCommentbaseUrl = 'http://design.iranfair.com/' + 'BoothComment_api.php/';
+    this.HalladminCommentbaseUrl = 'http://localhost/api/' + 'BoothComment_api.php/';
 
   }
   getCommentsByBoothId(model): Observable<any> {

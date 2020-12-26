@@ -53,7 +53,7 @@ export class FinancialexpertDeskComponent extends BaseClass implements OnInit {
       custom: [
         {
           name: 'acceptAction',
-          title: '<i class="fa fa-check pr-3 ebcs-font-normal text-success" title="Accept"></i>',
+          title: '<i class="fa fa-check pr-3 ebcs-font-normal text-success" title="تایید"></i>',
         }
       ],
       add: false,

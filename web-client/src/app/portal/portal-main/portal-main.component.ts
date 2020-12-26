@@ -15,6 +15,7 @@ export class PortalMainComponent extends BaseClass implements OnInit {
   versionDetail;
   userMenu = false;
   userDetail;
+  currentLoc;
 
   constructor(private componentService: LoginService,
               private router: Router,
@@ -72,5 +73,9 @@ export class PortalMainComponent extends BaseClass implements OnInit {
       localStorage.setItem('token', null);
       this.router.navigateByUrl('/');
     });
+  }
+
+  checkCurrent() {
+    this.currentLoc=this.router.url.split("/")[2];
   }
 }

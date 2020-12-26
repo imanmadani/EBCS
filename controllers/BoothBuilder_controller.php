@@ -27,6 +27,12 @@ class BoothBuilder_controller extends controller
         $this->_res->set("row", $rows);
         $this->_res->output();
     }
+    public function GetByToken()
+    {
+        $rows = $this->_model->getByToken();
+        $this->_res->set("row", $rows);
+        $this->_res->output();
+    }
     public function GetGradeById($query)
     {
         $id = $this->getVal('Id', $query);
@@ -127,6 +133,13 @@ class BoothBuilder_controller extends controller
         $amount = $this->getVal('Amount', $query);
         $rows = $this->_model->verhoeff($value,$amount);
         $this->_res->set("row", $rows);
+        $this->_res->output();
+    }
+    public function AcceptPolicyForm($query)
+    {
+        $boothBuilderId = $this->getVal('Id', $query);
+        $rows = $this->_model->acceptPolicyForm($boothBuilderId);
+        $this->_res->set("result", $rows);
         $this->_res->output();
     }
 

@@ -26,14 +26,16 @@ export class HalladminCommentComponent extends BaseClass  implements OnInit {
     debugger
     this.halladmincommentService.getCommentsByBoothId(this.model).subscribe(res => {
       this.comments = res.data.rows;
-      this.comments.forEach(com => {
-        if (com.DateTime === '0000-00-00 00:00:00') {
-          com.DateTime = "-";
-        } else {
-          com.DateTime = moment(com.DateTime, 'YYYY/MM/DD hh:mm:ss').locale('fa').format('hh:mm:ss YYYY/MM/DD');
+      if(this.comments.length>0) {
+        this.comments.forEach(com => {
+          if (com.DateTime === '0000-00-00 00:00:00') {
+            com.DateTime = "-";
+          } else {
+            com.DateTime = moment(com.DateTime, 'YYYY/MM/DD hh:mm:ss').locale('fa').format('hh:mm:ss YYYY/MM/DD');
 
-        }
-      });
+          }
+        });
+      }
     });
   }
   refreshComment(){

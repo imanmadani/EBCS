@@ -22,6 +22,9 @@ class TechnicalExpert_model extends model
 
     public function getTechnicalExpertTask($technicalExpertId)
     {
+        $head = getallheaders();
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $user = $this->getUserByToken($head['Token'], $ip);
         $sql = "SELECT myEx.Title AS ExhibitionName,
                        myHall.Title AS HallName,
                        myBooth.Name AS BoothName,
@@ -35,23 +38,25 @@ class TechnicalExpert_model extends model
                        myBooth.ConstructionType,
                        myParticipant.Username AS ParticipantName,
                        myBoothBoothBuilder.Id AS BoothBoothBuilderId
-                FROM `exhibitiontechnicalexperts` AS myTechnicalExpert
-                INNER JOIN `exhibitions` AS myEx ON myTechnicalExpert.ExhibitionId=myEx.Id
-                INNER JOIN `booths` AS myBooth ON myTechnicalExpert.ExhibitionId=myBooth.ExhibitionId
+                FROM `exhibitiontechnicalexperts` AS myExTechnicalExpert
+                INNER JOIN `technicalexperts` AS myTechnicalExpert ON myExTechnicalExpert.TechnicalExpertId=myTechnicalExpert.Id
+                INNER JOIN `exhibitions` AS myEx ON myExTechnicalExpert.ExhibitionId=myEx.Id
+                INNER JOIN `booths` AS myBooth ON myExTechnicalExpert.ExhibitionId=myBooth.ExhibitionId
                 INNER JOIN `bills` AS myBill ON myBooth.Id=myBill.BoothId
                 INNER JOIN `participants` AS myParticipant ON myBooth.ParticipantId=myParticipant.Id
                 INNER JOIN `exhibitionhalls` As myExHall ON myBooth.ExhibitionHallId=myExHall.Id
-                INNER JOIN `hallhalladmins` As myExHallHallAdmin ON myExHallHallAdmin.ExhibitionHallId=myExHall.Id
+                LEFT JOIN `hallhalladmins` As myExHallHallAdmin ON myExHallHallAdmin.ExhibitionHallId=myExHall.Id
                 INNER JOIN `halls` AS myHall ON myExHall.HallId=myHall.Id
                 INNER JOIN `boothboothbuilders` AS myBoothBoothBuilder ON myBooth.Id =myBoothBoothBuilder.BoothId
                 LEFT JOIN `boothboothbuilderplans` AS myBoothPlan ON myBoothBoothBuilder.Id=myBoothPlan.BoothBoothbuilderId
-                WHERE myTechnicalExpert.TechnicalExpertId=$technicalExpertId 
-                AND myBill.BillType=1 AND myBill.PayStatus=1 AND myBill.FinancialApprove
+                WHERE myTechnicalExpert.UserId=".$user['Id']."
+                AND myBill.BillType=1 AND myBill.PayStatus=1 AND myBill.FinancialApprove=1
                 AND myBooth.TechnicalExpertApprove!=" . ApproveStateEnum::DisApprove . "
                 AND myBooth.TechnicalExpertApprove!=" . ApproveStateEnum::Approve . "
+                AND myBooth.ElectricalExpertApprove=" . ApproveStateEnum::Approve . "
                 AND (myBooth.TechnicalExpertApprove=" . ApproveStateEnum::EndAction . " 
                 OR  myBooth.ArchitecturalExpertApprove=" . ApproveStateEnum::DisApprove . ")
-                GROUP BY myTechnicalExpert.ExhibitionId";
+                GROUP BY myExTechnicalExpert.ExhibitionId";
         $rows = $this->getAll($sql);
         return $rows;
     }

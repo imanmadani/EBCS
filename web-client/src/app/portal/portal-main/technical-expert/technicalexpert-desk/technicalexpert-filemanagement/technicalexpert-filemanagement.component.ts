@@ -24,6 +24,7 @@ export class TechnicalexpertFilemanagementComponent extends BaseClass implements
 
 
   ngOnInit(): void {
+    debugger
     this.technicalexpertsService.getPlanByBoothBoothbuilderId(this.model.BoothBoothBuilderId).subscribe(res=>{
       this.files=res.data.rows;
     });

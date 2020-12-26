@@ -31,7 +31,7 @@ class Executer_controller extends controller
     }
     public function Create($query)
     {
-        $groupId = $this->getVal('GroupId', $query);
+        $groupId =2;
         $name = $this->getVal('Name', $query);
         $mobile = $this->getVal('Mobile', $query);
         $rows = $this->_model->create($groupId,$name,$mobile);

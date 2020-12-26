@@ -81,6 +81,19 @@ class BoothBuilder_model extends model
         return $rows;
     }
 
+    public function getByToken()
+    {
+        $head = getallheaders();
+        $user=$head['Token'];
+        $sql = "SELECT myBoothBuilder.Id,
+                       myBoothBuilder.PolicyApprove
+                FROM `token` AS myToken
+                INNER JOIN `boothbuilders` AS myBoothBuilder ON myToken.UserId=myBoothBuilder.UserId
+                WHERE myToken.TokenCode='$user'AND FlagValid=1";
+        $rows = $this->getRow($sql);
+        return $rows;
+    }
+
     public function getGradeById($id)
     {
         $sql = "SELECT * FROM `boothbuildergrades` WHERE `Id`=$id";
@@ -237,6 +250,11 @@ class BoothBuilder_model extends model
     public function endAction($id)
     {
         $sql = "UPDATE `booths` SET `TechnicalExpertApprove`=" . ApproveStateEnum::EndAction . " WHERE `Id`=$id";
+        $rows = $this->execQuery($sql);
+        return $rows;
+    }
+    public function acceptPolicyForm($id){
+        $sql = "UPDATE `boothbuilders` SET `PolicyApprove`=1 WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
         return $rows;
     }
