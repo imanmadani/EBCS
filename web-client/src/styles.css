@@ -141,6 +141,10 @@ table{
   width: 100% !important;
   text-align: right;
 }
+.overflow-y-auto{
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 /*.ng2-smart-titles {*/
 /*  border:1px solid black;*/
 /*  background-color: #ccc;*/

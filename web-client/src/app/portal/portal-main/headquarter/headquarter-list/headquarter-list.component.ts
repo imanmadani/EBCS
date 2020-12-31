@@ -1,27 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import {BaseClass} from '../../../../utilities/base';
-import {ExhibitionsService} from '../exhibitions.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {ToastrService} from 'ngx-toastr';
-import {ExhibitionListCreateComponent} from '../exhibition-list/exhibition-list-create/exhibition-list-create.component';
-import {GroupModel} from '../../groups/entity';
-import {ExhibitionListEditComponent} from '../exhibition-list/exhibition-list-edit/exhibition-list-edit.component';
-import {ExhibitionHallCreateComponent} from './exhibition-hall-create/exhibition-hall-create.component';
-import {ExhibitionHallEditComponent} from './exhibition-hall-edit/exhibition-hall-edit.component';
+import {BaseClass} from "../../../../utilities/base";
+import {ElectricalExpertService} from "../../electrical-expert/electrical-expert.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ToastrService} from "ngx-toastr";
+import {ElectricalexpertCreateComponent} from "../../electrical-expert/electricalexpert-list/electricalexpert-create/electricalexpert-create.component";
+import {GroupModel} from "../../groups/entity";
+import {ElectricalexpertEditComponent} from "../../electrical-expert/electricalexpert-list/electricalexpert-edit/electricalexpert-edit.component";
+import {HeadquarterService} from "../headquarter.service";
+import {HeadquarterCreateComponent} from "./headquarter-create/headquarter-create.component";
+import {HeadquarterEditComponent} from "./headquarter-edit/headquarter-edit.component";
 
 @Component({
-  selector: 'app-exhibition-hall-list',
-  templateUrl: './exhibition-hall-list.component.html',
-  styleUrls: ['./exhibition-hall-list.component.css']
+  selector: 'app-headquarter-list',
+  templateUrl: './headquarter-list.component.html',
+  styleUrls: ['./headquarter-list.component.css']
 })
-export class ExhibitionHallListComponent extends BaseClass implements OnInit {
+export class HeadquarterListComponent extends BaseClass implements OnInit {
   settings = {
     columns: {
-      Title: {
-        title: 'عنوان'
+      Name: {
+        title: 'نام '
       },
-      GradeTitle: {
-        title: 'گرید'
+      Mobile: {
+        title: 'موبایل'
+      },
+      Username: {
+        title: 'نام کاربری'
       },
       FlagBlock: {
         title: 'وضعیت',
@@ -51,16 +55,13 @@ export class ExhibitionHallListComponent extends BaseClass implements OnInit {
     }
   };
   data;
-
-  constructor(
-    private exhibitionsService: ExhibitionsService,
-    private modalService: NgbModal,
-    protected toastr: ToastrService) {
+  constructor(private headquarterService:HeadquarterService,
+              private modalService: NgbModal,
+              protected toastr: ToastrService) {
     super(toastr);
   }
-
   ngOnInit(): void {
-    this.exhibitionsService.Hallget().subscribe(res => {
+    this.headquarterService.getHeadQuarter().subscribe(res=>{
       this.data = res.data.rows;
     });
   }
@@ -77,9 +78,8 @@ export class ExhibitionHallListComponent extends BaseClass implements OnInit {
       }
     }
   }
-
   createHandler() {
-    let modalRef=this.modalService.open(ExhibitionHallCreateComponent, {centered: true});
+    let modalRef=this.modalService.open(HeadquarterCreateComponent, {centered: true});
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)
         this.ngOnInit();
@@ -89,7 +89,7 @@ export class ExhibitionHallListComponent extends BaseClass implements OnInit {
   deleteHandler(inputModel) {
     let entity = new GroupModel();
     entity.Id = inputModel.Id;
-    this.exhibitionsService.Halldelete(entity).subscribe(res => {
+    this.headquarterService.HeadQuarterdelete(entity).subscribe(res => {
       if (res.data.result) {
         this.success();
         this.ngOnInit();
@@ -98,12 +98,11 @@ export class ExhibitionHallListComponent extends BaseClass implements OnInit {
   }
 
   editHandler(inputModel) {
-    const modalRef = this.modalService.open(ExhibitionHallEditComponent, {centered: true});
+    const modalRef = this.modalService.open(HeadquarterEditComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)
         this.ngOnInit();
     });
   }
-
 }

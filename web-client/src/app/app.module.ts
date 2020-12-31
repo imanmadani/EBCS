@@ -124,6 +124,11 @@ import { ElectricalexpertListComponent } from './portal/portal-main/electrical-e
 import { ElectricalexpertDeskComponent } from './portal/portal-main/electrical-expert/electricalexpert-desk/electricalexpert-desk.component';
 import { ElectricalexpertCreateComponent } from './portal/portal-main/electrical-expert/electricalexpert-list/electricalexpert-create/electricalexpert-create.component';
 import { ElectricalexpertEditComponent } from './portal/portal-main/electrical-expert/electricalexpert-list/electricalexpert-edit/electricalexpert-edit.component';
+import { HeadquarterComponent } from './portal/portal-main/headquarter/headquarter.component';
+import { HeadquarterDeskComponent } from './portal/portal-main/headquarter/headquarter-desk/headquarter-desk.component';
+import { HeadquarterListComponent } from './portal/portal-main/headquarter/headquarter-list/headquarter-list.component';
+import { HeadquarterCreateComponent } from './portal/portal-main/headquarter/headquarter-list/headquarter-create/headquarter-create.component';
+import { HeadquarterEditComponent } from './portal/portal-main/headquarter/headquarter-list/headquarter-edit/headquarter-edit.component';
 
 @NgModule({
   declarations: [
@@ -234,7 +239,12 @@ import { ElectricalexpertEditComponent } from './portal/portal-main/electrical-e
     ElectricalexpertListComponent,
     ElectricalexpertDeskComponent,
     ElectricalexpertCreateComponent,
-    ElectricalexpertEditComponent
+    ElectricalexpertEditComponent,
+    HeadquarterComponent,
+    HeadquarterDeskComponent,
+    HeadquarterListComponent,
+    HeadquarterCreateComponent,
+    HeadquarterEditComponent
 
   ],
   imports: [

@@ -1,0 +1,18 @@
+<app-modal-header [title]="title" (closed)='close()'></app-modal-header>
+<form [formGroup]="formGroup">
+  <div class="row p-3">
+    <div class="col-12">
+      <div class="form-group">
+        <div class="input-group mb-3">
+          <input type="text" formControlName="Name" class="form-control text-right" placeholder="مثال : ali">
+          <div class="input-group-append">
+            <span class="input-group-text">نام </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</form>
+<app-modal-footer (saved)="save()"></app-modal-footer>

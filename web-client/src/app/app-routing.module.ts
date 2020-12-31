@@ -45,6 +45,9 @@ import {ExecuterParticipantComponent} from "./portal/portal-main/executers/execu
 import {ElectricalExpertComponent} from "./portal/portal-main/electrical-expert/electrical-expert.component";
 import {ElectricalexpertListComponent} from "./portal/portal-main/electrical-expert/electricalexpert-list/electricalexpert-list.component";
 import {ElectricalexpertDeskComponent} from "./portal/portal-main/electrical-expert/electricalexpert-desk/electricalexpert-desk.component";
+import {HeadquarterComponent} from "./portal/portal-main/headquarter/headquarter.component";
+import {HeadquarterListComponent} from "./portal/portal-main/headquarter/headquarter-list/headquarter-list.component";
+import {HeadquarterDeskComponent} from "./portal/portal-main/headquarter/headquarter-desk/headquarter-desk.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/Login', pathMatch: 'full'},
@@ -236,6 +239,20 @@ const routes: Routes = [
           {
             path: 'ElectricalExpertDesk',
             component: ElectricalexpertDeskComponent,
+          },
+        ]
+      },
+      {
+        path: 'HeadQuarters',
+        component: HeadquarterComponent,
+        children:[
+          {
+            path: 'HeadQuarterList',
+            component: HeadquarterListComponent,
+          },
+          {
+            path: 'HeadQuarterDesk',
+            component: HeadquarterDeskComponent,
           },
         ]
       }

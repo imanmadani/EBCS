@@ -54,6 +54,7 @@ class TechnicalExpert_model extends model
                 AND myBooth.TechnicalExpertApprove!=" . ApproveStateEnum::DisApprove . "
                 AND myBooth.TechnicalExpertApprove!=" . ApproveStateEnum::Approve . "
                 AND myBooth.ElectricalExpertApprove=" . ApproveStateEnum::Approve . "
+                AND myBooth.HeadQuarterApprove="      . ApproveStateEnum::Approve . "
                 AND (myBooth.TechnicalExpertApprove=" . ApproveStateEnum::EndAction . " 
                 OR  myBooth.ArchitecturalExpertApprove=" . ApproveStateEnum::DisApprove . ")
                 GROUP BY myExTechnicalExpert.ExhibitionId";

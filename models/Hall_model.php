@@ -3,7 +3,13 @@ class Hall_model extends model
 {
     public function get()
     {
-        $sql = "SELECT * FROM `halls` WHERE `FlagDelete`=0";
+        $sql = "SELECT myHall.Id , 
+                       myHall.Title , 
+                       myHall.GradeId,
+                       myHall.FlagBlock,
+                       myGrade.Title AS GradeTitle
+                       FROM `halls` AS myHall
+                INNER JOIN `hallgrades` AS myGrade ON myHall.GradeId=myGrade.Id WHERE myHall.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
     }
