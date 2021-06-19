@@ -28,6 +28,7 @@ export class ExhibitionAssignExecuterComponent extends BaseClass implements OnIn
     },
     actions: {
       columnTitle: 'عملیات',
+      width: '300px',
       custom: [
         {
           name: 'deleteAction',
@@ -41,6 +42,7 @@ export class ExhibitionAssignExecuterComponent extends BaseClass implements OnIn
     }
   };
   data;
+  executerDropDown2;
   constructor(
     private exhibitionsService: ExhibitionsService,
     private modalService: NgbModal,
@@ -82,18 +84,22 @@ export class ExhibitionAssignExecuterComponent extends BaseClass implements OnIn
     });
   }
   save() {
-    this.exhibitionsService.ExAssignExecuter(this.formGroup.value).subscribe(res => {
-        if (res.data.result) {
-          this.success();
-          this.ngOnInit();
-        } else {
-          this.error(res.message);
-        }
-      },
-      (err) => {
-        this.error(err.error);
-      });
-
+    let find=this.data?.filter(res=>res.ExecuterId===this.formGroup.get('ExecuterId').value);
+    if(find && find.length>0){
+     this.error('ایتم تکراریست')
+    }else {
+      this.exhibitionsService.ExAssignExecuter(this.formGroup.value).subscribe(res => {
+          if (res.data.result) {
+            this.success();
+            this.ngOnInit();
+          } else {
+            this.error(res.message);
+          }
+        },
+        (err) => {
+          this.error(err.error);
+        });
+    }
   }
   close() {
     this.modalService.dismissAll(false);
@@ -101,7 +107,13 @@ export class ExhibitionAssignExecuterComponent extends BaseClass implements OnIn
 
 
   changeDropDown(e) {
+
     this.dpdown=e.Title;
     this.formGroup.get('ExecuterId').setValue(e.Id);
+  }
+
+  searchExecuter(query) {
+    let y=this.executerDropDown.filter(x=>x.Title.indexOf(query.value)>-1);
+    this.executerDropDown2=y;
   }
 }

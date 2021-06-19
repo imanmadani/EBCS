@@ -12,7 +12,7 @@ import {GroupModel} from "../../../groups/entity";
   styleUrls: ['./exhibition-assign-technicalexpert.component.css']
 })
 export class ExhibitionAssignTechnicalexpertComponent extends BaseClass implements OnInit {
-  title='افزودن کارشناس فنی';
+  title='افزودن کارشناس مجری';
   formGroup:any ;
   @Output() refresh:EventEmitter<boolean>;
   technicalDropDown;
@@ -27,6 +27,7 @@ export class ExhibitionAssignTechnicalexpertComponent extends BaseClass implemen
     },
     actions: {
       columnTitle: 'عملیات',
+      width: '300px',
       custom: [
         {
           name: 'deleteAction',
@@ -81,17 +82,23 @@ export class ExhibitionAssignTechnicalexpertComponent extends BaseClass implemen
     });
   }
   save() {
-    this.exhibitionsService.ExAssignTechnicalExpert(this.formGroup.value).subscribe(res => {
-        if (res.data.result) {
-          this.success();
-          this.ngOnInit();
-        } else {
-          this.error(res.message);
-        }
-      },
-      (err) => {
-        this.error(err.error);
-      });
+    debugger
+    let find=this.data?.filter(res=>res.TechnicalExpertId===this.formGroup.get('TechnicalExpertId').value);
+    if(find && find.length>0){
+      this.error('ایتم تکراریست')
+    }else {
+      this.exhibitionsService.ExAssignTechnicalExpert(this.formGroup.value).subscribe(res => {
+          if (res.data.result) {
+            this.success();
+            this.ngOnInit();
+          } else {
+            this.error(res.message);
+          }
+        },
+        (err) => {
+          this.error(err.error);
+        });
+    }
 
   }
   close() {

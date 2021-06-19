@@ -41,6 +41,7 @@ export class ArchitecturalexpertListComponent extends BaseClass implements OnIni
     },
     actions: {
       columnTitle: 'عملیات',
+      width: '300px',
       custom: [
         {
           name: 'editAction',

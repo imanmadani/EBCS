@@ -48,7 +48,13 @@
             <button class="btn form-control ebcs-border-radius-Left ebcs-border text-right" id="dropdownBasic3"
                     ngbDropdownToggle>{{participantdpdown}}</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <ng-template ngFor let-partic [ngForOf]="participantDropDown">
+              <div class="input-group mb-3 ebcs-dir-ltr" #myDrop="ngbDropdown" ngbDropdown>
+                <input #partiinput type="text" class="form-control" >
+                <div  class="input-group-append"  role="group" >
+                  <button (click)="searchPaticipant(partiinput)" class="btn btn-outline-success" ><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+              <ng-template ngFor let-partic [ngForOf]="participantDropDown2">
                 <button ngbDropdownItem (focus)="setParticipantData(partic)">{{partic.Title}}</button>
               </ng-template>
             </div>
@@ -62,15 +68,15 @@
         <div class="input-group mb-3 ">
           <div ngbDropdown class="d-inline-block ebcs-dir-rtl flex-fill ">
             <button class="btn form-control ebcs-border-radius-Left ebcs-border text-right" id="dropdownBasic4"
-                    ngbDropdownToggle>{{constTypedpdown}}</button>
+                    ngbDropdownToggle>{{hasEquipmentdpdown}}</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <ng-template ngFor let-const [ngForOf]="constTypeDropDown">
-                <button ngbDropdownItem (focus)="setConstTypeData(const)">{{const.Title}}</button>
+              <ng-template ngFor let-equip [ngForOf]="hasEquipmentDropDown">
+                <button ngbDropdownItem (focus)="sethasEquipmentData(equip)">{{equip.Title}}</button>
               </ng-template>
             </div>
           </div>
           <div class="input-group-append ">
-            <span class="input-group-text">نوع ساخت </span>
+            <span class="input-group-text"> نوع غرفه </span>
           </div>
         </div>
       </div>

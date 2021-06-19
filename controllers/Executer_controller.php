@@ -14,6 +14,19 @@ class Executer_controller extends controller
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }
+    public function GetExecuterTask()
+    {
+        $rows = $this->_model->getTask();
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function Accept($query)
+    {
+        $boothId = $this->getVal('Id', $query);
+        $rows = $this->_model->accept($boothId);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
     public function GetBoothByExecuter()
     {
         $rows = $this->_model->getBoothByExecuter();
@@ -40,9 +53,24 @@ class Executer_controller extends controller
     }
     public function Update($query)
     {
-        $id = $this->getVal('Id', $query);
+        $id = $this->getVal('UserId', $query);
         $name = $this->getVal('Name', $query);
-        $rows = $this->_model->update($id,$name);
+        $mobile = $this->getVal('Mobile', $query);
+        $rows = $this->_model->update($id,$name,$mobile);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
+    public function GetBoothBuilder($query)
+    {
+        $row = $this->_model->getBoothBuilder();
+        $this->_res->set("rows", $row);
+        $this->_res->output();
+    }
+    public function SetBoothBoothBuilder($query)
+    {
+        $boothId = $this->getVal('BoothId', $query);
+        $boothBuilderId = $this->getVal('BoothBuilderId', $query);
+        $rows = $this->_model->setBoothBoothBuilder($boothId,$boothBuilderId);
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
@@ -118,6 +146,19 @@ class Executer_controller extends controller
     {
         $rows = $this->_model->createParticipant($query);
         $this->_res->set("result", $rows);
-        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
+        $this->_res->output();
+        if($rows){$this->_res->output();}else{
+            if($rows=0){
+                $this->_res->output(410,ResultEnum::SmsNotSend);
+            }else{
+                $this->_res->output(409,ResultEnum::Duplicate);
+            }
+        }
+    }
+    public function ExhibitionDropDown()
+    {
+        $rows = $this->_model->exhibitionDropDown();
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
     }
 }

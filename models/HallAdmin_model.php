@@ -28,14 +28,29 @@ class HallAdmin_model extends model
         $sql = "SELECT 
                        myHallAdmin.Id AS HallAdminId,
                        myHall.Title AS HallName,
-                       myEx.Title AS ExhibitionName,
+                       CONCAT(SUBSTR(myEx.Title, 1, 20),'...') AS ExhibitionName,
                        myBooth.Name AS BoothName,
                        myBooth.Id AS BoothId,
+                       myBooth.AreaRial,
+                       myBooth.AreaArz,
+                       myBooth.AreaType,
+                       myBooth.Area2,
+                       myBooth.TechnicalExpertApprove,
+                       myBooth.ArchitecturalExpertApprove,
+                       myBooth.ExecuterApprove,
+                       myBooth.ConstructionType,
                        myParticipant.CompanyName AS BoothParty,
+                       myParticipant.CompanyName AS ParticipantName,
                        myParticipant.AgentName AS BoothPartyName,
                        myParticipant.AgentTell AS BoothPartyTell,
+                       myParticipant.ComapnyAddress,
+                       myParticipant.AdminName,
+                       myParticipant.AdminTell,
+                       myParticipant.AgentName,
+                       myParticipant.AgentTell,
                        myBooth.FlagBlock,
-                       myBoothBoothBuilder.Id AS BoothBoothBuilderId
+                       myBoothBoothBuilder.Id AS BoothBoothBuilderId,
+                       myBoothBoothBuilder.BoothBuilderId
                 From `halladmins` AS myHallAdmin        
                 INNER JOIN `hallhalladmins` AS myHallAdminRel ON myHallAdmin.Id=myHallAdminRel.HallAdminId 
                 INNER JOIN `exhibitionhalls` AS myExhibitionhall ON myHallAdminRel.ExhibitionHallId=myExhibitionhall.Id
@@ -46,7 +61,14 @@ class HallAdmin_model extends model
                 INNER JOIN `exhibitions` AS myEx ON myExhibitionhall.ExhibitionId=myEx.Id
                 WHERE 
                 myHallAdminRel.FlagDelete=0
-                AND myHallAdminRel.FlagBlock=0 
+                AND myHallAdminRel.FlagBlock=0
+                AND myBoothBoothBuilder.FlagDelete=0
+                AND myEx.FlagBlock=0
+                AND myEx.FlagDelete=0
+                AND myBoothBoothBuilder.FlagBlock=0
+                AND myHallAdminRel.FlagDelete=0
+                AND myHallAdminRel.FlagBlock=0
+                AND myBooth.ExecuterApprove = 1
                 AND myHallAdmin.UserId=" . $user['Id'];
         $rows = $this->getAll($sql);
         return $rows;
@@ -63,14 +85,14 @@ class HallAdmin_model extends model
     {
         $sqlDuplicate = "SELECT Id FROM `users` WHERE `Username`='$mobile'  AND FlagDelete=0";
         $rowsDuplicate = $this->getRow($sqlDuplicate);
-        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+        if (isset($rowsDuplicate['Id']) and $rowsDuplicate['Id'] > 0) {
             $rows = false;
         } else {
             $randomPass = rand(1000000, 99999999);
             $randomPassmd5 = md5(bin2hex($randomPass));
-            $smsText = "نام کاربری : " . $mobile . "\n" . " رمز عبور : " . $randomPass;
-            //$smsResponse = $this->sendSms($mobile, $smsText);
-            $smsResponse=true;
+            $smsText = "نام کاربری : " . $mobile . "\n" . " رمز عبور : " . $randomPass . "\n" ."https://design.iranfair.com/";
+            $smsResponse = $this->sendSms($mobile, $smsText);
+            //$smsResponse=true;
 
             if ($smsResponse) {
                 $rows = '';

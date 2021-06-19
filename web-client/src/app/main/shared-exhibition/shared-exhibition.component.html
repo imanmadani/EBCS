@@ -1,6 +1,10 @@
-<div class="row p-4 h-50">
+<div class=" h-100 overflow-y-auto">
+<div class="row p-4 h-50 ">
+  <div class="col-12 text-right pr-4 pt-2" >
+    <button class="btn btn-primary" routerLink="../">صفحه اصلی</button>
+  </div>
   <ng-template ngFor let-exhibition [ngForOf]="exhibitions">
-    <div class="col-lg-4 col-sm-12 bg-transparent h-100">
+    <div class="col-lg-4 col-sm-12 bg-transparent h-100 mt-4">
       <div class="card h-100">
         <div class="card-header bg-card text-center">{{exhibition.Title}}</div>
         <div class="card-body bg-card">
@@ -34,4 +38,5 @@
       </div>
     </div>
   </ng-template>
+</div>
 </div>

@@ -1,0 +1,15 @@
+<app-modal-header title="فرلموشی رمز عبور" (closed)="close()"></app-modal-header>
+<form [formGroup]="formGroup"  class="login-form">
+  <div class="row p-4">
+    <div class="col-12">
+      <input class="form-control" type="text" name="Username" formControlName="Username" placeholder="نام کاربری">
+    </div>
+  </div>
+  <div class="row p-4">
+    <div class="col-2">
+      <span>{{a}}+{{b}}</span>
+    </div>
+    <div class="col-10"><input #res value="" class="form-control" type="number" name="result"></div>
+  </div>
+</form>
+<app-modal-footer (saved)="onSubmit(res)"></app-modal-footer>

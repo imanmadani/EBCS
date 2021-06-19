@@ -11,7 +11,7 @@ import {TechnicalexpertsService} from "../../technicalexperts.service";
   styleUrls: ['./technicalexpert-edit.component.css']
 })
 export class TechnicalexpertEditComponent extends BaseClass implements OnInit {
-  title='ویرایش  کارشناس فنی';
+  title='ویرایش  کارشناس فنی نمایشگاه';
   formGroup:any ;
   @Input() model;
   constructor(private technicalexpertsService: TechnicalexpertsService   ,
@@ -27,8 +27,9 @@ export class TechnicalexpertEditComponent extends BaseClass implements OnInit {
   }
   createForm() {
     this.formGroup = new FormGroup({
-      Id: new FormControl(this.model.Id),
-      Name: new FormControl(null, Validators.required)
+      UserId: new FormControl(this.model.UserId),
+      Name: new FormControl(this.model.Name, Validators.required),
+      Mobile: new FormControl(this.model.Mobile, Validators.required)
     });
   }
   save() {

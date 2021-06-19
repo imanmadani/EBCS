@@ -66,4 +66,26 @@ class Guest_model extends model
         $rows=$this->getAll($sql);
         return $rows;
     }
+
+    public function forgetPass($mobile)
+    {
+        $rows=null;
+        $sqlDuplicate = "SELECT Id FROM `users` WHERE `Username`='$mobile'  AND FlagDelete=0";
+        $rowsDuplicate = $this->getRow($sqlDuplicate);
+        if (isset($rowsDuplicate['Id']) and $rowsDuplicate['Id'] > 0) {
+            $randomPass = rand(1000000, 99999999);
+            $randomPassmd5 = md5(bin2hex($randomPass));
+            $id=$rowsDuplicate['Id'];
+            $smsText = "نام کاربری : " . $mobile . "\n" . " رمز عبور : " . $randomPass . "\n" ."https://design.iranfair.com/";
+            $smsResponse = $this->sendSms($mobile, $smsText);
+            if ($smsResponse) {
+                $sql="UPDATE `users` SET `Password`='$randomPassmd5',`UpdateTime`=NOW() WHERE Id=$id";
+                $rows = $this->execQuery($sql);
+            }
+        }else{
+            $rows=false;
+        }
+        return $rows;
+
+    }
 }

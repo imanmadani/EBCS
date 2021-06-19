@@ -25,7 +25,7 @@ class HeadQuarter_model extends model
         $sql = "SELECT 
                 myBooth.Id,myBooth.Name AS BoothName,myBooth.ExhibitionHallId,myBooth.ParticipantId,myBooth.AreaRial,myBooth.AreaArz,myBooth.AreaType,myBooth.Area2,myBooth.ConstructionType,
                 myHall.Title AS HallName,myParticipantDetails.CompanyName AS BoothParty,myParticipantDetails.AgentName AS BoothPartyName,myParticipantDetails.AgentTell AS BoothPartyTell,
-                myEx.Title AS ExhibitionName , myBooth.FlagBlock
+                CONCAT(SUBSTR(myEx.Title, 1, 20),'...') AS ExhibitionName , myBooth.FlagBlock
                 FROM `booths` AS myBooth
                 INNER JOIN `exhibitionhalls` AS myHallEx ON myBooth.ExhibitionHallId=myHallEx.Id
                 INNER JOIN `halls` AS myHall ON myHallEx.HallId=myHall.Id
@@ -48,14 +48,14 @@ class HeadQuarter_model extends model
     {
         $sqlDuplicate = "SELECT Id FROM `users` WHERE `Username`='$mobile'  AND FlagDelete=0";
         $rowsDuplicate = $this->getRow($sqlDuplicate);
-        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+        if (isset($rowsDuplicate['Id']) and $rowsDuplicate['Id'] > 0) {
             $rows = false;
         } else {
             $randomPass = rand(1000000, 99999999);
             $randomPassmd5 = md5(bin2hex($randomPass));
-            $smsText = "نام کاربری : " . $mobile . "\n" . " رمز عبور : " . $randomPass;
-            //$smsResponse = $this->sendSms($mobile, $smsText);
-            $smsResponse = true;
+            $smsText = "نام کاربری : " . $mobile . "\n" . " رمز عبور : " . $randomPass . "\n" ."https://design.iranfair.com/";
+            $smsResponse = $this->sendSms($mobile, $smsText);
+            //$smsResponse = true;
 
             if ($smsResponse) {
                 $rows = '';

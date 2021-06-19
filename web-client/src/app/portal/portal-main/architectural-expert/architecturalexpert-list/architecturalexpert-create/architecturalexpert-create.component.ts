@@ -11,7 +11,7 @@ import {ArchitecturalexpertService} from "../../architecturalexpert.service";
   styleUrls: ['./architecturalexpert-create.component.css']
 })
 export class ArchitecturalexpertCreateComponent extends BaseClass implements OnInit {
-  title = 'ایجاد کارشناس معماری داخلی';
+  title = 'ایجاد کارشناس فنی نمایشگاه';
   formGroup: any;
   constructor(private architecturalexpertsService: ArchitecturalexpertService,
               private modalService: NgbModal,

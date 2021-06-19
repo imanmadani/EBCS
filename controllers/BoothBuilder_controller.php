@@ -14,6 +14,40 @@ class BoothBuilder_controller extends controller
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }
+    public function GetfileHSE($query)
+    {
+        $id = $this->getVal('BoothBuilderId', $query);
+        $rows = $this->_model->getFileHse($id);
+        $this->_res->set("row", $rows);
+        $this->_res->output();
+    }
+    public function GetfileLicense($query)
+    {
+        $id = $this->getVal('BoothBuilderId', $query);
+        $rows = $this->_model->getFileLicense($id);
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function GetBoothBuilderImageTypes()
+    {
+        $rows = $this->_model->getBoothBuilderImageTypes();
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function GetfileHSEByUser($query)
+    {
+        $boothBuilder = $this->_model->getByToken()['Id'];
+        $rows = $this->_model->getFileHseByUser($boothBuilder);
+        $this->_res->set("row", $rows);
+        $this->_res->output();
+    }
+    public function GetfileLicenseByUser($query)
+    {
+        $boothBuilder = $this->_model->getByToken()['Id'];
+        $rows = $this->_model->getFileLicenseByUser($boothBuilder);
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
     public function GetBoothBuilderTask($query)
     {
         $rows = $this->_model->getBoothBuilderTask();
@@ -45,8 +79,11 @@ class BoothBuilder_controller extends controller
         $mobile = $this->getVal('Mobile', $query);
         $groupId =5;
         $name = $this->getVal('Name', $query);
+        $regNumber=$this->getVal('RegNumber', $query);
+        $agentName=$this->getVal('AgentName', $query);
+        $agentTell=$this->getVal('AgentTell', $query);
         $gradeId = $this->getVal('GradeId', $query);
-        $rows = $this->_model->create($mobile,$groupId,$name,$gradeId);
+        $rows = $this->_model->create($mobile,$groupId,$name,$gradeId,$regNumber,$agentName,$agentTell);
         $this->_res->set("result", $rows);
         if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }
@@ -60,9 +97,19 @@ class BoothBuilder_controller extends controller
     }
     public function Update($query)
     {
-        $id = $this->getVal('Id', $query);
+        $id = $this->getVal('UserId', $query);
         $name = $this->getVal('Name', $query);
-        $rows = $this->_model->update($id,$name);
+        $mobile = $this->getVal('Mobile', $query);
+        $gradeId = $this->getVal('GradeId', $query);
+        $rows = $this->_model->update($id,$name,$mobile,$gradeId);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
+    public function UpdateLicenseExpire($query)
+    {
+        $id = $this->getVal('Id', $query);
+        $licenseExpire = $this->getVal('LicenseExpire', $query);
+        $rows = $this->_model->updateLicenseExpire($id,$licenseExpire);
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
@@ -96,7 +143,30 @@ class BoothBuilder_controller extends controller
         $length = $this->getVal('Length', $query);
         $contentType = $this->getVal('ContentType', $query);
         $image = $this->getVal('Data', $query);
-        $rows = $this->_model->uploadPlan($Id,$image,$name,$length,$contentType);
+        $type = $this->getVal('Type', $query);
+        $rows = $this->_model->uploadPlan($Id,$image,$name,$length,$contentType,$type);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
+    public function UploadHSE($query)
+    {
+        $boothBuilder = $this->_model->getByToken()['Id'];
+        $name = $this->getVal('Name', $query);
+        $length = $this->getVal('Length', $query);
+        $contentType = $this->getVal('ContentType', $query);
+        $image = $this->getVal('Data', $query);
+        $rows = $this->_model->uploadHSE($boothBuilder,$image,$name,$length,$contentType);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
+    public function uploadLicense($query)
+    {
+        $boothBuilder = $this->_model->getByToken()['Id'];
+        $name = $this->getVal('Name', $query);
+        $length = $this->getVal('Length', $query);
+        $contentType = $this->getVal('ContentType', $query);
+        $image = $this->getVal('Data', $query);
+        $rows = $this->_model->uploadLicense($boothBuilder,$image,$name,$length,$contentType);
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
@@ -127,14 +197,7 @@ class BoothBuilder_controller extends controller
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
-    public function Verhoeff($query)
-    {
-        $value = $this->getVal('Value', $query);
-        $amount = $this->getVal('Amount', $query);
-        $rows = $this->_model->verhoeff($value,$amount);
-        $this->_res->set("row", $rows);
-        $this->_res->output();
-    }
+
     public function AcceptPolicyForm($query)
     {
         $boothBuilderId = $this->getVal('Id', $query);
@@ -143,4 +206,20 @@ class BoothBuilder_controller extends controller
         $this->_res->output();
     }
 
+    public function GetPlanCommentsByboothboothbuilderplanId($query)
+    {
+        $boothBoothbuilderPlanId = $this->getVal('BoothBoothbuilderPlanId', $query);
+        $rows = $this->_model->getPlanCommentsByboothboothbuilderplanId($boothBoothbuilderPlanId);
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+
+    public function UpdateBuilderGrade($query)
+    {
+        $id = $this->getVal('Id', $query);
+        $name = $this->getVal('GradeId', $query);
+        $rows = $this->_model->updateBuilderGrade($id,$name);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
 }

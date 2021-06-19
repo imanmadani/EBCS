@@ -1,5 +1,6 @@
 <?php
 require_once "../Enum/IPG-Enum.php";
+require_once "../Enum/BillType-Enum.php";
 
 class model
 {
@@ -45,6 +46,7 @@ class model
     public function checkToken($token, $ip)
     {
         $row = $this->getRow("SELECT myToken.Id FROM `token` AS myToken INNER JOIN users As myUser ON myToken.UserId=myUser.Id WHERE TokenCode='$token' and Ip='$ip'");
+        $this->execQuery("UPDATE `exhibitions` SET `FlagBlock`= 1 WHERE `EndDateTime` < NOW()");
         return ($row);
     }
 
@@ -92,87 +94,9 @@ class model
 
     }
 
-    public function saleRequest()
-    {
-        $url = 'https://sadad.shaparak.ir/VPG/Purchase';
-        $data = array(
-            'MerchantId' => IPGEnum::MerchantId,
-            'TerminalId' => IPGEnum::TerminalId,
-            'Amount' => 'value2',
-            'OrderId' => 'value2',
-            'LocalDateTime' => 'value2',
-            'ReturnUrl' => 'value2',
-            'SignData' => 'value2',
-            'PaymentIdentity' => 'value2'
-        );
-        $options = array(
-            'http' => array(
-                'header' => "Content-type: application/x-www-form-urlencoded\r\n",
-                'method' => 'POST',
-                'content' => http_build_query($data),
-            ),
-        );
-        $context = stream_context_create($options);
-        $result = file_get_contents($url, false, $context);
-    }
 
-    public function verhoeff($value, $amount)
-    {
-        $value = (string)$value;
-        $amount = (string)$amount;
-        $valuLength = strlen($value);
-        $valueLoopCount = 11 - $valuLength;
-        for ($i = $valueLoopCount; $i > 0; $i--) {
-            $value = "0".$value;
-        }
-        $amountLength = strlen($amount);
-        $amountLoopCount = 15 - $amountLength;
-        for ($i = $amountLoopCount; $i > 0; $i--) {
-            $amount = "0".$amount;
-        }
-        $staticNumber = "2"."0579"."74"."293350"."6617".$value;
-        $v1 = $staticNumber.$amount;
-        $v2 = strrev($staticNumber).strrev($amount);
-        $multiplicationTable = array(
-            array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9),
-            array(1, 2, 3, 4, 0, 6, 7, 8, 9, 5),
-            array(2, 3, 4, 0, 1, 7, 8, 9, 5, 6),
-            array(3, 4, 0, 1, 2, 8, 9, 5, 6, 7),
-            array(4, 0, 1, 2, 3, 9, 5, 6, 7, 8),
-            array(5, 9, 8, 7, 6, 0, 4, 3, 2, 1),
-            array(6, 5, 9, 8, 7, 1, 0, 4, 3, 2),
-            array(7, 6, 5, 9, 8, 2, 1, 0, 4, 3),
-            array(8, 7, 6, 5, 9, 3, 2, 1, 0, 4),
-            array(9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
-        );
-        $permutationTable = array(
-            array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9),
-            array(1, 5, 7, 6, 2, 8, 3, 0, 9, 4),
-            array(5, 8, 0, 3, 7, 9, 6, 1, 4, 2),
-            array(8, 9, 1, 6, 0, 4, 3, 5, 2, 7),
-            array(9, 4, 5, 3, 1, 2, 6, 8, 7, 0),
-            array(4, 2, 8, 6, 5, 7, 3, 9, 0, 1),
-            array(2, 7, 9, 3, 8, 0, 6, 4, 1, 5),
-            array(7, 0, 4, 6, 9, 1, 3, 2, 5, 8)
-        );
-        $inverseTable = array(0, 4, 3, 2, 1, 5, 6, 7, 8, 9);
-        //verhof
-        $c = 0;
-        $len = strlen($v1);
-        for ($i = 0; $i < $len; ++$i) {
-            $c = $multiplicationTable[$c][$permutationTable[(($i + 1) % 8)][$v1[$len - $i - 1] - '0']];
-        }
-        $result1 = (string)$inverseTable[$c];
-        //verhofRev
-        $c = 0;
-        $klen = strlen($v2);
-        for ($i = 0; $i < $len; ++$i) {
-            $c = $multiplicationTable[$c][$permutationTable[(($i + 1) % 8)][$v2[$len - $i - 1] - '0']];
-        }
-        $result2 = (string)$inverseTable[$c];
-        $resultFinal="2".$result1.$result2."0579"."74"."293350"."6617".$value;
-        return $resultFinal;
-    }
+
+
 }
 
 ?>

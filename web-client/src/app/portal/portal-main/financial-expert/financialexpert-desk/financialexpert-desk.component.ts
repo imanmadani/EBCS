@@ -6,6 +6,7 @@ import {ExhibitionHallCreateComponent} from "../../exhibitions/exhibition-hall-l
 import {GroupModel} from "../../groups/entity";
 import {ExhibitionHallEditComponent} from "../../exhibitions/exhibition-hall-list/exhibition-hall-edit/exhibition-hall-edit.component";
 import {FinancialexpertService} from "../financialexpert.service";
+import {BillCreateComponent} from "./bill-create/bill-create.component";
 
 @Component({
   selector: 'app-financialexpert-desk',
@@ -15,6 +16,15 @@ import {FinancialexpertService} from "../financialexpert.service";
 export class FinancialexpertDeskComponent extends BaseClass implements OnInit {
   settings = {
     columns: {
+      SystemTrace: {
+        title: 'شماره ردیابی'
+      },
+      RetrivalRef: {
+        title: 'کدپیگیری'
+      },
+      BillIdentity: {
+        title: 'شناسه نسیم'
+      },
       ExName: {
         title: 'نام نمایشگاه'
       },
@@ -26,6 +36,9 @@ export class FinancialexpertDeskComponent extends BaseClass implements OnInit {
       },
       ParticipantUsername: {
         title: 'مشارکت کننده'
+      },
+      BuilderName: {
+        title: 'غرفه ساز'
       },
       BillType: {
         title: 'شرح پرداخت'
@@ -50,6 +63,7 @@ export class FinancialexpertDeskComponent extends BaseClass implements OnInit {
     },
     actions: {
       columnTitle: 'عملیات',
+      width: '300px',
       custom: [
         {
           name: 'acceptAction',
@@ -95,7 +109,7 @@ export class FinancialexpertDeskComponent extends BaseClass implements OnInit {
   }
 
   createHandler() {
-    let modalRef=this.modalService.open(ExhibitionHallCreateComponent, {centered: true});
+    let modalRef=this.modalService.open(BillCreateComponent, {centered: true});
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)
         this.ngOnInit();

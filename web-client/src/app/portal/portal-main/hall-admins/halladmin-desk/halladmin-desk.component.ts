@@ -43,10 +43,35 @@ export class HalladminDeskComponent extends BaseClass implements OnInit {
           if (value==="0") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
           return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';
         },
+      },
+      TechnicalExpertApprove: {
+        title: 'تایید کارشناس فنی',
+        type:'html',
+        valuePrepareFunction: (value) => {
+          if (value==="1") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
+          return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';
+        },
+      },
+      ArchitecturalExpertApprove: {
+        title: 'تایید کارشناس مجری',
+        type:'html',
+        valuePrepareFunction: (value) => {
+          if (value==="1") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
+          return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';
+        },
+      },
+      ExecuterApprove: {
+        title: 'تایید مجری',
+        type:'html',
+        valuePrepareFunction: (value) => {
+          if (value==="1") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
+          return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';
+        }
       }
     },
     actions: {
       columnTitle: 'عملیات',
+      width: '300px',
       custom: [
         {
           name: 'fileManagement',
@@ -96,6 +121,7 @@ export class HalladminDeskComponent extends BaseClass implements OnInit {
     }
   }
   fileManagement(inputModel) {
+    inputModel.halladmin=1;
     let modalRef = this.modalService.open(TechnicalexpertFilemanagementComponent, {centered: true, size: 'xl'});
     modalRef.componentInstance.model = inputModel;
     modalRef.result.then((data) => {

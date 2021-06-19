@@ -57,8 +57,13 @@ class Participant_model extends model
                 INNER JOIN  `halls` AS myHalls ON myExHall.HallId=myHalls.Id 
                 WHERE 
                 myBooth.ParticipantId=$participantId 
+                AND myExHall.FlagDelete=0
+                AND myExHall.FlagBlock=0
                 AND myBooth.FlagDelete=0
-                AND myBooth.FlagBlock=0";
+                AND myBooth.FlagBlock=0
+                AND myEx.FlagDelete=0
+                AND myEx.FlagBlock=0
+                ORDER BY myBooth.Id DESC";
         $row = $this->getRow($sql);
         return $row;
     }
@@ -73,20 +78,23 @@ class Participant_model extends model
     public function getBoothBuilder()
     {
         $sql = "SELECT * FROM(
-			        SELECT myUserdetail.Name,
-       		        		  (SUM(myBooth.AreaRial)+SUM(myBooth.AreaArz)) AS MaxArea,
+                   SELECT myUserdetail.Name,
+       		        	  (SELECT (SUM(myBooth.AreaRial)+SUM(myBooth.AreaArz)) FROM boothboothbuilders AS myBoothBuilderRel 
+                           INNER JOIN `booths` AS myBooth ON myBoothBuilderRel.BoothId=myBooth.Id
+                           INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
+                           WHERE myBoothBuilderRel.FlagBlock=0 AND myBoothBuilderRel.FlagDelete=0 AND myBoothBuilderRel.BoothBuilderId=mybuilder.Id AND myEx.FlagBlock=0 AND myEx.FlagDelete=0 AND myBooth.FlagDelete=0 AND myBooth.FlagBlock=0
+                          ) as MaxArea,
                            mybuilder.LimitArea AS BuilderLimit,
        		               mybuilder.Id,
                            mybuilder.Rate,
                            myBuilderGrade.LimitArea AS GradeLimit,
                            myBuilderGrade.Title AS Grade
                     FROM `boothbuilders` AS mybuilder
-                    LEFT JOIN `userdetails` AS myUserdetail ON myBuilder.UserId=myUserdetail.UserId
-                    LEFT JOIN `boothboothbuilders` AS myBoothBuilderRel ON mybuilder.Id=myBoothBuilderRel.BoothBuilderId
+                    LEFT JOIN `userdetails` AS myUserdetail ON mybuilder.UserId=myUserdetail.UserId
                     LEFT JOIN `boothbuildergrades` AS myBuilderGrade ON mybuilder.GradeId=myBuilderGrade.Id
-                    LEFT JOIN `booths` AS myBooth ON myBoothBuilderRel.BoothId=myBooth.Id
-                    WHERE mybuilder.FlagDelete=0 AND mybuilder.FlagBlock=0) AS BoothBuilderValid 
-                WHERE (GradeLimit>MaxArea AND BuilderLimit is null) OR (BuilderLimit>MaxArea) OR (MaxArea is null)";
+                    WHERE mybuilder.FlagDelete=0 AND mybuilder.FlagBlock=0 AND mybuilder.LicenseExpire>=NOW() 
+                 ) AS BoothBuilderValid 
+                   WHERE (GradeLimit>MaxArea AND BuilderLimit is null) OR (BuilderLimit>MaxArea ) OR (MaxArea is null)";
         $rows = $this->getAll($sql);
         return $rows;
     }
@@ -106,7 +114,9 @@ class Participant_model extends model
                 INNER JOIN `boothbuilders` AS myBoothBuilder ON myBoothBuilderRel.BoothBuilderId=myBoothBuilder.Id
                 LEFT JOIN `userdetails` AS myUserDetail ON myBoothBuilder.UserId=myUserDetail.UserId
                 LEFT JOIN `boothbuilderrates` AS myBuilderRate ON myBoothBuilder.Id=myBuilderRate.BoothBuilderId
-                WHERE myBoothBuilderRel.BoothId=$boothId AND myBoothBuilderRel.FlagDelete=0";
+                WHERE myBoothBuilderRel.BoothId=$boothId 
+                AND myBoothBuilderRel.FlagDelete=0
+                AND myBoothBuilderRel.FlagBlock=0";
         $rows = $this->getRow($sql);
         return $rows;
     }

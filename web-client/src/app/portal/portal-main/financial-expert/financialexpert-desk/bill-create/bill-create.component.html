@@ -1,0 +1,74 @@
+<app-modal-header [title]="title" (closed)="close()"></app-modal-header>
+<form [formGroup]="formGroup">
+
+<div class="form-group">
+  <div class="input-group mb-3 ">
+    <div ngbDropdown  class="d-inline-block ebcs-dir-rtl flex-fill "  >
+      <button class="btn form-control ebcs-border-radius-Left ebcs-border text-right" id="dropdownBasic1" ngbDropdownToggle >{{dpdown}}</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1" >
+        <ng-template ngFor let-exhibition [ngForOf]="exhibitionDropDown">
+          <button ngbDropdownItem (focus)="setHallData(exhibition)" >{{exhibition.Title}}</button>
+        </ng-template>
+      </div>
+    </div>
+    <div class="input-group-append ">
+      <span class="input-group-text">نمایشگاه </span>
+    </div>
+  </div>
+</div>
+<div class="form-group">
+  <div class="input-group mb-3 ">
+    <div ngbDropdown  class="d-inline-block ebcs-dir-rtl flex-fill "  >
+      <button class="btn form-control ebcs-border-radius-Left ebcs-border text-right" id="dropdownBasic2" ngbDropdownToggle >{{halldpdown}}</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1" >
+        <ng-template ngFor let-hall [ngForOf]="hallDropDown">
+          <button ngbDropdownItem (focus)="setBoothData(hall)" >{{hall.Title}}</button>
+        </ng-template>
+      </div>
+    </div>
+    <div class="input-group-append ">
+      <span class="input-group-text">سالن </span>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="input-group mb-3 ">
+    <div ngbDropdown  class="d-inline-block ebcs-dir-rtl flex-fill "  >
+      <button class="btn form-control ebcs-border-radius-Left ebcs-border text-right" id="dropdownBasic3" ngbDropdownToggle >{{boothdpdown}}</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic3" >
+        <ng-template ngFor let-booth [ngForOf]="boothDropDown">
+          <button ngbDropdownItem (focus)="setBooth(booth)" >{{booth.Title}}</button>
+        </ng-template>
+      </div>
+    </div>
+    <div class="input-group-append ">
+      <span class="input-group-text">غرفه </span>
+    </div>
+  </div>
+</div>
+<div class="form-group">
+  <div class="input-group mb-3">
+    <input type="number" formControlName="Quantity" class="form-control text-right" placeholder="مثال : 100">
+    <div class="input-group-append">
+      <span class="input-group-text">متراژ(متر)</span>
+    </div>
+  </div>
+</div>
+<div class="form-group">
+  <div class="input-group mb-3">
+    <input type="number" formControlName="Amount" class="form-control text-right" placeholder="مثال : 100">
+    <div class="input-group-append">
+      <span class="input-group-text" >(ریال)مبلغ</span>
+    </div>
+  </div>
+</div>
+
+<div class="row " >
+  <div class="col-12">
+<!--    <button class="btn btn-warning  ml-2"  (click)="uploaderfile.uploadAll()" >اپلود فایل پرداخت</button>-->
+    <input type="file" ng2FileSelect [uploader]="uploaderfile" multiple/>
+  </div>
+</div>
+</form>
+<app-modal-footer (saved)="save()"></app-modal-footer>

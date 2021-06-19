@@ -20,6 +20,9 @@ class Response
         if($message==ResultEnum::Duplicate){
             $message=ResultTranslate::Duplicate;
         }
+        if($message==ResultEnum::SmsNotSend){
+            $message=ResultTranslate::SmsNotSend;
+        }
         $res['status']=$status;
         $res['message']=$message;
         $res['data'] = $this->_data;

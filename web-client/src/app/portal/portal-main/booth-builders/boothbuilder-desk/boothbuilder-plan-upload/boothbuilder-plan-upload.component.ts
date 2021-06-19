@@ -17,6 +17,7 @@ export class BoothbuilderPlanUploadComponent extends BaseClass implements OnInit
   imageSrc;
   data;
   currentImage;
+  comments
   @Input() model;
 
   constructor(private boothBuilderService: BoothbuildersService,
@@ -31,31 +32,34 @@ export class BoothbuilderPlanUploadComponent extends BaseClass implements OnInit
    });
   }
 
-  uplaod(item) {
-    const reader = new FileReader();
-    reader.readAsDataURL(item.file.rawFile);
-    reader.onload = () => {
-      this.imageSrc = reader.result as string;
-      this.form = new FormGroup({
-        Id: new FormControl(this.model.Id),
-        Name: new FormControl(item._file.name),
-        Length: new FormControl(item._file.size),
-        ContentType: new FormControl(item._file.type),
-        Date: new FormControl(new Date()),
-        Data: new FormControl(this.imageSrc)
-      });
-      this.boothBuilderService.uploadPlan(this.form.value).subscribe(res=>{
-          if (res.data.result) {
-            this.success();
-            this.ngOnInit();
-          } else {
-            this.error(res.message);
-          }
-        },
-        (err) => {
-          this.error(err.error);
+  uplaod(items) {
+    items.forEach(item=>{
+      const reader = new FileReader();
+      reader.readAsDataURL(item.file.rawFile);
+      reader.onload = () => {
+        this.imageSrc = reader.result as string;
+        this.form = new FormGroup({
+          Id: new FormControl(this.model.Id,Validators.required),
+          Name: new FormControl(item._file.name,Validators.required),
+          Length: new FormControl(item._file.size,Validators.required),
+          ContentType: new FormControl(item._file.type,Validators.required),
+          Date: new FormControl(new Date(),Validators.required),
+          Data: new FormControl(this.imageSrc,Validators.required),
+          Type:new FormControl(item.formData[0].Type,Validators.required)
         });
-    };
+        this.boothBuilderService.uploadPlan(this.form.value).subscribe(res=>{
+            if (res.data.result) {
+              this.success();
+              this.ngOnInit();
+            } else {
+              this.error(res.message);
+            }
+          },
+          (err) => {
+            this.error(err.error);
+          });
+      };
+    });
   }
   close(){
     this.modalService.dismissAll(false);
@@ -72,7 +76,11 @@ export class BoothbuilderPlanUploadComponent extends BaseClass implements OnInit
     });
   }
   getImage($event) {
+    debugger
     this.currentImage=$event;
-    console.log(this.currentImage);
+    this.boothBuilderService.getPlanCommentsByboothboothbuilderplan(this.currentImage.PlanId).subscribe(res=>{
+      debugger
+      this.comments=res.data.rows;
+    });
   }
 }

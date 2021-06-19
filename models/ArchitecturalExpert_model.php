@@ -28,17 +28,31 @@ class ArchitecturalExpert_model extends model
         $sql = "SELECT 
                        myBooth.Name AS BoothName,
                        myBooth.Id AS BoothId,
+                       myBooth.ExhibitionHallId,
+                       myBooth.ParticipantId,
+                       myBooth.AreaRial,
+                       myBooth.AreaArz,
+                       myBooth.AreaType,
+                       myAreaType.Title AS AreaTypeTitle,
+                       myBooth.Area2,
+                       myBooth.ConstructionType,
+                       myConst.Title AS ConstructionTypeTitle,
+                       myBooth.HasEquipment,
                        myExHallHallAdmin.HallAdminId AS HallAdminId,
                        myHall.Title AS HallName,
                        myBooth.ArchitecturalExpertApprove AS ApproveState,
                        myParti.Username AS ParticipantName,
-                       myEx.Title AS ExhibitionName,
+                       myParticipantDetail.CompanyName,
+                       CONCAT(SUBSTR(myEx.Title, 1, 20),'...') AS ExhibitionName,
                        myBoothBoothBuilder.Id AS BoothBoothBuilderId
                 FROM `booths` AS myBooth 
+                LEFT  JOIN  `constructiontype` AS myConst ON myBooth.ConstructionType=myConst.Id
+                LEFT  JOIN  `areatype` AS myAreaType ON myBooth.AreaType=myAreaType.Id
                 INNER JOIN `exhibitionhalls` As myExHall ON myBooth.ExhibitionHallId=myExHall.Id
-                INNER JOIN `hallhalladmins` As myExHallHallAdmin ON myExHallHallAdmin.ExhibitionHallId=myExHall.Id
+                LEFT JOIN `hallhalladmins` As myExHallHallAdmin ON myExHallHallAdmin.ExhibitionHallId=myExHall.Id
                 INNER JOIN `halls` AS myHall ON myExHall.HallId=myHall.Id
                 INNER JOIN `participants` AS myParti ON myBooth.ParticipantId=myParti.Id
+                INNER JOIN `participantdetails` AS myParticipantDetail ON myParti.Id=myParticipantDetail.ParticipantId
                 INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id 
                 INNER JOIN `exhibitionarchitecturalexperts` AS myExArchitecturalExpert ON myExArchitecturalExpert.ExhibitionId=myEx.Id
                 INNER JOIN `architecturalexperts` AS myArchitecturalexperts ON myArchitecturalexperts.Id=myExArchitecturalExpert.ArchitecturalExpertId
@@ -48,10 +62,69 @@ class ArchitecturalExpert_model extends model
                 myArchitecturalexperts.UserId=" . $user['Id'] . " 
                 AND myBooth.FlagDelete=0
                 AND myBooth.FlagBlock=0 
+                AND myEx.FlagDelete=0
+                AND myEx.FlagBlock=0 
                 AND myExArchitecturalExpert.FlagDelete=0
-                AND myExArchitecturalExpert.FlagBlock=0 
+                AND myExArchitecturalExpert.FlagBlock=0
+                AND myBoothBoothBuilder.FlagDelete=0
+                AND myBoothBoothBuilder.FlagBlock=0
+                AND myExHallHallAdmin.FlagDelete=0
+                AND myExHallHallAdmin.FlagBlock=0
+                AND myParti.FlagDelete=0
+                AND myParti.FlagBlock=0
                 AND myBooth.TechnicalExpertApprove=" . ApproveStateEnum::Approve .
-            " GROUP BY myExArchitecturalExpert.ExhibitionId";
+            " GROUP BY myBooth.Id";
+        $rows = $this->getAll($sql);
+        return $rows;
+    }
+
+    public function getArchitecturalExpertBooth($architecturalExpertId)
+    {
+        $head = getallheaders();
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $user = $this->getUserByToken($head['Token'], $ip);
+        $sql = "SELECT 
+                       myBooth.Name AS BoothName,
+                       myBooth.Id AS BoothId,
+                       myBooth.ExhibitionHallId,
+                       myBooth.ParticipantId,
+                       myBooth.AreaRial,
+                       myBooth.AreaArz,
+                       myBooth.AreaType,
+                       myAreaType.Title AS AreaTypeTitle,
+                       myBooth.Area2,
+                       myBooth.ConstructionType,
+                       myConst.Title AS ConstructionTypeTitle,
+                       myBooth.HasEquipment,
+                       myExHallHallAdmin.HallAdminId AS HallAdminId,
+                       myHall.Title AS HallName,
+                       myBooth.ArchitecturalExpertApprove AS ApproveState,
+                       myParti.Username AS ParticipantName,
+                       CONCAT(SUBSTR(myEx.Title, 1, 20),'...') AS ExhibitionName,
+                       myBoothBoothBuilder.Id AS BoothBoothBuilderId
+                FROM `booths` AS myBooth 
+                LEFT  JOIN  `constructiontype` AS myConst ON myBooth.ConstructionType=myConst.Id
+                LEFT  JOIN  `areatype` AS myAreaType ON myBooth.AreaType=myAreaType.Id
+                INNER JOIN `exhibitionhalls` As myExHall ON myBooth.ExhibitionHallId=myExHall.Id
+                LEFT JOIN `hallhalladmins` As myExHallHallAdmin ON myExHallHallAdmin.ExhibitionHallId=myExHall.Id
+                INNER JOIN `halls` AS myHall ON myExHall.HallId=myHall.Id
+                INNER JOIN `participants` AS myParti ON myBooth.ParticipantId=myParti.Id
+                INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id 
+                INNER JOIN `exhibitionarchitecturalexperts` AS myExArchitecturalExpert ON myExArchitecturalExpert.ExhibitionId=myEx.Id
+                INNER JOIN `architecturalexperts` AS myArchitecturalexperts ON myArchitecturalexperts.Id=myExArchitecturalExpert.ArchitecturalExpertId
+                LEFT JOIN `boothboothbuilders` AS myBoothBoothBuilder ON myBooth.Id =myBoothBoothBuilder.BoothId
+                WHERE 
+                myArchitecturalexperts.UserId=" . $user['Id'] . " 
+                AND myBooth.FlagDelete=0
+                AND myBooth.FlagBlock=0 
+                AND myEx.FlagDelete=0
+                AND myEx.FlagBlock=0 
+                AND myExArchitecturalExpert.FlagDelete=0
+                AND myExArchitecturalExpert.FlagBlock=0
+                AND ((myBoothBoothBuilder.FlagDelete=0 AND myBoothBoothBuilder.FlagBlock=0)OR(myBoothBoothBuilder.FlagDelete IS Null AND myBoothBoothBuilder.FlagBlock IS Null))
+                AND ((myExHallHallAdmin.FlagDelete=0 AND myExHallHallAdmin.FlagBlock=0)OR(myExHallHallAdmin.FlagDelete IS Null AND myExHallHallAdmin.FlagBlock IS Null))
+                AND myParti.FlagDelete=0
+                AND myParti.FlagBlock=0";
         $rows = $this->getAll($sql);
         return $rows;
     }
@@ -66,12 +139,12 @@ class ArchitecturalExpert_model extends model
                        myBooth.Name AS BoothName,
                        myHall.Title AS HallName,
                        myParti.Username AS ParticipantName,
-                       myEx.Title AS ExhibitionName,
+                       CONCAT(SUBSTR(myEx.Title, 1, 20),'...') AS ExhibitionName,
                        myUserdetail.Name AS BuilderName,
                        myInfringement.Description,
                        myInfringement.Amount,
                        myQtype.Title                    
-                FROM `boothbuilderinfringementrecords` AS myinfringementrecord
+                FROM       `boothbuilderinfringementrecords` AS myinfringementrecord
                 INNER JOIN `booths` AS myBooth ON myinfringementrecord.BoothId=myBooth.Id
                 INNER JOIN `exhibitionhalls` As myExHall ON myBooth.ExhibitionHallId=myExHall.Id
                 INNER JOIN `halls` AS myHall ON myExHall.HallId=myHall.Id
@@ -79,14 +152,17 @@ class ArchitecturalExpert_model extends model
                 INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
                 INNER JOIN `exhibitionarchitecturalexperts` AS myExArchitecturalExpert ON myExArchitecturalExpert.ExhibitionId=myEx.Id
                 INNER JOIN `boothbuilders` AS myBuilder ON myinfringementrecord.BoothBuilderId=myBuilder.Id
-                LEFT JOIN `userdetails` AS myUserdetail ON myBuilder.UserId=myUserdetail.UserId
+                LEFT JOIN  `userdetails` AS myUserdetail ON myBuilder.UserId=myUserdetail.UserId
                 INNER JOIN `boothbuilderinfringements` AS myInfringement ON myinfringementrecord.InfringementId=myInfringement.Id
                 INNER JOIN `quantitytype` AS myQtype ON myInfringement.QuantityType=myQtype.Id
-                WHERE myExArchitecturalExpert.ArchitecturalExpertId=" . $user['Id'] . " 
-                AND myinfringementrecord.FlagBlock=0 
+                WHERE 
+                    myinfringementrecord.FlagBlock=0 
                 AND myinfringementrecord.FlagDelete=0
+                AND myEx.FlagDelete=0
+                AND myEx.FlagBlock=0 
                 AND myExArchitecturalExpert.FlagBlock=0 
-                AND myExArchitecturalExpert.FlagDelete=0";
+                AND myExArchitecturalExpert.FlagDelete=0
+                AND myBooth.TechnicalExpertApprove=1";
         $rows = $this->getAll($sql);
         return $rows;
     }
@@ -102,14 +178,14 @@ class ArchitecturalExpert_model extends model
     {
         $sqlDuplicate = "SELECT Id FROM `users` WHERE `Username`='$mobile'  AND FlagDelete=0";
         $rowsDuplicate = $this->getRow($sqlDuplicate);
-        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+        if (isset($rowsDuplicate['Id']) and $rowsDuplicate['Id'] > 0) {
             $rows = false;
         } else {
             $randomPass = rand(1000000, 99999999);
             $randomPassmd5 = md5(bin2hex($randomPass));
             $smsText = "نام کاربری : " . $mobile . "\n" . " رمز عبور : " . $randomPass;
-            //$smsResponse = $this->sendSms($mobile, $smsText);
-            $smsResponse=true;
+            $smsResponse = $this->sendSms($mobile, $smsText);
+            //$smsResponse=true;
             if ($smsResponse) {
                 $rows = '';
                 $sqlDynamic = new model();

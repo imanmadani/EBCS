@@ -3,6 +3,9 @@ import {BaseClass} from '../../utilities/base';
 import {LoginService} from "../../main/login/login.service";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
+import {ForgetpassComponent} from "../../main/login/forgetpass/forgetpass.component";
+import {ChangepassComponent} from "./changepass/changepass.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-portal-main',
@@ -19,6 +22,7 @@ export class PortalMainComponent extends BaseClass implements OnInit {
 
   constructor(private componentService: LoginService,
               private router: Router,
+              private modalService: NgbModal,
               protected toastr: ToastrService) {
     super(toastr);
   }
@@ -77,5 +81,9 @@ export class PortalMainComponent extends BaseClass implements OnInit {
 
   checkCurrent() {
     this.currentLoc=this.router.url.split("/")[2];
+  }
+
+  changePass() {
+    let modalRef=this.modalService.open(ChangepassComponent,{centered: true, size: "md"});
   }
 }

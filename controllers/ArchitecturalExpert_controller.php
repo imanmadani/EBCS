@@ -14,6 +14,13 @@ class ArchitecturalExpert_controller extends controller
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }
+    public function GetArchitecturalExpertBooth($query)
+    {
+        $architecturalExpertId = $this->getVal('ArchitecturalExpertId', $query);
+        $rows = $this->_model->getArchitecturalExpertBooth($architecturalExpertId);
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
     public function GetArchitecturalInfringements()
     {
         $rows = $this->_model->getArchitecturalInfringements();

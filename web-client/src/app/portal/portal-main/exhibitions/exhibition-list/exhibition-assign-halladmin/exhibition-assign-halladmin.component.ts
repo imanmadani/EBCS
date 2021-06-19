@@ -27,6 +27,7 @@ export class ExhibitionAssignHalladminComponent extends BaseClass implements OnI
     },
     actions: {
       columnTitle: 'عملیات',
+      width: '300px',
       custom: [
         {
           name: 'deleteAction',
@@ -81,17 +82,23 @@ export class ExhibitionAssignHalladminComponent extends BaseClass implements OnI
     });
   }
   save() {
-    this.exhibitionsService.ExAssignHalladmin(this.formGroup.value).subscribe(res => {
-        if (res.data.result) {
-          this.success();
-          this.ngOnInit();
-        } else {
-          this.error(res.message);
-        }
-      },
-      (err) => {
-        this.error(err.error);
-      });
+    debugger
+    let find=this.data?.filter(res=>res.HallAdminId===this.formGroup.get('HalladminId').value);
+    if(find && find.length>0){
+      this.error('ایتم تکراریست')
+    }else {
+      this.exhibitionsService.ExAssignHalladmin(this.formGroup.value).subscribe(res => {
+          if (res.data.result) {
+            this.success();
+            this.ngOnInit();
+          } else {
+            this.error(res.message);
+          }
+        },
+        (err) => {
+          this.error(err.error);
+        });
+    }
 
   }
   close() {

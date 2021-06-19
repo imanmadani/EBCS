@@ -5,7 +5,12 @@ class Exhibition_model extends model
 {
     public function get()
     {
-        $sql = "SELECT myExhibition.Id,myExhibition.Year,myExhibition.Title,myExhibition.GradeId,myExhibition.FlagBlock,myExGrade.Title AS Grade ,myExhibition.StartDateTime,myExhibition.EndDateTime FROM `exhibitions` myExhibition
+        $sql = "SELECT myExhibition.Id,myExhibition.Year,
+                myExhibition.Title,myExhibition.GradeId,
+                myExhibition.FlagBlock,myExGrade.Title AS Grade ,
+                myExhibition.StartDateTime,myExhibition.EndDateTime ,
+                myExhibition.PlanUploadEnd
+                FROM `exhibitions` myExhibition
                 INNER JOIN `exhibitiongrades` AS myExGrade ON myExhibition.GradeId=myExGrade.Id WHERE myExhibition.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
@@ -18,27 +23,27 @@ class Exhibition_model extends model
         return $rows;
     }
 
-    public function create($title, $year, $gradeId, $startDateTime, $endDateTime)
+    public function create($title, $year, $gradeId, $startDateTime, $endDateTime,$planUploadEnd)
     {
         $sqlDuplicate = "SELECT Id FROM `exhibitions` WHERE `Title`='$title'  AND `Year`=$year AND FlagDelete=0";
         $rowsDuplicate = $this->getRow($sqlDuplicate);
-        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+        if (isset($rowsDuplicate['Id']) and $rowsDuplicate['Id'] > 0) {
             $rows = false;
         } else {
-            $sql = "INSERT INTO `exhibitions`(`Title`,`Year`,`GradeId`,`StartDateTime`,`EndDateTime`) VALUES ('$title',$year,$gradeId,'$startDateTime','$endDateTime')";
+            $sql = "INSERT INTO `exhibitions`(`Title`,`Year`,`GradeId`,`StartDateTime`,`EndDateTime`,`PlanUploadEnd`) VALUES ('$title',$year,$gradeId,'$startDateTime','$endDateTime','$planUploadEnd')";
             $rows = $this->execQuery($sql);
         }
         return $rows;
     }
 
-    public function update($id, $title, $year, $gradeId)
+    public function update($id, $title, $year, $gradeId,$star,$end)
     {
         $sqlDuplicate = "SELECT Id FROM `exhibitions` WHERE `Title`='$title'  AND `Year`=$year AND FlagDelete=0 AND Id!=$id";
         $rowsDuplicate = $this->getRow($sqlDuplicate);
-        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+        if (isset($rowsDuplicate['Id']) and $rowsDuplicate['Id'] > 0) {
             $rows = false;
         } else {
-            $sql = "UPDATE `exhibitions` SET `Title`='$title' , `Year`=$year , `GradeId`=$gradeId WHERE `Id`=$id";
+            $sql = "UPDATE `exhibitions` SET `Title`='$title' , `Year`=$year , `GradeId`=$gradeId , StartDateTime='$star' ,EndDateTime='$end' WHERE `Id`=$id";
             $rows = $this->execQuery($sql);
         }
         return $rows;
@@ -79,7 +84,9 @@ class Exhibition_model extends model
                 myUserDetail.Name As Title 
                 FROM `executers` AS myExecuter
                 LEFT JOIN `userdetails` AS myUserDetail ON myExecuter.UserId=myUserDetail.UserId  
-                WHERE `FlagDelete`=0 ";
+                WHERE 
+                myExecuter.FlagDelete=0
+                AND myExecuter.FlagBlock=0 ";
         $rows = $this->getAll($sql);
         return $rows;
     }
@@ -180,7 +187,8 @@ class Exhibition_model extends model
     {
         $sql = "SELECT 
                 myUserdetail.Name AS Name , 
-                exexecuter.Id AS Id 
+                exexecuter.Id AS Id ,
+                executer.Id AS ExecuterId
                 FROM `exhibitionexecuters` AS exexecuter 
                 INNER JOIN `executers` AS executer  ON exexecuter.ExecuterId=executer.Id 
                 LEFT JOIN `userdetails` AS myUserdetail ON executer.UserId=myUserdetail.UserId
@@ -193,7 +201,8 @@ class Exhibition_model extends model
     {
         $sql = "SELECT 
                 myUserdetail.Name AS Name ,
-                myExHalladmin.Id AS Id 
+                myExHalladmin.Id AS Id ,
+                myHalladmin.Id AS HallAdminId
                 FROM `exhibitionhalladmins` AS myExHalladmin 
                 INNER JOIN `halladmins` AS myHalladmin  ON myExHalladmin.HalladminId=myHalladmin.Id
                 LEFT JOIN `userdetails` AS myUserdetail ON myHalladmin.UserId=myUserdetail.UserId
@@ -208,7 +217,8 @@ class Exhibition_model extends model
     {
         $sql = "SELECT 
                 myUserdetail.Name AS Name ,
-                myTechnicalExpertRel.Id AS Id 
+                myTechnicalExpertRel.Id AS Id ,
+                myTechnicalExpert.Id AS TechnicalExpertId
                 FROM `exhibitiontechnicalexperts` AS myTechnicalExpertRel 
                 INNER JOIN `technicalexperts` AS myTechnicalExpert  ON myTechnicalExpertRel.TechnicalExpertId=myTechnicalExpert.Id 
                 LEFT JOIN `userdetails` AS myUserdetail ON myTechnicalExpert.UserId=myUserdetail.UserId
@@ -222,7 +232,8 @@ class Exhibition_model extends model
     {
         $sql = "SELECT 
                 myUserdetail.Name AS Name , 
-                myArchitecturalExpertRel.Id AS Id 
+                myArchitecturalExpertRel.Id AS Id ,
+                myArchitecturalExpert.Id AS ArchitecturalExpertId
                 FROM `exhibitionarchitecturalexperts` AS myArchitecturalExpertRel 
                 INNER JOIN `architecturalexperts` AS myArchitecturalExpert  ON myArchitecturalExpertRel.ArchitecturalExpertId=myArchitecturalExpert.Id 
                 LEFT JOIN `userdetails` AS myUserdetail ON myArchitecturalExpert.UserId=myUserdetail.UserId

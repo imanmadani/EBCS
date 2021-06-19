@@ -129,6 +129,20 @@ import { HeadquarterDeskComponent } from './portal/portal-main/headquarter/headq
 import { HeadquarterListComponent } from './portal/portal-main/headquarter/headquarter-list/headquarter-list.component';
 import { HeadquarterCreateComponent } from './portal/portal-main/headquarter/headquarter-list/headquarter-create/headquarter-create.component';
 import { HeadquarterEditComponent } from './portal/portal-main/headquarter/headquarter-list/headquarter-edit/headquarter-edit.component';
+import { BoothBuilderDocumentsComponent } from './portal/portal-main/booth-builders/booth-builder-documents/booth-builder-documents.component';
+import { BoothbuilderUpdateexpirelicenseComponent } from './portal/portal-main/booth-builders/boothbuilder-list/boothbuilder-updateexpirelicense/boothbuilder-updateexpirelicense.component';
+import { BoothbuilderFilemanagementComponent } from './portal/portal-main/booth-builders/boothbuilder-list/boothbuilder-filemanagement/boothbuilder-filemanagement.component';
+import { BoothbuilderChangeboothtypeComponent } from './portal/portal-main/booth-builders/boothbuilder-desk/boothbuilder-changeboothtype/boothbuilder-changeboothtype.component';
+import { PaymentresultComponent } from './portal/portal-main/paymentresult/paymentresult.component';
+import { ExecuterBoothBoothbuilderComponent } from './portal/portal-main/executers/executer-booth-list/executer-booth-boothbuilder/executer-booth-boothbuilder.component';
+import { ReportsComponent } from './portal/portal-main/reports/reports.component';
+import { BillCreateComponent } from './portal/portal-main/financial-expert/financialexpert-desk/bill-create/bill-create.component';
+import { FinancialexpertBillComponent } from './portal/portal-main/financial-expert/financialexpert-bill/financialexpert-bill.component';
+import {RouterModule} from "@angular/router";
+import { ForgetpassComponent } from './main/login/forgetpass/forgetpass.component';
+import { ChangepassComponent } from './portal/portal-main/changepass/changepass.component';
+import { ArchitecturalexpertBoothComponent } from './portal/portal-main/architectural-expert/architecturalexpert-booth/architecturalexpert-booth.component';
+import { ExecuterTaskComponent } from './portal/portal-main/executers/executer-task/executer-task.component';
 
 @NgModule({
   declarations: [
@@ -244,7 +258,20 @@ import { HeadquarterEditComponent } from './portal/portal-main/headquarter/headq
     HeadquarterDeskComponent,
     HeadquarterListComponent,
     HeadquarterCreateComponent,
-    HeadquarterEditComponent
+    HeadquarterEditComponent,
+    BoothBuilderDocumentsComponent,
+    BoothbuilderUpdateexpirelicenseComponent,
+    BoothbuilderFilemanagementComponent,
+    BoothbuilderChangeboothtypeComponent,
+    PaymentresultComponent,
+    ExecuterBoothBoothbuilderComponent,
+    ReportsComponent,
+    BillCreateComponent,
+    FinancialexpertBillComponent,
+    ForgetpassComponent,
+    ChangepassComponent,
+    ArchitecturalexpertBoothComponent,
+    ExecuterTaskComponent
 
   ],
   imports: [
@@ -279,8 +306,6 @@ import { HeadquarterEditComponent } from './portal/portal-main/headquarter/headq
         warning: 'toast-warning',
       },
     }),
-
-
   ],
   entryComponents: [
     RateComponent,

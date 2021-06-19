@@ -7,6 +7,9 @@ import {TokenService} from "../../utilities/services/token.service";
 import {Router} from "@angular/router";
 import {take} from "rxjs/operators";
 import {ToastrService} from "ngx-toastr";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ForgetpassComponent} from "./forgetpass/forgetpass.component";
+import {PortalParticipantPolicyformComponent} from "../../portal/portal-participants/portal-participant-policyform/portal-participant-policyform.component";
 
 @Component({
   selector: 'app-login',
@@ -19,7 +22,8 @@ export class LoginComponent implements OnInit {
   constructor(private componentService: LoginService,
               private tokenService: TokenService,
               private router: Router,
-              protected toastr: ToastrService
+              protected toastr: ToastrService,
+              private modalService: NgbModal,
   ) {
   }
 
@@ -61,5 +65,13 @@ export class LoginComponent implements OnInit {
 
     this.toastr.clear(toaster.index);
 
+  }
+
+  forgetpass() {
+    let modalRef=this.modalService.open(ForgetpassComponent,{centered: true, size: "md"});
+    modalRef.result.then((data) => {}, (reason) => {
+      if (reason)
+        this.ngOnInit();
+    });
   }
 }

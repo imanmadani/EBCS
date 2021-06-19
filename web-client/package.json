@@ -42,6 +42,7 @@
     "ng2-file-upload": "^1.4.0",
     "ng2-smart-table": "^1.6.0",
     "ngx-bootstrap": "^6.1.0",
+    "ngx-org-chart": "^1.1.1",
     "ngx-smart-table": "^2.0.3",
     "ngx-spinner": "^10.0.1",
     "ngx-toastr": "^13.0.0",

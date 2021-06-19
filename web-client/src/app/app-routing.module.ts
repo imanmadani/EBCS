@@ -48,6 +48,12 @@ import {ElectricalexpertDeskComponent} from "./portal/portal-main/electrical-exp
 import {HeadquarterComponent} from "./portal/portal-main/headquarter/headquarter.component";
 import {HeadquarterListComponent} from "./portal/portal-main/headquarter/headquarter-list/headquarter-list.component";
 import {HeadquarterDeskComponent} from "./portal/portal-main/headquarter/headquarter-desk/headquarter-desk.component";
+import {BoothBuilderDocumentsComponent} from "./portal/portal-main/booth-builders/booth-builder-documents/booth-builder-documents.component";
+import {PaymentresultComponent} from "./portal/portal-main/paymentresult/paymentresult.component";
+import {ReportsComponent} from "./portal/portal-main/reports/reports.component";
+import {FinancialexpertBillComponent} from "./portal/portal-main/financial-expert/financialexpert-bill/financialexpert-bill.component";
+import {ArchitecturalexpertBoothComponent} from "./portal/portal-main/architectural-expert/architecturalexpert-booth/architecturalexpert-booth.component";
+import {ExecuterTaskComponent} from "./portal/portal-main/executers/executer-task/executer-task.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/Login', pathMatch: 'full'},
@@ -62,6 +68,14 @@ const routes: Routes = [
       {
         path: '',
         component: PortalMainDashbordComponent,
+      },
+      {
+        path: 'PaymentResult',
+        component: PaymentresultComponent,
+      },
+      {
+        path: 'Reports',
+        component: ReportsComponent,
       },
       {
         path: 'Groups',
@@ -120,6 +134,18 @@ const routes: Routes = [
             path: 'BoothbuilderGrade',
             component: BoothbuilderGradeComponent,
           },
+          {
+            path: 'BoothbuilderDocuments',
+            component: BoothBuilderDocumentsComponent,
+          },
+          {
+            path: 'ParticipnatExecuter',
+            component: ExecuterParticipantComponent,
+          },
+          {
+            path: 'BoothList',
+            component: ExecuterBoothListComponent,
+          },
         ]
       },
       {
@@ -141,6 +167,10 @@ const routes: Routes = [
           {
             path: 'HallList',
             component: ExecuterhallListComponent,
+          },
+          {
+            path: 'ExecuterDesk',
+            component: ExecuterTaskComponent,
           },
         ]
       },
@@ -188,6 +218,10 @@ const routes: Routes = [
             path: 'ArchitecturalExpertInfringements',
             component: ArchitecturalexpertInfringementsComponent,
           },
+          {
+            path: 'BoothList',
+            component: ArchitecturalexpertBoothComponent,
+          },
         ]
       },
       {
@@ -202,6 +236,11 @@ const routes: Routes = [
             path: 'FinancialExpertDesk',
             component: FinancialexpertDeskComponent,
           },
+          {
+            path: 'FinancialExpertBills',
+            component: FinancialexpertBillComponent,
+          },
+
         ]
       },
       {

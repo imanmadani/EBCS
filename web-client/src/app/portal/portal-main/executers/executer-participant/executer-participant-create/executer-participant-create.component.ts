@@ -6,6 +6,7 @@ import {flagDaysCalendar} from "ngx-bootstrap/datepicker/engine/flag-days-calend
 import {ExecutersService} from "../../executers.service";
 import {BaseClass} from "../../../../../utilities/base";
 import {ToastrService} from "ngx-toastr";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-executer-participant-create',
@@ -13,7 +14,7 @@ import {ToastrService} from "ngx-toastr";
   styleUrls: ['./executer-participant-create.component.css']
 })
 export class ExecuterParticipantCreateComponent extends BaseClass implements OnInit {
-  name = 'This is XLSX TO JSON CONVERTER';
+  formGroup: any;
   willDownload = false;
   participants;
   participantObjectList;
@@ -23,11 +24,27 @@ export class ExecuterParticipantCreateComponent extends BaseClass implements OnI
     private executersService: ExecutersService,
     private modalService: NgbModal,
     protected toastr: ToastrService) {
-  super(toastr);
-}
+    super(toastr);
+  }
 
-ngOnInit() {
+  ngOnInit() {
+    this.createForm();
+  }
 
+  createForm() {
+    this.formGroup = new FormGroup({
+      Username: new FormControl(null, Validators.required),
+      CompanyName: new FormControl(null, Validators.required),
+      AgentName: new FormControl(null, Validators.required),
+      AgentTell: new FormControl(null, Validators.required),
+      CompanyAddress: new FormControl(null),
+      ActivityField: new FormControl(null),
+      Tell: new FormControl(null),
+      Fax: new FormControl(null),
+      EconomicCode: new FormControl(null),
+      AdminName: new FormControl(null),
+      AdminTell: new FormControl(null)
+    });
   }
 
   onFileChange(ev) {
@@ -66,7 +83,7 @@ ngOnInit() {
   }
 
   downloadExel() {
-    window.open('http://localhost/Exhibition-sample.xlsx');
+    window.open('https://design.iranfair.com/Exhibition-sample.xlsx');
   }
 
   proccess() {
@@ -181,6 +198,25 @@ ngOnInit() {
     if (this.participantObjectList) {
       debugger
       this.executersService.participantcreate(this.participantObjectList).subscribe(res => {
+          if (res.data.result) {
+            this.success();
+            this.modalService.dismissAll(true);
+          } else {
+            this.error(res.message);
+          }
+        },
+        (err) => {
+          this.error(err.error);
+        });
+    }
+  }
+  setParticipant(){
+    debugger;
+    if (this.formGroup.valid === true) {
+      this.participantObjectList = [];
+      this.participantObjectList.push(this.formGroup.value);
+      this.executersService.participantcreate(this.participantObjectList).subscribe(res => {
+        debugger
           if (res.data.result) {
             this.success();
             this.modalService.dismissAll(true);

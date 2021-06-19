@@ -7,6 +7,8 @@ import {GroupModel} from "../../groups/entity";
 import {ExecuterBoothCreateComponent} from "./executer-booth-create/executer-booth-create.component";
 import {ExecuterBoothEditComponent} from "./executer-booth-edit/executer-booth-edit.component";
 import {ExecutersService} from "../executers.service";
+import {PortalParticipantBoothBuilderListComponent} from "../../../portal-participants/portal-participant-booth-builder-list/portal-participant-booth-builder-list.component";
+import {ExecuterBoothBoothbuilderComponent} from "./executer-booth-boothbuilder/executer-booth-boothbuilder.component";
 
 @Component({
   selector: 'app-exhibition-booth-list',
@@ -25,6 +27,9 @@ export class ExecuterBoothListComponent extends BaseClass implements OnInit {
       ParticipantUsername: {
         title: 'مشارکت کننده'
       },
+      CompanyName: {
+        title: 'مشارکت کننده'
+      },
       Name: {
         title: 'شماره غرفه'
       },
@@ -34,26 +39,25 @@ export class ExecuterBoothListComponent extends BaseClass implements OnInit {
       AreaArz: {
         title: 'متراژ ارزی'
       },
-      AreaType: {
+      AreaTypeTitle: {
         title: 'نوع غرفه',
-        valuePrepareFunction: (value) => {
-          if (value==="1") return 'ریالی';
-          if (value==="2") return 'ارزی';
-          if (value==="3") return 'ارزی - ریالی';
-          return '-';
-        },
       },
       Area2: {
         title: 'متراژ طبقه دوم'
       },
-      ConstructionType: {
-        title: 'نوع ساخت',
+      HasEquipment: {
+        title: 'تجهیزات',
+        type:'html',
         valuePrepareFunction: (value) => {
-          if (value==="1") return 'پیش ساخته';
-          if (value==="2") return 'خود ساز';
+          if (value==="1") return 'دارد';
+          if (value==="2") return 'ندارد';
           return '-';
         },
       },
+      BoothbuilderName: {
+        title: 'غرفه ساز'
+      },
+
       FlagBlock: {
         title: 'وضعیت',
         type:'html',
@@ -65,11 +69,16 @@ export class ExecuterBoothListComponent extends BaseClass implements OnInit {
     },
     actions: {
       columnTitle: 'عملیات',
+      width: '300px',
       custom: [
         // {
         //   name: 'editAction',
         //   title: '<i class="fa fa-edit pr-3 ebcs-font-normal text-warning" title="ویرایش"></i>'
         // },
+        {
+          name: 'boothbuilderAction',
+          title: '<i class="fa fa-pencil-ruler pr-3 ebcs-font-normal text-warning" title="افزودن غرفه ساز"></i>'
+        },
         {
           name: 'deleteAction',
           title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="حذف"></i>'
@@ -103,6 +112,10 @@ export class ExecuterBoothListComponent extends BaseClass implements OnInit {
         this.editHandler(e.data);
         break;
       }
+      case 'boothbuilderAction' : {
+        this.boothBuilderHandler(e.data);
+        break;
+      }
       case 'deleteAction' : {
         this.deleteHandler(e.data);
         break;
@@ -133,6 +146,16 @@ export class ExecuterBoothListComponent extends BaseClass implements OnInit {
     const modalRef = this.modalService.open(ExecuterBoothEditComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
     modalRef.result.then((data) => {}, (reason) => {
+      if (reason)
+        this.ngOnInit();
+    });
+  }
+  boothBuilderHandler(inputModel) {
+    debugger
+    let modalRef = this.modalService.open(ExecuterBoothBoothbuilderComponent, {centered: true,size:"lg"});
+    modalRef.componentInstance.model = inputModel;
+    modalRef.result.then((data) => {
+    }, (reason) => {
       if (reason)
         this.ngOnInit();
     });

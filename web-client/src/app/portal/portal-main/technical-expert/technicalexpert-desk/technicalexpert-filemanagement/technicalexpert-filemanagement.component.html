@@ -1,11 +1,86 @@
 <app-modal-header [title]="title" (closed)='close()'></app-modal-header>
+<div class="row">
+  <div class="col-12">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>نمایشگاه</th>
+        <th>شماره غرفه</th>
+        <th>مشارکت کننده</th>
+        <th>متراژ ریالی</th>
+        <th>متراژ ارزی</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-template ngFor let-buildertask [ngForOf]="boothBuilderTasks">
+        <tr>
+          <td>{{buildertask.Title}}</td>
+          <td>{{buildertask.Name}}</td>
+          <td>{{buildertask.CompanyName}}</td>
+          <td>{{buildertask.AreaRial}}</td>
+          <td>{{buildertask.AreaArz}}</td>
+        </tr>
+      </ng-template>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row ">
+  <div class="col-12 text-right mr-2">  مشخصات  غرفه : </div>
+  <div class="col-12 text-center   ">
+      <span class="badge badge-primary m-1 p-2 ebcs-font-normal-text flex-fill">نمایشگاه : {{this.model.ExhibitionName}}</span>
+      <span class="badge badge-primary m-1 p-2 ebcs-font-normal-text flex-fill">سالن : {{this.model.HallName}}</span>
+      <span class="badge badge-primary m-1 p-2 ebcs-font-normal-text flex-fill">غرفه : {{this.model.BoothName}}</span>
+      <span class="badge badge-primary m-1 p-2 ebcs-font-normal-text flex-fill">متراژ ریالی : {{this.model.AreaRial}}</span>
+      <span class="badge badge-primary m-1 p-2 ebcs-font-normal-text flex-fill">متراژ ارزی : {{this.model.AreaArz}}</span>
+      <span class="badge badge-primary m-1 p-2 ebcs-font-normal-text flex-fill">نوع غرفه : {{this.model.AreaType}}</span>
+      <span class="badge badge-primary m-1 p-2 ebcs-font-normal-text flex-fill">نوع ساخت : {{this.model.ConstructionType}}</span>
+  </div>
+</div>
+<div class="row ">
+  <div class="col-12 text-right mr-2">  مشخصات مشارکت کننده : </div>
+  <div class="col-12 text-center   ">
+    <span class="badge badge-primary m-1 p-2 ebcs-font-normal-text flex-fill">مشارکت کننده : {{this.model.ParticipantName}}</span>
+    <span class="badge badge-primary m-1 p-2 ebcs-font-normal-text flex-fill"> نام مدیر عامل : {{this.model.AdminName}}</span>
+    <span class="badge badge-primary m-1 p-2 ebcs-font-normal-text flex-fill">تلفن مدیر عامل  : {{this.model.AdminTell}}</span>
+    <span class="badge badge-primary m-1 p-2 ebcs-font-normal-text flex-fill">نام نماینده : {{this.model.AgentName}}</span>
+    <span class="badge badge-primary m-1 p-2 ebcs-font-normal-text flex-fill">تلفن نماینده : {{this.model.AgentTell}}</span>
+  </div>
+</div>
+<hr>
 <div class="row p-2">
   <ng-template ngFor let-file [ngForOf]="files">
-    <div class="col-3">
+    <div class="col-lg-4 col-sm-12 mb-2">
       <div class="card">
-        <div class="card-header text-center">{{file.ViewName}}</div>
+        <div class="card-header "
+             [ngClass]="file.PlanApprove==='1'?'bg-success': file.PlanApprove==='0'?'bg-danger':''">
+          <div class="row">
+            <div class="col-2">
+              <button *ngIf="file.PlanApprove!=='1' && !hallmode" class="btn btn-sm btn-success ebcs-clickable"
+                      (click)="approvePlan(file.Id)">تایید
+              </button>
+            </div>
+            <div class="col-8 text-center"><a href="https://design.iranfair.com/Files/Plans/{{file.Name}}.{{file.ViewName.split('.')[1]}}">
+              {{file.Title}}
+            </a></div>
+          </div>
+        </div>
         <div class="card-body">
-          <img class="w-100" src="http://localhost/Files/Plans/{{file.Name}}.{{file.Type.split('/')[1]}}" (click)="showGallery(0)">
+          <img class="w-100" src="https://design.iranfair.com/Files/Plans/{{file.Name}}.{{file.ViewName.split('.')[1]}}"
+               (click)="showGallery('https://design.iranfair.com/Files/Plans/',file.Name,file.Type.split('/')[1])"
+          width="200px" height="200px"
+          >
+        </div>
+        <div class="card-footer text-center" *ngIf="!hallmode">
+          <ng-template ngFor let-comment [ngForOf]="comments">
+            <p class="text-right bg-white p-1" *ngIf="comment.BoothBoothbuilderplanId===file.Id">{{comment.Text}}</p>
+          </ng-template>
+          <div class="form-group" >
+            <textarea [id]="file.Id" class="form-control text-right" placeholder="توضیحات"></textarea>
+          </div>
+          <button  class="btn btn-primary" (click)="setComment(file.Id)">عدم تایید و ثبت
+            توضیحات
+          </button>
         </div>
       </div>
     </div>

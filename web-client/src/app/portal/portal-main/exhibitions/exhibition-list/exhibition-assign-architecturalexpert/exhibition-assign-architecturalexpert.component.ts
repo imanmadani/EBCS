@@ -12,7 +12,7 @@ import {GroupModel} from "../../../groups/entity";
   styleUrls: ['./exhibition-assign-architecturalexpert.component.css']
 })
 export class ExhibitionAssignArchitecturalexpertComponent extends BaseClass implements OnInit {
-  title='افزودن کارشناس معماری داخلی';
+  title='افزودن کارشناس فنی نمایشگاه';
   formGroup:any ;
   @Output() refresh:EventEmitter<boolean>;
   architecturalDropDown;
@@ -27,6 +27,7 @@ export class ExhibitionAssignArchitecturalexpertComponent extends BaseClass impl
     },
     actions: {
       columnTitle: 'عملیات',
+      width: '300px',
       custom: [
         {
           name: 'deleteAction',
@@ -81,18 +82,23 @@ export class ExhibitionAssignArchitecturalexpertComponent extends BaseClass impl
     });
   }
   save() {
-    this.exhibitionsService.ExAssignArchitecturalExpert(this.formGroup.value).subscribe(res => {
-        if (res.data.result) {
-          this.success();
-          this.ngOnInit();
-        } else {
-          this.error(res.message);
-        }
-      },
-      (err) => {
-        this.error(err.error);
-      });
-
+    debugger
+    let find=this.data?.filter(res=>res.ArchitecturalExpertId===this.formGroup.get('ArchitecturalExpertId').value);
+    if(find && find.length>0){
+      this.error('ایتم تکراریست')
+    }else {
+      this.exhibitionsService.ExAssignArchitecturalExpert(this.formGroup.value).subscribe(res => {
+          if (res.data.result) {
+            this.success();
+            this.ngOnInit();
+          } else {
+            this.error(res.message);
+          }
+        },
+        (err) => {
+          this.error(err.error);
+        });
+    }
   }
   close() {
     this.modalService.dismissAll(false);

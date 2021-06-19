@@ -27,8 +27,10 @@ export class ExecuterEditComponent extends BaseClass implements OnInit {
   }
   createForm() {
     this.formGroup = new FormGroup({
-      Id: new FormControl(this.model.Id),
-      Name: new FormControl(null, Validators.required)
+      UserId: new FormControl(this.model.UserId),
+      Name: new FormControl(this.model.Name, Validators.required),
+      Mobile: new FormControl(this.model.Mobile, Validators.required),
+
     });
   }
   save() {

@@ -42,6 +42,7 @@ export class HeadquarterDeskComponent extends BaseClass implements OnInit {
     },
     actions: {
       columnTitle: 'عملیات',
+      width: '300px',
       custom: [
         {
           name: 'acceptAction',

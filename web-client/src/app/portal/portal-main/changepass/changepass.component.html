@@ -1,0 +1,15 @@
+<app-modal-header title="فرلموشی رمز عبور" (closed)="close()"></app-modal-header>
+<form [formGroup]="formGroup"  class="login-form">
+  <div class="row p-4">
+    <div class="col-12">
+      <input class="form-control" type="text" name="Password" formControlName="Password" placeholder="رمز جدید">
+    </div>
+  </div>
+  <div class="row p-4">
+    <div class="col-12">
+      <input #repass class="form-control" type="text" name="Username"  placeholder="تکرار رمز جدید">
+    </div>
+  </div>
+
+</form>
+<app-modal-footer (saved)="onSubmit(repass)"></app-modal-footer>

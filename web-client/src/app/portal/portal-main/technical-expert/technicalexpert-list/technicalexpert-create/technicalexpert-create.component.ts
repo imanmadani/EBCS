@@ -11,7 +11,7 @@ import {TechnicalexpertsService} from "../../technicalexperts.service";
   styleUrls: ['./technicalexpert-create.component.css']
 })
 export class TechnicalexpertCreateComponent extends BaseClass implements OnInit {
-  title = 'ایجاد کارشناس فنی';
+  title = 'ایجاد کارشناس فنی نمایشگاه';
   formGroup: any;
   constructor(private technicalexpertsService: TechnicalexpertsService,
               private modalService: NgbModal,

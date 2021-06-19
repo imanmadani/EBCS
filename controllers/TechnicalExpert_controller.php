@@ -29,6 +29,31 @@ class TechnicalExpert_controller extends controller
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }
+    public function GetPlanCommentsByBoothBoothBuilderId($query)
+    {
+        $boothBoothbuilderId = $this->getVal('BoothBoothbuilderId', $query);
+        $rows = $this->_model->getPlanCommentsByBoothBoothBuilderId($boothBoothbuilderId);
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function CreatePlanComments($query)
+    {
+        $boothBoothbuilderId = $this->getVal('BoothBoothbuilderId', $query);
+        $boothBoothbuilderplanId = $this->getVal('BoothBoothbuilderplanId', $query);
+        $text = $this->getVal('Text', $query);
+        $rows = $this->_model->createPlanComments($boothBoothbuilderId,$boothBoothbuilderplanId,$text);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+
+    }
+    public function UpdatePlanApprove($query)
+    {
+        $id = $this->getVal('Id', $query);
+        $state = $this->getVal('State', $query);
+        $rows = $this->_model->updatePlanApprove($id,$state);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
     public function Create($query)
     {
         $groupId = 4;
@@ -40,9 +65,10 @@ class TechnicalExpert_controller extends controller
     }
     public function Update($query)
     {
-        $id = $this->getVal('Id', $query);
+        $id = $this->getVal('UserId', $query);
         $name = $this->getVal('Name', $query);
-        $rows = $this->_model->update($id,$name);
+        $mobile = $this->getVal('Mobile', $query);
+        $rows = $this->_model->update($id,$name,$mobile);
         $this->_res->set("result", $rows);
         $this->_res->output();
     }
@@ -65,6 +91,13 @@ class TechnicalExpert_controller extends controller
         $id = $this->getVal('Id', $query);
         $rows = $this->_model->boothDisApprove($id);
         $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
+    public function GetBoothBuilderTaskByBoothBuilderId($query)
+    {
+        $id = $this->getVal('BoothBuilderId', $query);
+        $rows = $this->_model->getBoothBuilderTaskByBoothBuilderId($id);
+        $this->_res->set("rows", $rows);
         $this->_res->output();
     }
 }

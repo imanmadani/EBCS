@@ -23,6 +23,12 @@ export class ExhibitionHallListComponent extends BaseClass implements OnInit {
       GradeTitle: {
         title: 'گرید'
       },
+      Area: {
+        title: 'متراژ'
+      },
+      MinimumArea: {
+        title: 'حداقل متراژ'
+      },
       FlagBlock: {
         title: 'وضعیت',
         type:'html',
@@ -34,6 +40,7 @@ export class ExhibitionHallListComponent extends BaseClass implements OnInit {
     },
     actions: {
       columnTitle: 'عملیات',
+      width: '300px',
       custom: [
         {
           name: 'editAction',

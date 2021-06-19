@@ -48,16 +48,17 @@ export class ExchangerateListComponent extends BaseClass implements OnInit {
     },
     actions: {
       columnTitle: 'عملیات',
+      width: '300px',
       custom: [
         {
           name: 'blockAction',
-          title: '<i class="fa fa-pause pr-3 ebcs-font-normal text-danger" title="توقف"></i>'
+          title: '<i class="fa fa-pause pr-3 ebcs-font-normal text-danger" title="توقف"></i>',
         }
       ],
       add: false,
       edit: false,
       delete: false,
-      position: 'right'
+      position: 'right',
     }
   };
   data;
@@ -97,6 +98,17 @@ export class ExchangerateListComponent extends BaseClass implements OnInit {
   }
 
   blockHandler(inputModel) {
-
+    if(inputModel.FlagBlock ==="0") {
+      this.sharedataService.blockExchangeRate(inputModel).subscribe(res => {
+        if (res.data.result) {
+          this.success();
+          this.ngOnInit();
+        } else {
+          this.error();
+        }
+      });
+    }else {
+      this.error("قیمت غیر فعال است");
+    }
   }
 }

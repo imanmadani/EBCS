@@ -9,6 +9,10 @@ import {ExhibitionHallEditComponent} from "../../exhibitions/exhibition-hall-lis
 import {BoothbuildersService} from "../boothbuilders.service";
 import {RateComponent} from "../../../../utilities/component/rate/rate.component";
 import {BoothbuilderCreateComponent} from "./boothbuilder-create/boothbuilder-create.component";
+import {BoothbuilderUpdateexpirelicenseComponent} from "./boothbuilder-updateexpirelicense/boothbuilder-updateexpirelicense.component";
+import * as moment from "jalali-moment";
+import {BoothbuilderFilemanagementComponent} from "./boothbuilder-filemanagement/boothbuilder-filemanagement.component";
+import {BoothbuilderEditComponent} from "./boothbuilder-edit/boothbuilder-edit.component";
 
 @Component({
   selector: 'app-boothbuilder-list',
@@ -22,19 +26,28 @@ export class BoothbuilderListComponent extends BaseClass implements OnInit {
         title: 'نام '
       },
       Mobile: {
+        width: '200px',
         title: 'موبایل'
       },
       Username: {
         title: 'نام کاربری'
       },
       Grade: {
+        width: '100px',
         title: 'گرید'
       },
       LimitArea: {
+        width: '150px',
         title: 'حداکثر متراژ'
       },
-      SLimitArea: {
-        title: 'حداکثر کاربر'
+      LicenseExpire: {
+        title: 'اتمام اعتبار',
+        valuePrepareFunction: (value) => {
+          if (!value||value==='0000-00-00 00:00:00') return '-';
+          let t=moment(value, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD');
+          return t;
+        },
+
       },
 
       Rate: {
@@ -43,6 +56,7 @@ export class BoothbuilderListComponent extends BaseClass implements OnInit {
         renderComponent:RateComponent,
       },
       FlagBlock: {
+        width: '100px',
         title: 'وضعیت',
         type:'html',
         valuePrepareFunction: (value) => {
@@ -53,15 +67,20 @@ export class BoothbuilderListComponent extends BaseClass implements OnInit {
     },
     actions: {
       columnTitle: 'عملیات',
+      width: '300px',
       custom: [
-        // {
-        //   name: 'editAction',
-        //   title: '<i class="fa fa-edit pr-3 ebcs-font-normal text-warning" title="ویرایش"></i>'
-        // },
-        // {
-        //   name: 'deleteAction',
-        //   title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="حذف"></i>'
-        // }
+        {
+          name: 'editExpireAction',
+          title: '<i class="fa fa-award pr-3 ebcs-font-normal text-warning" title="تمدید اعتبار"></i>'
+        },
+        {
+          name: 'FileManagementAction',
+          title: '<i class="fa fa-file-image pr-3 ebcs-font-normal text-info" title="مدارک"></i>'
+        },
+        {
+          name: 'editAction',
+          title: '<i class="fa fa-edit pr-3 ebcs-font-normal text-danger" title="ویرایش"></i>'
+        }
       ],
       add: false,
       edit: false,
@@ -90,8 +109,16 @@ export class BoothbuilderListComponent extends BaseClass implements OnInit {
         this.editHandler(e.data);
         break;
       }
-      case 'deleteAction' : {
-        this.deleteHandler(e.data);
+      case 'editExpireAction' : {
+        this.editExpireHandler(e.data);
+        break;
+      }
+      case 'FileManagementAction' : {
+        this.filemanagementHandler(e.data);
+        break;
+      }
+      case 'editAction' : {
+        this.editHandler(e.data);
         break;
       }
     }
@@ -117,7 +144,25 @@ export class BoothbuilderListComponent extends BaseClass implements OnInit {
   }
 
   editHandler(inputModel) {
-    const modalRef = this.modalService.open(ExhibitionHallEditComponent, {centered: true});
+    const modalRef = this.modalService.open(BoothbuilderEditComponent, {centered: true});
+    modalRef.componentInstance.model = inputModel;
+    modalRef.result.then((data) => {}, (reason) => {
+      if (reason)
+        this.ngOnInit();
+    });
+  }
+
+  editExpireHandler(inputModel) {
+    const modalRef = this.modalService.open(BoothbuilderUpdateexpirelicenseComponent, {centered: true});
+    modalRef.componentInstance.model = inputModel;
+    modalRef.result.then((data) => {}, (reason) => {
+      if (reason)
+        this.ngOnInit();
+    });
+  }
+
+  private filemanagementHandler(inputModel) {
+    const modalRef = this.modalService.open(BoothbuilderFilemanagementComponent, {centered: true,size:'xl'});
     modalRef.componentInstance.model = inputModel;
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)

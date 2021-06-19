@@ -23,5 +23,12 @@ class Guest_controller extends controller
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }
+    public function ForgetPass($query)
+    {
+        $mobile = $this->getVal('Username', $query);
+        $rows = $this->_model->forgetPass($mobile);
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
 
 }

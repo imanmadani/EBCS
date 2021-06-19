@@ -61,6 +61,20 @@
             [dateFormat]="'jYYYY-jMM-jDD HH:mm:00'"></ng-persian-datepicker>
         </div>
       </div>
+      <div class="form-group">
+        <div class="input-group mb-3 ">
+          <input type="text" #datepickerInput3 formControlName="PlanUploadDateEnd" class="form-control text-right" />
+          <div class="input-group-append">
+            <span class="input-group-text"> پایان بارگزاری نمایشگاه </span>
+          </div>
+          <ng-persian-datepicker
+            [input]="datepickerInput3"
+            [uiTheme]="'gray'"
+            [uiHideOnOutsideClick]="false"
+            [timeShowSecond]="false"
+            [dateFormat]="'jYYYY-jMM-jDD HH:mm:00'"></ng-persian-datepicker>
+        </div>
+      </div>
     </div>
   </div>
 

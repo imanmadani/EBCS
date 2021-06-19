@@ -19,7 +19,7 @@ class Group_model extends model
     {
         $sqlDuplicate = "SELECT Id FROM `groups` WHERE `Name`='$name' AND FlagDelete=0";
         $rowsDuplicate = $this->getRow($sqlDuplicate);
-        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+        if (isset($rowsDuplicate['Id']) and $rowsDuplicate['Id'] > 0) {
             $rows = false;
         } else {
             $sql = "INSERT INTO `groups`(`Name`) VALUES ('$name')";
@@ -31,7 +31,7 @@ class Group_model extends model
     {
         $sqlDuplicate = "SELECT Id FROM `groups` WHERE `Name`='$name' AND FlagDelete=0";
         $rowsDuplicate = $this->getRow($sqlDuplicate);
-        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+        if (isset($rowsDuplicate['Id']) and $rowsDuplicate['Id'] > 0) {
             $rows = false;
         } else {
             $sql = "UPDATE `groups` SET `Name`='$name' WHERE `Id`=$id";
@@ -65,7 +65,7 @@ class Group_model extends model
             $model->GroupAccessId=NULL;
             $sql2 = "SELECT * From groupaccess Where MenuId=$model->MenuId AND GroupId=$groupId AND FlagDelete=0";
             $row2 = $this->getRow($sql2);
-            if($row2['Id']>0){
+            if(isset($row2['Id']) and $row2['Id']>0){
             $model->GroupId=$row2['GroupId'];
             $model->GroupAccessId=$row2['Id'];
             }

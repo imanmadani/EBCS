@@ -1,11 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {BaseClass} from "../../../../../utilities/base";
-import {BoothbuildersService} from "../../../booth-builders/boothbuilders.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ToastrService} from "ngx-toastr";
 import {FormControl, FormGroup} from "@angular/forms";
 import {GroupModel} from "../../../groups/entity";
 import {ExecutersService} from "../../executers.service";
+import {FileUploader} from "ng2-file-upload";
+const URL = 'https://design.iranfair.com/Files/Halls/';
 
 @Component({
   selector: 'app-executerhall-plan-upload',
@@ -18,20 +19,32 @@ export class ExecuterhallPlanUploadComponent extends BaseClass implements OnInit
   data;
   @Input() model;
   currentImage;
+  uploader: FileUploader;
 
   constructor(private executerService: ExecutersService,
               private modalService: NgbModal,
               protected toastr: ToastrService) {
     super(toastr);
+    this.uploader = new FileUploader({
+      url: URL,
+      disableMultipart: false,
+      formatDataFunctionIsAsync: true,
+      formatDataFunction: async (item) => {
+        debugger
+        this.uplaod(item)
+      }
+    });
   }
 
   ngOnInit(): void {
     this.executerService.GetUploadFileByExhibitionHallId(this.model.Id).subscribe(res=>{
+      debugger
       this.data=res.data.rows;
     });
   }
 
   uplaod(item) {
+    debugger
     const reader = new FileReader();
     reader.readAsDataURL(item.file.rawFile);
     reader.onload = () => {
@@ -75,5 +88,9 @@ export class ExecuterhallPlanUploadComponent extends BaseClass implements OnInit
   getImage($event) {
     this.currentImage=$event;
     console.log(this.currentImage);
+  }
+
+  uploadAll() {
+    this.uplaod(this.uploader.queue[0]);
   }
 }

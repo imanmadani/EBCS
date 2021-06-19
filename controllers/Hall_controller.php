@@ -19,7 +19,9 @@ class Hall_controller extends controller
     {
         $title = $this->getVal('Title', $query);
         $gradeId = $this->getVal('GradeId', $query);
-        $rows = $this->_model->create($title,$gradeId);
+        $area = $this->getVal('Area', $query);
+        $minimumArea = $this->getVal('MinimumArea', $query);
+        $rows = $this->_model->create($title,$gradeId,$area,$minimumArea);
         $this->_res->set("result", $rows);
         if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }

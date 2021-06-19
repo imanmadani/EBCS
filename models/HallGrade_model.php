@@ -17,7 +17,7 @@ class HallGrade_model extends model
     {
         $sqlDuplicate = "SELECT Id FROM `hallgrades` WHERE `Title`='$title'  AND FlagDelete=0";
         $rowsDuplicate = $this->getRow($sqlDuplicate);
-        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+        if (isset($rowsDuplicate['Id']) and $rowsDuplicate['Id'] > 0) {
             $rows = false;
         } else {
             $sql = "INSERT INTO `hallgrades`(`Title`) VALUES ('$title')";
@@ -29,7 +29,7 @@ class HallGrade_model extends model
     {
         $sqlDuplicate = "SELECT Id FROM `hallgrades` WHERE `Title`='$title'  AND Id!=$id AND FlagDelete=0";
         $rowsDuplicate = $this->getRow($sqlDuplicate);
-        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+        if (isset($rowsDuplicate['Id']) and $rowsDuplicate['Id'] > 0) {
             $rows = false;
         } else {
             $sql = "UPDATE `hallgrades` SET `Title`='$title'  WHERE `Id`=$id";

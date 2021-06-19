@@ -2,70 +2,62 @@
   <div class="row" style="direction: rtl;text-align: right">
     <div class="col-md-9" style="margin-bottom: 40px">
 
-      <p class="pt-2">تعداد آپلود: {{ uploader?.queue?.length }}</p>
+      <p class="pt-2">تعداد آپلود: {{ uploader?.queue?.length+lastFiles?.length }}</p>
 
       <table class="table">
-        <thead class="text-right">
+        <thead >
         <tr>
-          <th width="70%">نام</th>
-          <th>اندازه</th>
-          <th>عملیات</th>
+          <th class="text-right" width="30%">نوع</th>
+          <th class="text-right" width="50%">نام</th>
+          <th class="text-center">اندازه</th>
+          <th class="text-center">عملیات</th>
         </tr>
         </thead>
-        <tbody class="text-right">
+        <tbody>
         <ng-template ngFor let-lastItem [ngForOf]="lastFiles">
-          <tr>
-            <td class="ebcs-clickable" (click)="getImage(lastItem)"><strong>{{ lastItem.Name }}</strong></td>
-            <td nowrap>{{ lastItem.Size / 1024 / 1024 | number:'.2' }} MB</td>
-            <td><span (click)="deleteLastRow(lastItem.Id)"><i class="ebcs-clickable fa fa-trash text-danger"></i></span></td>
+          <tr [ngClass]="lastItem.PlanApprove == 0 ? 'text-danger':lastItem.PlanApprove == 1 ? 'text-success':'' ">
+            <td class="ebcs-clickable text-right" (click)="getImage(lastItem)"><strong>{{ lastItem.TypeTitle }} {{lastItem.PlanApprove}}</strong></td>
+            <td class="ebcs-clickable text-right" (click)="getImage(lastItem)"><strong>{{ lastItem.Name }}</strong></td>
+            <td nowrap class="text-center">{{ lastItem.Size / 1024 / 1024 | number:'.2' }} MB</td>
+            <td class="text-center"><span (click)="deleteLastRow(lastItem.Id)"><i class="ebcs-clickable fa fa-trash text-danger"></i></span></td>
           </tr>
         </ng-template>
         <tr *ngFor="let item of uploader.queue">
+          <td>
+            <div class="form-group w-100">
+                <div ngbDropdown  class="d-inline-block ebcs-dir-rtl flex-fill w-100"  >
+                  <button class="btn form-control ebcs-border-radius-Left ebcs-border text-right" id="dropdownBasic1" ngbDropdownToggle >{{item.formData[0]?.Title}}</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1" >
+                    <ng-template ngFor let-type [ngForOf]="typeOfImage">
+                      <button ngbDropdownItem (focus)="changeDropDown(type,item?.file?.name)" >{{type.Title}}</button>
+                    </ng-template>
+                  </div>
+                </div>
+            </div>
+          </td>
           <td><strong>{{ item?.file?.name }}</strong></td>
           <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size / 1024 / 1024 | number:'.2' }} MB</td>
           <td>-</td>
-
-          <!--          <td *ngIf="uploader.options.isHTML5">-->
-          <!--            <div class="progress" style="margin-bottom: 0;">-->
-          <!--              <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>-->
-          <!--            </div>-->
-          <!--          </td>-->
-          <!--          <td class="text-center">-->
-          <!--            <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>-->
-          <!--            <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>-->
-          <!--            <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>-->
-          <!--          </td>-->
         </tr>
         </tbody>
       </table>
-
       <div>
-        <!--        <div class="pb-2 pt-2">-->
-        <!--          در حال اپلود:-->
-        <!--          <div class="progress " style="">-->
-        <!--            <div class="progress-bar pt-3" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>-->
-        <!--          </div>-->
-        <!--        </div>-->
+<!--        || uploader?.queue?.length + lastFiles?.length != 13-->
+<!--        <button type="button" class="btn btn-success btn-s ml-2"-->
+<!--                (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length ">-->
+<!--          <span class="glyphicon glyphicon-upload"></span> آپلود همه-->
+<!--        </button>-->
         <button type="button" class="btn btn-success btn-s ml-2"
-                (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                (click)="uploadAll()" [disabled]="!uploader.getNotUploadedItems().length ">
+<!--          || uploader?.queue?.length + lastFiles?.length != validCount-->
           <span class="glyphicon glyphicon-upload"></span> آپلود همه
         </button>
-        <!--        <button type="button" class="btn btn-warning btn-s ml-2"-->
-        <!--                (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">-->
-        <!--          <span class="glyphicon glyphicon-ban-circle"></span> لغو همه-->
-        <!--        </button>-->
-        <!--        <button type="button" class="btn btn-danger btn-s ml-2"-->
-        <!--                (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">-->
-        <!--          <span class="glyphicon glyphicon-trash"></span> حذف همه-->
-        <!--        </button>-->
       </div>
 
     </div>
-
-    <div class="col-md-3">
-
+<!--    *ngIf="uploader?.queue?.length<1"-->
+    <div class="col-md-3"  >
       <h3>انتخاب فایل</h3>
-
       <div ng2FileDrop
            [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
            (fileOver)="fileOverBase($event)"
@@ -73,10 +65,9 @@
            class="well my-drop-zone p-3 pt-4 pb-4">
         فایل ها را در اینجا رها کنید
       </div>
-
       <br>
       انتخاب
-      <input type="file" ng2FileSelect [uploader]="uploader" multiple/><br/>
+      <input type="file" ng2FileSelect [uploader]="uploader"   multiple/><br/>
     </div>
   </div>
 </div>

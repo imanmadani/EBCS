@@ -27,6 +27,7 @@ export class ExecuterhallHalladminComponent extends BaseClass implements OnInit 
     },
     actions: {
       columnTitle: 'عملیات',
+      width: '300px',
       custom: [
         {
           name: 'deleteAction',
@@ -82,17 +83,22 @@ export class ExecuterhallHalladminComponent extends BaseClass implements OnInit 
     });
   }
   save() {
-    this.executersService.assignHalladmin(this.formGroup.value).subscribe(res => {
-        if (res.data.result) {
-          this.success();
-          this.ngOnInit();
-        } else {
-          this.error(res.message);
-        }
-      },
-      (err) => {
-        this.error(err.error);
-      });
+    let find=this.data?.filter(res=>res.HallAdminId===this.formGroup.get('HallAdminId').value);
+    if(find && find.length>0){
+      this.error('ایتم تکراریست')
+    }else {
+      this.executersService.assignHalladmin(this.formGroup.value).subscribe(res => {
+          if (res.data.result) {
+            this.success();
+            this.ngOnInit();
+          } else {
+            this.error(res.message);
+          }
+        },
+        (err) => {
+          this.error(err.error);
+        });
+    }
 
   }
   close() {

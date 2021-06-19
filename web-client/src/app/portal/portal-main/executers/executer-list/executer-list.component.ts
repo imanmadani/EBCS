@@ -43,6 +43,7 @@ export class ExecuterListComponent extends BaseClass implements OnInit {
     },
     actions: {
       columnTitle: 'عملیات',
+      width: '300px',
       custom: [
         {
           name: 'editAction',

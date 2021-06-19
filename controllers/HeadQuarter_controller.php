@@ -23,7 +23,7 @@ class HeadQuarter_controller extends controller
     }
     public function Create($query)
     {
-        $groupId = 8;
+        $groupId = 9;
         $name = $this->getVal('Name', $query);
         $mobile = $this->getVal('Mobile', $query);
         $rows = $this->_model->create($groupId,$name,$mobile);

@@ -1,0 +1,25 @@
+<app-modal-header [title]="title" (closed)='close()'></app-modal-header>
+<form [formGroup]="formGroup">
+  <div class="row p-3">
+    <div class="col-12">
+      <div class="form-group">
+        <div class="input-group mb-3 ">
+          <div ngbDropdown class="d-inline-block ebcs-dir-rtl flex-fill ">
+            <button class="btn form-control ebcs-border-radius-Left ebcs-border text-right" id="dropdownBasic4"
+                    ngbDropdownToggle>{{constTypedpdown}}</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <ng-template ngFor let-const [ngForOf]="constTypeDropDown">
+                <button ngbDropdownItem (focus)="setConstTypeData(const)">{{const.Title}}</button>
+              </ng-template>
+            </div>
+          </div>
+          <div class="input-group-append ">
+            <span class="input-group-text">نوع ساخت </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
+<app-modal-footer (saved)="save()"></app-modal-footer>

@@ -61,5 +61,12 @@ class User_controller extends controller
         $this->_res->set("row", $row);
         $this->_res->output();
     }
+    public function ChangePass($query)
+    {
+        $mobile = $this->getVal('Password', $query);
+        $rows = $this->_model->changePass($mobile);
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
 
 }

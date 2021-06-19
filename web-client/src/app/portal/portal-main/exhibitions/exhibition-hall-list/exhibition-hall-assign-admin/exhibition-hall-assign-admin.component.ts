@@ -27,6 +27,7 @@ export class ExhibitionHallAssignAdminComponent extends BaseClass implements OnI
     },
     actions: {
       columnTitle: 'عملیات',
+      width: '300px',
       custom: [
         {
           name: 'deleteAction',

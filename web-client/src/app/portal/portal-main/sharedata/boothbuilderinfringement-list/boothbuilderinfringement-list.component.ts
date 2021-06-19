@@ -37,6 +37,7 @@ export class BoothbuilderinfringementListComponent extends BaseClass implements 
     },
     actions: {
       columnTitle: 'عملیات',
+      width: '300px',
       custom: [
         {
           name: 'editAction',

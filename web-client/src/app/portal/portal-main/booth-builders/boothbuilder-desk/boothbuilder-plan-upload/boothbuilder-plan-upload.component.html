@@ -1,8 +1,15 @@
 <app-modal-header (closed)="close()"></app-modal-header>
 <div class="row pt-2">
-  <div class="col-12 text-center">
-    <img width="200px" *ngIf="currentImage"
-         src="http://localhost/Files/Plans/{{currentImage.NameDB}}.{{currentImage.Name.split('.')[1]}}">
+  <div class="col-4 text-center">
+    <img width="300px"
+         *ngIf="currentImage"
+         src="https://design.iranfair.com/Files/Plans/{{currentImage.NameDB}}.{{currentImage.Name.split('.')[1]}}">
+  </div>
+  <div *ngIf="comments" class="col-8 text-right">
+    <ng-template ngFor let-comment [ngForOf]="comments">
+      <p>{{comment.Text}}</p>
+    </ng-template>
   </div>
 </div>
-<app-file-upload (itemUpload)="uplaod($event)" (itemDelete)="deletePlan($event)" (itemGet)="getImage($event)" [lastFiles]="data"></app-file-upload>
+<app-file-upload (itemUpload)="uplaod($event)" (itemDelete)="deletePlan($event)" (itemGet)="getImage($event)"
+                 [lastFiles]="data"></app-file-upload>

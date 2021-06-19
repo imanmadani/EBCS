@@ -3,13 +3,13 @@
     <div class="row h-100">
       <div class="col-lg-3 col-sm-1"></div>
       <div class="col-lg-6 col-sm-10 text-center p-1">
-        <h3 class="h-100">سیستم مدیریت پیمانکاران ساخت غرفه</h3>
+        <h3 class="h-100">سامانه یکپارچه مدیریت ساخت غرفه</h3>
       </div>
       <div class="col-lg-3 col-sm-1"></div>
     </div>
   </div>
 </header>
-<header class="base-content ebcs-h-93">
+<body class="base-content ebcs-h-93 overflow-hidden">
   <div class="container-fluid h-100 ebcs-dir-rtl">
     <div class="row ebcs-h-95">
       <div class="col-2 p-0 ebcs-bg ebcs-white-color border-left">
@@ -24,10 +24,11 @@
           <div class="col-12 position-absolute ebcs-bg-yellow ebc-level-3 p-0" [ngClass]="userMenu?'':'d-none' ">
             <ul class="list-group p-0 ebcs-border-radius-0 ">
               <li class="list-group-item ebcs-bg-yellow ebcs-border-bold-right-red ebcs-clickable text-center"
-                  (click)="logout()">
+                  (click)="changePass()">
                 <div class="row">
                   <div class="col-lg-2 col-sm-12 text-center"><i class="fa fa-key"></i></div>
-                  <div class="col-10 text-right" [ngClass]="mobile?'d-none':''">تغییر رمز عبور</div>
+                  <div class="col-10 text-right" [ngClass]="mobile?'d-none':''"
+                  >تغییر رمز عبور</div>
                 </div>
               </li>
               <li class="list-group-item ebcs-bg-yellow ebcs-border-bold-right-red ebcs-clickable text-center"
@@ -40,7 +41,7 @@
             </ul>
           </div>
         </div>
-        <div class="container-fluid w-100 ebcs-h-95 overflow-y-auto">
+        <div class="container-fluid w-100 ebcs-h-95 ">
           <div class="row ebcs-h-7  border-bottom ebcs-clickable" [routerLink]="'/Dashboard'">
             <div class="col-lg-2 col-sm-11 m-auto"><i ngClass="fa fa-home"></i></div>
             <div class="col-lg-10 col-sm-1 m-auto text-regular" [ngClass]="mobile?'d-none':''">خانه</div>
@@ -57,7 +58,7 @@
           </ng-template>
         </div>
       </div>
-      <div class="col-10 bg-white">
+      <div class="col-10 bg-white h-100 overflow-auto">
         <router-outlet (activate)="activeLinkHandler()"></router-outlet>
       </div>
     </div>
@@ -66,11 +67,11 @@
       <div class="col-2 ebcs-bg ebcs-white-color text-center border-left m-auto ebcs-clickable"
            [ngbTooltip]="versionDetail">
         <span [ngClass]="mobile?'d-none':''">ver </span>
-        <span>1.0.0</span>
+        <span>1.0.5</span>
       </div>
       <div class="col-10 bg-white h-100  text-center m-auto">
         شرکت نمایشگاه های بین المللی ایران
       </div>
     </div>
   </div>
-</header>
+</body>

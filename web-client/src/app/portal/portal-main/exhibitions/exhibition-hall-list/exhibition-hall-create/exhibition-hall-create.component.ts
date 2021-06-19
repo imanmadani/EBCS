@@ -31,7 +31,9 @@ export class ExhibitionHallCreateComponent extends BaseClass implements OnInit {
   createForm() {
     this.formGroup = new FormGroup({
       Title: new FormControl(null, Validators.required),
-      GradeId: new FormControl(null, Validators.required)
+      GradeId: new FormControl(null, Validators.required),
+      Area: new FormControl(null, Validators.required),
+      MinimumArea: new FormControl(null, Validators.required)
     });
   }
   save() {

@@ -26,8 +26,35 @@ export class ArchitecturalexpertDeskComponent extends BaseClass implements OnIni
       BoothName: {
         title: 'شماره غرفه'
       },
+      AreaRial: {
+        title: 'متراژ ریالی'
+      },
+      AreaArz: {
+        title: 'متراژ ارزی'
+      },
+      AreaTypeTitle: {
+        title: 'نوع غرفه',
+      },
+      Area2: {
+        title: 'متراژ طبقه دوم'
+      },
+      HasEquipment: {
+        title: 'تجهیزات',
+        type:'html',
+        valuePrepareFunction: (value) => {
+          if (value==="1") return 'دارد';
+          if (value==="2") return 'ندارد';
+          return '-';
+        },
+      },
+      BoothbuilderName: {
+        title: 'غرفه ساز'
+      },
       ParticipantName: {
         title: 'مشارکت کننده'
+      },
+      CompanyName: {
+        title: 'نام شرکت'
       },
       ApproveState: {
         title: 'وضعیت',
@@ -41,6 +68,7 @@ export class ArchitecturalexpertDeskComponent extends BaseClass implements OnIni
     },
     actions: {
       columnTitle: 'عملیات',
+      width: '300px',
       custom: [
         {
           name: 'fileManagement',

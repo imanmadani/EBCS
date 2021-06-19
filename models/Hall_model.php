@@ -7,7 +7,9 @@ class Hall_model extends model
                        myHall.Title , 
                        myHall.GradeId,
                        myHall.FlagBlock,
-                       myGrade.Title AS GradeTitle
+                       myGrade.Title AS GradeTitle,
+                       myHall.Area,
+                       myHall.MinimumArea
                        FROM `halls` AS myHall
                 INNER JOIN `hallgrades` AS myGrade ON myHall.GradeId=myGrade.Id WHERE myHall.FlagDelete=0";
         $rows = $this->getAll($sql);
@@ -19,14 +21,14 @@ class Hall_model extends model
         $rows = $this->getRow($sql);
         return $rows;
     }
-    public function create($title,$gradeId)
+    public function create($title,$gradeId,$area,$minimumArea)
     {
         $sqlDuplicate = "SELECT Id FROM `halls` WHERE `Title`='$title'  AND FlagDelete=0";
         $rowsDuplicate = $this->getRow($sqlDuplicate);
-        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+        if (isset($rowsDuplicate['Id']) and $rowsDuplicate['Id'] > 0) {
             $rows = false;
         } else {
-            $sql = "INSERT INTO `halls`(`Title`,`GradeId`) VALUES ('$title',$gradeId)";
+            $sql = "INSERT INTO `halls`(`Title`,`GradeId`,`Area`,`MinimumArea`) VALUES ('$title',$gradeId,$area,$minimumArea)";
             $rows = $this->execQuery($sql);
         }
         return $rows;
@@ -35,7 +37,7 @@ class Hall_model extends model
     {
         $sqlDuplicate = "SELECT Id FROM `halls` WHERE `Title`='$title'  AND FlagDelete=0";
         $rowsDuplicate = $this->getRow($sqlDuplicate);
-        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+        if (isset($rowsDuplicate['Id']) and $rowsDuplicate['Id'] > 0) {
             $rows = false;
         } else {
             $sql = "UPDATE `halls` SET `Title`='$title' , `GradeId`=$gradeId WHERE `Id`=$id";

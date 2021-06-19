@@ -13,6 +13,12 @@ class FinancialExpert_controller extends controller
         $this->_res->set("rows", $rows);
         $this->_res->output();
     }
+    public function GetFinancialExpertBills($query)
+    {
+        $rows = $this->_model->getFinancialExpertBills();
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
     public function GetById($query)
     {
         $id = $this->getVal('Id', $query);
@@ -22,11 +28,10 @@ class FinancialExpert_controller extends controller
     }
     public function Create($query)
     {
-        $username = $this->getVal('Username', $query);
-        $password = $this->getVal('Password', $query);
+        $mobile = $this->getVal('Mobile', $query);
         $groupId = 7;
         $name = $this->getVal('Name', $query);
-        $rows = $this->_model->create($username,$password,$groupId,$name);
+        $rows = $this->_model->create($mobile,$groupId,$name);
         $this->_res->set("result", $rows);
         if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }
@@ -49,6 +54,39 @@ class FinancialExpert_controller extends controller
     {
         $id = $this->getVal('Id', $query);
         $rows = $this->_model->acceptPay($id);
+        $this->_res->set("result", $rows);
+        $this->_res->output();
+    }
+    public function ExhibitionDropDown()
+    {
+        $rows = $this->_model->exhibitionDropDown();
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function HallDropDown($query)
+    {
+        $exhibitionId = $this->getVal('ExhibitionId', $query);
+        $rows = $this->_model->hallDropDown($exhibitionId);
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function GetBoothsByHall($query)
+    {
+        $exhibitionHallId = $this->getVal('ExhibitionHallId', $query);
+        $rows = $this->_model->getBoothsByHall($exhibitionHallId);
+        $this->_res->set("rows", $rows);
+        $this->_res->output();
+    }
+    public function CreateBills($query)
+    {
+        $boothId =  $this->getVal('BoothId', $query);
+        $quantity =  $this->getVal('Quantity', $query);
+        $amount =  $this->getVal('Amount', $query);
+        $name = $this->getVal('Name', $query);
+        $length = $this->getVal('Length', $query);
+        $contentType = $this->getVal('ContentType', $query);
+        $image = $this->getVal('Data', $query);
+        $rows = $this->_model->createBills($boothId,$image,$name,$length,$contentType,$amount,$quantity);
         $this->_res->set("result", $rows);
         $this->_res->output();
     }

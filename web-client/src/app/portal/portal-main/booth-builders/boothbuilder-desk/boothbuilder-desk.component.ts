@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BaseClass} from "../../../../utilities/base";
-import {RateComponent} from "../../../../utilities/component/rate/rate.component";
 import {BoothbuildersService} from "../boothbuilders.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ToastrService} from "ngx-toastr";
 import {ExhibitionHallCreateComponent} from "../../exhibitions/exhibition-hall-list/exhibition-hall-create/exhibition-hall-create.component";
 import {GroupModel} from "../../groups/entity";
-import {ExhibitionHallEditComponent} from "../../exhibitions/exhibition-hall-list/exhibition-hall-edit/exhibition-hall-edit.component";
 import {BoothbuilderPlanUploadComponent} from "./boothbuilder-plan-upload/boothbuilder-plan-upload.component";
-import {PortalParticipantPolicyformComponent} from "../../../portal-participants/portal-participant-policyform/portal-participant-policyform.component";
 import {BoothbuilderPolicyformComponent} from "../boothbuilder-policyform/boothbuilder-policyform.component";
+import {BoothbuilderChangeboothtypeComponent} from "./boothbuilder-changeboothtype/boothbuilder-changeboothtype.component";
+import {Router} from "@angular/router";
+import {PaymentresultService} from "../../paymentresult/paymentresult.service";
 
 @Component({
   selector: 'app-boothbuilder-desk',
@@ -24,31 +24,46 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
       },
       HallName: {
         title: 'سالن',
-        width:"150px",
+        width: "150px",
 
       },
       BoothName: {
-        title:'شماره غرفه',
-        width:"150px",
+        title: 'شماره غرفه',
+        width: "150px",
+
+      },
+      AreaRial: {
+        title: 'متراژ ریالی',
+
+      },
+      AreaArz: {
+        title: 'متراژ ارزی',
+
+      },
+      Area2: {
+        title: 'متراژ طبقه دوم',
 
       },
       ParticipantName: {
-        title:'مشارکت کننده',
+        title: 'مشارکت کننده',
+      },
+      CompanyName:{
+        title: 'نام شرکت',
       },
       PayStatus: {
         title: 'وضعیت پرداخت',
-        type:'html',
+        type: 'html',
         valuePrepareFunction: (value) => {
-          if (value==="1") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
+          if (value === "1") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
           return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';
         },
       },
       FlagBlock: {
         title: 'وضعیت',
-        type:'html',
-        width:"100px",
+        type: 'html',
+        width: "100px",
         valuePrepareFunction: (value) => {
-          if (value==="0") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
+          if (value === "0") return '<i class="fa fa-circle pr-3  text-success" title="فعال"></i>';
           return '<i class="fa fa-circle pr-3  text-warning" title="غیر فعال"></i>';
         },
       }
@@ -56,14 +71,14 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
     actions: {
       columnTitle: 'عملیات',
       custom: [
-        {
-          name: 'editAction',
-          title: '<i class="fa fa-edit pr-3 ebcs-font-normal text-warning" title="ویرایش"></i>'
-        },
-        {
-          name: 'deleteAction',
-          title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="حذف"></i>'
-        },
+        // {
+        //   name: 'editAction',
+        //   title: '<i class="fa fa-edit pr-3 ebcs-font-normal text-warning" title="نوع ساخت"></i>'
+        // },
+        // {
+        //   name: 'deleteAction',
+        //   title: '<i class="fa fa-trash pr-3 ebcs-font-normal text-danger" title="حذف"></i>'
+        // },
         {
           name: 'uploadAction',
           title: '<i class="fa fa-upload pr-3 ebcs-font-normal text-info" title="آپلود"></i>'
@@ -84,24 +99,27 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
     }
   };
   data;
-  verhoeff=null;
+  verhoeff = null;
   userdetail;
+
   constructor(
     private boothBuilderService: BoothbuildersService,
+    private paymentresultService: PaymentresultService,
     private modalService: NgbModal,
+    private router: Router,
     protected toastr: ToastrService) {
     super(toastr);
   }
 
   ngOnInit(): void {
-    this.boothBuilderService.getByToken().subscribe(resUser=>{
-      this.userdetail=resUser.data.row;
-      if(this.userdetail.PolicyApprove==='1'){
+    this.boothBuilderService.getByToken().subscribe(resUser => {
+      this.userdetail = resUser.data.row;
+      if (this.userdetail.PolicyApprove === '1') {
         this.boothBuilderService.getBoothBuilderTask().subscribe(res => {
           this.data = res.data.rows;
         });
-      }else {
-        let modalRef = this.modalService.open(BoothbuilderPolicyformComponent,{centered: true, size: "lg"});
+      } else {
+        let modalRef = this.modalService.open(BoothbuilderPolicyformComponent, {centered: true, size: "lg"});
         modalRef.componentInstance.model = this.userdetail;
         modalRef.result.then((data) => {
         }, (reason) => {
@@ -138,8 +156,9 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
   }
 
   createHandler() {
-    let modalRef=this.modalService.open(ExhibitionHallCreateComponent, {centered: true});
-    modalRef.result.then((data) => {}, (reason) => {
+    let modalRef = this.modalService.open(ExhibitionHallCreateComponent, {centered: true});
+    modalRef.result.then((data) => {
+    }, (reason) => {
       if (reason)
         this.ngOnInit();
     });
@@ -148,7 +167,7 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
   deleteHandler(inputModel) {
     let entity = new GroupModel();
     entity.Id = inputModel.Id;
-    this.boothBuilderService.delete(entity).subscribe(res => {
+    this.boothBuilderService.deletePlan(entity).subscribe(res => {
       if (res.data.result) {
         this.success();
         this.ngOnInit();
@@ -157,41 +176,64 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
   }
 
   editHandler(inputModel) {
-    const modalRef = this.modalService.open(ExhibitionHallEditComponent, {centered: true});
+    const modalRef = this.modalService.open(BoothbuilderChangeboothtypeComponent, {centered: true});
     modalRef.componentInstance.model = inputModel;
-    modalRef.result.then((data) => {}, (reason) => {
+    modalRef.result.then((data) => {
+    }, (reason) => {
       if (reason)
         this.ngOnInit();
     });
   }
 
   planUpdateHandler(inputModel) {
-    let modalRef=this.modalService.open(BoothbuilderPlanUploadComponent, {centered: true,size:'xl'});
+    let modalRef = this.modalService.open(BoothbuilderPlanUploadComponent, {centered: true, size: 'xl'});
     modalRef.componentInstance.model = inputModel;
-    modalRef.result.then((data) => {}, (reason) => {
+    modalRef.result.then((data) => {
+    }, (reason) => {
       if (reason)
         this.ngOnInit();
     });
   }
+
   endActionHandler(inputModel) {
     debugger;
-    if(+inputModel.PayStatus>0){
-    let entity = new GroupModel();
-    entity.Id = inputModel.BoothId;
-    this.boothBuilderService.endAction(entity).subscribe(res => {
-      if (res.data.result) {
-        this.success();
-        this.ngOnInit();
-      }
-    });
-    }else {
+    if (+inputModel.PayStatus > 0) {
+      let entity = new GroupModel();
+      entity.Id = inputModel.BoothId;
+      this.boothBuilderService.endAction(entity).subscribe(res => {
+        if (res.data.result) {
+          this.success();
+          this.ngOnInit();
+        }
+      });
+    } else {
       this.error("ابتدا پرداخت را انجام دهید")
     }
   }
+
   paymentHandler(inputModel) {
-    this.boothBuilderService.getIdentity(inputModel).subscribe(res=>{
-      this.verhoeff=res.data.row;
-    });
+    this.paymentresultService.getBillStatusByBoothId(inputModel).subscribe(statusRef => {
+        debugger
+        if (statusRef.data.row.PayStatus !== '1') {
+          let fi = 70000;
+          let amount = 0;
+          //if (statusRef.data.row.AreaType === '1') {
+          //  if (statusRef.data.row.ConstructionType === '1') {
+          //    fi = 10000;
+          //  }
+            let temp = ((+statusRef.data.row.AreaRial + +statusRef.data.row.Area2) * fi) + 300000;
+            amount = temp + (temp * 9 / 100);
+          //}
+          inputModel.Amount = amount
+          this.boothBuilderService.getIdentity(inputModel).subscribe(res => {
+            this.verhoeff = res.data.row;
+            window.location.href = res.data.row;
+          });
+        } else {
+          this.error("پرداخت انجام شده است")
+        }
+      }
+    );
   }
 }
 

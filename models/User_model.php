@@ -18,10 +18,11 @@ class User_model extends model
         $rows = $this->getAll($sql);
         return $rows;
     }
+
     public function getByToken()
     {
         $head = getallheaders();
-        $user=$head['Token'];
+        $user = $head['Token'];
         $sql = "SELECT 
                 myToken.UserId,
                 myUserDetail.Name,
@@ -34,17 +35,19 @@ class User_model extends model
         $rows = $this->getRow($sql);
         return $rows;
     }
+
     public function getById($id)
     {
         $sql = "SELECT * FROM `users` WHERE `Id`=$id ";
         $rows = $this->getRow($sql);
         return $rows;
     }
-    public function create($username,$password,$groupId)
+
+    public function create($username, $password, $groupId)
     {
         $sqlDuplicate = "SELECT Id FROM `users` WHERE `Username`='$username'  AND FlagDelete=0";
         $rowsDuplicate = $this->getRow($sqlDuplicate);
-        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+        if (isset($rowsDuplicate['Id']) and $rowsDuplicate['Id'] > 0) {
             $rows = false;
         } else {
             $sql = "INSERT INTO `users`(`Username`, `Password`, `GroupId`) VALUES ('$username','$password',$groupId)";
@@ -52,11 +55,12 @@ class User_model extends model
         }
         return $rows;
     }
-    public function update($id,$username)
+
+    public function update($id, $username)
     {
         $sqlDuplicate = "SELECT Id FROM `users` WHERE `Username`='$username' AND Id!=$id AND FlagDelete=0";
         $rowsDuplicate = $this->getRow($sqlDuplicate);
-        if ($rowsDuplicate['Id'] and $rowsDuplicate['Id'] > 0) {
+        if (isset($rowsDuplicate['Id']) and $rowsDuplicate['Id'] > 0) {
             $rows = false;
         } else {
             $sql = "UPDATE `users` SET `Username`='$username' WHERE `Id`=$id";
@@ -64,6 +68,7 @@ class User_model extends model
         }
         return $rows;
     }
+
     public function delete($id)
     {
         $sql = "UPDATE `users` SET `FlagDelete`=1 WHERE `Id`=$id";
@@ -93,10 +98,10 @@ class User_model extends model
 
     public function LogOut($token)
     {
-        $head=getallheaders();
-        $ip=$_SERVER['REMOTE_ADDR'];
-        $user=$this->getUserByToken($head['Token'],$ip);
-        $sql = "UPDATE token SET FlagValid=0 WHERE UserId=".$user['Id'];
+        $head = getallheaders();
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $user = $this->getUserByToken($head['Token'], $ip);
+        $sql = "UPDATE token SET FlagValid=0 WHERE UserId=" . $user['Id'];
         $res = $this->execQuery($sql);
         return $res;
     }
@@ -108,10 +113,23 @@ class User_model extends model
         $user = $this->getUserByToken($head['Token'], $ip);
         $sql = "SELECT myMenu.Id,myMenu.Title,myMenu.Link,myMenu.Icon,myMenu.MenuRef FROM groupaccess AS myGrpAccess
                 INNER JOIN menus As myMenu ON myGrpAccess.MenuId=myMenu.Id
-                WHERE  myGrpAccess.FlagDelete=0 AND myMenu.FlagDelete=0 AND  GroupId=" . $user['GroupId']." ORDER BY myMenu.Id";
+                WHERE  myGrpAccess.FlagDelete=0 AND myMenu.FlagDelete=0 AND  GroupId=" . $user['GroupId'] . " ORDER BY myMenu.Id";
         $res = $this->getAll($sql);
         return $res;
     }
 
-    
+    public function changePass($password)
+    {
+        $head = getallheaders();
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $user = $this->getUserByToken($head['Token'], $ip);
+        $userId = $user['Id'];
+        $passmd5 = md5(bin2hex($password));
+        $sql = "UPDATE `users` SET `Password`='$passmd5',`UpdateTime`=NOW() WHERE Id=$userId";
+        $rows = $this->execQuery($sql);
+        return $rows;
+
+    }
+
+
 }

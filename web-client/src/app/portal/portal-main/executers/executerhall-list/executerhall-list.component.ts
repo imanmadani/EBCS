@@ -32,6 +32,7 @@ export class ExecuterhallListComponent extends BaseClass implements OnInit {
     },
     actions: {
       columnTitle: 'عملیات',
+      width: '300px',
       custom: [
         {
           name: 'uploadAction',
@@ -39,7 +40,7 @@ export class ExecuterhallListComponent extends BaseClass implements OnInit {
         },
         {
           name: 'halladminAction',
-          title: '<i class="fa fa-user-edit pr-3 ebcs-font-normal text-success" title="آپلود"></i>'
+          title: '<i class="fa fa-user-edit pr-3 ebcs-font-normal text-success" title="تخصیص مدیر سالن"></i>'
         },
       ],
       add: false,
@@ -75,7 +76,7 @@ export class ExecuterhallListComponent extends BaseClass implements OnInit {
     }
   }
   planUpdateHandler(inputModel) {
-    let modalRef=this.modalService.open(ExecuterhallPlanUploadComponent, {centered: true,size:'xl'});
+    let modalRef=this.modalService.open(ExecuterhallPlanUploadComponent, {centered: true,size:'sm'});
     modalRef.componentInstance.model = inputModel;
     modalRef.result.then((data) => {}, (reason) => {
       if (reason)

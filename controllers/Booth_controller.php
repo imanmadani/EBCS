@@ -25,9 +25,14 @@ class Booth_controller extends controller
         $areaArz = $this->getVal('AreaArz', $query);
         $area2 = $this->getVal('Area2', $query);
         $constructionType = $this->getVal('ConstType', $query);
-        $rows = $this->_model->create($name,$exhibitionId,$exHallId,$participantId,$areaRial,$areaArz,$area2,$constructionType);
+        $hasEquipment = 0;
+        $rows = $this->_model->create($name,$exhibitionId,$exHallId,$participantId,$areaRial,$areaArz,$area2,$constructionType,$hasEquipment);
         $this->_res->set("result", $rows);
-        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
+        if($rows==true){
+            $this->_res->output();
+        }else{
+            $this->_res->output(409,ResultEnum::Duplicate);
+        }
     }
     public function Update($query)
     {
@@ -37,6 +42,14 @@ class Booth_controller extends controller
         $hallId = $this->getVal('HallId', $query);
         $participantId = $this->getVal('ParticipantId', $query);
         $rows = $this->_model->update($name,$exhibitionId,$hallId,$participantId);
+        $this->_res->set("result", $rows);
+        if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
+    }
+    public function UpdateConstType($query)
+    {
+        $id = $this->getVal('Id', $query);
+        $constType = $this->getVal('ConstructionType', $query);
+        $rows = $this->_model->updateConstType($id,$constType);
         $this->_res->set("result", $rows);
         if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }

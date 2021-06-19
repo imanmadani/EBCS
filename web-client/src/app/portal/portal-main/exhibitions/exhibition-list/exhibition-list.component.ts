@@ -50,6 +50,14 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
           return t;
         },
       },
+      PlanUploadEnd: {
+        title: 'زمان پایان اپلود مدارک',
+        valuePrepareFunction: (value) => {
+          if (value === "0000-00-00 00:00:00") return '-';
+          let t=moment(value, 'YYYY/MM/DD hh:mm:ss').locale('fa').format('hh:mm:ss YYYY/MM/DD');
+          return t;
+        },
+      },
       FlagBlock: {
         title: 'وضعیت',
         type: 'html',
@@ -63,6 +71,7 @@ export class ExhibitionListComponent extends BaseClass implements OnInit {
     },
     actions: {
       columnTitle: 'عملیات',
+      width: '300px',
       custom: [
         {
           name: 'editAction',

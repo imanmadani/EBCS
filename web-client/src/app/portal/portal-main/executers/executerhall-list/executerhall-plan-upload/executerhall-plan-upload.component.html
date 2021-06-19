@@ -1,8 +1,13 @@
 <app-modal-header (closed)="close()"></app-modal-header>
 <div class="row pt-2">
   <div class="col-12 text-center">
-    <img width="200px" *ngIf="currentImage" src="http://localhost/Files/Halls/{{currentImage.NameDB}}.{{currentImage.Name.split('.')[1]}}">
+    <img width="200px" *ngIf="data" src="https://design.iranfair.com/Files/Halls/{{data[0].NameDB}}.{{data[0].Name.split('.')[1]}}">
   </div>
 </div>
-
-<app-file-upload (itemUpload)="uplaod($event)" (itemDelete)="deletePlan($event)" (itemGet)="getImage($event)" [lastFiles]="data"></app-file-upload>
+<div class="p-2">
+<input type="file" ng2FileSelect [uploader]="uploader" /><br/>
+<button type="button" class="btn btn-success btn-s ml-2"
+        (click)="uploadAll()" >
+  <span class="glyphicon glyphicon-upload"></span> آپلود
+</button>
+</div>

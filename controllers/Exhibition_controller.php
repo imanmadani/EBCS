@@ -22,7 +22,8 @@ class Exhibition_controller extends controller
         $gradeId = $this->getVal('GradeId', $query);
         $startDateTime = $this->getVal('StartDateTime', $query);
         $endDateTime = $this->getVal('EndDateTime', $query);
-        $rows = $this->_model->create($title,$year,$gradeId,$startDateTime,$endDateTime);
+        $planUploadEnd = $this->getVal('PlanUploadDateEnd', $query);
+        $rows = $this->_model->create($title,$year,$gradeId,$startDateTime,$endDateTime,$planUploadEnd);
         $this->_res->set("result", $rows);
         if($rows){$this->_res->output();}else{$this->_res->output(409,ResultEnum::Duplicate);}
     }

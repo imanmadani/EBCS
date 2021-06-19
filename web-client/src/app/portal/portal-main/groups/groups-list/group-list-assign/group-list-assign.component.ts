@@ -36,6 +36,7 @@ export class GroupListAssignComponent extends BaseClass implements OnInit {
           find.SubMenu.push(mnu);
         }
       });
+      console.log(this.data);
     });
   }
 

@@ -33,6 +33,9 @@ export class BoothbuilderCreateComponent extends BaseClass implements OnInit {
     this.formGroup = new FormGroup({
       Mobile: new FormControl(null, Validators.required),
       Name: new FormControl(null, Validators.required),
+      RegNumber: new FormControl(null, Validators.required),
+      AgentName: new FormControl(null, Validators.required),
+      AgentTell: new FormControl(null, Validators.required),
       GroupId: new FormControl(3),
       GradeId: new FormControl(null, Validators.required),
     });

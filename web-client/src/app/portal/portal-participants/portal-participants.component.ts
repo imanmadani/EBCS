@@ -8,6 +8,7 @@ import {BaseClass} from "../../utilities/base";
 import {PortalParticipantBoothBuilderListComponent} from "./portal-participant-booth-builder-list/portal-participant-booth-builder-list.component";
 import {PortalParticipantBoothbuilderPointComponent} from "./portal-participant-boothbuilder-point/portal-participant-boothbuilder-point.component";
 import {PortalParticipantPolicyformComponent} from "./portal-participant-policyform/portal-participant-policyform.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-portal-participants',
@@ -30,22 +31,24 @@ export class PortalParticipantsComponent extends BaseClass implements OnInit {
 
   constructor(private portalParticipantsService: PortalParticipantsService,
               private modalService: NgbModal,
+              private router: Router,
               protected toastr: ToastrService) {
     super(toastr);
   }
 
   ngOnInit() {
     this.portalParticipantsService.getUserByToken().subscribe(resParticipant => {
-      debugger
       this.userdetail = resParticipant.data.row;
       if(this.userdetail.PolicyApprove==="1") {
         this.portalParticipantsService.getDataByParticipant(this.userdetail.Id).subscribe(res => {
           this.userInformation = res.data.row;
           this.portalParticipantsService.getBoothBuilderByBoothId(this.userInformation.BoothId).subscribe(resBoothBuilder => {
-            this.boothBuilder = resBoothBuilder.data.row;
-            this.portalParticipantsService.getBoothBuilderRateByBoothId(this.userInformation.BoothId).subscribe(res => {
-              this.rate = res.data.row;
-            });
+            if(resBoothBuilder.data.row.Id>0) {
+              this.boothBuilder = resBoothBuilder.data.row;
+              this.portalParticipantsService.getBoothBuilderRateByBoothId(this.userInformation.BoothId).subscribe(resRate => {
+                this.rate = resRate.data.row;
+              });
+            }
           });
         });
       }
@@ -79,5 +82,11 @@ export class PortalParticipantsComponent extends BaseClass implements OnInit {
       if (reason)
         this.ngOnInit();
     });
+  }
+
+  exit() {
+    localStorage.removeItem('tokenParticipant');
+    this.router.navigateByUrl('/LoginParticipant');
+
   }
 }

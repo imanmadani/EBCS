@@ -39,7 +39,7 @@ export class UserListComponent extends BaseClass implements OnInit {
     },
     actions: {
       columnTitle: 'عملیات',
-
+      width: '300px',
       add: false,
       edit: false,
       delete: false,

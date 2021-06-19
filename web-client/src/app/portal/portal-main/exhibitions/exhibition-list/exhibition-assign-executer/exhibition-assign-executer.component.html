@@ -12,7 +12,13 @@
       <div ngbDropdown  class="d-inline-block ebcs-dir-rtl flex-fill "  >
         <button class="btn form-control ebcs-border-radius-Left ebcs-border text-right" id="dropdownBasic1" ngbDropdownToggle >{{dpdown}}</button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1" >
-          <ng-template ngFor let-executer [ngForOf]="executerDropDown">
+          <div class="input-group mb-3 ebcs-dir-ltr" #myDrop="ngbDropdown" ngbDropdown>
+            <input #executerinput type="text" class="form-control" >
+            <div  class="input-group-append"  role="group" >
+              <button (click)="searchExecuter(executerinput)" class="btn btn-outline-success" ><i class="fa fa-search"></i></button>
+            </div>
+          </div>
+          <ng-template ngFor let-executer [ngForOf]="executerDropDown2">
             <button ngbDropdownItem (focus)="changeDropDown(executer)" >{{executer.Title}}</button>
           </ng-template>
         </div>

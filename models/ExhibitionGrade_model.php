@@ -17,7 +17,7 @@ class ExhibitionGrade_model extends model
     {
         $sqlDuplicate = "SELECT Id FROM `exhibitiongrades` WHERE `Title`='$title' AND `Year`=$year AND FlagDelete=0";
         $rowsDuplicate = $this->getRow($sqlDuplicate);
-        if($rowsDuplicate['Id'] and $rowsDuplicate['Id']>0){
+        if(isset($rowsDuplicate['Id']) and $rowsDuplicate['Id']>0){
             $rows=false;
         }else{
         $sql = "INSERT INTO `exhibitiongrades`(`Title`,`Year`) VALUES ('$title',$year)";
@@ -29,7 +29,7 @@ class ExhibitionGrade_model extends model
     {
         $sqlDuplicate = "SELECT Id FROM `exhibitiongrades` WHERE `Title`='$title' AND `Year`=$year AND FlagDelete=0";
         $rowsDuplicate = $this->getRow($sqlDuplicate);
-        if($rowsDuplicate['Id'] and $rowsDuplicate['Id']!=$id){
+        if(isset($rowsDuplicate['Id']) and $rowsDuplicate['Id']!=$id){
             $rows=false;
         }else{
         $sql = "UPDATE `exhibitiongrades` SET `Title`='$title' , `Year`=$year  WHERE `Id`=$id";

@@ -5,6 +5,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ToastrService} from "ngx-toastr";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ExecutersService} from "../../executers.service";
+import {BoothbuildersService} from "../../../booth-builders/boothbuilders.service";
 
 @Component({
   selector: 'app-exhibition-booth-create',
@@ -21,26 +22,29 @@ export class ExecuterBoothCreateComponent extends BaseClass implements OnInit {
   halldpdown = '.....';
   participantDropDown;
   participantdpdown = '.....';
-  constTypeDropDown;
-  constTypedpdown = '.....';
+  hasEquipmentDropDown;
+  hasEquipmentdpdown = '.....';
+  participantDropDown2;
 
   constructor(private executersService: ExecutersService,
               private modalService: NgbModal,
+              private boothbuildersService: BoothbuildersService,
               protected toastr: ToastrService) {
     super(toastr);
   }
 
   ngOnInit(): void {
     this.createForm();
-    this.executersService.BoothgetConstTypeDropDown().subscribe(res => {
-      this.constTypeDropDown = res.data.rows;
       this.executersService.BoothgetExhibitionDropDown().subscribe(res => {
         this.exhibitionDropDown = res.data.rows;
         this.executersService.BoothgetParticipantDropDown().subscribe(resParticipant => {
           this.participantDropDown = resParticipant.data.rows;
+          this.participantDropDown2=this.participantDropDown;
+          this.boothbuildersService.BoothgetConstTypeDropDown().subscribe(resConstructionType => {
+            this.hasEquipmentDropDown = resConstructionType.data.rows;
+          });
         });
       });
-    });
   }
 
   createForm() {
@@ -52,7 +56,8 @@ export class ExecuterBoothCreateComponent extends BaseClass implements OnInit {
       AreaRial: new FormControl(0, Validators.required),
       AreaArz: new FormControl(0, Validators.required),
       Area2: new FormControl(0),
-      ConstType: new FormControl(null, Validators.required),
+      ConstType: new FormControl(0, Validators.required),
+      // HasEquipment: new FormControl(0, Validators.required),
     });
   }
 
@@ -85,7 +90,10 @@ export class ExecuterBoothCreateComponent extends BaseClass implements OnInit {
       this.hallDropDown = res.data.rows;
     });
   }
-
+  sethasEquipmentData(e){
+    this.hasEquipmentdpdown=e.Title;
+    this.formGroup.get('ConstType').setValue(e.Id);
+  }
   setHallData(e) {
     this.halldpdown = e.Title;
     this.formGroup.get('ExhibitionHallId').setValue(e.Id);
@@ -95,8 +103,9 @@ export class ExecuterBoothCreateComponent extends BaseClass implements OnInit {
     this.participantdpdown = e.Title;
     this.formGroup.get('ParticipantId').setValue(e.Id);
   }
-  setConstTypeData(e){
-    this.constTypedpdown=e.Title;
-    this.formGroup.get('ConstType').setValue(e.Id);
+
+  searchPaticipant(query) {
+    let y=this.participantDropDown.filter(x=>x.Title.indexOf(query.value)>-1);
+    this.participantDropDown2=y;
   }
 }

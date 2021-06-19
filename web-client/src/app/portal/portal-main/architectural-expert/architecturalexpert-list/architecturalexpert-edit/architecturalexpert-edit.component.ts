@@ -11,7 +11,7 @@ import {ArchitecturalexpertService} from "../../architecturalexpert.service";
   styleUrls: ['./architecturalexpert-edit.component.css']
 })
 export class ArchitecturalexpertEditComponent extends BaseClass implements OnInit {
-  title='ویرایش  کارشناس فنی';
+  title='ویرایش  کارشناس فنی نمایشگاه';
   formGroup:any ;
   @Input() model;
   constructor(private architecturalexpertsService: ArchitecturalexpertService   ,

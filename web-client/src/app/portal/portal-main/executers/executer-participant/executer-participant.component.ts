@@ -29,12 +29,7 @@ export class ExecuterParticipantComponent extends BaseClass implements OnInit {
     },
     actions: {
       columnTitle: 'عملیات',
-      custom: [
-        {
-          name: 'editAction',
-          title: '<i class="fa fa-edit pr-3 ebcs-font-normal text-warning" title="ویرایش"></i>'
-        }
-      ],
+      width: '300px',
       add: false,
       edit: false,
       delete: false,

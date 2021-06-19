@@ -4,6 +4,7 @@ import {ExhibitionsService} from '../../exhibitions.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ToastrService} from 'ngx-toastr';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import * as moment from "jalali-moment";
 
 @Component({
   selector: 'app-exhibition-list-edit',
@@ -44,11 +45,21 @@ export class ExhibitionListEditComponent extends BaseClass implements OnInit {
       Id: new FormControl(this.model.Id),
       Title: new FormControl(null, Validators.required),
       Year: new FormControl(null, Validators.required),
-      GradeId: new FormControl(null, Validators.required)
+      GradeId: new FormControl(null, Validators.required),
+      StartDateTime: new FormControl(null, Validators.required),
+      EndDateTime: new FormControl(null, Validators.required),
     });
   }
 
   save() {
+    let shamsiStart=this.formGroup.get('StartDateTime').value;
+    let miladiStart=moment.from(shamsiStart, 'fa', 'YYYY/MM/DD HH:mm');
+    let shamsiEnd=this.formGroup.get('EndDateTime').value;
+    let miladiEnd=moment.from(shamsiEnd, 'fa', 'YYYY/MM/DD HH:mm');
+    miladiStart['_i']=miladiStart['_i'].replace('- ',' ')
+    this.formGroup.get('StartDateTime').setValue(miladiStart['_i'])
+    miladiEnd['_i']=miladiEnd['_i'].replace('- ',' ')
+    this.formGroup.get('EndDateTime').setValue(miladiEnd['_i'])
     if (this.formGroup.valid === true) {
       this.exhibitionsService.Exedit(this.formGroup.value).subscribe(res => {
           if (res.data.result) {

@@ -35,17 +35,24 @@ export class ExhibitionListCreateComponent extends BaseClass implements OnInit {
       Year: new FormControl(null, Validators.required),
       GradeId: new FormControl(null, Validators.required),
       StartDateTime: new FormControl(null, Validators.required),
-      EndDateTime: new FormControl(null, Validators.required)
+      EndDateTime: new FormControl(null, Validators.required),
+      PlanUploadDateEnd: new FormControl(null, Validators.required)
     });
   }
   save() {
+    debugger
     let shamsiStart=this.formGroup.get('StartDateTime').value;
-    let miladiStart=moment.from(shamsiStart, 'fa', 'YYYY/M/D HH:mm');
+    let miladiStart=moment.from(shamsiStart, 'fa', 'YYYY/MM/DD HH:mm');
     let shamsiEnd=this.formGroup.get('EndDateTime').value;
-    let miladiEnd=moment.from(shamsiEnd, 'fa', 'YYYY/M/D HH:mm');
+    let miladiEnd=moment.from(shamsiEnd, 'fa', 'YYYY/MM/DD HH:mm');
+    let shamsiPlanUploadEnd=this.formGroup.get('PlanUploadDateEnd').value;
+    let miladiPlanUploadEnd=moment.from(shamsiPlanUploadEnd, 'fa', 'YYYY/MM/DD HH:mm');
+    miladiStart['_i']=miladiStart['_i'].replace('- ',' ')
     this.formGroup.get('StartDateTime').setValue(miladiStart['_i'])
+    miladiEnd['_i']=miladiEnd['_i'].replace('- ',' ')
     this.formGroup.get('EndDateTime').setValue(miladiEnd['_i'])
-    console.log(miladiEnd)
+    miladiPlanUploadEnd['_i']=miladiPlanUploadEnd['_i'].replace('- ',' ')
+    this.formGroup.get('PlanUploadDateEnd').setValue(miladiPlanUploadEnd['_i'])
     if (this.formGroup.valid === true) {
 
       this.exhibitionsService.Excreate(this.formGroup.value).subscribe(res => {

@@ -1,6 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {ConfigModel} from "../../../configEntity";
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,9 @@ export class SharedataService {
 
   constructor(private http: HttpClient,
               @Inject('BASE_URL') baseUrl: string) {
-    this.BoothBuilderInfringementsbaseUrl = 'http://localhost/api/' + 'BoothBuilderInfringement_api.php/';
-    this.exchangeRatebaseUrl = 'http://localhost/api/' + 'ExchangeRate_api.php/';
+    let config = new ConfigModel();
+    this.BoothBuilderInfringementsbaseUrl = config.ServerAddress + 'BoothBuilderInfringement_api.php/';
+    this.exchangeRatebaseUrl = config.ServerAddress + 'ExchangeRate_api.php/';
 
   }
 
@@ -46,15 +48,18 @@ export class SharedataService {
   getExchangeRate(): Observable<any> {
     return this.http.get<any>(this.exchangeRatebaseUrl + '?api=Get');
   }
+
   getExchangeRateByDate(): Observable<any> {
     return this.http.get<any>(this.exchangeRatebaseUrl + '?api=GetByDate');
   }
+
   createExchangeRate(entity): Observable<any> {
     return this.http
       .post<any>(this.exchangeRatebaseUrl + '?api=Create', entity);
   }
+
   blockExchangeRate(entity): Observable<any> {
     return this.http
-      .post<any>(this.exchangeRatebaseUrl+'?api=Block', entity);
+      .post<any>(this.exchangeRatebaseUrl + '?api=Block', entity);
   }
 }
