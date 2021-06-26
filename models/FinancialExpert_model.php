@@ -24,7 +24,7 @@ class FinancialExpert_model extends model
     {
         $sql = "SELECT myBill.Id ,
                        myBill.BoothId,
-                       myBill.Quantity,
+                       myBill.Quantity AS old,
                        myBill.Amount,
                        myBill.FinancialApprove,
                        myBill.BillIdentity,
@@ -32,10 +32,11 @@ class FinancialExpert_model extends model
                        myBill.SystemTrace,
                        myBillType.Title AS BillType,
                        myQtyType.Title AS QuantityType,
-                       myBooth.Id AS BoothId,myBooth.Name,myBooth.ExhibitionHallId,myBooth.ParticipantId,myBooth.AreaRial,myBooth.AreaArz,myBooth.AreaType,myBooth.Area2,myBooth.ConstructionType,
+                       myBooth.Id AS BoothId,myBooth.Name,myBooth.ExhibitionHallId,myBooth.ParticipantId,myBooth.AreaRial as Quantity,myBooth.AreaArz,myBooth.AreaType,myBooth.Area2,myBooth.ConstructionType,
                        myHall.Title AS HallTitle,
-                       myParticipant.Username AS ParticipantUsername,
-                       CONCAT(SUBSTR(myEx.Title, 1, 20),'...') AS ExName 
+                       myPartiDetail.CompanyName AS ParticipantUsername,
+                       CONCAT(SUBSTR(myEx.Title, 1, 20),'...') AS ExName ,
+                       myBuilderDet.Name AS BuilderName
                        FROM `bills` AS myBill
                 INNER JOIN `booths` AS myBooth ON myBill.BoothId=myBooth.Id
                 INNER JOIN `billtypes` AS myBillType ON myBill.BillType=myBillType.Id
@@ -43,11 +44,16 @@ class FinancialExpert_model extends model
                 INNER JOIN `exhibitionhalls` AS myHallEx ON myBooth.ExhibitionHallId=myHallEx.Id
                 INNER JOIN `halls` AS myHall ON myHallEx.HallId=myHall.Id
                 INNER JOIN `participants` AS myParticipant ON myBooth.ParticipantId=myParticipant.Id
+                LEFT JOIN `participantdetails` AS myPartiDetail ON myParticipant.Id=myPartiDetail.ParticipantId
                 INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
+                INNER JOIN `boothboothbuilders` AS myBoothBuilder ON myBooth.Id = myBoothBuilder.BoothId
+                INNER JOIN `boothbuilders` AS myBuilder ON myBoothBuilder.BoothBuilderId=myBuilder.Id
+                INNER JOIN `userdetails` AS myBuilderDet ON  myBuilder.UserId=myBuilderDet.UserId
                 WHERE myBill.FlagDelete=0 
                 AND myEx.FlagDelete=0
                 AND myBill.Amount>10000
                 AND myBill.PayStatus=1 
+                AND myBooth.TechnicalExpertApprove = 1
                 AND myBill.FinancialApprove =0 ";
         $rows = $this->getAll($sql);
         return $rows;
@@ -57,7 +63,7 @@ class FinancialExpert_model extends model
     {
         $sql = "SELECT myBill.Id ,
                        myBill.BoothId,
-                       myBill.Quantity,
+                       myBill.Quantity as old,
                        myBill.Amount,
                        myBill.FinancialApprove,
                        myBill.BillIdentity,
@@ -67,10 +73,11 @@ class FinancialExpert_model extends model
                        myBill.FinancialApprove,
                        myBillType.Title AS BillType,
                        myQtyType.Title AS QuantityType,
-                       myBooth.Id AS BoothId,myBooth.Name,myBooth.ExhibitionHallId,myBooth.ParticipantId,myBooth.AreaRial,myBooth.AreaArz,myBooth.AreaType,myBooth.Area2,myBooth.ConstructionType,
+                       myBooth.Id AS BoothId,myBooth.Name,myBooth.ExhibitionHallId,myBooth.ParticipantId,myBooth.AreaRial as Quantity,myBooth.AreaArz,myBooth.AreaType,myBooth.Area2,myBooth.ConstructionType,
                        myHall.Title AS HallTitle,
-                       myParticipant.Username AS ParticipantUsername,
-                       CONCAT(SUBSTR(myEx.Title, 1, 20),'...') AS ExName 
+                       myPartiDetail.CompanyName AS ParticipantUsername,
+                       CONCAT(SUBSTR(myEx.Title, 1, 20),'...') AS ExName ,
+                       myBuilderDet.Name AS BuilderName
                        FROM `bills` AS myBill
                 INNER JOIN `booths` AS myBooth ON myBill.BoothId=myBooth.Id
                 INNER JOIN `billtypes` AS myBillType ON myBill.BillType=myBillType.Id
@@ -78,8 +85,15 @@ class FinancialExpert_model extends model
                 INNER JOIN `exhibitionhalls` AS myHallEx ON myBooth.ExhibitionHallId=myHallEx.Id
                 INNER JOIN `halls` AS myHall ON myHallEx.HallId=myHall.Id
                 INNER JOIN `participants` AS myParticipant ON myBooth.ParticipantId=myParticipant.Id
+                LEFT JOIN `participantdetails` AS myPartiDetail ON myParticipant.Id=myPartiDetail.ParticipantId
                 INNER JOIN `exhibitions` AS myEx ON myBooth.ExhibitionId=myEx.Id
-                WHERE myBill.FlagDelete=0 AND myEx.FlagDelete=0";
+                INNER JOIN `boothboothbuilders` AS myBoothBuilder ON myBooth.Id = myBoothBuilder.BoothId
+                INNER JOIN `boothbuilders` AS myBuilder ON myBoothBuilder.BoothBuilderId=myBuilder.Id
+                INNER JOIN `userdetails` AS myBuilderDet ON  myBuilder.UserId=myBuilderDet.UserId
+                WHERE 
+                myBill.FlagDelete=0 
+                AND myEx.FlagDelete=0
+                AND myBoothBuilder.FlagDelete=0";
         $rows = $this->getAll($sql);
         return $rows;
     }

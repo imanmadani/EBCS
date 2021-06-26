@@ -47,6 +47,12 @@ class Executer_model extends model
     {
         $sql = "UPDATE `booths` SET `ExecuterApprove`=1 WHERE `Id`=$boothId";
         $rows = $this->execQuery($sql);
+        $sqlGetBooth="SELECT myUser.Username  FROM boothboothbuilders AS myBoothBuilder
+                      INNER JOIN users AS myUser ON myBoothBuilder.BoothBuilderId=myUser.Id
+                      WHERE myBoothBuilder.BoothId=$boothId";
+        $rowGetBooth=$this->getRow($sqlGetBooth);
+        $smsText = "غرفه ساز محترم مجوز ورود به سالن برای شما صادر شد";
+        $smsResponse = $this->sendSms($rowGetBooth['Username'], $smsText);
         return $rows;
     }
 

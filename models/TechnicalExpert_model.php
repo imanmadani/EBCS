@@ -62,7 +62,7 @@ class TechnicalExpert_model extends model
                 INNER JOIN `boothboothbuilders` AS myBoothBoothBuilder ON myBooth.Id =myBoothBoothBuilder.BoothId
                 INNER JOIN `boothbuilders` AS myBuilder ON myBoothBoothBuilder.BoothBuilderId=myBuilder.Id
                 LEFT JOIN `userdetails` AS myUser ON myUser.UserId=myBuilder.UserId
-                INNER JOIN  `boothboothbuilderplans` AS myBoothPlan ON myBoothBoothBuilder.Id=myBoothPlan.BoothBoothbuilderId
+                LEFT JOIN  `boothboothbuilderplans` AS myBoothPlan ON myBoothBoothBuilder.Id=myBoothPlan.BoothBoothbuilderId
                 WHERE myTechnicalExpert.UserId=" . $user['Id'] . "
                 AND myBooth.FlagDelete=0
                 AND myBooth.FlagBlock=0
@@ -72,12 +72,11 @@ class TechnicalExpert_model extends model
                 AND myBill.FlagBlock=0
                 AND myBoothBoothBuilder.FlagDelete=0
                 AND myBoothBoothBuilder.FlagBlock=0
-                AND myBoothPlan.FlagDelete=0
-                AND myBoothPlan.FlagBlock=0
                 AND myBill.BillType=1 
                 AND myBill.PayStatus=1 
                 AND (myBooth.TechnicalExpertApprove!=" . ApproveStateEnum::DisApprove . "
                 AND myBooth.TechnicalExpertApprove!=" . ApproveStateEnum::Approve . "
+                OR  myBooth.TechnicalExpertApprove =" . ApproveStateEnum::EndAction . "
                 OR  myBooth.ArchitecturalExpertApprove=" . ApproveStateEnum::DisApprove . ")
                 GROUP BY myBoothPlan.BoothBoothbuilderId";
 //                AND myBill.FinancialApprove=1

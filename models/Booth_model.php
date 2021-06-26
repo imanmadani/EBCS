@@ -118,10 +118,11 @@ class Booth_model extends model
         $head = getallheaders();
         $ip = $_SERVER['REMOTE_ADDR'];
         $user = $this->getUserByToken($head['Token'], $ip);
-        $sql = "SELECT myEx.Id,myEx.Title FROM `exhibitions` AS myEx
+        $sql = "SELECT myEx.Id,CONCAT(SUBSTR(myEx.Title, 1, 40),'...') AS Title  FROM `exhibitions` AS myEx
                 INNER JOIN `exhibitionexecuters` AS myExExecuter ON myEx.Id=myExExecuter.ExhibitionId  
                 INNER JOIN `executers` AS myExecuter ON myExExecuter.ExecuterId=myExecuter.Id 
-                WHERE myEx.FlagDelete=0 AND myEx.FlagBlock=0 AND myExExecuter.FlagDelete=0 ";
+                WHERE myEx.FlagDelete=0 AND myEx.FlagBlock=0 AND myExExecuter.FlagDelete=0 AND myExecuter.UserId=".$user['Id'];
+                //GROUP BY myEx.Id";
         //AND myExecuter.UserId=$user['Id']
         $rows = $this->getAll($sql);
         return $rows;

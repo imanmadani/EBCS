@@ -68,8 +68,8 @@ class ArchitecturalExpert_model extends model
                 AND myExArchitecturalExpert.FlagBlock=0
                 AND myBoothBoothBuilder.FlagDelete=0
                 AND myBoothBoothBuilder.FlagBlock=0
-                AND myExHallHallAdmin.FlagDelete=0
-                AND myExHallHallAdmin.FlagBlock=0
+                AND (myExHallHallAdmin.FlagDelete=0 OR myExHallHallAdmin.FlagDelete is null)
+                AND (myExHallHallAdmin.FlagBlock=0 OR myExHallHallAdmin.FlagDelete is null)
                 AND myParti.FlagDelete=0
                 AND myParti.FlagBlock=0
                 AND myBooth.TechnicalExpertApprove=" . ApproveStateEnum::Approve .

@@ -1,30 +1,30 @@
 <app-modal-header [title]="title" (closed)='close()'></app-modal-header>
-<div class="row">
-  <div class="col-12">
-    <table class="table table-bordered">
-      <thead>
-      <tr>
-        <th>نمایشگاه</th>
-        <th>شماره غرفه</th>
-        <th>مشارکت کننده</th>
-        <th>متراژ ریالی</th>
-        <th>متراژ ارزی</th>
-      </tr>
-      </thead>
-      <tbody>
-      <ng-template ngFor let-buildertask [ngForOf]="boothBuilderTasks">
-        <tr>
-          <td>{{buildertask.Title}}</td>
-          <td>{{buildertask.Name}}</td>
-          <td>{{buildertask.CompanyName}}</td>
-          <td>{{buildertask.AreaRial}}</td>
-          <td>{{buildertask.AreaArz}}</td>
-        </tr>
-      </ng-template>
-      </tbody>
-    </table>
-  </div>
-</div>
+<!--<div class="row">-->
+<!--  <div class="col-12">-->
+<!--    <table class="table table-bordered">-->
+<!--      <thead>-->
+<!--      <tr>-->
+<!--        <th>نمایشگاه</th>-->
+<!--        <th>شماره غرفه</th>-->
+<!--        <th>مشارکت کننده</th>-->
+<!--        <th>متراژ ریالی</th>-->
+<!--        <th>متراژ ارزی</th>-->
+<!--      </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--      <ng-template ngFor let-buildertask [ngForOf]="boothBuilderTasks">-->
+<!--        <tr>-->
+<!--          <td>{{buildertask.Title}}</td>-->
+<!--          <td>{{buildertask.Name}}</td>-->
+<!--          <td>{{buildertask.CompanyName}}</td>-->
+<!--          <td>{{buildertask.AreaRial}}</td>-->
+<!--          <td>{{buildertask.AreaArz}}</td>-->
+<!--        </tr>-->
+<!--      </ng-template>-->
+<!--      </tbody>-->
+<!--    </table>-->
+<!--  </div>-->
+<!--</div>-->
 <div class="row ">
   <div class="col-12 text-right mr-2">  مشخصات  غرفه : </div>
   <div class="col-12 text-center   ">
@@ -60,16 +60,25 @@
                       (click)="approvePlan(file.Id)">تایید
               </button>
             </div>
-            <div class="col-8 text-center"><a href="https://design.iranfair.com/Files/Plans/{{file.Name}}.{{file.ViewName.split('.')[1]}}">
+            <div class="col-8 text-center"><a target="_blank" href="https://design.iranfair.com/Files/Plans/{{file.Name}}.{{file.ViewName.split('.')[1]}}">
               {{file.Title}}
             </a></div>
           </div>
         </div>
-        <div class="card-body">
-          <img class="w-100" src="https://design.iranfair.com/Files/Plans/{{file.Name}}.{{file.ViewName.split('.')[1]}}"
-               (click)="showGallery('https://design.iranfair.com/Files/Plans/',file.Name,file.Type.split('/')[1])"
+        <div class="card-body text-center" style="height: 215px">
+
+
+          <img *ngIf="file.Type !=='application/pdf' && file.Type.split('/')[1].toLowerCase() !=='jpeg'"  class="w-100" src="https://design.iranfair.com/Files/Plans/{{file.Name}}.{{file.Type.split('/')[1].toLowerCase()}}"
+               (click)="showGallery('https://design.iranfair.com/Files/Plans/',file.Name,file.Type.split('/')[1].toLowerCase())"
           width="200px" height="200px"
           >
+          <img *ngIf="file.Type !=='application/pdf' && file.Type.split('/')[1].toLowerCase() ==='jpeg'"  class="w-100" src="https://design.iranfair.com/Files/Plans/{{file.Name}}.jpg"
+               (click)="showGallery('https://design.iranfair.com/Files/Plans/',file.Name,file.Type.split('/')[1].toLowerCase())"
+               width="200px" height="200px"
+          >
+          <a target="_blank" href="https://design.iranfair.com/Files/Plans/{{file.Name}}.{{file.Type.split('/')[1].toLowerCase()}}">
+          <i *ngIf="file.Type ==='application/pdf'" class="fa fa-file-pdf fa-4x"></i>
+          </a>
         </div>
         <div class="card-footer text-center" *ngIf="!hallmode">
           <ng-template ngFor let-comment [ngForOf]="comments">

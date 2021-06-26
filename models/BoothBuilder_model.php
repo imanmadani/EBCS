@@ -197,7 +197,7 @@ class BoothBuilder_model extends model
 
     public function update($id,$name, $username,$gradeId)
     {
-        $sql = "UPDATE `boothbuilders` SET `GradeId`='$name' WHERE `UserId`=$id";
+        $sql = "UPDATE `boothbuilders` SET `GradeId`='$gradeId' WHERE `UserId`=$id";
         $rows = $this->execQuery($sql);
         $sql = "UPDATE `users` SET `Username`='$username' WHERE `Id`=$id;";
         $rows = $this->execQuery($sql);
@@ -252,6 +252,10 @@ class BoothBuilder_model extends model
         $image_base64 = base64_decode($image_parts[1]);
         $image_type_aux = explode("image/", $image_parts[0]);
         $image_type = $image_type_aux[1];
+        if($image_type==''){
+           $image_type_aux = explode("application/", $image_parts[0]);
+           $image_type = $image_type_aux[1]; 
+        }
         $fileValidName = uniqid();
         if($image_type=='jpeg'){
             $image_type='jpg';
@@ -347,8 +351,16 @@ class BoothBuilder_model extends model
 
     public function endAction($id)
     {
+        $sqlPlan = "SELECT plan.Id FROM `boothboothbuilders` as builder
+                         INNER JOIN boothboothbuilderplans AS plan ON builder.Id = plan.BoothBoothbuilderId
+                         WHERE builder.FlagDelete = 0 AND builder.BoothId=".$id;
+        $rowsPlan = $this->getRow($sqlPlan);
+        if (isset($rowsPlan['Id']) and $rowsPlan['Id'] > 0) {
         $sql = "UPDATE `booths` SET `TechnicalExpertApprove`=" . ApproveStateEnum::EndAction . " WHERE `Id`=$id";
         $rows = $this->execQuery($sql);
+        }else{
+           $rows=null; 
+        }
         return $rows;
     }
     public function acceptPolicyForm($id){

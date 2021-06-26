@@ -22,7 +22,11 @@ elseif($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-
+header('Access-Control-Allow-Origin:*');
+header('Access-Control-Allow-Headers:*');
+header('Access-Control-Allow-Methods: PUT, POST, GET, DELETE, PATCH, OPTIONS');
+header('Access-Control-Allow-Credentials:true');
+header('Content-Type: application/json');
 $method = $_GET['api'];
 $api=new APIClient();
 $res=$api->request("Payment",$method,$params);

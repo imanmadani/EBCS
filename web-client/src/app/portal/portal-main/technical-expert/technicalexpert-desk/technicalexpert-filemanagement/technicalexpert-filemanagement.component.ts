@@ -35,9 +35,9 @@ export class TechnicalexpertFilemanagementComponent extends BaseClass implements
     this.technicalexpertsService.getPlanByBoothBoothbuilderId(this.model.BoothBoothBuilderId).subscribe(res => {
       this.technicalexpertsService.getPlanCommentsByBoothBoothBuilderId(this.model.BoothBoothBuilderId).subscribe(resComment => {
         this.comments = resComment.data.rows;
-        this.technicalexpertsService.getBoothBuilderTaskByBoothBuilder(this.model.BoothBuilderId).subscribe(res3=>{
-          this.boothBuilderTasks=res3.data.rows;
-        });
+        // this.technicalexpertsService.getBoothBuilderTaskByBoothBuilder(this.model.BoothBuilderId).subscribe(res3=>{
+        //   this.boothBuilderTasks=res3.data.rows;
+        // });
       });
       this.files = res.data.rows;
     });

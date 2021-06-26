@@ -42,6 +42,9 @@ export class ExecuterBoothListComponent extends BaseClass implements OnInit {
       AreaTypeTitle: {
         title: 'نوع غرفه',
       },
+      ConstructionType: {
+        title: 'نوع ساخت',
+      },
       Area2: {
         title: 'متراژ طبقه دوم'
       },

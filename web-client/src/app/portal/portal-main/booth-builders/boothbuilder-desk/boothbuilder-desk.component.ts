@@ -10,6 +10,7 @@ import {BoothbuilderPolicyformComponent} from "../boothbuilder-policyform/boothb
 import {BoothbuilderChangeboothtypeComponent} from "./boothbuilder-changeboothtype/boothbuilder-changeboothtype.component";
 import {Router} from "@angular/router";
 import {PaymentresultService} from "../../paymentresult/paymentresult.service";
+import {PortalMainDashboardService} from "../../portal-main-dashbord/portal-main-dashboard.service";
 
 @Component({
   selector: 'app-boothbuilder-desk',
@@ -47,7 +48,7 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
       ParticipantName: {
         title: 'مشارکت کننده',
       },
-      CompanyName:{
+      CompanyName: {
         title: 'نام شرکت',
       },
       PayStatus: {
@@ -107,6 +108,7 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
     private paymentresultService: PaymentresultService,
     private modalService: NgbModal,
     private router: Router,
+    private portalMainDashboardService: PortalMainDashboardService,
     protected toastr: ToastrService) {
     super(toastr);
   }
@@ -215,20 +217,38 @@ export class BoothbuilderDeskComponent extends BaseClass implements OnInit {
     this.paymentresultService.getBillStatusByBoothId(inputModel).subscribe(statusRef => {
         debugger
         if (statusRef.data.row.PayStatus !== '1') {
-          let fi = 70000;
-          let amount = 0;
-          //if (statusRef.data.row.AreaType === '1') {
-          //  if (statusRef.data.row.ConstructionType === '1') {
-          //    fi = 10000;
-          //  }
+          if (statusRef.data.row.AreaArz > 0) {
+            this.portalMainDashboardService.getLatestCurrency().subscribe(res => {
+              if (res.data.row) {
+                let output = +res.data.row.UnitPrice;
+                let fi = 70000;
+                let fiArz=5;
+                let amount = 0;
+                let amount2 = 0;
+                let temp = ((+statusRef.data.row.AreaRial + +statusRef.data.row.Area2) * fi) + 300000;
+                amount = temp + (temp * 9 / 100);
+                let temp2 = ((+statusRef.data.row.AreaArz) * fiArz * output);
+                amount2 = temp2 + (temp2 * 9 / 100);
+                inputModel.Amount = amount + amount2;
+                this.boothBuilderService.getIdentity(inputModel).subscribe(res => {
+                  this.verhoeff = res.data.row;
+                  window.location.href = res.data.row;
+                });
+              }else {
+                this.error("نرخ ارز برای امروز مشخص نیست لطفا بعدا تلاش کنید");
+              }
+            });
+          } else {
+            let fi = 70000;
+            let amount = 0;
             let temp = ((+statusRef.data.row.AreaRial + +statusRef.data.row.Area2) * fi) + 300000;
             amount = temp + (temp * 9 / 100);
-          //}
-          inputModel.Amount = amount
-          this.boothBuilderService.getIdentity(inputModel).subscribe(res => {
-            this.verhoeff = res.data.row;
-            window.location.href = res.data.row;
-          });
+            inputModel.Amount = amount
+            this.boothBuilderService.getIdentity(inputModel).subscribe(res => {
+              this.verhoeff = res.data.row;
+              window.location.href = res.data.row;
+            });
+          }
         } else {
           this.error("پرداخت انجام شده است")
         }
